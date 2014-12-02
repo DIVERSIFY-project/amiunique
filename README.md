@@ -1,4 +1,4 @@
-# Am I Unique ? Source #
+# Am I Unique ? #
 
 This repository contains all the source code from the [AmIUnique.org](https://amiunique.org/) website.  
 This application was built using the [framework Play 2.3](https://playframework.com/) for the back-end and [Bootstrap](http://getbootstrap.com/) for the front-end.
