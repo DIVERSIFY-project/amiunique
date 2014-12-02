@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Am I unique?</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
+      <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Am I Unique?</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+                    </li>
+                    <li>
+                        <a href="/fp"><i class="fa fa-fw fa-paw"></i>My fingerprint</a>
+                    </li>
+                    <li>
+                        <a href="/stats"><i class="fa fa-fw fa-pie-chart"></i>Global statistics</a>
+                    </li>
+                    <li>
+                        <a href="/faq"><i class="fa fa-fw fa-question"></i>FAQ</a>
+                    </li>
+                    <li>
+                        <a href="/privacy"><i class="fa fa-fw fa-shield"></i>Privacy policy</a>
+                    </li>
+                    <li>
+                        <a href="/links"><i class="fa fa-fw fa-link"></i>Links</a>
+                    </li>
+                    <li>
+                        <a href="/about"><i class="fa fa-fw fa-circle-o"></i>About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid text-center">
+
+                <!-- Page Heading
+                <div class="row">
+                    <div class="col-lg-12">
+                    </div>
+                </div>
+                <!-- /.row -->
+                @Html(Messages("home"))
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <script type="text/javascript">
+    document.getElementById("link").href = "/fp";
+    </script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+</body>
+</html>

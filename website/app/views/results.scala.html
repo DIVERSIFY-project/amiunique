@@ -1,0 +1,502 @@
+@import com.fasterxml.jackson.databind.JsonNode
+@(fp : JsonNode)(pFp: ParsedFP)(per : JsonNode)(os: JsonNode)(brow: JsonNode)(lang: JsonNode)(timezone: JsonNode)(nbTotal: Integer)(nbIdent: Integer)
+
+<style>
+[rel="popover"]{
+    cursor: pointer;
+    display:inline-block; /* chrome-fix */
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    $("[rel=popover]").popover({'trigger':'hover'});
+});
+</script>
+
+<script type="text/javascript">
+    $("#detBut").on('click',function(){
+        $("#detTab" ).click();
+    });
+    $("#graBut").on('click',function(){
+        $("#graTab" ).click();
+    });
+</script>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a class="colored-tabs" href="#overview" role="tab" data-toggle="tab">@Messages("fp.overview")</a></li>
+    <li><a id="detTab" class="colored-tabs" href="#details" role="tab" data-toggle="tab">@Messages("fp.details")</a></li>
+    <li><a id="graTab" class="colored-tabs" href="#grap" role="tab" data-toggle="tab">@Messages("fp.graphs")</a></li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade in active text-center" id="overview">
+        <h1>@Messages("fp.title")</h1>
+
+        <!-- Uniqueness -->
+        @if(nbIdent<2) {
+            <h1 style="color:red"><strong>@Messages("fp.track1")</strong></h1>
+        } else {
+            @if(nbIdent/per.get("nbTotal").doubleValue() < 0.05) {
+                <h1 style="color:orange">@Messages("fp.track2")</h1>
+            } else {
+                <h1 style="color:green">@Messages("fp.track3")</h1>
+            }
+        }
+
+        <!-- Browser -->
+        @if(pFp.getBrowser() != "Others"){
+            <p>@{"%.2f".format(per.get(pFp.getBrowser()).doubleValue())} @Messages("fp.browser1") <strong>@pFp.getBrowser()</strong>@Messages("fp.browser2")</p>
+            <p>@{"%.2f".format(brow.get(pFp.getBrowser()).get(pFp.getBrowserVersion()).doubleValue()*100/nbTotal)}
+                @Messages("fp.browser1") <strong>@pFp.getBrowser() @pFp.getBrowserVersion()</strong>@Messages("fp.browser2")</p>
+        } else {
+            <p>@{"%.2f".format(per.get(pFp.getBrowser()).doubleValue())} @Messages("fp.unknownBrow")</p>
+        }
+
+        <!-- OS -->
+        @if(pFp.getOs() != "Others") {
+            <p>@{"%.2f".format(per.get(pFp.getOs()).doubleValue())} @Messages("fp.os1") <strong>@pFp.getOs()</strong>@Messages("fp.os2")</p>
+            @if(pFp.getOsVersion() != "Other distros") {
+                <p>@{"%.2f".format(os.get(pFp.getOs()).get(pFp.getOsVersion()).doubleValue() * 100 / nbTotal)} @Messages("fp.os1")
+                    <strong>@pFp.getOs() @pFp.getOsVersion()</strong>@Messages("fp.os2")</p>
+            }
+        } else {
+             <p>@{"%.2f".format(per.get(pFp.getOs()).doubleValue())} @Messages("fp.unknownOs")</p>
+        }
+
+        <!-- Language -->
+        @if(pFp.getLanguage() != "Not communicated") {
+            <p>@{"%.2f".format(lang.get(pFp.getLanguage()).doubleValue() * 100 / nbTotal)} @Messages("fp.lang1")
+                <strong>"@pFp.getLanguage()"</strong>@Messages("fp.lang2")</p>
+        }
+
+        <!-- Timezone -->
+        <p>@{"%.2f".format(per.get("timezoneJs").doubleValue())} @Messages("fp.time1") <strong>
+        @if(fp.get("timezoneJs").asInt()<0){
+            UTC+@{fp.get("timezoneJs").asInt()/(-60)}
+        } else {
+            UTC@{fp.get("timezoneJs").asInt()/(-60)}
+        }
+            </strong> @Messages("fp.time2")</p>
+
+        <!-- Uniqueness details-->
+        @if(nbIdent<2) {
+            <p>@Html(Messages("fp.uniq1")) @("%.0f".format(per.get("nbTotal").doubleValue())) @Messages("fp.uniq2")</p>
+        } else {
+            <p> @Html(Messages("fp.notuniq1")) @nbIdent @Messages("fp.notuniq2") @("%.0f".format(per.get("nbTotal").doubleValue()))
+                @Messages("fp.notuniq3") (@{"%.2f".format(nbIdent*100.0/nbTotal)} @Messages("fp.notuniq4")</p>
+        }
+
+        <p>
+            <a id="detBut" class="btn btn-primary btn-lg" role="button">@Messages("fp.btn1")</a>
+            <a id="graBut" class="btn btn-primary btn-lg" role="button">@Messages("fp.btn2")</a>
+        </p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+    <div class="tab-pane fade" id="details">
+        <h1>@Messages("fp.detailsTitle")</h1>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>@Messages("fp.detAtt")</th>
+                    <th>@Messages("fp.detSim")  <i class="fa fa-info-circle fa-2" rel="popover"
+                        data-content="@Messages("fp.detSimExp")"></i></th>
+                    <th>@Messages("fp.detVal")</th>
+                </tr>
+            </thead>
+            <tbody>
+                @display(column : String) = {
+                    @defining(per.get(column).doubleValue()) { value =>
+                        @if(value == -1) {
+                            <td>Unique</td>
+                        } else {
+                            @if(value >= 0.1) {
+                                <td>@("%.2f".format(value))%</td>
+                            } else {
+                                <td><0.1%</td>
+                            }
+                        }
+                        <td id="@column.toString().concat("Val")">@fp.get(column)</td>
+                    }
+                }
+
+                <tr id="userAgentHttp">
+                    <td>@Messages("fp.userAgent") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.userAgentExp")"></i></td>
+                    @display(column = "userAgentHttp")
+                </tr>
+                <tr id="acceptHttp">
+                    <td>@Messages("fp.accept") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.acceptExp")"></i></td>
+                    @display(column = "acceptHttp")
+                </tr>
+
+                <tr id="connectionHttp">
+                    <td>@Messages("fp.connection") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.connectionExp")"></i></td>
+                    @display(column = "connectionHttp")
+                </tr>
+
+                <tr id="encodingHttp">
+                    <td>@Messages("fp.encoding") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.encodingExp")"></i></td>
+                    @display(column = "encodingHttp")
+                </tr>
+
+                <tr id="languageHttp">
+                    <td>@Messages("fp.language") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageExp")"></i></td>
+                    @display(column = "languageHttp")
+                </tr>
+
+                <tr id="pluginsJs">
+                    <td>@Messages("fp.plugins") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.pluginsExp")"></i></td>
+                    @display(column = "pluginsJs")
+                </tr>
+
+                <tr id="platformJs">
+                    <td>@Messages("fp.platformJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformJExp")"></i></td>
+                    @display(column = "platformJs")
+                </tr>
+
+                <tr id="cookiesJs">
+                    <td>@Messages("fp.cookies") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.cookiesExp")"></i></td>
+                    @display(column = "cookiesJs")
+                </tr>
+
+                <tr id="dntJs">
+                    <td>@Messages("fp.dnt") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.dntExp")"></i></td>
+                    @display(column = "dntJs")
+                </tr>
+
+                <tr id="timezoneJs">
+                    <td>@Messages("fp.timezone") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.timezoneExp")"></i></td>
+                    @display(column = "timezoneJs")
+                </tr>
+
+                <tr id="resolutionJs">
+                    <td>@Messages("fp.resolutionJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionJExp")"></i></td>
+                    @display(column = "resolutionJs")
+                </tr>
+
+                <tr id="localJs">
+                    <td>@Messages("fp.local") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.localExp")"></i></td>
+                    @display(column = "localJs")
+                </tr>
+
+                <tr id="sessionJs">
+                    <td>@Messages("fp.session") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.sessionExp")"></i></td>
+                    @display(column = "sessionJs")
+                </tr>
+
+                <tr id="canvasJs">
+                    <td>@Messages("fp.canvas") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.canvasExp")"></i></td>
+                    @display(column = "canvasJs")
+                </tr>
+
+                <tr id="webGljs">
+                    <td>@Messages("fp.webGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.webGlExp")"></i></td>
+                    @display(column = "webGljs")
+                </tr>
+
+                <tr id="fontsFlash">
+                    <td>@Messages("fp.fonts") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.fontsExp")"></i></td>
+                    @display(column = "fontsFlash")
+                </tr>
+
+                <tr id="resolutionFlash">
+                    <td>@Messages("fp.resolutionF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionFExp")"></i></td>
+                    @display(column = "resolutionFlash")
+                </tr>
+
+                <tr id="languageFlash">
+                    <td>@Messages("fp.languageF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageFExp")"></i></td>
+                    @display(column = "languageFlash")
+                </tr>
+
+                <tr id="platformFlash">
+                    <td>@Messages("fp.platformF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformFExp")"></i></td>
+                    @display(column = "platformFlash")
+                </tr>
+
+                <tr id="adBlock">
+                    <td>@Messages("fp.adBlock") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.adBlockExp")"></i></td>
+                    @display(column = "adBlock")
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tab-pane fade" id="grap">
+        <div class="col-md-4">
+            <h1>@Messages("fp.graphsTitle")</h1>
+            <i class="fa fa-info-circle fa-3" rel="popover"
+                        data-content="@Messages("fp.graphsExp")"></i>
+            <script type="application/javascript">
+                var nbTotal = @nbTotal;
+
+                /* OS */
+                var osData = '@{Html(os.toString())}';
+                osData = $.parseJSON(osData);
+                var osArray = [];
+                var verArray = [];
+
+                $.each(osData, function(key, os) {
+                    var total = 0 ;
+                    if(key == '@pFp.getOs()'){
+                        $.each(os, function(ver, numb){
+                            total += numb;
+                            if(ver == '@pFp.getOsVersion()'){
+                                verArray.push({name: ver,y: numb*100/nbTotal, color:'#90ed7d' , visible: true, sliced: true});
+                            } else {
+                                verArray.push({name: ver,y: numb*100/nbTotal, color:'#434348' , visible: true});
+                            }
+                        });
+                        osArray.push({name: key,y: total*100/nbTotal,color:'#90ed7d'});
+                    } else {
+                        $.each(os, function(ver, numb){
+                            total += numb;
+                            verArray.push({name: ver,y: numb*100/nbTotal, color:'#434348' , visible: true});
+                        });
+                        osArray.push({name: key,y: total*100/nbTotal,color:'#434348' });
+                    }
+                });
+
+                $('#osGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Operating systems'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent share'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            shadow: false,
+                            center: ['50%', '50%']
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: '%',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b><br>Percentage : '+ Highcharts.numberFormat(this.y,2)+'%';
+                        }
+                    },
+                    series: [{
+                        name: 'Percentage',
+                        data: osArray,
+                        size: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: 'white',
+                            distance: -30
+                        }
+                    }, {
+                        name: 'Percentage',
+                        data: verArray,
+                        size: '80%',
+                        innerSize: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Highcharts.numberFormat(this.y,2) + '%'  : null;
+                            }
+                        }
+                    }]
+                });
+
+                /* Browser */
+                var browData = '@{Html(brow.toString())}';
+                browData = $.parseJSON(browData);
+                var browArray = [];
+                verArray = [];
+
+                $.each(browData, function(key, brow) {
+                    var total = 0 ;
+                    if(key == '@pFp.getBrowser()'){
+                        $.each(brow, function(ver, numb){
+                            total += numb;
+                            if(ver == '@pFp.getBrowserVersion()'){
+                                verArray.push({name: ver,y: numb*100/nbTotal, color:'#90ed7d' , visible: true, sliced: true});
+                            } else {
+                                verArray.push({name: ver,y: numb*100/nbTotal, color:'#434348' , visible: true});
+                            }
+                        });
+                        browArray.push({name: key,y: total*100/nbTotal,color:'#90ed7d'});
+                    } else {
+                        $.each(brow, function(ver, numb){
+                            total += numb;
+                            verArray.push({name: ver,y: numb*100/nbTotal, color:'#434348' , visible: true});
+                        });
+                        browArray.push({name: key,y: total*100/nbTotal,color:'#434348' });
+                    }
+                });
+
+                $('#browGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Browsers'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent share'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            shadow: false,
+                            center: ['50%', '50%']
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: '%',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b><br>Percentage : '+ Highcharts.numberFormat(this.y,2)+'%';
+                        }
+                    },
+                    series: [{
+                        name: 'Percentage',
+                        data: browArray,
+                        size: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: 'white',
+                            distance: -30
+                        }
+                    }, {
+                        name: 'Percentage',
+                        data: verArray,
+                        size: '80%',
+                        innerSize: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Highcharts.numberFormat(this.y,2) + '%'  : null;
+                            }
+                        }
+                    }]
+                });
+
+                /* Language */
+                var langData = '@{Html(lang.toString())}';
+                langData = $.parseJSON(langData);
+                var langArray = [];
+
+                $.each(langData, function(key, lang) {
+                    var total = 0 ;
+                    if(key == '@pFp.getLanguage()'){
+                        langArray.push({name: key,y: lang*100/nbTotal,color:'#90ed7d', sliced: true});
+                    } else {
+                        langArray.push({name: key,y: lang*100/nbTotal,color:'#434348' });
+                    }
+                });
+
+                $('#langGraph').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Languages'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent share'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Percentages',
+                        data: langArray
+                    }]
+                });
+
+                /* Timezone */
+                var timeData = '@{Html(timezone.toString())}';
+                timeData = $.parseJSON(timeData);
+                var timeArray = [];
+                $.each(timeData, function(key, tab){
+                    var name = tab[0];
+                    if(tab[0] != "no JS") {
+                        var utc = parseInt(tab[0],10)/-60;
+                        if(utc<0){
+                            utc = "UTC" + utc ;
+                        } else {
+                            utc = "UTC+" + utc ;
+                        }
+                    } else {
+                        var utc = "Not specified";
+                    }
+                    var per = tab[1]*100/nbTotal;
+                    if(name == '@pFp.getTimezone()'){
+                        timeArray.push({name:utc, y:per, color:'#90ed7d', sliced: true});
+                    } else {
+                        timeArray.push({name:utc, y:per, color:'#434348'});
+                    }
+                });
+
+                $('#timezoneGraph').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false
+                    },
+                    title: {
+                        text: 'Timezones'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent share'
+                        }
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                            }
+                        }
+                    },
+                    series: [{
+                        type: 'pie',
+                        name: 'Percentages',
+                        data: timeArray
+                    }]
+                });
+
+            </script>
+            <div id="osGraph" style="height: auto; width: auto"></div>
+            <div id="browGraph" style="height: auto; width: auto"></div>
+            <div id="langGraph" style="height: auto; width: auto"></div>
+            <div id="timezoneGraph" style="height: auto; width: auto"></div>
+        </div>
+    </div>
+</div>

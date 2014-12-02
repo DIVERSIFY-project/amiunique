@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Am I unique?</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Am I Unique?</a>
+                </div>
+                <!-- Top Menu Items -->
+                <ul class="nav navbar-right top-nav">
+            </ul>
+                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="/fp"><i class="fa fa-fw fa-paw"></i>My fingerprint</a>
+                        </li>
+                        <li>
+                            <a href="/stats"><i class="fa fa-fw fa-pie-chart"></i>Global statistics</a>
+                        </li>
+                        <li>
+                            <a href="/faq"><i class="fa fa-fw fa-question"></i>FAQ</a>
+                        </li>
+                        <li>
+                            <a href="/privacy"><i class="fa fa-fw fa-shield"></i>Privacy policy</a>
+                        </li>
+                        <li>
+                            <a href="/links"><i class="fa fa-fw fa-link"></i>Links</a>
+                        </li>
+                        <li class="active">
+                            <a href="/about"><i class="fa fa-fw fa-circle-o"></i>About</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="container">
+
+                    <!-- Page Heading -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2">
+                            <h2>Who maintains this web site?</h2>
+                            This web site is created and maintained by a team of researchers, who investigates the software monocultures and software
+                            diversity on the web. The research team is financially supported by the
+                            <a style="text-decoration:underline;" href="http://diversify-project.eu">DIVERSIFY European project</a> and by a grant
+                            from the <a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes school</a>.
+
+                            The site is hosted at the <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">INRIA Rennes
+                            Bretagne-Atlantique research center</a> and the
+                            <a style="text-decoration:underline;" href="http://www.irisa.fr/en">IRISA lab</a>.
+
+                            <h2>What is the purpose of this web site?</h2>
+
+                            <h3>Inform users about their position within the web ecosystem</h3>
+
+                            With this web site, we aim at providing users with some basic information about their configuration and
+                            how trackable it is. We also want to exploit the data we collect to advise users about how they can be more
+                            similar to others and thus be less trackable.
+
+                            <h3>Investigate the diversity of fingerprints</h3>
+
+                            The research question we investigate is: how can we automatically reconfigure a user's platform to
+                            fuzz the device fingerprint in a realistic manner? The degree of "realistic"-ness is important to prevent users
+                            of our solution to be detected as such. The collection of a large base of real fingerprints will allow us to tune our
+                            solution towards platforms that are as different as possible yet not distinguishable as "strange" configurations.
+
+                            <br>
+                            <div class="text-center">
+                            <a href="http://www.inria.fr/en/centre/rennes"><img title="Inria" src="@routes.Assets.at("images/inria.png")"/></a>
+                            <a href="http://www.insa-rennes.fr/en.html"><img title="Insa Rennes" src="@routes.Assets.at("images/insa.svg")" align="middle" /></a>
+                            <a href="http://diversify-project.eu/"><img title="Diversify project" src="@routes.Assets.at("images/diversify.png")" width="350px" align="middle" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+            <!-- /#wrapper -->
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+home=   <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">\
+                <h3>Apprenez à quel point votre navigateur est unique</h3>\
+                <h3>Aidez-nous à analyser la diversité des navigateurs web</h3>\
+                <br>\
+                <br>\
+            </div>\
+        </div>\
+        <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
+                <p><a id="link" href="/fpNoJs" class="btn btn-primary btn-lg" role="button">Voir l’empreinte de mon navigateur</a></p>\
+                <br>\
+                <p>En cliquant sur ce bouton, nous ne collectons que des données anonymes et nous installons un cookie sur votre navigateur pour 4 mois.\
+                   Plus de détails sont disponibles dans la <a id="linkPriva" href="/privacy">politique de stockage et de protection des données.</a></p>\
+            </div>\
+        </div>\
+        <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
+                <h3>\
+                    Partagez AmIUnique !<br>\
+                    Essayez aussi avec un smartphone ou une tablette !<br><br>\
+                    <a href="mailto:?subject=Apprenez à quel point votre navigateur est unique?&body=Quand vous visitez un site Internet, vous autorisez ce site à accéder à des informations concernant votre ordinateur. En combinant ces informations, on peut constituer ce qu’on appelle une empreinte - une signature qui peut être utilisée pour vous identifier vous et votre ordinateur. Quelle est l’efficacité de ce nouveau type de traçage sur Internet? Des chercheurs de l’Inria ont développé un site web pour trouver la réponse. Visitez https://amiunique.org pour connaître à quel point votre navigateur est unique et s’il est possible de vous tracer."><i class="fa fa-envelope"></i></a>\
+                    <a href="http://www.facebook.com/share.php?u=https%3a%2f%2famiunique.org&t=Apprenez+à+quel+point+votre+navigateur+est+unique%3F"><i class="fa fa-facebook-square"></i></a>\
+                    <a href="https://twitter.com/intent/tweet?text=Apprenez%20à%20quel%20point%20votre%20navigateur%20est%20unique%20%23AmIUnique&url=https%3A%2F%2Famiunique.org%2F"><i class="fa fa-twitter"></i></a>\
+                    <a href="https://plus.google.com/share?url=https://amiunique.org"><i class="fa fa-google-plus"></i></a>\
+                    <a href="http://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Famiunique.org&description=Am%20I%3A%20Unique"><i class="fa fa-pinterest"></i></a>\
+                    <a href="http://www.reddit.com/submit?url=https%3a%2f%2famiunique.org"><i class="fa fa-reddit"></i></a>\
+                    <a href="http://del.icio.us/post?url=https%3a%2f%2famiunique.org&title=Apprenez+à+quel+point+votre+navigateur+est+unique%3F"><i class="fa fa-delicious"></i></a>\
+                </h3>\
+                <br>\
+                <br>\
+                <br>\
+                <p style="white-space: pre;">Qu’est-ce que l’empreinte d’un navigateur ?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Apprenez-en plus</a></p>\
+                <p>Des questions ? Écrivez-nous à <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>\
+            </div>\
+        </div>
+
+fp.overview=Vue d’ensemble
+fp.details=Détails
+fp.graphs=Graphiques
+fp.title=Êtes-vous unique ?
+
+fp.track1=Oui ! (Vous pouvez être traçé !)
+fp.track2=Presque ! (Vous pouvez très probablement être tracé.)
+fp.track3=Non ! (Il est difficile de vous tracer avec l’empreinte de votre navigateur.)
+
+fp.browser1=% des navigateurs observés sont
+fp.browser2=, comme le vôtre.
+fp.unknownBrow=% des navigateurs observés n’ont pas été identifiés, comme le vôtre.
+
+fp.os1=% des navigateurs observés sont installés sur
+fp.os2=, comme le vôtre.
+fp.unknownOs=% of des navigateurs observés sont installés sur un système d’exploitation qui n’a pas été identifié, comme le vôtre.
+
+fp.lang1=% des navigateurs observés sont réglés en
+fp.lang2=, comme le vôtre.
+
+fp.time1=% des navigateurs observés sont réglés sur le fuseau horaire
+fp.time2=, comme le vôtre.
+
+fp.uniq1=Vous avez le <strong>seul</strong> navigateur parmi les
+fp.uniq2=observés avec cette empreinte.
+
+fp.notuniq1=Mais <strong>seulement</strong>
+fp.notuniq2=navigateurs parmi les
+fp.notuniq3=observés
+fp.notuniq4=%) ont exactement la même empreinte que celle de votre navigateur.
+
+fp.btn1=Voir plus de détails
+fp.btn2=Voir graphiques
+
+fp.detailsTitle=Mon empreinte
+fp.detAtt=Attribut
+fp.detSim=Ratio de similarité
+fp.detSimExp=Pourcentage d’empreintes qui partagent la même valeur pour chaque attribut
+fp.detVal=Valeur
+
+fp.graphsTitle=Statistiques
+fp.graphsExp=L’empreinte de votre navigateur est située dans les zones vertes des graphiques.
+
+fp.userAgent=En-tête "User agent"
+fp.accept=En-tête "Accept"
+fp.connection=En-tête "Connection"
+fp.encoding=En-tête "Content encoding"
+fp.language=En-tête "Content language"
+fp.plugins=Liste des plugins
+fp.platformJ=Plateforme
+fp.cookies=Utilisation des cookies
+fp.dnt=Utilisation du Do Not Track
+fp.timezone=Fuseau horaire
+fp.resolutionJ=Résolution de l’écran
+fp.local=Utilisation du stockage local
+fp.session=Utilisation du stockage de session
+fp.canvas=Canvas
+fp.webGl=WebGL
+fp.fonts=Liste des polices
+fp.resolutionF=Résolution d’écran
+fp.languageF=Langage
+fp.platformF=Plateforme
+fp.adBlock=Utilisation d’AdBlock
+
+fp.userAgentExp=En-tête HTTP envoyé au serveur qui contient des informations sur le navigateur et le système d’exploitation utilisés
+fp.acceptExp=En-tête HTTP envoyé au serveur qui indique le type de média attendu dans la réponse du serveur
+fp.connectionExp=En-tête HTTP envoyé au serveur qui contient des options spécifiques relatives à la connexion en cours
+fp.encodingExp=En-tête HTTP envoyé au serveur qui liste les méthodes de compression supportées par le navigateur
+fp.languageExp=En-tête HTTP envoyé au serveur qui indique les préférences linguistiques de l’utilisateur
+fp.pluginsExp=Attribut JavaScript renseigné par le navigateur qui donne la liste des plugins activés (window.navigator.plugins)
+fp.platformJExp=Attribut JavaScript renseigné par le navigateur qui indique la plateforme sur laquelle le navigateur fonctionne (window.navigator.platform)
+fp.cookiesExp=Attribut JavaScript renseigné par le navigateur qui indique si les cookies sont acceptés ou non (window.navigator.cookieEnabled)
+fp.dntExp=Attribut JavaScript renseigné par le navigateur qui indique la valeur du paramètre Do Not Track (window.navigator.doNotTrack), "NC" indique que la valeur n’a pas été renseignée
+fp.timezoneExp=Fuseau horaire du navigateur disponible via JavaScript (new Date().getTimezoneOffset())
+fp.resolutionJExp=Attributs JavaScript renseignés par le navigateur qui indiquent la résolution de l’écran de l’appareil (window.screen.height/width/colorDepth)
+fp.localExp=Test JavaScript pour savoir si le stockage local de données est supporté par le navigateur (écriture et lecture d’une valeur spécifique dans "localStorage")
+fp.sessionExp=Test JavaScript pour savoir si le stockage de données de session est supporté par la navigateur (écriture et lecture d’une valeur spécifique dans "sessionStorage")
+fp.canvasExp=Rendu d’une image selon une suite d’instructions précises. L’image finale présente des différences selon le système d’exploitation et le navigateur utilisés.
+fp.webGlExp=Rendu de trois formes 3D selon une suite d’instructions précises. L’image finale présente des différences selon l’appareil utilisé.
+fp.fontsExp=Attribut Flash qui donne la liste complète des polices installées sur le système d’exploitation de l’appareil (flash.text.Font.enumerateFonts(true))
+fp.resolutionFExp=Attribut Flash qui indique la résolution de l’écran de l’appareil (flash.system.Capabilities. screenResolutionX/Y). Cette résolution peut être différente de la valeur donnée par JavaScript, notamment en présence d’une configuration multi-écrans.
+fp.languageFExp=Attribut Flash qui indique la langue principale utilisée dans le navigateur (flash.system.Capabilities.language)
+fp.platformFExp=Attribut Flash qui indique la plateforme sur laquelle le navigateur fonctionne (flash.system.Capabilities.os). Cette valeur peut être beaucoup plus informative que celle donnée par JavaScript.
+fp.adBlockExp= Test pour savoir si l’extension AdBlock est installée

@@ -1,0 +1,19 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                        controllers.Application.home()
+GET         /fp                      controllers.Application.fp()
+GET         /fpNoJs                  controllers.Application.fpNoJs()
+GET         /stats                   controllers.Application.stats()
+GET         /faq                     controllers.Application.faq()
+GET         /privacy                 controllers.Application.privacy()
+GET         /links                   controllers.Application.links()
+GET         /about                   controllers.Application.about()
+POST        /results                 controllers.Application.addFingerprint()
+
+#JavaScript router
+GET         /assets/js/routes        controllers.Application.jsRoutes()
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file            controllers.Assets.at(path="/public", file)

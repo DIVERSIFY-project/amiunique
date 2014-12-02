@@ -1,0 +1,31 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+
+    <persistence-unit name="defaultPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <non-jta-data-source>DefaultDS</non-jta-data-source>
+        <class>models.FpDataEntity</class>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="toplink.jdbc.user" value=""/>
+            <property name="toplink.jdbc.password" value=""/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value=""/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306"/>
+            <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+            <property name="openjpa.ConnectionUserName" value=""/>
+            <property name="openjpa.ConnectionPassword" value=""/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.user" value=""/>
+            <property name="eclipselink.jdbc.password" value=""/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

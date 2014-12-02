@@ -1,0 +1,252 @@
+@import com.fasterxml.jackson.databind.JsonNode
+@(fp : JsonNode)(pFp: ParsedFP)(per : JsonNode)(os: JsonNode)(brow: JsonNode)(lang: JsonNode)(nbTotal: Integer)(nbIdent: Integer)
+
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Am I unique?</title>
+
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+        <!-- Custom Fonts -->
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+        <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Am I Unique?</a>
+                </div>
+                <!-- Top Menu Items -->
+                <ul class="nav navbar-right top-nav">
+                </ul>
+                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+                        </li>
+                        <li  class="active">
+                            <a href="/fp"><i class="fa fa-fw fa-paw"></i>My fingerprint</a>
+                        </li>
+                        <li>
+                            <a href="/stats"><i class="fa fa-fw fa-pie-chart"></i>Global statistics</a>
+                        </li>
+                        <li>
+                            <a href="/faq"><i class="fa fa-fw fa-question"></i>FAQ</a>
+                        </li>
+                        <li>
+                            <a href="/privacy"><i class="fa fa-fw fa-shield"></i>Privacy policy</a>
+                        </li>
+                        <li>
+                            <a href="/links"><i class="fa fa-fw fa-link"></i>Links</a>
+                        </li>
+                        <li>
+                            <a href="/about"><i class="fa fa-fw fa-circle-o"></i>About</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+
+            <div id="page-wrapper">
+
+                <h1>@Messages("fp.title")</h1>
+
+                <!-- Uniqueness -->
+                @if(nbIdent<2) {
+                    <h1 style="color:red"><strong>@Messages("fp.track1")</strong></h1>
+                } else {
+                    @if(nbIdent/per.get("nbTotal").doubleValue() < 0.05) {
+                        <h1 style="color:orange">@Messages("fp.track2")</h1>
+                    } else {
+                        <h1 style="color:green">@Messages("fp.track3")</h1>
+                    }
+                }
+
+                <!-- Browser -->
+                @if(pFp.getBrowser() != "Others"){
+                    <p>@{"%.2f".format(per.get(pFp.getBrowser()).doubleValue())} @Messages("fp.browser1") <strong>@pFp.getBrowser()</strong>@Messages("fp.browser2")</p>
+                    <p>@{"%.2f".format(brow.get(pFp.getBrowser()).get(pFp.getBrowserVersion()).doubleValue()*100/nbTotal)}
+                        @Messages("fp.browser1") <strong>@pFp.getBrowser() @pFp.getBrowserVersion()</strong>@Messages("fp.browser2")</p>
+                } else {
+                    <p>@{"%.2f".format(per.get(pFp.getBrowser()).doubleValue())} @Messages("fp.unknownBrow")</p>
+                }
+
+                <!-- OS -->
+                @if(pFp.getOs() != "Others") {
+                    <p>@{"%.2f".format(per.get(pFp.getOs()).doubleValue())} @Messages("fp.os1") <strong>@pFp.getOs()</strong>@Messages("fp.os2")</p>
+                    @if(pFp.getOsVersion() != "Other distros") {
+                        <p>@{"%.2f".format(os.get(pFp.getOs()).get(pFp.getOsVersion()).doubleValue() * 100 / nbTotal)} @Messages("fp.os1")
+                            <strong>@pFp.getOs() @pFp.getOsVersion()</strong>@Messages("fp.os2")</p>
+                    }
+                } else {
+                     <p>@{"%.2f".format(per.get(pFp.getOs()).doubleValue())} @Messages("fp.unknownOs")</p>
+                }
+
+                <!-- Language -->
+                @if(pFp.getLanguage() != "Not communicated") {
+                    <p>@{"%.2f".format(lang.get(pFp.getLanguage()).doubleValue() * 100 / nbTotal)} @Messages("fp.lang1")
+                        <strong>"@pFp.getLanguage()"</strong>@Messages("fp.lang2")</p>
+                }
+
+                <!-- Uniqueness details-->
+                @if(nbIdent<2) {
+                    <p>@Html(Messages("fp.uniq1")) @("%.0f".format(per.get("nbTotal").doubleValue())) @Messages("fp.uniq2")</p>
+                } else {
+                    <p> @Html(Messages("fp.notuniq1")) @nbIdent @Messages("fp.notuniq2") @("%.0f".format(per.get("nbTotal").doubleValue()))
+                        @Messages("fp.notuniq3") (@{"%.2f".format(nbIdent*100.0/nbTotal)} @Messages("fp.notuniq4")</p>
+                }
+
+
+                <h1>@Messages("fp.detailsTitle")</h1>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>@Messages("fp.detAtt")</th>
+                            <th>@Messages("fp.detSim")</th>
+                            <th>@Messages("fp.detVal")</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @display(column : String) = {
+                            @defining(per.get(column).doubleValue()) { value =>
+                                @if(value == -1) {
+                                    <td>Unique</td>
+                                } else {
+                                    @if(value >= 0.1) {
+                                        <td>@("%.2f".format(value))%</td>
+                                    } else {
+                                        <td><0.1%</td>
+                                    }
+                                }
+                                <td id="@column.toString().concat("Val")">@fp.get(column)</td>
+                            }
+                        }
+
+                        <tr id="userAgentHttp">
+                            <td>@Messages("fp.userAgent")</td>
+                            @display(column = "userAgentHttp")
+                        </tr>
+                        <tr id="acceptHttp">
+                            <td>@Messages("fp.accept")</td>
+                            @display(column = "acceptHttp")
+                        </tr>
+
+                        <tr id="connectionHttp">
+                            <td>@Messages("fp.connection")</td>
+                            @display(column = "connectionHttp")
+                        </tr>
+
+                        <tr id="encodingHttp">
+                            <td>@Messages("fp.encoding")</td>
+                            @display(column = "encodingHttp")
+                        </tr>
+
+                        <tr id="languageHttp">
+                            <td>@Messages("fp.language")</td>
+                            @display(column = "languageHttp")
+                        </tr>
+
+                        <tr id="pluginsJs">
+                            <td>@Messages("fp.plugins")</td>
+                            @display(column = "pluginsJs")
+                        </tr>
+
+                        <tr id="platformJs">
+                            <td>@Messages("fp.platformJ")</td>
+                            @display(column = "platformJs")
+                        </tr>
+
+                        <tr id="cookiesJs">
+                            <td>@Messages("fp.cookies")</td>
+                            @display(column = "cookiesJs")
+                        </tr>
+
+                        <tr id="dntJs">
+                            <td>@Messages("fp.dnt")</td>
+                            @display(column = "dntJs")
+                        </tr>
+
+                        <tr id="timezoneJs">
+                            <td>@Messages("fp.timezone")</td>
+                            @display(column = "timezoneJs")
+                        </tr>
+
+                        <tr id="resolutionJs">
+                            <td>@Messages("fp.resolutionJ")</td>
+                            @display(column = "resolutionJs")
+                        </tr>
+
+                        <tr id="localJs">
+                            <td>@Messages("fp.local")</td>
+                            @display(column = "localJs")
+                        </tr>
+
+                        <tr id="sessionJs">
+                            <td>@Messages("fp.session")</td>
+                            @display(column = "sessionJs")
+                        </tr>
+
+                        <tr id="canvasJs">
+                            <td>@Messages("fp.canvas")</td>
+                            @display(column = "canvasJs")
+                        </tr>
+
+                        <tr id="webGljs">
+                            <td>@Messages("fp.webGl")</td>
+                            @display(column = "webGljs")
+                        </tr>
+
+                        <tr id="fontsFlash">
+                            <td>@Messages("fp.fonts")</td>
+                            @display(column = "fontsFlash")
+                        </tr>
+
+                        <tr id="resolutionFlash">
+                            <td>@Messages("fp.resolutionF")</td>
+                            @display(column = "resolutionFlash")
+                        </tr>
+
+                        <tr id="languageFlash">
+                            <td>@Messages("fp.languageF")</td>
+                            @display(column = "languageFlash")
+                        </tr>
+
+                        <tr id="platformFlash">
+                            <td>@Messages("fp.platformF")</td>
+                            @display(column = "platformFlash")
+                        </tr>
+
+                        <tr id="adBlock">
+                            <td>@Messages("fp.adBlock")</td>
+                            @display(column = "adBlock")
+                        </tr>
+
+                    </tbody>
+                </table>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+    </body>
+
+</html>

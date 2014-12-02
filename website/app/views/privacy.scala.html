@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Am I unique?</title>
+
+            <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
+            <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
+            <!-- Custom Fonts -->
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
+
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!--[if lt IE 9]>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+                <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Am I Unique?</a>
+                </div>
+                    <!-- Top Menu Items -->
+                <ul class="nav navbar-right top-nav">
+            </ul>
+                    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a href="/"><i class="fa fa-fw fa-home"></i>Home</a>
+                        </li>
+                        <li>
+                            <a href="/fp"><i class="fa fa-fw fa-paw"></i>My fingerprint</a>
+                        </li>
+                        <li>
+                            <a href="/stats"><i class="fa fa-fw fa-pie-chart"></i>Global statistics</a>
+                        </li>
+                        <li>
+                            <a href="/faq"><i class="fa fa-fw fa-question"></i>FAQ</a>
+                        </li>
+                        <li class="active">
+                            <a href="/privacy"><i class="fa fa-fw fa-shield"></i>Privacy policy</a>
+                        </li>
+                        <li>
+                            <a href="/links"><i class="fa fa-fw fa-link"></i>Links</a>
+                        </li>
+                        <li>
+                            <a href="/about"><i class="fa fa-fw fa-circle-o"></i>About</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+
+            <div id="page-wrapper">
+
+                <div class="container">
+
+                    <!-- Page Heading -->
+                    <!--div class="row">
+                        <div class="col-lg-12">
+                        </div>
+                    </div-->
+                    <!-- /.row -->
+                    <br>
+                    <p>The goal of this project is to measure and study the diversity of web browsers and establish statistical
+                        profiles of browser fingerprints. All of the data for the project will be collected in an anonymized
+                        form which ensures that it is not Personally Identifiable Information*, nor otherwise likely to lead to
+                        the identification or tracking of any web users.</p>
+                    <p>*Personally identifiable information (PII) is any data that could potentially identify a specific individual.</p>
+
+                    <p>We are committed to protecting the privacy of visitors to our website. In this policy, "we" refers to the INRIA
+                        researchers and students who are bound to keep information they receive confidential.</p>
+
+
+                    <h2>Information Gathered by the amiunique Website</h2>
+                    <p>For the needs of the research project defined <a href="/about">here</a>, amiunique collects anonymous data about the
+                    configuration of computers, operating systems, browsers and plugins. If you click the "View my fingerprint" button, this
+                    type of information will be collected from your browser. Although these kinds of data may form a `fingerprint' that
+                    could in principle be combined with information about page requests and identifying details in order to track people's
+                    browsing habits, we will <strong>never</strong> do so.</p>
+                    <p>The specific `fingerprint' information we collect is:
+                        <ul>
+                            <li>the User agent header</li>
+                            <li>the Accept header</li>
+                            <li>the Connection header</li>
+                            <li>the Encoding header</li>
+                            <li>the Language header</li>
+                            <li>the list of plugins</li>
+                            <li>the platform</li>
+                            <li>the cookies preferences (allowed or not)</li>
+                            <li>the Do Not Track preferences (yes, no or not communicated)</li>
+                            <li>the timezone</li>
+                            <li>the screen resolution and its color depth</li>
+                            <li>the use of local storage</li>
+                            <li>the use of session storage</li>
+                            <li>a picture rendered with the HTML Canvas element</li>
+                            <li>a picture rendered with WebGL</li>
+                            <li>the presence of AdBlock</li>
+                            <li>the list of fonts</li>
+                        </ul>
+                    <p>In addition to these data, we collect several kinds of `housekeeping' information to assist us in analyzing the
+                        fingerprint data. The housekeeping information is:
+                        <ul>
+                            <li>Cookies</li>
+                            <li>Encrypted IP addresses</li>
+                            <li>Timestamps</li>
+                        </ul>
+                    <p>Our practices and purposes for collecting these housekeeping records are discussed below:
+                    <h3>Cookies</h3>
+                    <p>amiunique sets a cookie that persists for 4 months for the purpose of determining how often browser characteristics change, and
+                    how often they stay the same, when a browser returns over time. If your browser is configured to accept cookies, and you return to
+                    amiunique several times, the cookie will be used to link the data from your visits together so that we can study the natural evolution of
+                    browser fingerprints.
+                    If you want to disable/enable browser cookies, click on the link below corresponding to your browser for instructions.
+                    You should be aware that entirely disabling cookies may block some interactive features on some websites (most notably, automatic logins).
+
+                    <p>Instructions for:
+                    <ul>
+                        <li><a href="http://windows.microsoft.com/en-us/windows/cookies-faq">Microsoft Windows Explorer</a></li>
+                        <li><a href="https://support.google.com/chrome/bin/answer.py?hl=en&answer=95647&p=cpn_cookies">Google Chrome</a></li>
+                        <li><a href="http://support.mozilla.org/en-US/kb/Enabling%20and%20disabling%20cookies">Mozilla Firefox</a></li>
+                        <li><a href="http://support.apple.com/kb/ph17191">Apple Safari</a></li>
+                        <li><a href="http://www.opera.com/help/tutorials/security/cookies/">Opera browser</a></li>
+                    </ul>
+                    Moreover, if you are interested in enabling/disabling Flash cookies, you can do so by visiting the following page:
+                    <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager02.html#118539">Manage
+                        Flash cookies</a>.
+
+                    <h3>IP addresses</h3>
+                    amiunique does not log IP addresses, but we do compute hashes of each IP address. This hashed IP will allow us to collect an anonymous dataset
+                    about how often browsers that change IP address could have been followed using a fingerprint.
+
+                    <h3>Timestamps</h3>
+                    amiunique collects a "fuzzy" timestamp, rounded to the nearest hour, each time it is visited. This will be used to measure how fast browser
+                    fingerprints change, but for no other purpose.
+
+                    <h2>Our Use of Information from amiunique</h2>
+                    We will analyze the collected data in order to establish what are realistic profiles for browser fingerprints. The purpose of this analysis is
+                    to set an automatic procedure to proactively diversify user platforms in a realistic manner.
+                    amiunique has no Third-Party Service Providers.
+                    <h2>Sharing of amiunique data</h2>
+                    We may publish or share aggregated, statistical data from the amiunique project in order to facilitate privacy research, educate people about
+                    privacy problems, and to aid in the development of privacy-enhancing technologies. We have gone to great lengths to ensure that amiunique does
+                    not produce any records about anyone's browsing habits or the identities of any individual visitors, so we will never be in a position where we
+                    could share any such records.
+                    <h2>Security</h2>
+                    In a general way, INRIA commits to carry out technical and organizational means to protect all information we gathered against illegal or
+                    fortuitous destruction, fortuitous loss, alteration, diffusion or unauthorized access. Nevertheless, INRIA shall be required to divulgate any
+                    information to comply with any applicable law or rules, or to respond to any administrative or judiciary order.
+
+
+                    <p>Although we make good faith efforts to store information collected in a secure operating environment, we cannot guarantee complete security.
+                        Information collected will be maintained for a length of time appropriate to the needs of this research project.
+                    <br>
+                    <p>This Privacy Policy is based on some material from the <a href="https://www.eff.org/">EFF website</a> (Electronic Frontier Foundation), which is freely redistributed under the
+                        <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution License</a>.
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- /#page-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    </body>
+</html>
