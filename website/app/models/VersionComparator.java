@@ -1,36 +1,16 @@
 package models;
 
-import scala.xml.Atom;
-
 import java.util.Comparator;
-import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Vermap extends TreeMap<String,AtomicInteger> {
+public class VersionComparator implements Comparator<String> {
 
-    public Vermap() {
-        super(new VersionComparator());
+    private VersionComparator(){};
+
+    private static VersionComparator INSTANCE = new VersionComparator();
+
+    public static VersionComparator getInstance(){
+        return INSTANCE;
     }
-
-    public void add(String value){
-        if(this.containsKey(value)){
-            this.get(value).incrementAndGet();
-        } else {
-            this.put(value,new AtomicInteger(1));
-        }
-    }
-
-    public double getCounter(){
-        double counter = 0;
-        for(AtomicInteger value : this.values()){
-            counter += value.doubleValue();
-        }
-        return counter;
-    }
-
-}
-
-class VersionComparator implements Comparator<String> {
 
     private static Double doubleValue(String s) {
         try {

@@ -14,7 +14,6 @@ import views.html.*;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -49,6 +48,14 @@ public class Application extends Controller {
         return ok(about.render());
     }
 
+    public static String getHeader(Http.Request request, String header){
+        if(request.getHeader(header) == null){
+            return "Not specified";
+        } else {
+            return request.getHeader(header);
+        }
+    }
+
     public static Result fpNoJs() {
         Http.Cookie cookie = request().cookies().get("amiunique");
         String id;
@@ -60,19 +67,22 @@ public class Application extends Controller {
 
         FpDataEntityManager em = new FpDataEntityManager();
         FpDataEntity fp;
+        boolean newFp;
 
-        if(id != "Not supported" && em.checkIfFPWithNoJsExists(id, request().getHeader("User-Agent"),
-                request().getHeader("Accept"), request().getHeader("Connection"),
-                request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"))){
+        if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
+                getHeader(request(), "Accept"), getHeader(request(), "Connection"),
+                getHeader(request(), "Accept-Encoding"), getHeader(request(), "Accept-Language"))){
             fp = em.getExistingFP(id);
+            newFp = false;
         } else {
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
             fp = em.createWithoutJavaScript(id,
-                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), request().getHeader("User-Agent"),
-                    request().getHeader("Accept"), request().getHeader("Host"), request().getHeader("Connection"),
-                    request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"),
+                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), getHeader(request(),"User-Agent"),
+                    getHeader(request(),"Accept"), getHeader(request(),"Host"), getHeader(request(),"Connection"),
+                    getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"),
                     request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""));
+            newFp = true;
         }
 
         ObjectNode node = (ObjectNode) Json.toJson(fp);
@@ -86,38 +96,53 @@ public class Application extends Controller {
         node.remove("id");
         JsonNode json = (JsonNode) node;
 
-        //Get the surprisal and entropy of every attribute
-        Map<String,Double> percentages = em.getPercentages(json);
-
-        //Number of fingerprints
-        Integer nbTotal = em.getNumberOfEntries();
-        //Number of identical fingerprints
-        Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
-
         //Analyse the user agent
         ParsedFP parsedFP = new ParsedFP(node.get("userAgentHttp").asText());
         //Analyse the language and timezone
         parsedFP.setLanguage(node.get("languageHttp").asText());
+        parsedFP.setTimezone(node.get("timezoneJs").asText());
+        parsedFP.setNbFonts(node.get("fontsFlash").asText());
+
+        //Get the stats instance
+        Stats s = Stats.getInstance();
+        if(newFp) {
+            //Add the newly parsed FP to the stats
+            s.addFingerprint(parsedFP);
+        }
+
+        //Number of fingerprints
+        Integer nbTotal = s.getNbTotal();
+        //Number of identical fingerprints
+        Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
+        //Get the percentages of every attribute
+        Map<String,Double> percentages = em.getPercentages(json);
 
         //Get some general stats
-        HashMap<String,HashMap<String, Vermap>> resMap = em.getOSBrowserStats();
-        HashMap<String, Vermap> osMap = resMap.get("os");
-        HashMap<String, Vermap> browsersMap = resMap.get("browsers");
-        Vermap langMap = em.getLanguageStats();
+        HashMap<String, VersionMap> osMap = s.getOs();
+        HashMap<String, VersionMap> browsersMap = s.getBrowsers();
+        VersionMap langMap = s.getLanguages();
 
         //Adding percentages for OS and browsers
-        for (Map.Entry<String, Vermap> entry : osMap.entrySet()) {
+        for (Map.Entry<String, VersionMap> entry : osMap.entrySet()) {
             percentages.put(entry.getKey(),entry.getValue().getCounter()*100/nbTotal);
         }
-        for (Map.Entry<String, Vermap> entry : browsersMap.entrySet()) {
+        for (Map.Entry<String, VersionMap> entry : browsersMap.entrySet()) {
             percentages.put(entry.getKey(),entry.getValue().getCounter()*100/nbTotal);
         }
 
-        //Render the FP + Stats
+        //Render the FP + models.Stats
         return ok(fpNoJs.render(json, parsedFP, Json.toJson(percentages),Json.toJson(osMap),
                 Json.toJson(browsersMap),Json.toJson(langMap),nbTotal,nbIdent));
     }
 
+
+    public static String getAttribute(JsonNode json, String attribute){
+        if(json.get(attribute) == null){
+            return "Not specified";
+        } else {
+            return json.get(attribute).asText();
+        }
+    }
 
     public static Result addFingerprint() {
         Http.Cookie cookie = request().cookies().get("amiunique");
@@ -132,31 +157,34 @@ public class Application extends Controller {
         JsonNode json = request().body().asJson();
         FpDataEntityManager em = new FpDataEntityManager();
         FpDataEntity fp;
+        boolean newFp;
 
-        if(id != "Not supported" && em.checkIfFPExists(id,json.get("userAgentHttp").asText(),
-                json.get("acceptHttp").asText(), json.get("connectionHttp").asText(),
-                json.get("encodingHttp").asText(), json.get("languageHttp").asText(),
-                json.get("pluginsJs").asText(), json.get("platformJs").asText(), json.get("cookiesJs").asText(),
-                json.get("dntJs").asText(), json.get("timezoneJs").asText(), json.get("resolutionJs").asText(),
-                json.get("localJs").asText(), json.get("sessionJs").asText(), json.get("IEDataJs").asText(),
-                json.get("canvasJs").asText(), json.get("webGLJs").asText(), json.get("fontsFlash").asText(),
-                json.get("resolutionFlash").asText(), json.get("languageFlash").asText(), json.get("platformFlash").asText(),
-                json.get("adBlock").asText())){
+        if(!id.equals("Not supported") && em.checkIfFPExists(id,getAttribute(json,"userAgentHttp"),
+                getAttribute(json,"acceptHttp"), getAttribute(json,"connectionHttp"),
+                getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"),
+                getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
+                getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
+                getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
+                getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
+                getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
+                getAttribute(json,"adBlock"))){
             fp = em.getExistingFP(id);
+            newFp = false;
         } else {
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
 
             fp = em.createFull(id,
-                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), json.get("userAgentHttp").asText(),
-                    json.get("acceptHttp").asText(), json.get("hostHttp").asText(), json.get("connectionHttp").asText(),
-                    json.get("encodingHttp").asText(), json.get("languageHttp").asText(), json.get("orderHttp").asText(),
-                    json.get("pluginsJs").asText(), json.get("platformJs").asText(), json.get("cookiesJs").asText(),
-                    json.get("dntJs").asText(), json.get("timezoneJs").asText(), json.get("resolutionJs").asText(),
-                    json.get("localJs").asText(), json.get("sessionJs").asText(), json.get("IEDataJs").asText(),
-                    json.get("canvasJs").asText(), json.get("webGLJs").asText(), json.get("fontsFlash").asText(),
-                    json.get("resolutionFlash").asText(), json.get("languageFlash").asText(), json.get("platformFlash").asText(),
-                    json.get("adBlock").asText(), "", "");
+                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), getAttribute(json,"userAgentHttp"),
+                    getAttribute(json,"acceptHttp"), getAttribute(json,"hostHttp"), getAttribute(json,"connectionHttp"),
+                    getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"), getAttribute(json,"orderHttp"),
+                    getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
+                    getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
+                    getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
+                    getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
+                    getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
+                    getAttribute(json,"adBlock"), "", "");
+            newFp = true;
         }
 
         ObjectNode node = (ObjectNode) Json.toJson(fp);
@@ -175,27 +203,33 @@ public class Application extends Controller {
         //Analyse the language and timezone
         parsedFP.setLanguage(node.get("languageHttp").asText());
         parsedFP.setTimezone(node.get("timezoneJs").asText());
+        parsedFP.setNbFonts(node.get("fontsFlash").asText());
+
+        //Get the stats instance
+        Stats s = Stats.getInstance();
+        if(newFp) {
+            //Add the newly parsed FP to the stats
+            s.addFingerprint(parsedFP);
+        }
 
         //Number of fingerprints
-        Integer nbTotal = em.getNumberOfEntries();
+        Integer nbTotal = s.getNbTotal();
         //Number of identical fingerprints
         Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
-
         //Get the percentages of every attribute
         Map<String,Double> percentages = em.getPercentages(json);
 
         //Get some general stats
-        HashMap<String,HashMap<String, Vermap>> resMap = em.getOSBrowserStats();
-        HashMap<String, Vermap> osMap = resMap.get("os");
-        HashMap<String, Vermap> browsersMap = resMap.get("browsers");
-        Vermap langMap = em.getLanguageStats();
-        ArrayList<Object[]> timezoneMap = em.getTimezoneStats();
+        HashMap<String, VersionMap> osMap = s.getOs();
+        HashMap<String, VersionMap> browsersMap = s.getBrowsers();
+        VersionMap langMap = s.getLanguages();
+        CounterMap timezoneMap = s.getTimezone();
 
         //Adding percentages for OS and browsers
-        for (Map.Entry<String, Vermap> entry : osMap.entrySet()) {
+        for (Map.Entry<String, VersionMap> entry : osMap.entrySet()) {
             percentages.put(entry.getKey(),entry.getValue().getCounter()*100/nbTotal);
         }
-        for (Map.Entry<String, Vermap> entry : browsersMap.entrySet()) {
+        for (Map.Entry<String, VersionMap> entry : browsersMap.entrySet()) {
             percentages.put(entry.getKey(),entry.getValue().getCounter()*100/nbTotal);
         }
 
@@ -211,15 +245,9 @@ public class Application extends Controller {
 
     public static Result stats() throws Exception{
         return ok(Cache.getOrElse("stats-html", () -> {
-            FpDataEntityManager em = new FpDataEntityManager();
-            Integer nbTotal = em.getNumberOfEntries();
-            Integer nbUnique = em.getNumberOfUniqueEntries();
-            ArrayList<Object[]> timezone = em.getTimezoneStats();
-            HashMap<String,HashMap<String, Vermap>> resMap = em.getOSBrowserStats();
-            Vermap langMap = em.getLanguageStats();
-            Rangemap nbFontsList = em.getFontsStats();
-            return stats.render(nbTotal,nbUnique,Json.toJson(timezone),Json.toJson(resMap.get("browsers")),
-                    Json.toJson(resMap.get("os")),Json.toJson(langMap),Json.toJson(nbFontsList));
+            Stats s = Stats.getInstance();
+            return stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()));
         }, 1800));
     }
 
