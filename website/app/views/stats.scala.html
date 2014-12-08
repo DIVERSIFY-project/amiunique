@@ -1,5 +1,5 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(nbTotal: Integer)(nbUnique: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)
+@(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)
 
 <!DOCTYPE html>
 <html>
@@ -134,8 +134,8 @@
                         var timeDrillArray = [];
                         var nbTimeOthers = 0;
                         $.each(timeData, function(key, tab){
-                            if(tab[0] != "no JS") {
-                                var name = parseInt(tab[0],10)/-60;
+                            if(key != "no JS") {
+                                var name = parseInt(key,10)/-60;
                                 if(name<0){
                                     name = "UTC" + name ;
                                 } else {
@@ -144,7 +144,7 @@
                             } else {
                                 var name = "Not specified";
                             }
-                            var per = tab[1]*100/nbTotal;
+                            var per = tab*100/nbTotal;
                             if(per>3){
                                 timeArray.push({name:name, y:per});
                             } else {

@@ -439,9 +439,9 @@ $(document).ready(function() {
                 timeData = $.parseJSON(timeData);
                 var timeArray = [];
                 $.each(timeData, function(key, tab){
-                    var name = tab[0];
-                    if(tab[0] != "no JS") {
-                        var utc = parseInt(tab[0],10)/-60;
+                    var name = key;
+                    if(key != "no JS") {
+                        var utc = parseInt(key,10)/-60;
                         if(utc<0){
                             utc = "UTC" + utc ;
                         } else {
@@ -450,7 +450,7 @@ $(document).ready(function() {
                     } else {
                         var utc = "Not specified";
                     }
-                    var per = tab[1]*100/nbTotal;
+                    var per = tab*100/nbTotal;
                     if(name == '@pFp.getTimezone()'){
                         timeArray.push({name:utc, y:per, color:'#90ed7d', sliced: true});
                     } else {
