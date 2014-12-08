@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.databind.JsonNode;
 import play.db.jpa.JPA;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
@@ -26,33 +27,51 @@ public class FpDataEntityManager {
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
                                    String ieDataJs, String canvasJs, String webGljs, String fontsFlash, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock){
-        String query = "SELECT count(*) FROM FpDataEntity WHERE id= \'"+id+"\' AND acceptHttp=\'"+acceptHttp+
-                "\' AND userAgentHttp= \'"+userAgentHttp+"\' AND connectionHttp=\'"+connectionHttp+
-                "\' AND encodingHttp=\'"+encodingHttp+"\' AND languageHttp=\'"+languageHttp+"\' AND pluginsJS =\'"+
-                pluginsJs+"\' AND platformJS=\'"+platformJs+"\' AND cookiesJs=\'"+cookiesJs+"\' AND dntJs=\'"+dntJs+
-                "\' AND timezoneJs=\'"+timezoneJs+"\' AND resolutionJs=\'"+resolutionJs+"\' AND localJs=\'"+
-                localJs+"\' AND sessionJs=\'"+sessionJs+"\' AND ieDataJs=\'"+ieDataJs+"\' AND canvasJs=\'"+
-                canvasJs+"\' AND webGljs=\'"+webGljs+"\' AND fontsFlash=\'"+fontsFlash+"\' AND resolutionFlash=\'"+
-                resolutionFlash+"\' AND languageFlash=\'"+languageFlash+"\' AND platformFlash=\'"+
-                platformFlash+"\' AND adBlock=\'"+adBlock+"\'";
-        int nbId = withTransaction(em -> ((Long) em.createQuery(query).getResultList().get(0)).intValue());
+
+        String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
+                "AND userAgentHttp= :userAgentHttp AND connectionHttp= :connectionHttp " +
+                "AND encodingHttp= :encodingHttp AND languageHttp= :languageHttp AND pluginsJS = :pluginsJs "+
+                "AND platformJS= :platformJs AND cookiesJs= :cookiesJs AND dntJs= :dntJs " +
+                "AND timezoneJs= :timezoneJs AND resolutionJs= :resolutionJs AND localJs= :localJs "+
+                "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJs= :canvasJs "+
+                "AND webGljs= :webGljs AND fontsFlash= :fontsFlash AND resolutionFlash= :resolutionFlash "+
+                "AND languageFlash= :languageFlash AND platformFlash= :platformFlash AND adBlock= :adBlock";
+
+        int nbId = withTransaction(em -> {
+            Query q = em.createQuery(query)
+            .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
+            .setParameter("connectionHttp", connectionHttp).setParameter("encodingHttp", encodingHttp);
+            q.setParameter("languageHttp",languageHttp).setParameter("pluginsJs",pluginsJs).setParameter("platformJs",platformJs)
+            .setParameter("cookiesJs", cookiesJs).setParameter("dntJs",dntJs).setParameter("timezoneJs",timezoneJs);
+            q.setParameter("resolutionJs",resolutionJs).setParameter("localJs",localJs).setParameter("sessionJs",sessionJs)
+            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJs",canvasJs).setParameter("webGljs",webGljs);
+            q.setParameter("fontsFlash", fontsFlash).setParameter("resolutionFlash",resolutionFlash)
+            .setParameter("languageFlash", languageFlash).setParameter("platformFlash",platformFlash)
+            .setParameter("adBlock", adBlock);
+            return ((Long) q.getResultList().get(0)).intValue();
+        });
         return nbId == 1;
     }
 
     public boolean checkIfFPWithNoJsExists(String id,String userAgentHttp,
                                    String acceptHttp, String connectionHttp, String encodingHttp,
                                    String languageHttp){
-        String query = "SELECT count(*) FROM FpDataEntity WHERE id= \'"+id+"\' AND userAgentHttp=\'"+userAgentHttp+
-                "\' AND acceptHttp= \'"+acceptHttp+"\' AND connectionHttp=\'"+connectionHttp+
-                "\' AND encodingHttp=\'"+encodingHttp+"\' AND languageHttp=\'"+languageHttp+"\' AND pluginsJS =\'no JS\'";
-        int nbId = withTransaction(em -> ((Long) em.createQuery(query).getResultList().get(0)).intValue());
+
+        String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
+                "AND userAgentHttp= :userAgentHttp AND connectionHttp= :connectionHttp " +
+                "AND encodingHttp= :encodingHttp AND languageHttp= :languageHttp AND pluginsJS =\'no JS\'";
+
+        int nbId = withTransaction(em -> ((Long) em.createQuery(query)
+                .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
+                .setParameter("connectionHttp", connectionHttp).setParameter("encodingHttp", encodingHttp)
+                .setParameter("languageHttp",languageHttp).getResultList().get(0)).intValue());
         return nbId == 1;
     }
 
 
     public FpDataEntity getExistingFP(String id){
-        String query = "SELECT counter FROM FpDataEntity WHERE id= \'"+id+"\'";
-        int counter = withTransaction(em -> ((Integer) em.createQuery(query).getResultList().get(0)).intValue());
+        String query = "SELECT counter FROM FpDataEntity WHERE id= :id";
+        int counter = withTransaction(em -> ((Integer) em.createQuery(query).setParameter("id", id).getResultList().get(0)).intValue());
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
@@ -133,7 +152,6 @@ public class FpDataEntityManager {
         //Get the total number of entries in the database
         String nbTotalQuery = "SELECT count(*) FROM FpDataEntity";
         double nbTotal = withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).doubleValue());
-
         /**
          For each attribute
          -> computation of the percentage of each value
@@ -147,8 +165,10 @@ public class FpDataEntityManager {
             String column = it.next();
 
             //Computation of the percentage
-            String nbSameValueQuery = (nbSameValueBaseQuery+column+" = "+values.get(column)).replace("\"","'");
-            double nbSameValue = withTransaction(em -> ((Long) em.createQuery(nbSameValueQuery).getResultList().get(0)).doubleValue());
+            String nbSameValueQuery = nbSameValueBaseQuery+column+" = :"+column;
+            double nbSameValue = withTransaction(em -> ((Long) em.createQuery(nbSameValueQuery)
+                    .setParameter(column, (values.get(column).asText()).replace("\"", "'"))
+                    .getResultList().get(0)).doubleValue());
             if(nbSameValue != 1.0) {
                 percentage.put(column, nbSameValue * 100 / nbTotal);
             } else {
@@ -159,39 +179,31 @@ public class FpDataEntityManager {
         return percentage;
     }
 
-    public Map<String,Long> getPlatformStats(){
-        ArrayList<String> platform = new ArrayList<>();
-        platform.add("Mac"); platform.add("Win"); platform.add("Linux");
-        Map<String, Long> platformMap = new HashMap<String, Long>(platform.size());
-        Long nb = (long) 0;
-        for(int i =0; i<platform.size(); i++){
-            String query = "SELECT count(*) FROM FpDataEntity WHERE platformJs LIKE \'%"+platform.get(i)+"%\'";
-            Long nbPlatform = withTransaction(em -> ((Long) em.createQuery(query).getResultList().get(0)));
-            nb += nbPlatform;
-            platformMap.put(platform.get(i),nbPlatform);
-        }
-
-        String nbTotalQuery = "SELECT count(*) FROM FpDataEntity";
-        Long nbTotal = withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)));
-        platformMap.put("Others",nbTotal-nb);
-        return platformMap;
-    }
-
     public int getNumberOfIdenticalFingerprints(JsonNode values){
         String query = "SELECT count(*) FROM FpDataEntity WHERE ";
 
         Iterator<String> it = values.fieldNames();
         String column = it.next();
-        query+=column+" = "+values.get(column);
+        query+=column+" = :"+column;
 
+        //Building query
         while(it.hasNext()) {
             column = it.next();
-            query+=" AND "+column+" = \""+values.get(column.toString())+"\"";
+            query+=" AND "+column+" = :"+column;
         }
-
-        query = query.replace("\"\"","'").replace("\"","'");
         String finalQuery = query;
-        return withTransaction(em -> ((Long) em.createQuery(finalQuery).getResultList().get(0)).intValue());
+
+        return withTransaction(em -> {
+            Iterator<String> itQ = values.fieldNames();
+            String col = itQ.next();
+            Query q = em.createQuery(finalQuery);
+            q.setParameter(col,(values.get(col).asText()).replace("\"", "'"));
+            while(itQ.hasNext()) {
+              col = itQ.next();
+              q.setParameter(col,(values.get(col).asText()).replace("\"", "'"));
+            }
+            return ((Long) q.getResultList().get(0)).intValue();
+        });
     }
 
     public int getNumberOfEntries(){
@@ -199,28 +211,22 @@ public class FpDataEntityManager {
         return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).intValue());
     }
 
-    public int getNumberOfUniqueEntries(){
-        String uniqueQuery = "SELECT COUNT(*) FROM (" +
-                "SELECT COUNT(*) as num FROM fpData GROUP BY userAgentHttp, acceptHttp, connectionHttp, " +
-                "encodingHttp, languageHttp, orderHttp, pluginsJS, platformJS, cookiesJS, dntJS, timezoneJS, " +
-                "resolutionJS, localJS, sessionJS, IEDataJS, canvasJS, webGLJS, fontsFlash, resolutionFlash, " +
-                "languageFlash, platformFlash, adBlock" +
-                ") as T " +
-                "where num = 1";
-        return withTransaction(em -> ((BigInteger) em.createNativeQuery(uniqueQuery).getResultList().get(0)).intValue());
-    }
-
-    public ArrayList<Object[]> getTimezoneStats(){
+    public CounterMap getTimezoneStats(){
         String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData GROUP BY timezoneJS";
-        ArrayList<Object[]> res = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery).getResultList()));
+        ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery).getResultList()));
+
+        CounterMap res = new CounterMap();
+        for(Object[] obj:  q){
+            res.add(obj[0].toString(), obj[1].toString());
+        }
         return res;
     }
 
-    public Vermap getLanguageStats(){
+    public VersionMap getLanguageStats(){
         String query = "SELECT languageHttp FROM FpDataEntity";
         ArrayList<String> langList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
         Pattern langP = Pattern.compile("^(\\S\\S)");
-        Vermap langMap = new Vermap();
+        VersionMap langMap = new VersionMap();
 
         for(int i=0; i<langList.size(); i++){
              Matcher langM = langP.matcher(langList.get(i));
@@ -233,29 +239,29 @@ public class FpDataEntityManager {
         return langMap;
     }
 
-    public HashMap<String,HashMap<String,Vermap>> getOSBrowserStats(){
+    public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStats(){
 
         String query = "SELECT userAgentHttp FROM FpDataEntity";
         ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
 
         /* Browser */
-        HashMap<String,Vermap> browsers = new HashMap<>();
-        browsers.put("Firefox", new Vermap());
-        browsers.put("Chrome", new Vermap());
-        browsers.put("Safari", new Vermap());
-        browsers.put("IE", new Vermap());
-        browsers.put("Opera", new Vermap());
-        browsers.put("Others", new Vermap());
+        HashMap<String, VersionMap> browsers = new HashMap<>();
+        browsers.put("Firefox", new VersionMap());
+        browsers.put("Chrome", new VersionMap());
+        browsers.put("Safari", new VersionMap());
+        browsers.put("IE", new VersionMap());
+        browsers.put("Opera", new VersionMap());
+        browsers.put("Others", new VersionMap());
 
         /* OS */
-        HashMap<String,Vermap> os  = new HashMap<>();
-        os.put("Windows", new Vermap());
-        os.put("Linux", new Vermap());
-        os.put("Mac", new Vermap());
-        os.put("Android", new Vermap());
-        os.put("iOS", new Vermap());
-        os.put("Windows Phone", new Vermap());
-        os.put("Others", new Vermap());
+        HashMap<String, VersionMap> os  = new HashMap<>();
+        os.put("Windows", new VersionMap());
+        os.put("Linux", new VersionMap());
+        os.put("Mac", new VersionMap());
+        os.put("Android", new VersionMap());
+        os.put("iOS", new VersionMap());
+        os.put("Windows Phone", new VersionMap());
+        os.put("Others", new VersionMap());
 
 
         /* Parse user agents */
@@ -265,16 +271,16 @@ public class FpDataEntityManager {
             os.get(ua.getOs()).add(ua.getOsVersion());
         }
 
-        HashMap<String,HashMap<String,Vermap>> res = new HashMap<>();
+        HashMap<String,HashMap<String, VersionMap>> res = new HashMap<>();
         res.put("browsers",browsers);
         res.put("os",os);
         return res;
     }
 
-    public Rangemap getFontsStats(){
+    public RangeMap getFontsStats(){
         String query = "SELECT fontsFlash FROM FpDataEntity";
         ArrayList<String> fontsList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
-        Rangemap nbFontsMap = new Rangemap();
+        RangeMap nbFontsMap = new RangeMap();
 
         for(int i=0; i<fontsList.size(); i++){
             Integer nbFonts = fontsList.get(i).split("_").length;
