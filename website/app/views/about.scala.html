@@ -2,7 +2,7 @@
 <html>
     <head lang="en">
         <meta charset="UTF-8">
-        <title>Am I unique?</title>
+        <title>Suis-je unique ?</title>
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
@@ -26,12 +26,12 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">Affichage mobile</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/">Am I Unique?</a>
+                    <a class="navbar-brand" href="/">Suis-je unique ?</a>
                 </div>
                 <!-- Top Menu Items -->
                 <ul class="nav navbar-right top-nav">
@@ -40,28 +40,28 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav side-nav">
                         <li>
-                            <a style="color:#ffffff" href="/"><i class="fa fa-fw fa-home"></i>&nbsp; Home</a>
+                            <a style="color:#ffffff" href="/"><i class="fa fa-fw fa-home"></i>&nbsp; Accueil</a>
                         </li>
                         <li>
-                            <a style="color:#ffffff" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; My fingerprint</a>
+                            <a style="color:#ffffff" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; Mon empreinte numérique</a>
                         </li>
                         <li>
-                            <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  Global statistics</a>
+                            <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  Statistiques globales</a>
                         </li>
                         <li>
                             <a style="color:#ffffff" href="/faq"><i class="fa fa-fw fa-question"></i>&nbsp; FAQ</a>
                         </li>
                         <li>
-                            <a style="color:#ffffff" href="/privacy"><i class="fa fa-fw fa-shield"></i>&nbsp; Privacy policy</a>
+                            <a style="color:#ffffff" href="/privacy"><i class="fa fa-fw fa-shield"></i>&nbsp; Politique de confidentialité</a>
                         </li>
                         <li>
-                            <a style="color:#ffffff" href="/links"><i class="fa fa-fw fa-link"></i>&nbsp; Links</a>
+                            <a style="color:#ffffff" href="/links"><i class="fa fa-fw fa-link"></i>&nbsp; Liens</a>
                         </li>
                         <li class="active">
-                            <a style="color:#ffffff" href="/about"><i class="fa fa-fw fa-circle-o"></i>&nbsp; About</a>
+                            <a style="color:#ffffff" href="/about"><i class="fa fa-fw fa-circle-o"></i>&nbsp; À propos</a>
                         </li>
                         <li>
-                            <a style="color:#ffffff" href="https://github.com/DIVERSIFY-project/amiunique" target="GitHub"><i class="fa fa-fw fa-github-alt"></i>&nbsp; View on GitHub</a>
+                            <a style="color:#ffffff" href="https://github.com/DIVERSIFY-project/amiunique" target="GitHub"><i class="fa fa-fw fa-github-alt"></i>&nbsp; Voir le projet sur GitHub</a>
                         </li>
                     </ul>
                 </div>
@@ -80,30 +80,20 @@
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2">
-                            <h2>Who maintains this web site?</h2>
-                            This web site is created and maintained by a team of researchers, who investigates the software monocultures and software
-                            diversity on the web. The research team is financially supported by the
-                            <a style="text-decoration:underline;" href="http://diversify-project.eu">DIVERSIFY European project</a> and by a grant
-                            from the <a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes school</a>.
+                            <h2>Qui gère et maintient ce site web ?</h2>
+                            Ce site web a été créé et il est maintenu par une équipe de chercheurs qui étudient les monocultures et la diversité logicielles sur le Web. L'équipe de recherche est financée par le <a style="text-decoration:underline;" href="http://diversify-project.eu">projet européen DIVERSIFY</a> et par une subvention de l'<a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes</a>.
 
-                            The site is hosted at the <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">INRIA Rennes
-                            Bretagne-Atlantique research center</a> and the
-                            <a style="text-decoration:underline;" href="http://www.irisa.fr/en">IRISA lab</a>.
+                            Ce site est hébergé par <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">le pôle de recherche Bretagne-Atlantique de l'INRIA-Rennes</a> et le <a style="text-decoration:underline;" href="http://www.irisa.fr/en">labo IRISA</a>.
 
-                            <h2>What is the purpose of this web site?</h2>
+                            <h2>Quels sont les objectifs de ce site web ?</h2>
 
-                            <h3>Inform users about their position within the web ecosystem</h3>
+                            <h3>Informer les utilisateurs de leur situation relative dans l'écosystème du Web</h3>
 
-                            With this web site, we aim at providing users with some basic information about their configuration and
-                            how trackable it is. We also want to exploit the data we collect to advise users about how they can be more
-                            similar to others and thus be less trackable.
+                            Avec ce site web, nous cherchons à donner à l'utilisateur des éléments d'information basiques sur leur configuration et le degré de traçabilité de celle-ci. Nous souhaitons également exploiter les données que nous collectons pour conseiller les utilisateurs et leur permettre de devenir davantage semblables aux autres et de ce fait beaucoup moins faciles à pister.
 
-                            <h3>Investigate the diversity of fingerprints</h3>
+                            <h3>Mener une étude sur la diversité des empreintes numériques</h3>
 
-                            The research question we investigate is: how can we automatically reconfigure a user's platform to
-                            fuzz the device fingerprint in a realistic manner? The degree of "realistic"-ness is important to prevent users
-                            of our solution to be detected as such. The collection of a large base of real fingerprints will allow us to tune our
-                            solution towards platforms that are as different as possible yet not distinguishable as "strange" configurations.
+                            La problématique de notre recherche est la suivante : comment pouvons-nous reconfigurer automatiquement la plateforme d'un utilisateur pour « flouter » son empreinte numérique de façon réaliste ? Un certain degré de réalisme est en effet important pour éviter que les utilisateurs de nos solutions soient détectés comme cherchant à déjouer le pistage. La récolte à grande échelle d'empreintes numériques véritables nous permettra d'orienter notre solution vers des plateformes aussi différentes que possible et cependant pas identifiables comme des configurations « bizarres ».
 
                             <br>
                             <div class="text-center">
