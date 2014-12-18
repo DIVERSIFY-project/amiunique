@@ -49,7 +49,7 @@ fp.details=Détails
 fp.graphs=Graphiques
 fp.title=Êtes-vous unique ?
 
-fp.track1=Oui ! (Vous pouvez être traçé !)
+fp.track1=Oui ! (Vous pouvez être tracé !)
 fp.track2=Presque ! (Vous pouvez très probablement être tracé.)
 fp.track3=Non ! (Il est difficile de vous tracer avec l’empreinte de votre navigateur.)
 
