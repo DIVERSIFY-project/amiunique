@@ -1,17 +1,48 @@
 package models;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@javax.persistence.Table(name = "fpData", schema = "", catalog = "fingerprint")
+@Table(name = "fpData", schema = "", catalog = "fingerprint")
 public class FpDataEntity {
     private int counter;
+    private String id;
+    private String addressHttp;
+    private Timestamp time;
+    private String userAgentHttp;
+    private String acceptHttp;
+    private String hostHttp;
+    private String connectionHttp;
+    private String encodingHttp;
+    private String languageHttp;
+    private String orderHttp;
+    private String pluginsJs;
+    private String platformJs;
+    private String cookiesJs;
+    private String dntJs;
+    private String timezoneJs;
+    private String resolutionJs;
+    private String localJs;
+    private String sessionJs;
+    private String ieDataJs;
+    private String canvasJs;
+    private String fontsFlash;
+    private String resolutionFlash;
+    private String languageFlash;
+    private String platformFlash;
+    private String adBlock;
+    private String octaneScore;
+    private String sunspiderTime;
+    private String webGlJs;
+    private String vendorWebGljs;
+    private String rendererWebGljs;
+
+    public FpDataEntity() {
+    }
 
     @Id
-    @javax.persistence.Column(name = "counter")
+    @Column(name = "counter")
     public int getCounter() {
         return counter;
     }
@@ -20,10 +51,8 @@ public class FpDataEntity {
         this.counter = counter;
     }
 
-    private String id;
-
     @Basic
-    @javax.persistence.Column(name = "id")
+    @Column(name = "id")
     public String getId() {
         return id;
     }
@@ -32,11 +61,8 @@ public class FpDataEntity {
         this.id = id;
     }
 
-
-    private String addressHttp;
-
     @Basic
-    @javax.persistence.Column(name = "addressHttp")
+    @Column(name = "addressHttp")
     public String getAddressHttp() {
         return addressHttp;
     }
@@ -45,10 +71,8 @@ public class FpDataEntity {
         this.addressHttp = addressHttp;
     }
 
-    private Timestamp time;
-
     @Basic
-    @javax.persistence.Column(name = "time")
+    @Column(name = "time")
     public Timestamp getTime() {
         return time;
     }
@@ -57,10 +81,8 @@ public class FpDataEntity {
         this.time = time;
     }
 
-    private String userAgentHttp;
-
     @Basic
-    @javax.persistence.Column(name = "userAgentHttp")
+    @Column(name = "userAgentHttp")
     public String getUserAgentHttp() {
         return userAgentHttp;
     }
@@ -69,10 +91,8 @@ public class FpDataEntity {
         this.userAgentHttp = userAgentHttp;
     }
 
-    private String acceptHttp;
-
     @Basic
-    @javax.persistence.Column(name = "acceptHttp")
+    @Column(name = "acceptHttp")
     public String getAcceptHttp() {
         return acceptHttp;
     }
@@ -81,10 +101,8 @@ public class FpDataEntity {
         this.acceptHttp = acceptHttp;
     }
 
-    private String hostHttp;
-
     @Basic
-    @javax.persistence.Column(name = "hostHttp")
+    @Column(name = "hostHttp")
     public String getHostHttp() {
         return hostHttp;
     }
@@ -93,10 +111,8 @@ public class FpDataEntity {
         this.hostHttp = hostHttp;
     }
 
-    private String connectionHttp;
-
     @Basic
-    @javax.persistence.Column(name = "connectionHttp")
+    @Column(name = "connectionHttp")
     public String getConnectionHttp() {
         return connectionHttp;
     }
@@ -105,10 +121,8 @@ public class FpDataEntity {
         this.connectionHttp = connectionHttp;
     }
 
-    private String encodingHttp;
-
     @Basic
-    @javax.persistence.Column(name = "encodingHttp")
+    @Column(name = "encodingHttp")
     public String getEncodingHttp() {
         return encodingHttp;
     }
@@ -117,10 +131,8 @@ public class FpDataEntity {
         this.encodingHttp = encodingHttp;
     }
 
-    private String languageHttp;
-
     @Basic
-    @javax.persistence.Column(name = "languageHttp")
+    @Column(name = "languageHttp")
     public String getLanguageHttp() {
         return languageHttp;
     }
@@ -129,10 +141,8 @@ public class FpDataEntity {
         this.languageHttp = languageHttp;
     }
 
-    private String orderHttp;
-
     @Basic
-    @javax.persistence.Column(name = "orderHttp")
+    @Column(name = "orderHttp")
     public String getOrderHttp() {
         return orderHttp;
     }
@@ -141,10 +151,8 @@ public class FpDataEntity {
         this.orderHttp = orderHttp;
     }
 
-    private String pluginsJs;
-
     @Basic
-    @javax.persistence.Column(name = "pluginsJS")
+    @Column(name = "pluginsJS")
     public String getPluginsJs() {
         return pluginsJs;
     }
@@ -153,10 +161,8 @@ public class FpDataEntity {
         this.pluginsJs = pluginsJs;
     }
 
-    private String platformJs;
-
     @Basic
-    @javax.persistence.Column(name = "platformJS")
+    @Column(name = "platformJS")
     public String getPlatformJs() {
         return platformJs;
     }
@@ -165,10 +171,8 @@ public class FpDataEntity {
         this.platformJs = platformJs;
     }
 
-    private String cookiesJs;
-
     @Basic
-    @javax.persistence.Column(name = "cookiesJS")
+    @Column(name = "cookiesJS")
     public String getCookiesJs() {
         return cookiesJs;
     }
@@ -177,10 +181,8 @@ public class FpDataEntity {
         this.cookiesJs = cookiesJs;
     }
 
-    private String dntJs;
-
     @Basic
-    @javax.persistence.Column(name = "dntJS")
+    @Column(name = "dntJS")
     public String getDntJs() {
         return dntJs;
     }
@@ -189,10 +191,8 @@ public class FpDataEntity {
         this.dntJs = dntJs;
     }
 
-    private String timezoneJs;
-
     @Basic
-    @javax.persistence.Column(name = "timezoneJS")
+    @Column(name = "timezoneJS")
     public String getTimezoneJs() {
         return timezoneJs;
     }
@@ -201,10 +201,8 @@ public class FpDataEntity {
         this.timezoneJs = timezoneJs;
     }
 
-    private String resolutionJs;
-
     @Basic
-    @javax.persistence.Column(name = "resolutionJS")
+    @Column(name = "resolutionJS")
     public String getResolutionJs() {
         return resolutionJs;
     }
@@ -213,10 +211,8 @@ public class FpDataEntity {
         this.resolutionJs = resolutionJs;
     }
 
-    private String localJs;
-
     @Basic
-    @javax.persistence.Column(name = "localJS")
+    @Column(name = "localJS")
     public String getLocalJs() {
         return localJs;
     }
@@ -225,10 +221,8 @@ public class FpDataEntity {
         this.localJs = localJs;
     }
 
-    private String sessionJs;
-
     @Basic
-    @javax.persistence.Column(name = "sessionJS")
+    @Column(name = "sessionJS")
     public String getSessionJs() {
         return sessionJs;
     }
@@ -237,10 +231,8 @@ public class FpDataEntity {
         this.sessionJs = sessionJs;
     }
 
-    private String ieDataJs;
-
     @Basic
-    @javax.persistence.Column(name = "IEDataJS")
+    @Column(name = "IEDataJS")
     public String getIeDataJs() {
         return ieDataJs;
     }
@@ -249,10 +241,8 @@ public class FpDataEntity {
         this.ieDataJs = ieDataJs;
     }
 
-    private String canvasJs;
-
     @Basic
-    @javax.persistence.Column(name = "canvasJS")
+    @Column(name = "canvasJS")
     public String getCanvasJs() {
         return canvasJs;
     }
@@ -261,22 +251,8 @@ public class FpDataEntity {
         this.canvasJs = canvasJs;
     }
 
-    private String webGljs;
-
     @Basic
-    @javax.persistence.Column(name = "webGLJS")
-    public String getWebGljs() {
-        return webGljs;
-    }
-
-    public void setWebGljs(String webGljs) {
-        this.webGljs = webGljs;
-    }
-
-    private String fontsFlash;
-
-    @Basic
-    @javax.persistence.Column(name = "fontsFlash")
+    @Column(name = "fontsFlash")
     public String getFontsFlash() {
         return fontsFlash;
     }
@@ -285,10 +261,8 @@ public class FpDataEntity {
         this.fontsFlash = fontsFlash;
     }
 
-    private String resolutionFlash;
-
     @Basic
-    @javax.persistence.Column(name = "resolutionFlash")
+    @Column(name = "resolutionFlash")
     public String getResolutionFlash() {
         return resolutionFlash;
     }
@@ -297,10 +271,8 @@ public class FpDataEntity {
         this.resolutionFlash = resolutionFlash;
     }
 
-    private String languageFlash;
-
     @Basic
-    @javax.persistence.Column(name = "languageFlash")
+    @Column(name = "languageFlash")
     public String getLanguageFlash() {
         return languageFlash;
     }
@@ -309,10 +281,8 @@ public class FpDataEntity {
         this.languageFlash = languageFlash;
     }
 
-    private String platformFlash;
-
     @Basic
-    @javax.persistence.Column(name = "platformFlash")
+    @Column(name = "platformFlash")
     public String getPlatformFlash() {
         return platformFlash;
     }
@@ -321,10 +291,8 @@ public class FpDataEntity {
         this.platformFlash = platformFlash;
     }
 
-    private String adBlock;
-
     @Basic
-    @javax.persistence.Column(name = "adBlock")
+    @Column(name = "adBlock")
     public String getAdBlock() {
         return adBlock;
     }
@@ -333,10 +301,8 @@ public class FpDataEntity {
         this.adBlock = adBlock;
     }
 
-    private String octaneScore;
-
     @Basic
-    @javax.persistence.Column(name = "octaneScore")
+    @Column(name = "octaneScore")
     public String getOctaneScore() {
         return octaneScore;
     }
@@ -345,10 +311,8 @@ public class FpDataEntity {
         this.octaneScore = octaneScore;
     }
 
-    private String sunspiderTime;
-
     @Basic
-    @javax.persistence.Column(name = "sunspiderTime")
+    @Column(name = "sunspiderTime")
     public String getSunspiderTime() {
         return sunspiderTime;
     }
@@ -398,7 +362,7 @@ public class FpDataEntity {
         if (timezoneJs != null ? !timezoneJs.equals(that.timezoneJs) : that.timezoneJs != null) return false;
         if (userAgentHttp != null ? !userAgentHttp.equals(that.userAgentHttp) : that.userAgentHttp != null)
             return false;
-        if (webGljs != null ? !webGljs.equals(that.webGljs) : that.webGljs != null) return false;
+        if (webGlJs != null ? !webGlJs.equals(that.webGlJs) : that.webGlJs != null) return false;
 
         return true;
     }
@@ -426,7 +390,7 @@ public class FpDataEntity {
         result = 31 * result + (sessionJs != null ? sessionJs.hashCode() : 0);
         result = 31 * result + (ieDataJs != null ? ieDataJs.hashCode() : 0);
         result = 31 * result + (canvasJs != null ? canvasJs.hashCode() : 0);
-        result = 31 * result + (webGljs != null ? webGljs.hashCode() : 0);
+        result = 31 * result + (webGlJs != null ? webGlJs.hashCode() : 0);
         result = 31 * result + (fontsFlash != null ? fontsFlash.hashCode() : 0);
         result = 31 * result + (resolutionFlash != null ? resolutionFlash.hashCode() : 0);
         result = 31 * result + (languageFlash != null ? languageFlash.hashCode() : 0);
@@ -437,6 +401,33 @@ public class FpDataEntity {
         return result;
     }
 
-    public FpDataEntity() {
+    @Basic
+    @Column(name = "webGLJs")
+    public String getWebGlJs() {
+        return webGlJs;
+    }
+
+    public void setWebGlJs(String webGlJs) {
+        this.webGlJs = webGlJs;
+    }
+
+    @Basic
+    @Column(name = "vendorWebGLJS")
+    public String getVendorWebGljs() {
+        return vendorWebGljs;
+    }
+
+    public void setVendorWebGljs(String vendorWebGljs) {
+        this.vendorWebGljs = vendorWebGljs;
+    }
+
+    @Basic
+    @Column(name = "rendererWebGLJS")
+    public String getRendererWebGljs() {
+        return rendererWebGljs;
+    }
+
+    public void setRendererWebGljs(String rendererWebGljs) {
+        this.rendererWebGljs = rendererWebGljs;
     }
 }

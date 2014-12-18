@@ -18,6 +18,9 @@ $(document).ready(function() {
     $("#detBut").on('click',function(){
         $("#detTab" ).click();
     });
+    $("#detBut2").on('click',function(){
+        $("#detTab" ).click();
+    });
     $("#graBut").on('click',function(){
         $("#graTab" ).click();
     });
@@ -81,7 +84,8 @@ $(document).ready(function() {
 
         <!-- Uniqueness details-->
         @if(nbIdent<2) {
-            <p>@Html(Messages("fp.uniq1")) @("%.0f".format(per.get("nbTotal").doubleValue())) @Messages("fp.uniq2")</p>
+            <p>@Html(Messages("fp.uniq1")) @("%.0f".format(per.get("nbTotal").doubleValue())) @Messages("fp.uniq2") @Html(Messages("fp.uniq3"))</p>
+
         } else {
             <p> @Html(Messages("fp.notuniq1")) @nbIdent @Messages("fp.notuniq2") @("%.0f".format(per.get("nbTotal").doubleValue()))
                 @Messages("fp.notuniq3") (@{"%.2f".format(nbIdent*100.0/nbTotal)} @Messages("fp.notuniq4")</p>
@@ -130,11 +134,6 @@ $(document).ready(function() {
                 <tr id="acceptHttp">
                     <td>@Messages("fp.accept") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.acceptExp")"></i></td>
                     @display(column = "acceptHttp")
-                </tr>
-
-                <tr id="connectionHttp">
-                    <td>@Messages("fp.connection") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.connectionExp")"></i></td>
-                    @display(column = "connectionHttp")
                 </tr>
 
                 <tr id="encodingHttp">
@@ -192,9 +191,21 @@ $(document).ready(function() {
                     @display(column = "canvasJs")
                 </tr>
 
-                <tr id="webGljs">
+                <tr id="webGlJs">
                     <td>@Messages("fp.webGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.webGlExp")"></i></td>
-                    @display(column = "webGljs")
+                    @display(column = "webGlJs")
+                </tr>
+
+                <tr id="vendorWebGljs">
+                    <td>@Messages("fp.vendorWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.vendorWebGlExp")"></i></td>
+                    <td></td>
+                    <td id="vendorWebGljsVal">@fp.get("vendorWebGljs")</td>
+                </tr>
+
+                <tr id="rendererWebGljs">
+                    <td>@Messages("fp.rendererWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.rendererWebGlExp")"></i></td>
+                    <td></td>
+                    <td id="rendererWebGljsVal">@fp.get("rendererWebGljs")</td>
                 </tr>
 
                 <tr id="fontsFlash">

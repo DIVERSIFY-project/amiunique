@@ -79,9 +79,9 @@
                             acceptHttp: '@request.getHeader("Accept")', hostHttp: '@request.getHeader("Host")',
                             connectionHttp: '@request.getHeader("Connection")', encodingHttp: '@request.getHeader("Accept-Encoding")',
                             languageHttp: '@request.getHeader("Accept-Language")', orderHttp: '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")',
-                            pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack, timezoneJs: timezone, resolutionJs: resolution,
-                            localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData, canvasJs: canvasData,
-                            fontsFlash: fontsFlash, webGLJs: webGLData,
+                            pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack,
+                            timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
+                            canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
                             resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
                             adBlock: document.getElementById('ads')? 'no' : 'yes'}),
                         contentType:"application/json",
@@ -99,7 +99,7 @@
                                 canImage.src = canvasData;
                             }
                             if(webGLData.indexOf("Not supported") == -1){
-                                document.getElementById ("webGljsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
+                                document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
                                 var webContext = document.getElementById ("canvas2").getContext("2d") ;
                                 var webImage = new Image();
                                 webImage.onload = function(){
