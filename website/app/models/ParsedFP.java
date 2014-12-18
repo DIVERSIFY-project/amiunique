@@ -124,7 +124,11 @@ public class ParsedFP {
                 if (winM.find()) {//Windows
                     String ver = winM.group(1);
                     this.os = "Windows";
-                    this.osVersion = windowsMap.get(ver);
+                    if(windowsMap.containsKey(ver)) {
+                        this.osVersion = windowsMap.get(ver);
+                    } else {
+                        this.osVersion = "Unrecognised version";
+                    }
                 } else if (macM.find()) {//Mac
                     String ver = macM.group(1);
                     this.os = "Mac";
