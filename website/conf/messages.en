@@ -34,6 +34,25 @@ home=   <div class="row">\
             </div>\
         </div>
 
+about= <h2>Who maintains this web site?</h2>\
+        This web site is created and maintained by a team of researchers, who investigates the software monocultures and software\
+        diversity on the web. The research team is financially supported by the\
+        <a style="text-decoration:underline;" href="http://diversify-project.eu">DIVERSIFY European project</a> and by a grant\
+        from the <a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes school</a>.\
+        The site is hosted at the <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">INRIA Rennes\
+        Bretagne-Atlantique research center</a> and the\
+        <a style="text-decoration:underline;" href="http://www.irisa.fr/en">IRISA lab</a>.\
+        <h2>What is the purpose of this web site?</h2>\
+        <h3>Inform users about their position within the web ecosystem</h3>\
+        With this web site, we aim at providing users with some basic information about their configuration and\
+        how trackable it is. We also want to exploit the data we collect to advise users about how they can be more\
+        similar to others and thus be less trackable.\
+        <h3>Investigate the diversity of fingerprints</h3>\
+        The research question we investigate is: how can we automatically reconfigure a user's platform to\
+        fuzz the device fingerprint in a realistic manner? The degree of realism is important to prevent users\
+        of our solution to be detected as such. The collection of a large base of real fingerprints will allow us to tune our\
+        solution towards platforms that are as different as possible yet not distinguishable as "strange" configurations.
+
 fp.overview=Overview
 fp.details=Details
 fp.graphs=Graphs
@@ -57,8 +76,9 @@ fp.lang2=as their primary language, as yours.
 fp.time1=% of observed browsers have
 fp.time2=as their timezone, as yours.
 
-fp.uniq1=You have the <strong> only</strong> browser out of
-fp.uniq2=with this fingerprint.
+fp.uniq1=However, your full fingerprint is unique among the
+fp.uniq2=collected so far.
+fp.uniq3=Want to know why? <a id="detBut2" class="btn btn-primary btn-sm" role="button">Click here</a>
 
 fp.notuniq1=But <strong>only</strong>
 fp.notuniq2=browsers out of the
@@ -92,6 +112,8 @@ fp.local=Use of local storage
 fp.session=Use of session storage
 fp.canvas=Canvas
 fp.webGl=WebGL
+fp.vendorWebGl=WebGL Vendor
+fp.rendererWebGl=WebGL Renderer
 fp.fonts=List of fonts
 fp.resolutionF=Screen resolution
 fp.languageF=Language
@@ -113,6 +135,8 @@ fp.localExp=JavaScript test to find out if local storage is supported (storage o
 fp.sessionExp=JavaScript test to find out if session storage is supported (storage of a specific value in "sessionStorage")
 fp.canvasExp=Rendering of a specific picture with the HTML5 Canvas element following a fixed set of instructions. The picture presents some slight noticeable variations depending on the OS and the browser used.
 fp.webGlExp=Rendering of specific 3D forms following a fixed set of instructions. The picture presents some slight noticeable variations depending on the device of the user.
+fp.vendorWebGlExp=(Newly added!) Name of the WebGL Vendor. Some browsers give the full name of the underlying graphics card used by the device.
+fp.rendererWebGlExp=(Newly added!) Name of the WebGL Renderer. Some browsers give the full name of the underlying graphics driver.
 fp.fontsExp=Flash attribute that gives the entire list of fonts installed on the operating system (flash.text.Font.enumerateFonts(true))
 fp.resolutionFExp=Flash attribute that indicates the resolution of the device’s screen (flash.system.Capabilities. screenResolutionX/Y). This resolution can differ from the JavaScript one, mostly in the presence of a multi-screen setup.
 fp.languageFExp=Flash attribute that indicates the primary language of the browser (flash.system.Capabilities.language)
