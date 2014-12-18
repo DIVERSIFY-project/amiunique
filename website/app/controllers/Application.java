@@ -70,8 +70,8 @@ public class Application extends Controller {
         boolean newFp;
 
         if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
-                getHeader(request(), "Accept"), getHeader(request(), "Connection"),
-                getHeader(request(), "Accept-Encoding"), getHeader(request(), "Accept-Language"))){
+                getHeader(request(), "Accept"),getHeader(request(), "Accept-Encoding"),
+                getHeader(request(), "Accept-Language"))){
             fp = em.getExistingFP(id);
             newFp = false;
         } else {
@@ -93,6 +93,7 @@ public class Application extends Controller {
         node.remove("time");
         node.remove("hostHttp");
         node.remove("orderHttp");
+        node.remove("connectionHttp");
         node.remove("id");
         JsonNode json = (JsonNode) node;
 
@@ -160,8 +161,7 @@ public class Application extends Controller {
         boolean newFp;
 
         if(!id.equals("Not supported") && em.checkIfFPExists(id,getAttribute(json,"userAgentHttp"),
-                getAttribute(json,"acceptHttp"), getAttribute(json,"connectionHttp"),
-                getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"),
+                getAttribute(json,"acceptHttp"),getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"),
                 getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
                 getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
                 getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
@@ -183,7 +183,7 @@ public class Application extends Controller {
                     getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
                     getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
                     getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
-                    getAttribute(json,"adBlock"), "", "");
+                    getAttribute(json,"adBlock"), getAttribute(json,"vendorWebGLJs"),getAttribute(json,"rendererWebGLJs"), "", "");
             newFp = true;
         }
 
@@ -194,6 +194,7 @@ public class Application extends Controller {
         node.remove("addressHttp");
         node.remove("time");
         node.remove("hostHttp");
+        node.remove("connectionHttp");
         node.remove("orderHttp");
         node.remove("id");
         json = (JsonNode) node;

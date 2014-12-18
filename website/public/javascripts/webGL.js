@@ -4,8 +4,20 @@ try {
     init();
     renderer = animate();
     webGLData = renderer.domElement.toDataURL("image/png");
+
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if(ctx.getSupportedExtensions().indexOf("WEBGL_debug_renderer_info") >= 0) {
+        webGLVendor = ctx.getParameter(ctx.getExtension('WEBGL_debug_renderer_info').UNMASKED_VENDOR_WEBGL);
+        webGLRenderer = ctx.getParameter(ctx.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL);
+    } else {
+        webGLVendor = "Not supported";
+        webGLRenderer = "Not supported";
+    }
 } catch(e){
     webGLData = "Not supported";
+    webGLVendor = "Not supported";
+    webGLRenderer = "Not supported";
 }
 
 function init() {

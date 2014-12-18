@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import play.db.jpa.JPA;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.math.BigInteger;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.function.Function;
@@ -22,29 +21,29 @@ public class FpDataEntityManager {
     }
 
     public boolean checkIfFPExists(String id,String userAgentHttp,
-                                   String acceptHttp, String connectionHttp, String encodingHttp,
+                                   String acceptHttp, String encodingHttp,
                                    String languageHttp, String pluginsJs, String platformJs, String cookiesJs,
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
-                                   String ieDataJs, String canvasJs, String webGljs, String fontsFlash, String resolutionFlash,
+                                   String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock){
 
         String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
-                "AND userAgentHttp= :userAgentHttp AND connectionHttp= :connectionHttp " +
-                "AND encodingHttp= :encodingHttp AND languageHttp= :languageHttp AND pluginsJS = :pluginsJs "+
-                "AND platformJS= :platformJs AND cookiesJs= :cookiesJs AND dntJs= :dntJs " +
+                "AND userAgentHttp= :userAgentHttp AND encodingHttp= :encodingHttp "+
+                "AND languageHttp= :languageHttp AND pluginsJS = :pluginsJs "+
+                "AND platformJs= :platformJs AND cookiesJs= :cookiesJs AND dntJs= :dntJs " +
                 "AND timezoneJs= :timezoneJs AND resolutionJs= :resolutionJs AND localJs= :localJs "+
                 "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJs= :canvasJs "+
-                "AND webGljs= :webGljs AND fontsFlash= :fontsFlash AND resolutionFlash= :resolutionFlash "+
-                "AND languageFlash= :languageFlash AND platformFlash= :platformFlash AND adBlock= :adBlock";
+                "AND webGlJs= :webGlJs AND fontsFlash= :fontsFlash AND resolutionFlash= :resolutionFlash "+
+                "AND languageFlash= :languageFlash AND platformFlash= :platformFlash AND adBlock= :adBlock ";
 
         int nbId = withTransaction(em -> {
             Query q = em.createQuery(query)
             .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
-            .setParameter("connectionHttp", connectionHttp).setParameter("encodingHttp", encodingHttp);
+            .setParameter("encodingHttp", encodingHttp);
             q.setParameter("languageHttp",languageHttp).setParameter("pluginsJs",pluginsJs).setParameter("platformJs",platformJs)
             .setParameter("cookiesJs", cookiesJs).setParameter("dntJs",dntJs).setParameter("timezoneJs",timezoneJs);
             q.setParameter("resolutionJs",resolutionJs).setParameter("localJs",localJs).setParameter("sessionJs",sessionJs)
-            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJs",canvasJs).setParameter("webGljs",webGljs);
+            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJs",canvasJs).setParameter("webGlJs",webGlJs);
             q.setParameter("fontsFlash", fontsFlash).setParameter("resolutionFlash",resolutionFlash)
             .setParameter("languageFlash", languageFlash).setParameter("platformFlash",platformFlash)
             .setParameter("adBlock", adBlock);
@@ -54,17 +53,17 @@ public class FpDataEntityManager {
     }
 
     public boolean checkIfFPWithNoJsExists(String id,String userAgentHttp,
-                                   String acceptHttp, String connectionHttp, String encodingHttp,
+                                   String acceptHttp, String encodingHttp,
                                    String languageHttp){
 
         String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
-                "AND userAgentHttp= :userAgentHttp AND connectionHttp= :connectionHttp " +
-                "AND encodingHttp= :encodingHttp AND languageHttp= :languageHttp AND pluginsJS =\'no JS\'";
+                "AND userAgentHttp= :userAgentHttp AND encodingHttp= :encodingHttp "+
+                "AND languageHttp= :languageHttp AND pluginsJS =\'no JS\'";
 
         int nbId = withTransaction(em -> ((Long) em.createQuery(query)
                 .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
-                .setParameter("connectionHttp", connectionHttp).setParameter("encodingHttp", encodingHttp)
-                .setParameter("languageHttp",languageHttp).getResultList().get(0)).intValue());
+                .setParameter("encodingHttp", encodingHttp).setParameter("languageHttp",languageHttp)
+                .getResultList().get(0)).intValue());
         return nbId == 1;
     }
 
@@ -81,8 +80,9 @@ public class FpDataEntityManager {
                                    String acceptHttp, String hostHttp, String connectionHttp, String encodingHttp,
                                    String languageHttp, String orderHttp, String pluginsJs, String platformJs, String cookiesJs,
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
-                                   String ieDataJs, String canvasJs, String webGljs, String fontsFlash, String resolutionFlash,
-                                   String languageFlash, String platformFlash, String adBlock, String octaneScore, String sunspiderTime) {
+                                   String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
+                                   String languageFlash, String platformFlash, String adBlock, String vendorJs,
+                                   String rendererJs, String octaneScore, String sunspiderTime) {
         return withTransaction(em -> {
             FpDataEntity fp = new FpDataEntity();
             fp.setId(id);
@@ -105,12 +105,14 @@ public class FpDataEntityManager {
             fp.setSessionJs(sessionJs);
             fp.setIeDataJs(ieDataJs);
             fp.setCanvasJs(canvasJs);
-            fp.setWebGljs(webGljs);
+            fp.setWebGlJs(webGlJs);
             fp.setFontsFlash(fontsFlash);
             fp.setResolutionFlash(resolutionFlash);
             fp.setLanguageFlash(languageFlash);
             fp.setPlatformFlash(platformFlash);
             fp.setAdBlock(adBlock);
+            fp.setVendorWebGljs(vendorJs);
+            fp.setRendererWebGljs(rendererJs);
             fp.setOctaneScore(octaneScore);
             fp.setSunspiderTime(sunspiderTime);
             em.persist(fp);
@@ -122,14 +124,14 @@ public class FpDataEntityManager {
                                            String acceptHttp, String hostHttp, String connectionHttp, String encodingHttp,
                                            String languageHttp, String orderHttp, String pluginsJs, String platformJs, String cookiesJs,
                                            String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
-                                           String ieDataJs, String canvasJs, String webGljs, String adBlock,
+                                           String ieDataJs, String canvasJs, String webGlJs, String adBlock, String vendorJs, String rendererJs,
                                            String octaneScore, String sunspiderTime) {
         return createFull(id, addressHttp, time, userAgentHttp,
                 acceptHttp, hostHttp, connectionHttp, encodingHttp,
                 languageHttp, orderHttp, pluginsJs, platformJs, cookiesJs,
                 dntJs, timezoneJs, resolutionJs, localJs, sessionJs,
-                ieDataJs, canvasJs, webGljs, "", "",
-                "", "", adBlock, octaneScore, sunspiderTime);
+                ieDataJs, canvasJs, webGlJs, "", "",
+                "", "", adBlock, vendorJs, rendererJs, octaneScore, sunspiderTime);
 
     }
 
@@ -143,7 +145,8 @@ public class FpDataEntityManager {
                 languageHttp, orderHttp, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
-                noJs, noJs, noJs, noJs, noJs);
+                noJs, noJs, noJs, noJs, noJs,
+                noJs, noJs);
     }
 
 
@@ -295,8 +298,5 @@ public class FpDataEntityManager {
         }
         return nbFontsMap;
     }
-
-
-
 
 }

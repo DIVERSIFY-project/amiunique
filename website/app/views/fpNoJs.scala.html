@@ -151,11 +151,6 @@
                             @display(column = "acceptHttp")
                         </tr>
 
-                        <tr id="connectionHttp">
-                            <td>@Messages("fp.connection")</td>
-                            @display(column = "connectionHttp")
-                        </tr>
-
                         <tr id="encodingHttp">
                             <td>@Messages("fp.encoding")</td>
                             @display(column = "encodingHttp")
@@ -211,9 +206,21 @@
                             @display(column = "canvasJs")
                         </tr>
 
-                        <tr id="webGljs">
+                        <tr id="webGlJs">
                             <td>@Messages("fp.webGl")</td>
-                            @display(column = "webGljs")
+                            @display(column = "webGlJs")
+                        </tr>
+
+                        <tr id="vendorWebGljs">
+                            <td>@Messages("fp.vendorWebGl")</td>
+                            <td></td>
+                            <td id="vendorWebGljsVal">@fp.get("vendorWebGljs")</td>
+                        </tr>
+
+                        <tr id="rendererWebGljs">
+                            <td>@Messages("fp.rendererWebGl")</td>
+                            <td></td>
+                            <td id="rendererWebGljsVal">@fp.get("rendererWebGljs")</td>
                         </tr>
 
                         <tr id="fontsFlash">
