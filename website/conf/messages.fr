@@ -35,6 +35,15 @@ home=   <div class="row">\
             </div>\
         </div>
 
+about=  <h2>Qui gère et maintient ce site web ?</h2>\
+        Ce site web a été créé et il est maintenu par une équipe de chercheurs qui étudient les monocultures et la diversité logicielles sur le Web. L’équipe de recherche est financée par le <a style="text-decoration:underline;" href="http://diversify-project.eu">projet européen DIVERSIFY</a> et par une bourse de thèse de l’<a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes</a>.\
+        Ce site est hébergé par <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">le pôle de recherche Bretagne-Atlantique de l’INRIA-Rennes</a> et le <a style="text-decoration:underline;" href="http://www.irisa.fr/en">labo IRISA</a>.\
+        <h2>Quels sont les objectifs de ce site web ?</h2>\
+        <h3>Informer les utilisateurs de leur situation relative dans l’écosystème du Web</h3>\
+        Avec ce site web, nous cherchons à donner à l’utilisateur des éléments d’information basiques sur leur configuration et le degré de traçabilité de celle-ci. Nous souhaitons également exploiter les données que nous collectons pour conseiller les utilisateurs et leur permettre de devenir davantage semblables aux autres et de ce fait beaucoup moins faciles à pister.\
+        <h3>Mener une étude sur la diversité des empreintes numériques</h3>\
+        La problématique de notre recherche est la suivante : comment pouvons-nous reconfigurer automatiquement la plateforme d’un utilisateur pour « flouter » son empreinte numérique de façon réaliste ? Un certain degré de réalisme est en effet important pour éviter que les utilisateurs de nos solutions soient détectés comme cherchant à déjouer le pistage. La récolte à grande échelle d’empreintes numériques véritables nous permettra d’orienter notre solution vers des plateformes aussi différentes que possible et cependant pas identifiables comme des configurations « bizarres ».
+
 fp.overview=Vue d’ensemble
 fp.details=Détails
 fp.graphs=Graphiques
@@ -58,8 +67,9 @@ fp.lang2=, comme le vôtre.
 fp.time1=% des navigateurs observés sont réglés sur le fuseau horaire
 fp.time2=, comme le vôtre.
 
-fp.uniq1=Vous avez le <strong>seul</strong> navigateur parmi les
-fp.uniq2=observés avec cette empreinte.
+fp.uniq1=Cependant, la combinaison de tous les éléments constituant votre empreinte est unique parmi les
+fp.uniq2=empreintes déjà récoltées.
+fp.uniq3=<a id="detBut2" class="btn btn-primary btn-sm" role="button">Cliquez ici</a> pour savoir pourquoi.
 
 fp.notuniq1=Mais <strong>seulement</strong>
 fp.notuniq2=navigateurs parmi les
@@ -93,6 +103,8 @@ fp.local=Utilisation du stockage local
 fp.session=Utilisation du stockage de session
 fp.canvas=Canvas
 fp.webGl=WebGL
+fp.vendorWebGl=WebGL Vendor
+fp.rendererWebGl=WebGL Renderer
 fp.fonts=Liste des polices
 fp.resolutionF=Résolution d’écran
 fp.languageF=Langage
@@ -114,6 +126,8 @@ fp.localExp=Test JavaScript pour savoir si le stockage local de données est sup
 fp.sessionExp=Test JavaScript pour savoir si le stockage de données de session est supporté par la navigateur (écriture et lecture d’une valeur spécifique dans "sessionStorage")
 fp.canvasExp=Rendu d’une image selon une suite d’instructions précises. L’image finale présente des différences selon le système d’exploitation et le navigateur utilisés.
 fp.webGlExp=Rendu de trois formes 3D selon une suite d’instructions précises. L’image finale présente des différences selon l’appareil utilisé.
+fp.vendorWebGlExp=(Nouveau!) Nom du matériel responsable du rendu WebGL. Certains navigateurs donnent le nom complet de la carte graphique utilisée.
+fp.rendererWebGlExp=(Nouveau!) Nom du générateur de rendu Web GL. Certains navigateurs donnent le nom complet du driver de la carte graphique.
 fp.fontsExp=Attribut Flash qui donne la liste complète des polices installées sur le système d’exploitation de l’appareil (flash.text.Font.enumerateFonts(true))
 fp.resolutionFExp=Attribut Flash qui indique la résolution de l’écran de l’appareil (flash.system.Capabilities. screenResolutionX/Y). Cette résolution peut être différente de la valeur donnée par JavaScript, notamment en présence d’une configuration multi-écrans.
 fp.languageFExp=Attribut Flash qui indique la langue principale utilisée dans le navigateur (flash.system.Capabilities.language)
