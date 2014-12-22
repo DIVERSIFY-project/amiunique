@@ -53,6 +53,139 @@ about= <h2>Who maintains this web site?</h2>\
         of our solution to be detected as such. The collection of a large base of real fingerprints will allow us to tune our\
         solution towards platforms that are as different as possible yet not distinguishable as "strange" configurations.
 
+privacy=  <br><p>The goal of this project is to measure and study the diversity of web browsers and establish statistical\
+    profiles of browser fingerprints. All of the data for the project will be collected in an anonymized\
+    form which ensures that it is not Personally Identifiable Information*, nor otherwise likely to lead to\
+    the identification or tracking of any web users.</p>\
+<p>*Personally identifiable information (PII) is any data that could potentially identify a specific individual.</p>\
+<p>We are committed to protecting the privacy of visitors to our website. In this policy, "we" refers to the INRIA\
+    researchers and students who are bound to keep information they receive confidential.</p>\
+<h2>Information Gathered by the amiunique Website</h2>\
+<p>For the needs of the research project defined <a href="/about">here</a>, amiunique collects anonymous data about the\
+configuration of computers, operating systems, browsers and plugins. If you click the "View my fingerprint" button, this\
+type of information will be collected from your browser. Although these kinds of data may form a `fingerprint' that\
+could in principle be combined with information about page requests and identifying details in order to track people's\
+browsing habits, we will <strong>never</strong> do so.</p>\
+<p>The specific `fingerprint' information we collect is:\
+    <ul>\
+        <li>\
+            <dt>the User agent header</dt>\
+            <dd>HTTP header sent to the server that contains information regarding your browser and operating system</dd>\
+        </li>\
+        <li>\
+            <dt>the Accept header</dt>\
+            <dd>HTTP header sent to the server that contains information regarding the type of media that are acceptable for the response</dd>\
+        </li>\
+        <li>\
+            <dt>the Connection header</dt>\
+            <dd>HTTP header sent to the server that contains specific options that are desired for that particular connection</dd>\
+        </li>\
+        <li>\
+            <dt>the Encoding header</dt>\
+            <dd>HTTP header sent to the server that lists the compression methods supported by the browser</dd>\
+        </li>\
+        <li>\
+            <dt>the Language header</dt>\
+            <dd>HTTP header sent to the server that indicates the preferred languages for the response</dd>\
+        </li>\
+        <li>\
+            <dt>the list of plugins</dt>\
+            <dd>Browser-populated JavaScript attribute that gives the list of activated plugins in the browser (window.navigator.plugins)</dd>\
+        </li>\
+        <li>\
+            <dt>the platform</dt>\
+            <dd>Browser-populated JavaScript attribute that indicates the platform the browser is running on (window.navigator.platform)</dd>\
+        </li>\
+        <li>\
+            <dt>the cookies preferences (allowed or not)</dt>\
+            <dd>Browser-populated JavaScript attribute that indicates if the browser accepts cookies or not (window.navigator.cookieEnabled)</dd>\
+        </li>\
+        <li>\
+            <dt>the Do Not Track preferences (yes, no or not communicated)</dt>\
+            <dd>Browser-populated JavaScript attribute that indicates your Do Not Track setting (window.navigator.doNotTrack), "NC" means the value was not specified</dd>\
+        </li>\
+        <li>\
+            <dt>the timezone</dt>\
+            <dd>Timezone offset of your browser obtainable through JavaScript (new Date().getTimezoneOffset())</dd>\
+        </li>\
+        <li>\
+            <dt>the screen resolution and its color depth</dt>\
+            <dd>Browser-populated JavaScript attributes that indicate the resolution of the device’s screen (window.screen.height/width/colorDepth)</dd>\
+        </li>\
+        <li>\
+            <dt>the use of local storage</dt>\
+            <dd>JavaScript test to find out if local storage is supported (storage of a specific value in "localStorage")</dd>\
+        </li>\
+        <li><dt>the use of session storage</dt>\
+            <dd>JavaScript test to find out if session storage is supported (storage of a specific value in "sessionStorage")</dd>\
+        </li>\
+        <li><dt>a picture rendered with the HTML Canvas element</dt>\
+            <dd>Rendering of a specific picture with the HTML5 Canvas element following a fixed set of instructions. The picture presents some slight noticeable variations depending on the OS and the browser used.</dd>\
+        </li>\
+        <li>\
+            <dt>a picture rendered with WebGL</dt>\
+            <dd>Rendering of specific 3D forms following a fixed set of instructions. The picture presents some slight noticeable variations depending on the device of the user.</dd>\
+        </li>\
+        <li>\
+            <dt>the presence of AdBlock</dt>\
+            <dd>Test to find out if the AdBlock extension is installed</dd>\
+        </li>\
+        <li>\
+            <dt>the list of fonts</dt>\
+            <dd>Flash attribute that gives the entire list of fonts installed on the operating system (flash.text.Font.enumerateFonts(true))</dd>\
+        </li>\
+    </ul>\
+<p>In addition to these data, we collect several kinds of `housekeeping' information to assist us in analyzing the\
+    fingerprint data. The housekeeping information is:\
+    <ul>\
+        <li>Cookies</li>\
+        <li>Encrypted IP addresses</li>\
+        <li>Timestamps</li>\
+    </ul>\
+<p>Our practices and purposes for collecting these housekeeping records are discussed below:\
+<h3>Cookies</h3>\
+<p>amiunique sets a cookie that persists for 4 months for the purpose of determining how often browser characteristics change, and\
+how often they stay the same, when a browser returns over time. If your browser is configured to accept cookies, and you return to\
+amiunique several times, the cookie will be used to link the data from your visits together so that we can study the natural evolution of\
+browser fingerprints.\
+If you want to disable/enable browser cookies, click on the link below corresponding to your browser for instructions.\
+You should be aware that entirely disabling cookies may block some interactive features on some websites (most notably, automatic logins).\
+<p>Instructions for:\
+<ul>\
+    <li><a href="http://windows.microsoft.com/en-us/windows/cookies-faq">Microsoft Windows Explorer</a></li>\
+    <li><a href="https://support.google.com/chrome/bin/answer.py?hl=en&answer=95647&p=cpn_cookies">Google Chrome</a></li>\
+    <li><a href="http://support.mozilla.org/en-US/kb/Enabling%20and%20disabling%20cookies">Mozilla Firefox</a></li>\
+    <li><a href="http://support.apple.com/kb/ph17191">Apple Safari</a></li>\
+    <li><a href="http://www.opera.com/help/tutorials/security/cookies/">Opera browser</a></li>\
+</ul>\
+Moreover, if you are interested in enabling/disabling Flash cookies, you can do so by visiting the following page:\
+<a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager02.html#118539">Manage\
+    Flash cookies</a>.\
+<h3>IP addresses</h3>\
+amiunique does not log IP addresses, but we do compute hashes of each IP address. This hashed IP will allow us to collect an anonymous dataset\
+about how often browsers that change IP address could have been followed using a fingerprint.\
+<h3>Timestamps</h3>\
+amiunique collects a "fuzzy" timestamp, rounded to the nearest hour, each time it is visited. This will be used to measure how fast browser\
+fingerprints change, but for no other purpose.\
+<h2>Our Use of Information from amiunique</h2>\
+We will analyze the collected data in order to establish what are realistic profiles for browser fingerprints. The purpose of this analysis is\
+to set an automatic procedure to proactively diversify user platforms in a realistic manner.\
+amiunique has no Third-Party Service Providers.\
+<h2>Sharing of amiunique data</h2>\
+We may publish or share aggregated, statistical data from the amiunique project in order to facilitate privacy research, educate people about\
+privacy problems, and to aid in the development of privacy-enhancing technologies. We have gone to great lengths to ensure that amiunique does\
+not produce any records about anyone's browsing habits or the identities of any individual visitors, so we will never be in a position where we\
+could share any such records.\
+<h2>Security</h2>\
+In a general way, INRIA commits to carry out technical and organizational means to protect all information we gathered against illegal or\
+fortuitous destruction, fortuitous loss, alteration, diffusion or unauthorized access. Nevertheless, INRIA shall be required to divulgate any\
+information to comply with any applicable law or rules, or to respond to any administrative or judiciary order.\
+<p>Although we make good faith efforts to store information collected in a secure operating environment, we cannot guarantee complete security.\
+    Information collected will be maintained for a length of time appropriate to the needs of this research project.\
+<br>\
+<p>This Privacy Policy is based on some material from the <a href="https://www.eff.org/">EFF website</a> (Electronic Frontier Foundation), which is freely redistributed under the\
+    <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution License</a>.
+
 fp.overview=Overview
 fp.details=Details
 fp.graphs=Graphs
