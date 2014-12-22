@@ -1,5 +1,5 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(fp : JsonNode)(pFp: ParsedFP)(per : JsonNode)(os: JsonNode)(brow: JsonNode)(lang: JsonNode)(nbTotal: Integer)(nbIdent: Integer)
+@(fp : JsonNode)(pFp: ParsedFP)(per : JsonNode)(os: JsonNode)(brow: JsonNode)(lang: JsonNode)(nbTotal: Double)(nbIdent: Integer)
 
 <!DOCTYPE html>
 <html>
@@ -75,7 +75,7 @@
                 @if(nbIdent<2) {
                     <h1 style="color:red"><strong>@Messages("fp.track1")</strong></h1>
                 } else {
-                    @if(nbIdent/per.get("nbTotal").doubleValue() < 0.05) {
+                    @if(nbIdent/nbTotal< 0.05) {
                         <h1 style="color:orange">@Messages("fp.track2")</h1>
                     } else {
                         <h1 style="color:green">@Messages("fp.track3")</h1>
@@ -110,9 +110,9 @@
 
                 <!-- Uniqueness details-->
                 @if(nbIdent<2) {
-                    <p>@Html(Messages("fp.uniq1")) @("%.0f".format(per.get("nbTotal").doubleValue())) @Messages("fp.uniq2")</p>
+                    <p>@Html(Messages("fp.uniq1")) @("%.0f".format(nbTotal)) @Messages("fp.uniq2")</p>
                 } else {
-                    <p> @Html(Messages("fp.notuniq1")) @nbIdent @Messages("fp.notuniq2") @("%.0f".format(per.get("nbTotal").doubleValue()))
+                    <p> @Html(Messages("fp.notuniq1")) @nbIdent @Messages("fp.notuniq2") @("%.0f".format(nbTotal))
                         @Messages("fp.notuniq3") (@{"%.2f".format(nbIdent*100.0/nbTotal)} @Messages("fp.notuniq4")</p>
                 }
 

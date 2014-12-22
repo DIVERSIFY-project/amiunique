@@ -88,6 +88,30 @@
                         success: function(res){
                             spinner.stop();
                             $('#content').html(res);
+                            jsRoutes.controllers.Application.percentages().ajax({
+                                data: document.getElementById("counter").innerHTML,
+                                contentType:"text/plain",
+                                success: function(per) {
+                                    //We remove the "In progress" banner
+                                    $("#progress").remove();
+                                    //We add every percentages to the main page
+                                    for(var k in per) {
+                                        var percentage = per[k];
+                                        var cell = document.getElementById(k+"Per");
+                                        if(percentage == -1) {
+                                            cell.textContent = "Unique";
+                                        } else if(percentage >= 0.1){
+                                            cell.textContent = percentage.toFixed(2)+"%";
+                                        } else {
+                                            cell.textContent = "<0.1%";
+                                        }
+                                    }
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    console.log(textStatus,errorThrown);
+                                }
+                            });
+
                             if(canvasData.indexOf("Not supported") == -1) {
                                 //Display of canvas objects
                                 document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;

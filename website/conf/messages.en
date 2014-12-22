@@ -89,6 +89,7 @@ fp.btn1=View more details
 fp.btn2=View graphs
 
 fp.detailsTitle=My fingerprint
+fp.detProgress=Ratio calculations in progress...
 fp.detAtt=Attribute
 fp.detSim=Similarity ratio
 fp.detSimExp=Percentage of fingerprints sharing the same value for each attribute
