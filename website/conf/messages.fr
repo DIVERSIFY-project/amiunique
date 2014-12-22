@@ -10,7 +10,7 @@ home=   <div class="row">\
             <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
                 <p><a id="link" href="/fpNoJs" class="btn btn-primary btn-lg" role="button">Voir l’empreinte de mon navigateur</a></p>\
                 <br>\
-                <p>En cliquant sur ce bouton, nous ne collectons que des données anonymes et nous installons un cookie sur votre navigateur pour 4 mois.\
+                <p>Si vous cliquez sur ce bouton, nous ne collecterons que des données anonymes et nous installerons un cookie sur votre navigateur pour 4 mois.\
                    Plus de détails sont disponibles dans la <a id="linkPriva" href="/privacy">politique de stockage et de protection des données.</a></p>\
             </div>\
         </div>\
