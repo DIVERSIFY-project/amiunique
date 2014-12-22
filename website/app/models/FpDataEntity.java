@@ -43,6 +43,7 @@ public class FpDataEntity {
 
     @Id
     @Column(name = "counter")
+    @GeneratedValue
     public int getCounter() {
         return counter;
     }

@@ -68,9 +68,13 @@ public class FpDataEntityManager {
     }
 
 
-    public FpDataEntity getExistingFP(String id){
+    public FpDataEntity getExistingFPById(String id){
         String query = "SELECT counter FROM FpDataEntity WHERE id= :id";
         int counter = withTransaction(em -> ((Integer) em.createQuery(query).setParameter("id", id).getResultList().get(0)).intValue());
+        return withTransaction(em -> em.find(FpDataEntity.class,counter));
+    }
+
+    public FpDataEntity getExistingFPByCounter(int counter){
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
@@ -178,7 +182,6 @@ public class FpDataEntityManager {
                 percentage.put(column, -1.0);
             }
         }
-        percentage.put("nbTotal",nbTotal);
         return percentage;
     }
 

@@ -7,6 +7,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import play.Routes;
 import play.cache.Cache;
 import play.libs.Json;
+import play.libs.Crypto;
 import play.mvc.*;
 
 import views.html.*;
@@ -72,7 +73,7 @@ public class Application extends Controller {
         if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
                 getHeader(request(), "Accept"),getHeader(request(), "Accept-Encoding"),
                 getHeader(request(), "Accept-Language"))){
-            fp = em.getExistingFP(id);
+            fp = em.getExistingFPById(id);
             newFp = false;
         } else {
             LocalDateTime time = LocalDateTime.now();
@@ -112,7 +113,7 @@ public class Application extends Controller {
         }
 
         //Number of fingerprints
-        Integer nbTotal = s.getNbTotal();
+        Double nbTotal = s.getNbTotal().doubleValue();
         //Number of identical fingerprints
         Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
         //Get the percentages of every attribute
@@ -168,7 +169,7 @@ public class Application extends Controller {
                 getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
                 getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                 getAttribute(json,"adBlock"))){
-            fp = em.getExistingFP(id);
+            fp = em.getExistingFPById(id);
             newFp = false;
         } else {
             LocalDateTime time = LocalDateTime.now();
@@ -188,6 +189,7 @@ public class Application extends Controller {
         }
 
         ObjectNode node = (ObjectNode) Json.toJson(fp);
+        int counter = node.get("counter").asInt();
         node.remove("counter");
         node.remove("octaneScore");
         node.remove("sunspiderTime");
@@ -214,11 +216,12 @@ public class Application extends Controller {
         }
 
         //Number of fingerprints
-        Integer nbTotal = s.getNbTotal();
+        Double nbTotal = s.getNbTotal().doubleValue();
         //Number of identical fingerprints
         Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
         //Get the percentages of every attribute
-        Map<String,Double> percentages = em.getPercentages(json);
+        //Map<String,Double> percentages = em.getPercentages(json);
+        Map<String,Double> percentages = new HashMap<>();
 
         //Get some general stats
         HashMap<String, VersionMap> osMap = s.getOs();
@@ -234,14 +237,50 @@ public class Application extends Controller {
             percentages.put(entry.getKey(),entry.getValue().getCounter()*100/nbTotal);
         }
 
+        ObjectNode n = Json.newObject();
+        n.put("c",counter);
+        n.put("t",Crypto.generateToken());
+        String c = Crypto.encryptAES(n.toString());
+
         //Render the FP + Stats
         return ok(results.render(json, parsedFP, Json.toJson(percentages),Json.toJson(osMap),
-                Json.toJson(browsersMap),Json.toJson(langMap),Json.toJson(timezoneMap),nbTotal,nbIdent));
+                Json.toJson(browsersMap),Json.toJson(langMap),Json.toJson(timezoneMap),nbTotal,
+                nbIdent,c));
+    }
+
+    public static Result percentages(){
+        String enc = request().body().asText();
+        String clear = Crypto.decryptAES(enc);
+        JsonNode n = Json.parse(clear);
+        try {
+            Integer counter = n.get("c").asInt();
+            FpDataEntityManager em = new FpDataEntityManager();
+            FpDataEntity fp = em.getExistingFPByCounter(counter);
+            ObjectNode node = (ObjectNode) Json.toJson(fp);
+            node.remove("counter");
+            node.remove("octaneScore");
+            node.remove("sunspiderTime");
+            node.remove("addressHttp");
+            node.remove("time");
+            node.remove("hostHttp");
+            node.remove("connectionHttp");
+            node.remove("orderHttp");
+            node.remove("ieDataJs");
+            node.remove("id");
+            node.remove("vendorWebGljs");
+            node.remove("rendererWebGljs");
+            JsonNode json = (JsonNode) node;
+            Map<String,Double> percentages = em.getPercentages(json);
+            return ok(Json.toJson(percentages));
+        } catch (Exception e){
+            return badRequest();
+        }
     }
 
     public static Result jsRoutes(){
         response().setContentType("text/javascript");
-        return ok(Routes.javascriptRouter("jsRoutes", routes.javascript.Application.addFingerprint()));
+        return ok(Routes.javascriptRouter("jsRoutes", routes.javascript.Application.addFingerprint(),
+                routes.javascript.Application.percentages()));
     }
 
     public static Result stats() throws Exception{

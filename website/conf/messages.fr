@@ -80,6 +80,7 @@ fp.btn1=Voir plus de détails
 fp.btn2=Voir graphiques
 
 fp.detailsTitle=Mon empreinte
+fp.detProgress=Calcul des ratios en cours...
 fp.detAtt=Attribut
 fp.detSim=Ratio de similarité
 fp.detSimExp=Pourcentage d’empreintes qui partagent la même valeur pour chaque attribut
