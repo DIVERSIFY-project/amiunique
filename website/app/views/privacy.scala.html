@@ -97,23 +97,72 @@
                     browsing habits, we will <strong>never</strong> do so.</p>
                     <p>The specific `fingerprint' information we collect is:
                         <ul>
-                            <li>the User agent header</li>
-                            <li>the Accept header</li>
-                            <li>the Connection header</li>
-                            <li>the Encoding header</li>
-                            <li>the Language header</li>
-                            <li>the list of plugins</li>
-                            <li>the platform</li>
-                            <li>the cookies preferences (allowed or not)</li>
-                            <li>the Do Not Track preferences (yes, no or not communicated)</li>
-                            <li>the timezone</li>
-                            <li>the screen resolution and its color depth</li>
-                            <li>the use of local storage</li>
-                            <li>the use of session storage</li>
-                            <li>a picture rendered with the HTML Canvas element</li>
-                            <li>a picture rendered with WebGL</li>
-                            <li>the presence of AdBlock</li>
-                            <li>the list of fonts</li>
+                            <li>
+								<dt>the User agent header</dt>
+								<dd>HTTP header sent to the server that contains information regarding your browser and operating system</dd>
+							</li>
+                            <li>
+								<dt>the Accept header</dt>
+								<dd>HTTP header sent to the server that contains information regarding the type of media that are acceptable for the response</dd>
+							</li>
+                            <li>
+								<dt>the Connection header</dt>
+								<dd>HTTP header sent to the server that contains specific options that are desired for that particular connection</dd>
+							</li>
+                            <li>
+								<dt>the Encoding header</dt>
+								<dd>HTTP header sent to the server that lists the compression methods supported by the browser</dd>
+							</li>
+                            <li>
+								<dt>the Language header</dt>
+								<dd>HTTP header sent to the server that indicates the preferred languages for the response</dd>
+							</li>
+                            <li>
+								<dt>the list of plugins</dt>
+								<dd>Browser-populated JavaScript attribute that gives the list of activated plugins in the browser (window.navigator.plugins)</dd>
+							</li>
+                            <li>
+								<dt>the platform</dt>
+								<dd>Browser-populated JavaScript attribute that indicates the platform the browser is running on (window.navigator.platform)</dd>
+							</li>
+                            <li>
+								<dt>the cookies preferences (allowed or not)</dt>
+								<dd>Browser-populated JavaScript attribute that indicates if the browser accepts cookies or not (window.navigator.cookieEnabled)</dd>
+							</li>
+                            <li>
+								<dt>the Do Not Track preferences (yes, no or not communicated)</dt>
+								<dd>Browser-populated JavaScript attribute that indicates your Do Not Track setting (window.navigator.doNotTrack), "NC" means the value was not specified</dd>
+							</li>
+                            <li>
+								<dt>the timezone</dt>
+								<dd>Timezone offset of your browser obtainable through JavaScript (new Date().getTimezoneOffset())</dd>
+							</li>
+                            <li>
+								<dt>the screen resolution and its color depth</dt>
+								<dd>Browser-populated JavaScript attributes that indicate the resolution of the device’s screen (window.screen.height/width/colorDepth)</dd>
+							</li>
+                            <li>
+								<dt>the use of local storage</dt>
+								<dd>JavaScript test to find out if local storage is supported (storage of a specific value in "localStorage")</dd>
+							</li>
+                            <li><dt>the use of session storage</dt>
+								<dd>JavaScript test to find out if session storage is supported (storage of a specific value in "sessionStorage")</dd>
+                            </li>
+                            <li><dt>a picture rendered with the HTML Canvas element</dt>
+								<dd>Rendering of a specific picture with the HTML5 Canvas element following a fixed set of instructions. The picture presents some slight noticeable variations depending on the OS and the browser used.</dd>
+                            </li>
+                            <li>
+								<dt>a picture rendered with WebGL</dt>
+								<dd>Rendering of specific 3D forms following a fixed set of instructions. The picture presents some slight noticeable variations depending on the device of the user.</dd>
+							</li>
+                            <li>
+								<dt>the presence of AdBlock</dt>
+								<dd>Test to find out if the AdBlock extension is installed</dd>
+							</li>
+                            <li>
+								<dt>the list of fonts</dt>
+								<dd>Flash attribute that gives the entire list of fonts installed on the operating system (flash.text.Font.enumerateFonts(true))</dd>
+							</li>
                         </ul>
                     <p>In addition to these data, we collect several kinds of `housekeeping' information to assist us in analyzing the
                         fingerprint data. The housekeeping information is:
