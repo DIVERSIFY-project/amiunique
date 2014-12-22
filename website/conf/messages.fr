@@ -44,131 +44,119 @@ about=  <h2>Qui gère et maintient ce site web ?</h2>\
         <h3>Mener une étude sur la diversité des empreintes numériques</h3>\
         La problématique de notre recherche est la suivante : comment pouvons-nous reconfigurer automatiquement la plateforme d’un utilisateur pour « flouter » son empreinte numérique de façon réaliste ? Un certain degré de réalisme est en effet important pour éviter que les utilisateurs de nos solutions soient détectés comme cherchant à déjouer le pistage. La récolte à grande échelle d’empreintes numériques véritables nous permettra d’orienter notre solution vers des plateformes aussi différentes que possible et cependant pas identifiables comme des configurations « bizarres ».
 
-privacy=    <br>
-<p>Le but de ce projet est de mesurer et d'étudier la diversité des navigateurs Web et d'établir des profils statistiques de leurs empreintes numériques. Toutes les données destinées au projet seront collectées sous forme anonyme pour avoir la certitude qu'elles ne comprennent aucune information personnellement identifiable*, ni susceptible de conduire à l'identification ou au pistage d'un quelconque utilisateur du web.</p>
-<p>*Une information personnellement identifiable est une donnée quelconque qui pourrait éventuellement mener à identifier un utilisateur spécifique.</p>
-<p>Nous nous engageons à protéger la vie privée des visiteurs de notre site web. Dans cette politique, «&nbsp;nous&nbsp;» désigne les chercheurs et les étudiants de l'INRIA qui sont tenus de garder confidentielle les informations qu'ils reçoivent.</p>
-
-<h2>Informations récoltées par le site web amiunique</h2>
-<p>Pour les besoins du projet de recherche définis <a href="/about">sur cette page</a>, le site amiunique recueille des données anonymes sur la configuration des ordinateurs, systèmes d'exploitation, navigateurs et plugins. Si vous cliquez sur le bouton «&nbsp;Voir mon empreinte digitale&nbsp;», des informations de ce type seront recueillies à partir de votre navigateur. Ces types de données pourraient en principe constituer une «&nbsp;empreinte numérique&nbsp;» et être combinées avec des informations sur les requêtes de page et des éléments d'identification afin de pister les habitudes de navigation des utilisateurs, mais nous ne le ferons <strong>jamais</strong>.</p>
-                    <p>Les informations particulières sur votre empreinte sont les suivantes :
-                        <ul>
-                            <li>Les en-têtes HTTP envoyés au serveur&nbsp;:</li>
-                            <ul>
-								<dl>
-									<li>
-										<dt><i>User-agent</i></dt>
-										<dd>contient des informations sur le navigateur et le système d’exploitation utilisés</dd>
-</li>
-									<li>
-										<dt><i>Accept</i></dt>
-										<dd>contient des options spécifiques relatives à la connexion en cours</dd>
-									</li>
-									<li>
-										<dt><i>Connection</i></dt>
-										<dd>indique le type de média attendu dans la réponse du serveur</dd>
-									</li>
-									<li>
-										<dt><i>Encoding</i></dt>
-										<dd>liste les méthodes de compression supportées par le navigateur</dd>
-									</li>
-									<li>
-										<dt><i>Language</i></dt>
-										<dd>indique les préférences linguistiques de l’utilisateur</dd>
-									</li>
-								</dl>                            
-                            </ul>
-                            <li>
-								<dt>La liste des plugins</dt>
-								<dd>Attribut JavaScript renseigné par le navigateur qui donne la liste des plugins activés (window.navigator.plugins)</dd>
-							</li>
-                            <li>
-								<dt>La plateforme</dt>
-								<dd>Attribut JavaScript renseigné par le navigateur qui indique la plateforme sur laquelle le navigateur fonctionne (window.navigator.platform)</dd>
-							</li>
-                            <li>
-								<dt>Les préférences pour les cookies (autorisés ou non)</dt>
-								<dd>Attribut JavaScript renseigné par le navigateur qui indique si les cookies sont acceptés ou non (window.navigator.cookieEnabled)</dd>
-							</li>
-                            <li>
-								<dt>Les préférences pour <i>Do Not Track</i> (« Ne pas me pister »)&nbsp;: oui&nbsp;/&nbsp;non&nbsp;/&nbsp;non communiquées</dt>
-								<dd>Attribut JavaScript renseigné par le navigateur qui indique la valeur du paramètre Do Not Track (window.navigator.doNotTrack), "NC" indique que la valeur n’a pas été renseignée</dd>
-							</li>
-                            <li>
-								<dt>Le fuseau horaire</dt>
-								<dd>Fuseau horaire du navigateur disponible via JavaScript (new Date().getTimezoneOffset())</dd>
-							</li>
-                            <li>
-								<dt>La résolution d'écran et le niveau de couleur</dt>
-								<dd>Attributs JavaScript renseignés par le navigateur qui indiquent la résolution de l’écran de l’appareil (window.screen.height/width/colorDepth)</dd>	
-							</li>
-                            <li>
-								<dt>l'utilisation du stockage local</dt>
-								<dd>Test JavaScript pour savoir si le stockage local de données est supporté par le navigateur (écriture et lecture d’une valeur spécifique dans "localStorage")</dd>
-							</li>
-                            <li>
-								<dt>L'utilisation du stockage de session</dt>
-								<dd>Test JavaScript pour savoir si le stockage de données de session est supporté par la navigateur (écriture et lecture d’une valeur spécifique dans "sessionStorage")</dd>
-							</li>
-                            <li>
-								<dt>Une image générée avec l'élément HTML Canvas</dt>
-								<dd>Rendu d’une image selon une suite d’instructions précises. L’image finale présente des différences selon le système d’exploitation et le navigateur utilisés.</dd>
-							</li>
-                            <li>
-								<dt>Une image générée avec WebGL</dt>
-								<dd>Rendu de trois formes 3D selon une suite d’instructions précises. L’image finale présente des différences selon l’appareil utilisé.</dd>
-							</li>
-                            <li>
-								<dt>La présence d'AdBlock</dt>
-								<dd>Test pour savoir si l’extension AdBlock est installée</dd>
-							</li>
-                            <li>
-								<dt>La liste des polices</dt>
-								<dd>Attribut Flash qui donne la liste complète des polices installées sur le système d’exploitation de l’appareil (flash.text.Font.enumerateFonts(true))</dd>
-							</li>
-                        </ul>
-                    <p>Outre ces données, nous recueillons plusieurs types d'informations «&nbsp;courantes&nbsp;» qui nus aident à analyser les données d'empreintes numériques. Voici lesquelles&nbsp;:
-                        <ul>
-                            <li>Les Cookies</li>
-                            <li>Les adresses IP chiffrées</li>
-                            <li>L'horodatage</li>
-                        </ul>
-                    <p>Notre pratique et nos objectifs quand nous collectons ces informations «&nbsp;courantes&nbsp;» sont discutés ci-dessous&nbsp;
-                    <h3>Cookies</h3>
-                    <p>Le site amiunique définit un cookie qui persiste pendant quatre mois dans le but de déterminer à quelle fréquence les caractéristiques du navigateur changent, et à quelle fréquence elles restent les mêmes, quand un navigateur revient au fil du temps. Si votre navigateur est configuré pour accepter les cookies, et que vous revenez sur amiunique plusieurs fois, le cookie sera utilisé pour lier les données de vos visites ensemble de sorte que nous puissions étudier l'évolution «&nbsp;naturelle&nbsp;» des empreintes digitales du navigateur. Si vous souhaitez désactiver / activer les cookies du navigateur, cliquez sur le lien ci-dessous correspondant à votre navigateur pour obtenir des instructions. Vous devez être conscient que les cookies entièrement invalidants peuvent bloquer certaines fonctions interactives sur certains sites Web (plus particulièrement, les connexions automatiques).</p>
-                    <p>Instructions pour&nbsp;:
-                    <ul>
-                        <li><a href="http://windows.microsoft.com/en-us/windows/cookies-faq">Microsoft Windows Explorer</a></li>
-                        <li><a href="https://support.google.com/chrome/bin/answer.py?hl=en&answer=95647&p=cpn_cookies">Google Chrome</a></li>
-                        <li><a href="https://support.mozilla.org/fr/kb/activer-desactiver-cookies">Mozilla Firefox</a></li>
-                        <li><a href="http://support.apple.com/kb/ph17191">Apple Safari</a></li>
-                        <li><a href="http://www.opera.com/help/tutorials/security/cookies/">Opera browser</a></li>
-                    </ul>
-                    En outre, si vous êtes intéressé(e) par l'activation / désactivation des cookies Flash, vous pouvez en savoir plus en visitant la page suivante&nbsp;:
-                    <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager02.html#118539">Gérer les cookies Flash</a>.
-
-                    <h3>Adresses IP</h3>
-                    Le site amiunique n'enregistre pas les adresses IP, mais nous soumettons chaque adresse IP à une fonction de hachage. Ce hachage des IP nous permettra de recueillir un ensemble de données anonymes sur la façon dont les navigateurs qui changent d'adresse IP auraient pu être pistés par leur empreinte numérique. 
-
-                    <h3>Horodatage</h3>
-                    Le site de amiunique recueille un horodatage «&nbsp;flou&nbsp;», arrondi à l'heure près, chaque fois qu'il est visité. Cet horodatage servira à mesurer la vitesse à laquelle les empreintes numériques du navigateur changent, mais à aucune autre fin.
-
-                    <h2>Quel usage nous allons faire des informations recueillies sur amiunique</h2>
-                    Nous allons analyser les données recueillies afin d'établir quels sont les profils réalistes pour les empreintes digitales du navigateur. Le but de cette analyse est de définir une procédure automatique pour diversifier de manière proactive les plateformes d'usagers d'une manière réaliste. amiunique n'a pas de tiers fournisseurs de services.
-                    <h2>Partage des données de amiunique</h2>
-                    Nous pouvons publier ou partager des données statistiques agrégées du projet amiunique afin de faciliter la recherche sur la vie privée, d'éduquer les gens aux problèmes de la vie privée, et d'aider au développement des technologies de protection de la confidentialité. Nous avons fait de grands efforts pour nous assurer que amiunique ne produit aucun enregistrement des habitudes de navigation de quiconque ni les identités des visiteurs individuels, de sorte que nous ne serons jamais dans une position où nous pourrions partager ces dossiers.
-                    <h2>Sécurité</h2>
- D'une manière générale, l'INRIA s'engage à mettre en œuvre des moyens techniques et organisationnels afin de protéger toutes les informations que nous avons collectées contre la destruction illégale ou fortuite, la perte fortuite, l'altération, la diffusion ou l'accès non autorisé. Néanmoins, l'INRIA peut être tenu à faire connaître des informations pour se conformer à une loi ou une réglementation applicable, ou pour répondre à une injonction administrative ou judiciaire.
-
-
-                    <p>
-Bien que nous fassions des efforts de bonne foi pour stocker les informations recueillies dans un environnement d'exploitation sécurisé, nous ne pouvons pas garantir une sécurité intégrale. L'information recueillie sera maintenue pendant une durée appropriée pour les besoins de ce projet de recherche.
-                        
-                    <br>
-                    <p>Cette politique de confidentialité s'inspire pour une part du <a href="https://www.eff.org/">site web de l'EFF</a> (<i>Electronic Frontier Foundation</i>), qui est librement redistribuée sous une licence
-                        <a href="http://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution</a>.
-
-                </div>
+privacy=  <br><p>Le but de ce projet est de mesurer et d’étudier la diversité des navigateurs Web et d’établir des profils statistiques de leurs empreintes numériques. Toutes les données destinées au projet seront collectées sous forme anonyme pour avoir la certitude qu’elles ne comprennent aucune information personnellement identifiable*, ni susceptible de conduire à l’identification ou au pistage d’un quelconque utilisateur du web.</p>\
+<p>*Une information personnellement identifiable est une donnée quelconque qui pourrait éventuellement mener à identifier un utilisateur spécifique.</p>\
+<p>Nous nous engageons à protéger la vie privée des visiteurs de notre site web. Dans cette politique, «&nbsp;nous&nbsp;» désigne les chercheurs et les étudiants de l’INRIA qui sont tenus de garder confidentielle les informations qu’ils reçoivent.</p>\
+<h2>Informations récoltées par le site web amiunique</h2>\
+<p>Pour les besoins du projet de recherche définis <a href="/about">sur cette page</a>, le site amiunique recueille des données anonymes sur la configuration des ordinateurs, systèmes d’exploitation, navigateurs et plugins. Si vous cliquez sur le bouton «&nbsp;Voir mon empreinte digitale&nbsp;», des informations de ce type seront recueillies à partir de votre navigateur. Ces types de données pourraient en principe constituer une «&nbsp;empreinte numérique&nbsp;» et être combinées avec des informations sur les requêtes de page et des éléments d’identification afin de pister les habitudes de navigation des utilisateurs, mais nous ne le ferons <strong>jamais</strong>.</p>\
+<p>Les informations particulières sur votre empreinte sont les suivantes :\
+    <ul>\
+        <li>Les en-têtes HTTP envoyés au serveur&nbsp;:</li>\
+        <ul>\
+            <dl>\
+                <li>\
+                    <dt><i>User-agent</i></dt>\
+                    <dd>contient des informations sur le navigateur et le système d’exploitation utilisés</dd>\
+                </li>\
+                <li>\
+                    <dt><i>Accept</i></dt>\
+                    <dd>contient des options spécifiques relatives à la connexion en cours</dd>\
+                </li>\
+                <li>\
+                    <dt><i>Connection</i></dt>\
+                    <dd>indique le type de média attendu dans la réponse du serveur</dd>\
+                </li>\
+                <li>\
+                    <dt><i>Encoding</i></dt>\
+                    <dd>liste les méthodes de compression supportées par le navigateur</dd>\
+                </li>\
+                <li>\
+                    <dt><i>Language</i></dt>\
+                    <dd>indique les préférences linguistiques de l’utilisateur</dd>\
+                </li>\
+            </dl>\
+        </ul>\
+        <li>\
+            <dt>La liste des plugins</dt>\
+            <dd>Attribut JavaScript renseigné par le navigateur qui donne la liste des plugins activés (window.navigator.plugins)</dd>\
+        </li>\
+        <li>\
+            <dt>La plateforme</dt>\
+            <dd>Attribut JavaScript renseigné par le navigateur qui indique la plateforme sur laquelle le navigateur fonctionne (window.navigator.platform)</dd>\
+        </li>\
+        <li>\
+            <dt>Les préférences pour les cookies (autorisés ou non)</dt>\
+            <dd>Attribut JavaScript renseigné par le navigateur qui indique si les cookies sont acceptés ou non (window.navigator.cookieEnabled)</dd>\
+        </li>\
+        <li>\
+            <dt>Les préférences pour <i>Do Not Track</i> (« Ne pas me pister »)&nbsp;: oui&nbsp;/&nbsp;non&nbsp;/&nbsp;non communiquées</dt>\
+            <dd>Attribut JavaScript renseigné par le navigateur qui indique la valeur du paramètre Do Not Track (window.navigator.doNotTrack), "NC" indique que la valeur n’a pas été renseignée</dd>\
+        </li>\
+        <li>\
+            <dt>Le fuseau horaire</dt>\
+            <dd>Fuseau horaire du navigateur disponible via JavaScript (new Date().getTimezoneOffset())</dd>\
+        </li>\
+        <li>\
+            <dt>La résolution d’écran et le niveau de couleur</dt>\
+            <dd>Attributs JavaScript renseignés par le navigateur qui indiquent la résolution de l’écran de l’appareil (window.screen.height/width/colorDepth)</dd>\
+        </li>\
+        <li>\
+            <dt>l’utilisation du stockage local</dt>\
+            <dd>Test JavaScript pour savoir si le stockage local de données est supporté par le navigateur (écriture et lecture d’une valeur spécifique dans "localStorage")</dd>\
+        </li>\
+        <li>\
+            <dt>L’utilisation du stockage de session</dt>\
+            <dd>Test JavaScript pour savoir si le stockage de données de session est supporté par la navigateur (écriture et lecture d’une valeur spécifique dans "sessionStorage")</dd>\
+        </li>\
+        <li>\
+            <dt>Une image générée avec l’élément HTML Canvas</dt>\
+            <dd>Rendu d’une image selon une suite d’instructions précises. L’image finale présente des différences selon le système d’exploitation et le navigateur utilisés.</dd>\
+        </li>\
+        <li>\
+            <dt>Une image générée avec WebGL</dt>\
+            <dd>Rendu de trois formes 3D selon une suite d’instructions précises. L’image finale présente des différences selon l’appareil utilisé.</dd>\
+        </li>\
+        <li>\
+            <dt>La présence d’AdBlock</dt>\
+            <dd>Test pour savoir si l’extension AdBlock est installée</dd>\
+        </li>\
+        <li>\
+            <dt>La liste des polices</dt>\
+            <dd>Attribut Flash qui donne la liste complète des polices installées sur le système d’exploitation de l’appareil (flash.text.Font.enumerateFonts(true))</dd>\
+        </li>\
+    </ul>\
+<p>Outre ces données, nous recueillons plusieurs types d’informations «&nbsp;courantes&nbsp;» qui nus aident à analyser les données d’empreintes numériques. Voici lesquelles&nbsp;:\
+    <ul>\
+        <li>Les Cookies</li>\
+        <li>Les adresses IP chiffrées</li>\
+        <li>L’horodatage</li>\
+    </ul>\
+<p>Notre pratique et nos objectifs quand nous collectons ces informations «&nbsp;courantes&nbsp;» sont discutés ci-dessous&nbsp;\
+<h3>Cookies</h3>\
+<p>Le site amiunique définit un cookie qui persiste pendant quatre mois dans le but de déterminer à quelle fréquence les caractéristiques du navigateur changent, et à quelle fréquence elles restent les mêmes, quand un navigateur revient au fil du temps. Si votre navigateur est configuré pour accepter les cookies, et que vous revenez sur amiunique plusieurs fois, le cookie sera utilisé pour lier les données de vos visites ensemble de sorte que nous puissions étudier l’évolution «&nbsp;naturelle&nbsp;» des empreintes digitales du navigateur. Si vous souhaitez désactiver / activer les cookies du navigateur, cliquez sur le lien ci-dessous correspondant à votre navigateur pour obtenir des instructions. Vous devez être conscient que les cookies entièrement invalidants peuvent bloquer certaines fonctions interactives sur certains sites Web (plus particulièrement, les connexions automatiques).</p>\
+<p>Instructions pour&nbsp;:\
+<ul>\
+    <li><a href="http://windows.microsoft.com/fr-fr/windows/cookies-faq">Microsoft Windows Explorer</a></li>\
+    <li><a href="https://support.google.com/chrome/answer/95647?hl=fr&p=cpn_cookies">Google Chrome</a></li>\
+    <li><a href="https://support.mozilla.org/fr/kb/activer-desactiver-cookies">Mozilla Firefox</a></li>\
+    <li><a href="http://support.apple.com/kb/PH17191?viewlocale=fr_FR">Apple Safari</a></li>\
+    <li><a href="http://help.opera.com/Windows/10.20/fr/cookies.html">Opera browser</a></li>\
+</ul>\
+En outre, si vous êtes intéressé(e) par l’activation / désactivation des cookies Flash, vous pouvez en savoir plus en visitant la page suivante&nbsp;:&nbsp;\
+<a href="http://www.macromedia.com/support/documentation/fr/flashplayer/help/settings_manager02.html#118539">Gérer les cookies Flash</a>.\
+<h3>Adresses IP</h3>\
+Le site amiunique n’enregistre pas les adresses IP, mais nous soumettons chaque adresse IP à une fonction de hachage. Ce hachage des IP nous permettra de recueillir un ensemble de données anonymes sur la façon dont les navigateurs qui changent d’adresse IP auraient pu être pistés par leur empreinte numérique.\
+<h3>Horodatage</h3>\
+Le site de amiunique recueille un horodatage «&nbsp;flou&nbsp;», arrondi à l’heure près, chaque fois qu’il est visité. Cet horodatage servira à mesurer la vitesse à laquelle les empreintes numériques du navigateur changent, mais à aucune autre fin.\
+<h2>Notre utilisation des informations recueillies sur amiunique</h2>\
+Nous allons analyser les données recueillies afin d’établir quels sont les profils réalistes pour les empreintes digitales du navigateur. Le but de cette analyse est de définir une procédure automatique pour diversifier de manière proactive les plateformes d’usagers d’une manière réaliste. amiunique n’a pas de tiers fournisseurs de services.\
+<h2>Partage des données de amiunique</h2>\
+Nous pouvons publier ou partager des données statistiques agrégées du projet amiunique afin de faciliter la recherche sur la vie privée, d’éduquer les gens aux problèmes de la vie privée, et d’aider au développement des technologies de protection de la confidentialité. Nous avons fait de grands efforts pour nous assurer que amiunique ne produit aucun enregistrement des habitudes de navigation de quiconque ni les identités des visiteurs individuels, de sorte que nous ne serons jamais dans une position où nous pourrions partager ces dossiers.\
+<h2>Sécurité</h2>\
+D’une manière générale, l’INRIA s’engage à mettre en œuvre des moyens techniques et organisationnels afin de protéger toutes les informations que nous avons collectées contre la destruction illégale ou fortuite, la perte fortuite, l’altération, la diffusion ou l’accès non autorisé. Néanmoins, l’INRIA peut être tenu à faire connaître des informations pour se conformer à une loi ou une réglementation applicable, ou pour répondre à une injonction administrative ou judiciaire.\
+<p>Bien que nous fassions des efforts de bonne foi pour stocker les informations recueillies dans un environnement d’exploitation sécurisé, nous ne pouvons pas garantir une sécurité intégrale. L’information recueillie sera maintenue pendant une durée appropriée pour les besoins de ce projet de recherche.<br>\
+<p>Cette politique de confidentialité s’inspire pour une part du <a href="https://www.eff.org/">site web de l’EFF</a> (<i>Electronic Frontier Foundation</i>), qui est librement redistribuée sous une licence\
+    <a href="http://creativecommons.org/licenses/by/3.0/fr/">Creative Commons Attribution</a>.
 
 fp.overview=Vue d’ensemble
 fp.details=Détails
