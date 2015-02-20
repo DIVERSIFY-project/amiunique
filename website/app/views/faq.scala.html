@@ -1,182 +1,103 @@
-<!DOCTYPE html>
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>Am I unique?</title>
+@header = {
+}
+@footer = {
+}
 
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-        <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
-        <!-- Custom Fonts -->
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
-        <![endif]-->
-    </head>
-    <body>
-
-        <div id="wrapper">
-
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Am I Unique?</a>
-                </div>
-                <!-- Top Menu Items -->
-                <ul class="nav navbar-right top-nav">
-            </ul>
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li>
-                            <a style="color:#ffffff" href="/"><i class="fa fa-fw fa-home"></i>&nbsp; Home</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; My fingerprint</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  Global statistics</a>
-                        </li>
-                        <li class="active">
-                            <a style="color:#ffffff" href="/faq"><i class="fa fa-fw fa-question"></i>&nbsp; FAQ</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/privacy"><i class="fa fa-fw fa-shield"></i>&nbsp; Privacy policy</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/links"><i class="fa fa-fw fa-link"></i>&nbsp; Links</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/about"><i class="fa fa-fw fa-circle-o"></i>&nbsp; About</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="https://github.com/DIVERSIFY-project/amiunique" target="GitHub"><i class="fa fa-fw fa-github-alt"></i>&nbsp; View on GitHub</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </nav>
-
-            <div id="page-wrapper">
-
-                <div class="container">
-
-                    <!-- Page Heading -->
-                    <div class="row">
-                        <div class="col-lg-12">
-                        </div>
-                    </div>
-                    <!-- /.row -->
-
-                    <h2>What is browser fingerprinting?</h2>
-                    <p>
-                        Device fingerprinting or browser fingerprinting is the systematic collection of
-                        information about a remote device, for identification purposes. Client-side scripting
-                        languages allow the development of procedures to collect very rich fingerprints: browser
-                        and operating system type and version, screen resolution, architecture type, lists of fonts,
-                        plugins, microphone, camera, etc.
-                    </p>
-
-                    On this site, we collect:
-                    <ul>
-                        <li>the User agent header</li>
-                        <li>the Accept header</li>
-                        <li>the Connection header</li>
-                        <li>the Encoding header</li>
-                        <li>the Language header</li>
-                        <li>the list of plugins</li>
-                        <li>the platform</li>
-                        <li>the cookies preferences (allowed or not)</li>
-                        <li>the Do Not Track preferences (yes, no or not communicated)</li>
-                        <li>the timezone</li>
-                        <li>the screen resolution and its color depth</li>
-                        <li>the use of local storage</li>
-                        <li>the use of session storage</li>
-                        <li>a picture rendered with the HTML Canvas element</li>
-                        <li>a picture rendered with WebGL</li>
-                        <li>the presence of AdBlock</li>
-                        <li>the list of fonts</li>
-                    </ul>
-
-                    <h2>How is the fingerprint collected?</h2>
-                    Browser fingerprints are also called <a href="http://cs.ucsb.edu/~vigna/publications/2013_SP_cookieless.pdf">
-                    “cookieless monsters”</a> because it is not necessary to install any form of cookie to collect a fingerprint.
-                    This means that the act of fingerprinting a specific browser is stateless and transparent for the user.
-                    Any third-party interested in fingerprinting can exploit a set of different techniques to get a rich fingerprint:
-                    <ul>
-                        <li>The <a href="http://useragentstring.com/"> user agent</a> and the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">
-                            accept headers</a> are automatically sent to websites when a connection is initiated.</li>
-                        <li><a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> gives access to many browser-populated features
-                            like the plugins installed on the user’s device.</li>
-                        <li>If the <a href="https://www.adobe.com/fr/products/flashruntimes.html">Flash plugin</a> is installed, its rich programming
-                            interface (API) provides access to many system-specific attributes: exact version of the operating system, list of fonts,
-                            screen resolution, timezone.</li>
-                        <li>Through the display of an HTML5 Canvas element, it is possible to collect small differences in the hardware or in the software
-                            configurations, thanks to slight differences in the image rendering between devices. The smallest pixel difference can be detected.
-                            This is called <a href="https://securehomes.esat.kuleuven.be/~gacar/persistent/#canvas-results"> canvas fingerprinting </a>.</li>
-                    </ul>
-                    On this site, we use:
-                    <ul>
-                        <li><a href="http://www.pinlady.net/PluginDetect/">Plugin Detect</a> for plugins detection in some versions of Internet Explorer.</li>
-                        <li><a href="http://threejs.org/">three.js</a> for the rendering of a WebGL scene.</li>
-                    </ul>
-
-                    <h2>How are the fingerprints exploited?</h2>
-                    Like all tracking technology, it is a double-edge sword.<br>
-                    Fingerprints can be used in a constructive way to combat fraud or credential hijacking,
-                    by checking that a user who logs into a specific site is likely the legitimate user.<br>
-                    Fingerprints can also be used in more questionable way, in order to track users across
-                    web sites and collect information about their habits and their tastes without the users knowing about it.<br>
-                    Fingerprints can even be used in a destructive way: if attackers know which software modules
-                    (specific browser version, plugins, etc.) are installed on a specific device, they can deliver
-                    exploits that are tailored for these specific modules or combination of modules.
-
-                    <h2>What is the difference between amiunique and <a href="https://panopticlick.eff.org">https://panopticlick.eff.org</a>?</h2>
-                    
-                    amiunique has shares some goals with panoticlick, but it provides a number of novelties:
-                    <ul>
-                          <li> amiunique implements the most recent techniques for fingerprinting, including webGL and canvas</li>
-                          <li> amiunique provides more information to the users, including  <a href="https://amiunique.org/stats">global statistics</a>, as well as a concise summary of the main characteristics of a browser</li>
-                          <li> amiunique is open source and <a href="https://github.com/DIVERSIFY-project/amiunique">available on Github</a></li>
-                    </ul>
-
-                    <h2>What is the difference between amiunique.org and other similar web sites?</h2>
-
-                    There exist other sites that collect and / or inform users about the amount of information that can be collected through their website:
-                    <ul>
-                        <li><a href="http://noc.to">http://noc.to</a></li>
-                        <li><a href="http://fingerprint.pet-portal.eu">http://fingerprint.pet-portal.eu</a></li>
-                        <li><a href="http://browserspy.dk">http://browserspy.dk</a></li>
-                    </ul>
-
-                    <p>amiunique.org is different from these sites, with respect to the following points.
-                    It implements state of the art fingerprinting techniques. In particular, this is the first web site that collects information through WebGL.
-                    It provides different levels of information to the user. Beyond the complete fingerprint, amiunique is the only site that provides a synthetic view,
-                    which gives few, easy to understand statistics about the degree of unicity of a device among the sample we have observed so far. We also centralize
-                    a number of different pointers about fingerprinting, which go from general pages that introduce the technique, to technical papers in the research
-                    literature and press articles that cover the topic.
-
-                </div>
-                <!-- /.container-fluid -->
-
+@main(header, footer, "/faq") {
+    <div class="container">
+        <!-- Page Heading -->
+        <div class="row">
+            <div class="col-lg-12">
             </div>
-            <!-- /#page-wrapper -->
-
         </div>
-        <!-- /#wrapper -->
+        <!-- /.row -->
 
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-    </body>
-</html>
+        <h2>What is browser fingerprinting?</h2>
+        <p>
+            Device fingerprinting or browser fingerprinting is the systematic collection of
+            information about a remote device, for identification purposes. Client-side scripting
+            languages allow the development of procedures to collect very rich fingerprints: browser
+            and operating system type and version, screen resolution, architecture type, lists of fonts,
+            plugins, microphone, camera, etc.
+        </p>
+
+        On this site, we collect:
+        <ul>
+            <li>the User agent header</li>
+            <li>the Accept header</li>
+            <li>the Connection header</li>
+            <li>the Encoding header</li>
+            <li>the Language header</li>
+            <li>the list of plugins</li>
+            <li>the platform</li>
+            <li>the cookies preferences (allowed or not)</li>
+            <li>the Do Not Track preferences (yes, no or not communicated)</li>
+            <li>the timezone</li>
+            <li>the screen resolution and its color depth</li>
+            <li>the use of local storage</li>
+            <li>the use of session storage</li>
+            <li>a picture rendered with the HTML Canvas element</li>
+            <li>a picture rendered with WebGL</li>
+            <li>the presence of AdBlock</li>
+            <li>the list of fonts</li>
+        </ul>
+
+        <h2>How is the fingerprint collected?</h2>
+        Browser fingerprints are also called <a href="http://cs.ucsb.edu/~vigna/publications/2013_SP_cookieless.pdf">
+        “cookieless monsters”</a> because it is not necessary to install any form of cookie to collect a fingerprint.
+        This means that the act of fingerprinting a specific browser is stateless and transparent for the user.
+        Any third-party interested in fingerprinting can exploit a set of different techniques to get a rich fingerprint:
+        <ul>
+            <li>The <a href="http://useragentstring.com/"> user agent</a> and the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html">
+                accept headers</a> are automatically sent to websites when a connection is initiated.</li>
+            <li><a href="https://en.wikipedia.org/wiki/JavaScript">JavaScript</a> gives access to many browser-populated features
+                like the plugins installed on the user’s device.</li>
+            <li>If the <a href="https://www.adobe.com/fr/products/flashruntimes.html">Flash plugin</a> is installed, its rich programming
+                interface (API) provides access to many system-specific attributes: exact version of the operating system, list of fonts,
+                screen resolution, timezone.</li>
+            <li>Through the display of an HTML5 Canvas element, it is possible to collect small differences in the hardware or in the software
+                configurations, thanks to slight differences in the image rendering between devices. The smallest pixel difference can be detected.
+                This is called <a href="https://securehomes.esat.kuleuven.be/~gacar/persistent/#canvas-results"> canvas fingerprinting </a>.</li>
+        </ul>
+        On this site, we use:
+        <ul>
+            <li><a href="http://www.pinlady.net/PluginDetect/">Plugin Detect</a> for plugins detection in some versions of Internet Explorer.</li>
+            <li><a href="http://threejs.org/">three.js</a> for the rendering of a WebGL scene.</li>
+        </ul>
+
+        <h2>How are the fingerprints exploited?</h2>
+        Like all tracking technology, it is a double-edge sword.<br>
+        Fingerprints can be used in a constructive way to combat fraud or credential hijacking,
+        by checking that a user who logs into a specific site is likely the legitimate user.<br>
+        Fingerprints can also be used in more questionable way, in order to track users across
+        web sites and collect information about their habits and their tastes without the users knowing about it.<br>
+        Fingerprints can even be used in a destructive way: if attackers know which software modules
+        (specific browser version, plugins, etc.) are installed on a specific device, they can deliver
+        exploits that are tailored for these specific modules or combination of modules.
+
+        <h2>What is the difference between amiunique and <a href="https://panopticlick.eff.org">https://panopticlick.eff.org</a>?</h2>
+
+        amiunique has shares some goals with panoticlick, but it provides a number of novelties:
+        <ul>
+              <li> amiunique implements the most recent techniques for fingerprinting, including webGL and canvas</li>
+              <li> amiunique provides more information to the users, including  <a href="https://amiunique.org/stats">global statistics</a>, as well as a concise summary of the main characteristics of a browser</li>
+              <li> amiunique is open source and <a href="https://github.com/DIVERSIFY-project/amiunique">available on Github</a></li>
+        </ul>
+
+        <h2>What is the difference between amiunique.org and other similar web sites?</h2>
+
+        There exist other sites that collect and / or inform users about the amount of information that can be collected through their website:
+        <ul>
+            <li><a href="http://noc.to">http://noc.to</a></li>
+            <li><a href="http://fingerprint.pet-portal.eu">http://fingerprint.pet-portal.eu</a></li>
+            <li><a href="http://browserspy.dk">http://browserspy.dk</a></li>
+        </ul>
+
+        <p>amiunique.org is different from these sites, with respect to the following points.
+        It implements state of the art fingerprinting techniques. In particular, this is the first web site that collects information through WebGL.
+        It provides different levels of information to the user. Beyond the complete fingerprint, amiunique is the only site that provides a synthetic view,
+        which gives few, easy to understand statistics about the degree of unicity of a device among the sample we have observed so far. We also centralize
+        a number of different pointers about fingerprinting, which go from general pages that introduce the technique, to technical papers in the research
+        literature and press articles that cover the topic.
+    </div>
+}
