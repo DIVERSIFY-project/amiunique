@@ -1,221 +1,134 @@
 @(implicit request: play.mvc.Http.Request)
-<!DOCTYPE html>
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title>Am I unique?</title>
 
-        <!-- Bootstrap core CSS -->
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
-        <!-- Custom styles for this template -->
-        <link rel="stylesheet" href="@routes.Assets.at("stylesheets/sb-admin.css")">
-        <!-- Custom Fonts -->
-        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("font-awesome-4.2.0/css/font-awesome.min.css")" >
+@header = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
-        <![endif]-->
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
 
+    <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/three.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/webGL.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
 
-        @if(request.getHeader("User-Agent").contains("MSIE 8.0")) {
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/html5shiv.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/respond.min.js")"></script>
+    <script type="text/javascript">
+        swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
+    </script>
+
+    <script type="application/javascript">
+        function isConnected(){
+            flashAvailable = true;
         }
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
+    </script>
 
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-        <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/three.min.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/webGL.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var target = document.getElementById('content');
+            var spinner = new Spinner({length: 20, width: 10, radius: 30, color: '#FFF'}).spin(target);
 
-        <script type="text/javascript">
-            swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
-        </script>
+            setTimeout(sendData,3000);
 
-        <script type="application/javascript">
-            function isConnected(){
-                flashAvailable = true;
-            }
-        </script>
-
-        <script type="text/javascript">
-            $(document).ready(function(){
-                var target = document.getElementById('content');
-                var spinner = new Spinner({length: 20, width: 10, radius: 30, color: '#FFF'}).spin(target);
-
-                setTimeout(sendData,3000);
-
-                function sendData(){
-                    var fontsFlash,resolutionFlash,languageFlash,platformFlash;
-                    if((plugins.indexOf("flash") > -1) || (plugins.indexOf("Flash") > -1)){
-                        var fl = document.getElementById("OSData");
-                        if(fl == null){
-                            fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but blocked by an extension";
-                        } else if((typeof fl.getOS != "undefined") || (typeof flashAvailable == "boolean")) {
-                            fontsFlash = fl.getFonts().join().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
-                            resolutionFlash = fl.getResolution().join("x");
-                            languageFlash = fl.getLanguage();
-                            platformFlash = fl.getOS();
-                        } else {
-                            fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but not activated (click-to-play)";
-                        }
+            function sendData(){
+                var fontsFlash,resolutionFlash,languageFlash,platformFlash;
+                if((plugins.indexOf("flash") > -1) || (plugins.indexOf("Flash") > -1)){
+                    var fl = document.getElementById("OSData");
+                    if(fl == null){
+                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but blocked by an extension";
+                    } else if((typeof fl.getOS != "undefined") || (typeof flashAvailable == "boolean")) {
+                        fontsFlash = fl.getFonts().join().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
+                        resolutionFlash = fl.getResolution().join("x");
+                        languageFlash = fl.getLanguage();
+                        platformFlash = fl.getOS();
                     } else {
-                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
+                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but not activated (click-to-play)";
                     }
-
-                    jsRoutes.controllers.Application.addFingerprint().ajax({
-                        data: JSON.stringify({
-                            userAgentHttp: '@request.getHeader("User-Agent")',
-                            acceptHttp: '@request.getHeader("Accept")', hostHttp: '@request.getHeader("Host")',
-                            connectionHttp: '@request.getHeader("Connection")', encodingHttp: '@request.getHeader("Accept-Encoding")',
-                            languageHttp: '@request.getHeader("Accept-Language")', orderHttp: '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")',
-                            pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack,
-                            timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
-                            canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
-                            resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
-                            adBlock: document.getElementById('ads')? 'no' : 'yes'}),
-                        contentType:"application/json",
-                        success: function(res){
-                            spinner.stop();
-                            $('#content').html(res);
-                            jsRoutes.controllers.Application.percentages().ajax({
-                                data: document.getElementById("counter").innerHTML,
-                                contentType:"text/plain",
-                                success: function(per) {
-                                    //We remove the "In progress" banner
-                                    $("#progress").remove();
-                                    //We add every percentages to the main page
-                                    for(var k in per) {
-                                        var percentage = per[k];
-                                        var cell = document.getElementById(k+"Per");
-                                        if(percentage == -1) {
-                                            cell.textContent = "Unique";
-                                        } else if(percentage >= 0.1){
-                                            cell.textContent = percentage.toFixed(2)+"%";
-                                        } else {
-                                            cell.textContent = "<0.1%";
-                                        }
-                                    }
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    console.log(textStatus,errorThrown);
-                                }
-                            });
-
-                            if(canvasData.indexOf("Not supported") == -1) {
-                                //Display of canvas objects
-                                document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
-                                var canContext = document.getElementById ("canvas1").getContext("2d");
-                                var canImage = new Image();
-                                canImage.onload = function(){
-                                    canContext.drawImage(this, 0, 0);
-                                };
-                                canImage.src = canvasData;
-                            }
-                            if(webGLData.indexOf("Not supported") == -1){
-                                document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
-                                var webContext = document.getElementById ("canvas2").getContext("2d") ;
-                                var webImage = new Image();
-                                webImage.onload = function(){
-                                    webContext.scale(0.5, 0.5);
-                                    webContext.drawImage(this, 0, 0);
-                                };
-                                webImage.src = webGLData;
-                            }
-
-                            $("#graphs" ).show();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            console.log(textStatus,errorThrown);
-                        }
-                    });
+                } else {
+                    fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
                 }
-            });
-        </script>
-    </head>
-    <body>
-        <div id="wrapper">
-            <!-- Navigation -->
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Am I Unique?</a>
-                </div>
-                <!-- Top Menu Items -->
-                <ul class="nav navbar-right top-nav">
-                </ul>
-                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav">
-                        <li>
-                            <a style="color:#ffffff" href="/"><i class="fa fa-fw fa-home"></i>&nbsp; Home</a>
-                        </li>
-                        <li class="active">
-                            <a style="color:#ffffff" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; My fingerprint</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  Global statistics</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/faq"><i class="fa fa-fw fa-question"></i>&nbsp; FAQ</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/privacy"><i class="fa fa-fw fa-shield"></i>&nbsp; Privacy policy</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/links"><i class="fa fa-fw fa-link"></i>&nbsp; Links</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="/about"><i class="fa fa-fw fa-circle-o"></i>&nbsp; About</a>
-                        </li>
-                        <li>
-                            <a style="color:#ffffff" href="https://github.com/DIVERSIFY-project/amiunique" target="GitHub"><i class="fa fa-fw fa-github-alt"></i>&nbsp; View on GitHub</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </nav>
 
-            <div id="page-wrapper">
+                jsRoutes.controllers.Application.addFingerprint().ajax({
+                    data: JSON.stringify({
+                        userAgentHttp: '@request.getHeader("User-Agent")',
+                        acceptHttp: '@request.getHeader("Accept")', hostHttp: '@request.getHeader("Host")',
+                        connectionHttp: '@request.getHeader("Connection")', encodingHttp: '@request.getHeader("Accept-Encoding")',
+                        languageHttp: '@request.getHeader("Accept-Language")', orderHttp: '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")',
+                        pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack,
+                        timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
+                        canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
+                        resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
+                        adBlock: document.getElementById('ads')? 'no' : 'yes'}),
+                    contentType:"application/json",
+                    success: function(res){
+                        spinner.stop();
+                        $('#content').html(res);
+                        jsRoutes.controllers.Application.percentages().ajax({
+                            data: document.getElementById("counter").innerHTML,
+                            contentType:"text/plain",
+                            success: function(per) {
+                                //We remove the "In progress" banner
+                                $("#progress").remove();
+                                //We add every percentages to the main page
+                                for(var k in per) {
+                                    var percentage = per[k];
+                                    var cell = document.getElementById(k+"Per");
+                                    if(percentage == -1) {
+                                        cell.textContent = "Unique";
+                                    } else if(percentage >= 0.1){
+                                        cell.textContent = percentage.toFixed(2)+"%";
+                                    } else {
+                                        cell.textContent = "<0.1%";
+                                    }
+                                }
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus,errorThrown);
+                            }
+                        });
 
-                <div class="container">
+                        if(canvasData.indexOf("Not supported") == -1) {
+                            //Display of canvas objects
+                            document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
+                            var canContext = document.getElementById ("canvas1").getContext("2d");
+                            var canImage = new Image();
+                            canImage.onload = function(){
+                                canContext.drawImage(this, 0, 0);
+                            };
+                            canImage.src = canvasData;
+                        }
+                        if(webGLData.indexOf("Not supported") == -1){
+                            document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
+                            var webContext = document.getElementById ("canvas2").getContext("2d") ;
+                            var webImage = new Image();
+                            webImage.onload = function(){
+                                webContext.scale(0.5, 0.5);
+                                webContext.drawImage(this, 0, 0);
+                            };
+                            webImage.src = webGLData;
+                        }
 
-                        <!-- Page Heading
-                    <div class="row">
-                        <div class="col-lg-12">
-                        </div>
-                    </div>
-                    <!-- /.row -->
+                        $("#graphs" ).show();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus,errorThrown);
+                    }
+                });
+            }
+        });
+    </script>
+}
 
-                    <div id="content">
-                    </div>
+@footer = {
+}
 
-                    <!-- Div for the Flash file -->
-                    <div id="OSData"></div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- /#page-wrapper -->
-
+@main(header, footer , "/fp") {
+    <div class="container">
+        <div id="content">
         </div>
-        <!-- /#wrapper -->
-    </body>
-</html>
+
+        <!-- Div for the Flash file -->
+        <div id="OSData"></div>
+    </div>
+}
