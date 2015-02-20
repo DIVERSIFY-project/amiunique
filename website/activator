@@ -157,14 +157,6 @@ require_arg () {
     die "$opt requires <$type> argument"
   fi
 }
-require_arg () {
-  local type="$1"
-  local opt="$2"
-  local arg="$3"
-  if [[ -z "$arg" ]] || [[ "${arg:0:1}" == "-" ]]; then
-    die "$opt requires <$type> argument"
-  fi
-}
 is_function_defined() {
   declare -f "$1" > /dev/null
 }
@@ -296,7 +288,7 @@ declare -a java_args
 declare -a app_commands
 declare -r real_script_path="$(realpath "$0")"
 declare -r activator_home="$(realpath "$(dirname "$real_script_path")")"
-declare -r app_version="1.2.10"
+declare -r app_version="1.2.12"
 
 declare -r app_launcher="${activator_home}/activator-launch-${app_version}.jar"
 declare -r script_name=activator
