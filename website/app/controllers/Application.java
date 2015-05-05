@@ -169,9 +169,22 @@ public class Application extends Controller {
                 getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
                 getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                 getAttribute(json,"adBlock"))){
-            fp = em.getExistingFPById(id);
-            newFp = false;
+
+            if(request().cookies().get("tempFp") == null){
+                fp = em.getExistingFPById(id);
+                newFp = false;
+            }else{
+                System.out.println("test1");
+                return ok();
+            }
+
         } else {
+
+            if(request().cookies().get("tempFp") != null){
+                System.out.println("test2");
+                return ok();
+            }
+
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
 
@@ -249,31 +262,35 @@ public class Application extends Controller {
     }
 
     public static Result percentages(){
-        String enc = request().body().asText();
-        String clear = Crypto.decryptAES(enc);
-        JsonNode n = Json.parse(clear);
-        try {
-            Integer counter = n.get("c").asInt();
-            FpDataEntityManager em = new FpDataEntityManager();
-            FpDataEntity fp = em.getExistingFPByCounter(counter);
-            ObjectNode node = (ObjectNode) Json.toJson(fp);
-            node.remove("counter");
-            node.remove("octaneScore");
-            node.remove("sunspiderTime");
-            node.remove("addressHttp");
-            node.remove("time");
-            node.remove("hostHttp");
-            node.remove("connectionHttp");
-            node.remove("orderHttp");
-            node.remove("ieDataJs");
-            node.remove("id");
-            node.remove("vendorWebGljs");
-            node.remove("rendererWebGljs");
-            JsonNode json = (JsonNode) node;
-            Map<String,Double> percentages = em.getPercentages(json);
-            return ok(Json.toJson(percentages));
-        } catch (Exception e){
-            return badRequest();
+        if(request().cookies().get("tempPerc") == null){
+            String enc = request().body().asText();
+            String clear = Crypto.decryptAES(enc);
+            JsonNode n = Json.parse(clear);
+            try {
+                Integer counter = n.get("c").asInt();
+                FpDataEntityManager em = new FpDataEntityManager();
+                FpDataEntity fp = em.getExistingFPByCounter(counter);
+                ObjectNode node = (ObjectNode) Json.toJson(fp);
+                node.remove("counter");
+                node.remove("octaneScore");
+                node.remove("sunspiderTime");
+                node.remove("addressHttp");
+                node.remove("time");
+                node.remove("hostHttp");
+                node.remove("connectionHttp");
+                node.remove("orderHttp");
+                node.remove("ieDataJs");
+                node.remove("id");
+                node.remove("vendorWebGljs");
+                node.remove("rendererWebGljs");
+                JsonNode json = (JsonNode) node;
+                Map<String,Double> percentages = em.getPercentages(json);
+                return ok(Json.toJson(percentages));
+            } catch (Exception e){
+                return badRequest();
+            }
+        }else{
+            return ok();
         }
     }
 

@@ -13,6 +13,7 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
 
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
@@ -29,50 +30,115 @@
             var target = document.getElementById('content');
             var spinner = new Spinner({length: 20, width: 10, radius: 30, color: '#FFF'}).spin(target);
 
-            setTimeout(sendData,3000);
+            if(readCookie('tempFp') != null && readCookie('tempPerc') != null && domLocalStorage == "yes"){
+                spinner.stop();
 
-            function sendData(){
-                var fontsFlash,resolutionFlash,languageFlash,platformFlash;
-                if((plugins.indexOf("flash") > -1) || (plugins.indexOf("Flash") > -1)){
-                    var fl = document.getElementById("OSData");
-                    if(fl == null){
-                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but blocked by an extension";
-                    } else if((typeof fl.getOS != "undefined") || (typeof flashAvailable == "boolean")) {
-                        fontsFlash = fl.getFonts().join().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
-                        resolutionFlash = fl.getResolution().join("x");
-                        languageFlash = fl.getLanguage();
-                        platformFlash = fl.getOS();
+                res = localStorage.getItem("tempFpContent");
+                console.log("test21");
+                $('#content').html(res);
+
+
+                var tempPerc = readCookie('tempPerc');
+                pct = JSON.parse(tempPerc);
+
+                $("#progress").remove();
+                //We add every percentages to the main page
+                for(var k in pct) {
+                    var percentage = pct[k];
+                    var cell = document.getElementById(k+"Per");
+                    if(percentage == -1) {
+                        cell.textContent = "Unique";
+                    } else if(percentage >= 0.1){
+                        cell.textContent = percentage.toFixed(2)+"%";
                     } else {
-                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but not activated (click-to-play)";
+                        cell.textContent = "<0.1%";
                     }
-                } else {
-                    fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
                 }
+                console.log("test22");
 
-                jsRoutes.controllers.Application.addFingerprint().ajax({
-                    data: JSON.stringify({
-                        userAgentHttp: '@request.getHeader("User-Agent")',
-                        acceptHttp: '@request.getHeader("Accept")', hostHttp: '@request.getHeader("Host")',
-                        connectionHttp: '@request.getHeader("Connection")', encodingHttp: '@request.getHeader("Accept-Encoding")',
-                        languageHttp: '@request.getHeader("Accept-Language")', orderHttp: '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")',
-                        pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack,
-                        timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
-                        canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
-                        resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
-                        adBlock: document.getElementById('ads')? 'no' : 'yes'}),
-                    contentType:"application/json",
-                    success: function(res){
-                        spinner.stop();
-                        $('#content').html(res);
-                        jsRoutes.controllers.Application.percentages().ajax({
-                            data: document.getElementById("counter").innerHTML,
-                            contentType:"text/plain",
-                            success: function(per) {
-                                //We remove the "In progress" banner
+                if(canvasData.indexOf("Not supported") == -1) {
+                    //Display of canvas objects
+                    document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
+                    var canContext = document.getElementById ("canvas1").getContext("2d");
+                    var canImage = new Image();
+                    canImage.onload = function(){
+                        canContext.drawImage(this, 0, 0);
+                    };
+                        canImage.src = canvasData;
+                    }
+                    if(webGLData.indexOf("Not supported") == -1){
+                        document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
+                        var webContext = document.getElementById ("canvas2").getContext("2d") ;
+                        var webImage = new Image();
+                        webImage.onload = function(){
+                            webContext.scale(0.5, 0.5);
+                            webContext.drawImage(this, 0, 0);
+                        };
+                        webImage.src = webGLData;
+                    }
+
+                    $("#graphs" ).show();
+
+            }
+            else{
+                setTimeout(sendData,1000);
+
+                function sendData(){
+                    var fontsFlash,resolutionFlash,languageFlash,platformFlash;
+                    if((plugins.indexOf("flash") > -1) || (plugins.indexOf("Flash") > -1)){
+                        var fl = document.getElementById("OSData");
+                        if(fl == null){
+                            fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but blocked by an extension";
+                        } else if((typeof fl.getOS != "undefined") || (typeof flashAvailable == "boolean")) {
+                            fontsFlash = fl.getFonts().join().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
+                            resolutionFlash = fl.getResolution().join("x");
+                            languageFlash = fl.getLanguage();
+                            platformFlash = fl.getOS();
+                        } else {
+                            fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but not activated (click-to-play)";
+                        }
+                    } else {
+                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
+                    }
+
+                    jsRoutes.controllers.Application.addFingerprint().ajax({
+                        data: JSON.stringify({
+                            userAgentHttp: '@request.getHeader("User-Agent")',
+                            acceptHttp: '@request.getHeader("Accept")', hostHttp: '@request.getHeader("Host")',
+                            connectionHttp: '@request.getHeader("Connection")', encodingHttp: '@request.getHeader("Accept-Encoding")',
+                            languageHttp: '@request.getHeader("Accept-Language")', orderHttp: '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")',
+                            pluginsJs: plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''), platformJs: platform, cookiesJs: cookieEnabled, dntJs: doNotTrack,
+                            timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
+                            canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
+                            resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
+                            adBlock: document.getElementById('ads')? 'no' : 'yes'}),
+                        contentType:"application/json",
+                        success: function(res){
+                            
+                            spinner.stop();
+
+                            /* We define a temporary cookie that lasts 3 min so that we don't calculate the fingerprint again
+                            if the user comes back during these 3 min */ 
+                            if(readCookie('tempFp') == null){
+                                createCookie('tempFp', 1, 0.002083333);
+                                localStorage.setItem("tempFpContent", res);
+                                console.log("test1");
+                            }else{
+                                res = localStorage.getItem("tempFpContent");
+                                console.log("test2");
+                            }
+
+                            $('#content').html(res);
+
+                            //if statistics are already calculated
+                            if(readCookie('tempPerc')!=null){
+                                var tempPerc = readCookie('tempPerc');
+                                pct = JSON.parse(tempPerc);
+
                                 $("#progress").remove();
                                 //We add every percentages to the main page
-                                for(var k in per) {
-                                    var percentage = per[k];
+                                for(var k in pct) {
+                                    var percentage = pct[k];
                                     var cell = document.getElementById(k+"Per");
                                     if(percentage == -1) {
                                         cell.textContent = "Unique";
@@ -82,39 +148,67 @@
                                         cell.textContent = "<0.1%";
                                     }
                                 }
-                            },
-                            error: function(jqXHR, textStatus, errorThrown) {
-                                console.log(textStatus,errorThrown);
+                                console.log("test32");
+
+                            }else{ //if statistics have not been calculated yet
+                                jsRoutes.controllers.Application.percentages().ajax({
+                                    data: document.getElementById("counter").innerHTML,
+                                    contentType:"text/plain",
+                                    success: function(per) {
+                                        /* We define a temporary cookie that lasts 3 min so that we don't calculate the percentage again
+                                        if the user comes back during these 3 min */ 
+                                        createCookie('tempPerc', JSON.stringify(per), 0.002083333);
+     
+                                        //We remove the "In progress" banner
+                                        $("#progress").remove();
+                                        //We add every percentages to the main page
+                                        for(var k in per) {
+                                            var percentage = per[k];
+                                            var cell = document.getElementById(k+"Per");
+                                            if(percentage == -1) {
+                                                cell.textContent = "Unique";
+                                            } else if(percentage >= 0.1){
+                                                cell.textContent = percentage.toFixed(2)+"%";
+                                            } else {
+                                                cell.textContent = "<0.1%";
+                                            }
+                                        }
+                                    },
+                                    error: function(jqXHR, textStatus, errorThrown) {
+                                        console.log(textStatus,errorThrown);
+                                    }
+                                });
                             }
-                        });
 
-                        if(canvasData.indexOf("Not supported") == -1) {
-                            //Display of canvas objects
-                            document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
-                            var canContext = document.getElementById ("canvas1").getContext("2d");
-                            var canImage = new Image();
-                            canImage.onload = function(){
-                                canContext.drawImage(this, 0, 0);
-                            };
-                            canImage.src = canvasData;
-                        }
-                        if(webGLData.indexOf("Not supported") == -1){
-                            document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
-                            var webContext = document.getElementById ("canvas2").getContext("2d") ;
-                            var webImage = new Image();
-                            webImage.onload = function(){
-                                webContext.scale(0.5, 0.5);
-                                webContext.drawImage(this, 0, 0);
-                            };
-                            webImage.src = webGLData;
-                        }
+                            if(canvasData.indexOf("Not supported") == -1) {
+                                //Display of canvas objects
+                                document.getElementById ("canvasJsVal").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
+                                var canContext = document.getElementById ("canvas1").getContext("2d");
+                                var canImage = new Image();
+                                canImage.onload = function(){
+                                    canContext.drawImage(this, 0, 0);
+                                };
+                                canImage.src = canvasData;
+                            }
+                            if(webGLData.indexOf("Not supported") == -1){
+                                document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
+                                var webContext = document.getElementById ("canvas2").getContext("2d") ;
+                                var webImage = new Image();
+                                webImage.onload = function(){
+                                    webContext.scale(0.5, 0.5);
+                                    webContext.drawImage(this, 0, 0);
+                                };
+                                webImage.src = webGLData;
+                            }
 
-                        $("#graphs" ).show();
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus,errorThrown);
-                    }
-                });
+                            $("#graphs" ).show();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus,errorThrown);
+                        }
+                    });
+                }
+
             }
         });
     </script>
