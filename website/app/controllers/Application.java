@@ -173,7 +173,6 @@ public class Application extends Controller {
                 fp = em.getExistingFPById(id);
                 newFp = false;
         } else {
-            System.out.println("test4");
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
 
