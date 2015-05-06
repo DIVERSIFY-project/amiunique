@@ -34,7 +34,6 @@
                 spinner.stop();
 
                 res = localStorage.getItem("tempFpContent");
-                console.log("test21");
                 $('#content').html(res);
 
 
@@ -54,7 +53,6 @@
                         cell.textContent = "<0.1%";
                     }
                 }
-                console.log("test22");
 
                 if(canvasData.indexOf("Not supported") == -1) {
                     //Display of canvas objects
@@ -65,16 +63,6 @@
                         canContext.drawImage(this, 0, 0);
                     };
                         canImage.src = canvasData;
-                    }
-                    if(webGLData.indexOf("Not supported") == -1){
-                        document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
-                        var webContext = document.getElementById ("canvas2").getContext("2d") ;
-                        var webImage = new Image();
-                        webImage.onload = function(){
-                            webContext.scale(0.5, 0.5);
-                            webContext.drawImage(this, 0, 0);
-                        };
-                        webImage.src = webGLData;
                     }
 
                     $("#graphs" ).show();
@@ -116,69 +104,45 @@
                         success: function(res){
                             
                             spinner.stop();
-
                             /* We define a temporary cookie that lasts 3 min so that we don't calculate the fingerprint again
                             if the user comes back during these 3 min */ 
-                            if(readCookie('tempFp') == null){
-                                createCookie('tempFp', 1, 0.002083333);
-                                localStorage.setItem("tempFpContent", res);
-                                console.log("test1");
-                            }else{
-                                res = localStorage.getItem("tempFpContent");
-                                console.log("test2");
-                            }
+                            createCookie('tempFp', 1, 0.002083333);
+
+                            //we delete the webGlJs element
+                            res = '<div>' +res + '</div>'; 
+                            res = $(res).find('#webGlJs').remove().end().html();
+                            localStorage.setItem("tempFpContent", res);
 
                             $('#content').html(res);
 
-                            //if statistics are already calculated
-                            if(readCookie('tempPerc')!=null){
-                                var tempPerc = readCookie('tempPerc');
-                                pct = JSON.parse(tempPerc);
-
-                                $("#progress").remove();
-                                //We add every percentages to the main page
-                                for(var k in pct) {
-                                    var percentage = pct[k];
-                                    var cell = document.getElementById(k+"Per");
-                                    if(percentage == -1) {
-                                        cell.textContent = "Unique";
-                                    } else if(percentage >= 0.1){
-                                        cell.textContent = percentage.toFixed(2)+"%";
-                                    } else {
-                                        cell.textContent = "<0.1%";
-                                    }
-                                }
-                                console.log("test32");
-
-                            }else{ //if statistics have not been calculated yet
-                                jsRoutes.controllers.Application.percentages().ajax({
-                                    data: document.getElementById("counter").innerHTML,
-                                    contentType:"text/plain",
-                                    success: function(per) {
-                                        /* We define a temporary cookie that lasts 3 min so that we don't calculate the percentage again
-                                        if the user comes back during these 3 min */ 
-                                        createCookie('tempPerc', JSON.stringify(per), 0.002083333);
+                            jsRoutes.controllers.Application.percentages().ajax({
+                                data: document.getElementById("counter").innerHTML,
+                                contentType:"text/plain",
+                                success: function(per) {
+                                    /* We define a temporary cookie that lasts 3 min so that we don't calculate the percentage again
+                                    if the user comes back during these 3 min */ 
+                                    createCookie('tempPerc', JSON.stringify(per), 0.002083333);
      
-                                        //We remove the "In progress" banner
-                                        $("#progress").remove();
-                                        //We add every percentages to the main page
-                                        for(var k in per) {
-                                            var percentage = per[k];
-                                            var cell = document.getElementById(k+"Per");
-                                            if(percentage == -1) {
-                                                cell.textContent = "Unique";
-                                            } else if(percentage >= 0.1){
-                                                cell.textContent = percentage.toFixed(2)+"%";
-                                            } else {
-                                                cell.textContent = "<0.1%";
-                                            }
+                                    //We remove the "In progress" banner
+                                    $("#progress").remove();
+                                    //We add every percentages to the main page
+                                    for(var k in per) {
+                                        var percentage = per[k];
+                                        var cell = document.getElementById(k+"Per");
+                                        if(percentage == -1) {
+                                            cell.textContent = "Unique";
+                                        } else if(percentage >= 0.1){
+                                            cell.textContent = percentage.toFixed(2)+"%";
+                                        } else {
+                                            cell.textContent = "<0.1%";
                                         }
-                                    },
-                                    error: function(jqXHR, textStatus, errorThrown) {
-                                        console.log(textStatus,errorThrown);
                                     }
-                                });
-                            }
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    console.log(textStatus,errorThrown);
+                                }
+                            });
+                            
 
                             if(canvasData.indexOf("Not supported") == -1) {
                                 //Display of canvas objects
@@ -189,16 +153,6 @@
                                     canContext.drawImage(this, 0, 0);
                                 };
                                 canImage.src = canvasData;
-                            }
-                            if(webGLData.indexOf("Not supported") == -1){
-                                document.getElementById ("webGlJsVal").innerHTML = '<canvas id="canvas2" height="200" width="500"></canvas>' ;
-                                var webContext = document.getElementById ("canvas2").getContext("2d") ;
-                                var webImage = new Image();
-                                webImage.onload = function(){
-                                    webContext.scale(0.5, 0.5);
-                                    webContext.drawImage(this, 0, 0);
-                                };
-                                webImage.src = webGLData;
                             }
 
                             $("#graphs" ).show();

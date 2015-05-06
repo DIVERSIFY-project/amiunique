@@ -170,21 +170,10 @@ public class Application extends Controller {
                 getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                 getAttribute(json,"adBlock"))){
 
-            if(request().cookies().get("tempFp") == null){
                 fp = em.getExistingFPById(id);
                 newFp = false;
-            }else{
-                System.out.println("test1");
-                return ok();
-            }
-
         } else {
-
-            if(request().cookies().get("tempFp") != null){
-                System.out.println("test2");
-                return ok();
-            }
-
+            System.out.println("test4");
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
 
@@ -212,6 +201,7 @@ public class Application extends Controller {
         node.remove("connectionHttp");
         node.remove("orderHttp");
         node.remove("id");
+        node.remove("webGlJs");
         json = (JsonNode) node;
 
         //Analyse the user agent
@@ -283,6 +273,7 @@ public class Application extends Controller {
                 node.remove("id");
                 node.remove("vendorWebGljs");
                 node.remove("rendererWebGljs");
+                node.remove("webGlJs");
                 JsonNode json = (JsonNode) node;
                 Map<String,Double> percentages = em.getPercentages(json);
                 return ok(Json.toJson(percentages));
