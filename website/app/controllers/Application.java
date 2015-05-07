@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.*;
+import java.io.*;
 
 //@With(ForceHttps.class)
 public class Application extends Controller {
@@ -301,32 +302,53 @@ public class Application extends Controller {
     }
 
     public static Result updateCombinationStats(){
-        String workingDir = System.getProperty("user.dir");
-        System.out.println("test --- "+workingDir);
-        final Map<String, String[]> vals = request().body().asFormUrlEncoded();
-        final String secretKey = vals.get("secretKey")[0];
+        Boolean autorized = false;
+        String filesk = System.getProperty("user.dir")+"/secret/sk.txt";
+        try {
+            FileReader fileReader = new FileReader(filesk);
 
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String sk = bufferedReader.readLine() ;
+            bufferedReader.close();     
 
-        FpDataEntityManager em = new FpDataEntityManager();
-        CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
-        String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
-        "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
-        int nbEntries = em.getNumberOfEntries();
+            Map<String, String[]> vals = request().body().asFormUrlEncoded();
+            String secretKey = vals.get("secretKey")[0];
 
-        for(String attribute : fields){
-            HashMap<String,Integer> stats = new HashMap<String,Integer>();
-            ArrayList<String> values = em.getAttribute(attribute);
-            for(String combination : values){
-                if(stats.get(combination) != null){
-                    stats.put(combination, stats.get(combination)+1);
-                }else{
-                    stats.put(combination, 1);
-                }
+            System.out.println(sk);
+            System.out.println(secretKey);
+            if(sk.equals(secretKey)){
+                autorized = true;
             }
 
-            for(String key : stats.keySet()){
-                int val = stats.get(key);
-                emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+        }catch(FileNotFoundException ex) {
+            System.out.println("file not found : "+filesk);
+        }
+        catch(IOException ex) {
+            System.out.println("IOException");
+        }
+
+        if(autorized){
+            FpDataEntityManager em = new FpDataEntityManager();
+            CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
+            String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
+            "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
+            int nbEntries = em.getNumberOfEntries();
+
+            for(String attribute : fields){
+                HashMap<String,Integer> stats = new HashMap<String,Integer>();
+                ArrayList<String> values = em.getAttribute(attribute);
+                for(String combination : values){
+                    if(stats.get(combination) != null){
+                        stats.put(combination, stats.get(combination)+1);
+                    }else{
+                        stats.put(combination, 1);
+                    }
+                }
+
+                for(String key : stats.keySet()){
+                    int val = stats.get(key);
+                    emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+                }
             }
         }
 

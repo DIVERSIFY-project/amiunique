@@ -9,22 +9,22 @@
         <class>models.FpDataEntity</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
-            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="toplink.jdbc.url" value="jdbc:mysql://193.51.236.100:3306"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="toplink.jdbc.user" value=""/>
-            <property name="toplink.jdbc.password" value=""/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="toplink.jdbc.user" value="app"/>
+            <property name="toplink.jdbc.password" value="bdd"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://193.51.236.100:3306"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.username" value=""/>
-            <property name="hibernate.connection.password" value=""/>
-            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306"/>
+            <property name="hibernate.connection.username" value="app"/>
+            <property name="hibernate.connection.password" value="bdd"/>
+            <property name="openjpa.ConnectionURL" value="jdbc:mysql://193.51.236.100:3306"/>
             <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-            <property name="openjpa.ConnectionUserName" value=""/>
-            <property name="openjpa.ConnectionPassword" value=""/>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
+            <property name="openjpa.ConnectionUserName" value="app"/>
+            <property name="openjpa.ConnectionPassword" value="bdd"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://193.51.236.100:3306"/>
             <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="eclipselink.jdbc.user" value=""/>
-            <property name="eclipselink.jdbc.password" value=""/>
+            <property name="eclipselink.jdbc.user" value="app"/>
+            <property name="eclipselink.jdbc.password" value="bdd"/>
         </properties>
     </persistence-unit>
 
