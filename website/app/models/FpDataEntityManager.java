@@ -302,4 +302,11 @@ public class FpDataEntityManager {
         return nbFontsMap;
     }
 
+    public ArrayList<String> getAttribute(String attribute){
+        String query = "SELECT "+attribute+" FROM FpDataEntity";
+        ArrayList<String> listAttribute = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
+
+        return listAttribute;
+    }
+
 }

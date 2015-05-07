@@ -18,9 +18,14 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.*;
 
 //@With(ForceHttps.class)
 public class Application extends Controller {
+
+    public static Result secret(){
+        return ok("Got request " + request() + "!");
+    }
 
     public static Result home() {
         return ok(home.render());
@@ -32,8 +37,9 @@ public class Application extends Controller {
 
     public static Result fp() {
         if(request().cookies().get("amiunique") == null){
-            response().setCookie("amiunique",UUID.randomUUID().toString(),60*60*24*120,"/","amiunique.org",true,true);
+            response().setCookie("amiunique",UUID.randomUUID().toString(),60*60*24*120); //remettre true,true en prod
         }
+
         return ok(fp.render(request()));
     }
 
@@ -251,36 +257,32 @@ public class Application extends Controller {
     }
 
     public static Result percentages(){
-        if(request().cookies().get("tempPerc") == null){
-            String enc = request().body().asText();
-            String clear = Crypto.decryptAES(enc);
-            JsonNode n = Json.parse(clear);
-            try {
-                Integer counter = n.get("c").asInt();
-                FpDataEntityManager em = new FpDataEntityManager();
-                FpDataEntity fp = em.getExistingFPByCounter(counter);
-                ObjectNode node = (ObjectNode) Json.toJson(fp);
-                node.remove("counter");
-                node.remove("octaneScore");
-                node.remove("sunspiderTime");
-                node.remove("addressHttp");
-                node.remove("time");
-                node.remove("hostHttp");
-                node.remove("connectionHttp");
-                node.remove("orderHttp");
-                node.remove("ieDataJs");
-                node.remove("id");
-                node.remove("vendorWebGljs");
-                node.remove("rendererWebGljs");
-                node.remove("webGlJs");
-                JsonNode json = (JsonNode) node;
-                Map<String,Double> percentages = em.getPercentages(json);
-                return ok(Json.toJson(percentages));
-            } catch (Exception e){
-                return badRequest();
-            }
-        }else{
-            return ok();
+        String enc = request().body().asText();
+        String clear = Crypto.decryptAES(enc);
+        JsonNode n = Json.parse(clear);
+        try {
+            Integer counter = n.get("c").asInt();
+            FpDataEntityManager em = new FpDataEntityManager();
+            FpDataEntity fp = em.getExistingFPByCounter(counter);
+            ObjectNode node = (ObjectNode) Json.toJson(fp);
+            node.remove("counter");
+            node.remove("octaneScore");
+            node.remove("sunspiderTime");
+            node.remove("addressHttp");
+            node.remove("time");
+            node.remove("hostHttp");
+            node.remove("connectionHttp");
+            node.remove("orderHttp");
+            node.remove("ieDataJs");
+            node.remove("id");
+            node.remove("vendorWebGljs");
+            node.remove("rendererWebGljs");
+            node.remove("webGlJs");
+            JsonNode json = (JsonNode) node;
+            Map<String,Double> percentages = em.getPercentages(json);
+            return ok(Json.toJson(percentages));
+        } catch (Exception e){
+            return badRequest();
         }
     }
 
@@ -296,6 +298,39 @@ public class Application extends Controller {
             return stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
                     Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()));
         }, 1800));
+    }
+
+    public static Result updateCombinationStats(){
+        String workingDir = System.getProperty("user.dir");
+        System.out.println("test --- "+workingDir);
+        final Map<String, String[]> vals = request().body().asFormUrlEncoded();
+        final String secretKey = vals.get("secretKey")[0];
+
+
+        FpDataEntityManager em = new FpDataEntityManager();
+        CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
+        String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
+        "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
+        int nbEntries = em.getNumberOfEntries();
+
+        for(String attribute : fields){
+            HashMap<String,Integer> stats = new HashMap<String,Integer>();
+            ArrayList<String> values = em.getAttribute(attribute);
+            for(String combination : values){
+                if(stats.get(combination) != null){
+                    stats.put(combination, stats.get(combination)+1);
+                }else{
+                    stats.put(combination, 1);
+                }
+            }
+
+            for(String key : stats.keySet()){
+                int val = stats.get(key);
+                emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+            }
+        }
+
+        return ok();
     }
 
 }
