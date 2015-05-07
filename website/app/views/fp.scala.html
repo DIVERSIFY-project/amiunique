@@ -14,6 +14,7 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/forceFP.js")"></script>
 
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
@@ -69,7 +70,6 @@
 
             }
             else{
-                setTimeout(sendData,1000);
 
                 function sendData(){
                     var fontsFlash,resolutionFlash,languageFlash,platformFlash;
@@ -108,10 +108,9 @@
                             if the user comes back during these 3 min */ 
                             createCookie('tempFp', 1, 0.002083333);
 
-                            //we delete the webGlJs element
-                            res = '<div>' +res + '</div>'; 
-                            res = $(res).find('#webGlJs').remove().end().html();
-                            localStorage.setItem("tempFpContent", res);
+                            if(domLocalStorage == "yes"){
+                                localStorage.setItem("tempFpContent", res);
+                            }
 
                             $('#content').html(res);
 
@@ -162,6 +161,8 @@
                         }
                     });
                 }
+
+                setTimeout(sendData,1000);
 
             }
         });
