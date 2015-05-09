@@ -265,6 +265,7 @@ public class Application extends Controller {
             Integer counter = n.get("c").asInt();
             FpDataEntityManager em = new FpDataEntityManager();
             FpDataEntity fp = em.getExistingFPByCounter(counter);
+            CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
             ObjectNode node = (ObjectNode) Json.toJson(fp);
             node.remove("counter");
             node.remove("octaneScore");
@@ -280,7 +281,7 @@ public class Application extends Controller {
             node.remove("rendererWebGljs");
             node.remove("webGlJs");
             JsonNode json = (JsonNode) node;
-            Map<String,Double> percentages = em.getPercentages(json);
+            Map<String,Double> percentages = emc.getPercentages(json);
             return ok(Json.toJson(percentages));
         } catch (Exception e){
             return badRequest();
@@ -330,7 +331,7 @@ public class Application extends Controller {
         if(autorized){
             FpDataEntityManager em = new FpDataEntityManager();
             CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
-            String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
+            String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","encodingHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
             "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
             int nbEntries = em.getNumberOfEntries();
 
@@ -347,7 +348,11 @@ public class Application extends Controller {
 
                 for(String key : stats.keySet()){
                     int val = stats.get(key);
-                    emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+
+                    //We delete the old row before adding the new one
+                    if(emc.updateCombinationStats(key, attribute, val, (val/((float)nbEntries))*100) == 0){
+                        emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+                    }
                 }
             }
         }
