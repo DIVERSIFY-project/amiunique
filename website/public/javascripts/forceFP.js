@@ -13,7 +13,7 @@ $( document ).ready(function() {
 
       		$( "#forceFp" ).mouseover(function() {
      			if(language[0].toLowerCase().indexOf("fr") >= 0){
-					$('<p id="infoforcefp"><br/>Nous utilisons un cookie temporaire de 3 minutes pour conserver votre fingerprint et charger votre empreinte plus rapidement. Si vous avez effectuer des modifications et vous souhaitez les visualiser, cliquez sur forcer fingerprinting</p>').insertAfter("#forceFp");
+					$('<p id="infoforcefp"><br/>Nous utilisons un cookie temporaire de 3 minutes pour conserver votre fingerprint et charger votre empreinte plus rapidement. Si vous avez effectué des modifications et vous souhaitez les visualiser, cliquez sur forcer fingerprinting</p>').insertAfter("#forceFp");
 				}else{
 					$('<p id="infoforcefp"><br/>We use a temporary cookie of 3 minutes in order to keep your fingerprint and load it faster. If you have made change and would like to see them, click on Force Fingerprinting</p>').insertAfter("#forceFp");		
 				}
