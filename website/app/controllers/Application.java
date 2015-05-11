@@ -329,7 +329,19 @@ public class Application extends Controller {
     }
 
     public static Result history(){
-        return ok();
+
+        Http.Cookie cookie = request().cookies().get("amiunique");
+        String id;
+        if(cookie == null){
+            return redirect("/home");
+        }
+            
+        id = cookie.value();
+
+        //FpDataEntity fp = em.getExistingFPById(id);
+
+
+        return ok(history.render());
     }
 
     public static Result updateCombinationStats(){
