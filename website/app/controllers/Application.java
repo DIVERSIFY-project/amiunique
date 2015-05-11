@@ -282,7 +282,33 @@ public class Application extends Controller {
             node.remove("webGlJs");
             JsonNode json = (JsonNode) node;
             Map<String,Double> percentages = emc.getPercentages(json);
-            return ok(Json.toJson(percentages));
+            Map<String,Double> percentagesPlugins = emc.getPercentagesPlugins(getAttribute(json, "pluginsJs"));
+
+            System.out.println("test pourcentages plugins : ");
+            for(String key : percentagesPlugins.keySet()){
+                    double val = percentagesPlugins.get(key);
+                    System.out.println("combination : "+key+" ,valeur : "+val);
+                    
+            }
+
+            ObjectNode nodePer = (ObjectNode) Json.toJson(percentages);
+
+            JsonNode jsonPerPlugins = Json.toJson(percentagesPlugins);
+            nodePer.put("perPluginsJs", jsonPerPlugins);
+
+            json = (JsonNode) nodePer;
+
+            /*
+            System.out.println("test pourcentages plugins : ");
+            for(String key : percentagesPlugins.keySet()){
+                    double val = percentagesPlugins.get(key);
+                    System.out.println("combination : "+key+" ,valeur : "+val);
+                    
+            }
+            */
+
+            System.out.println("test stringify : "+Json.stringify(json));
+            return ok(json);
         } catch (Exception e){
             return badRequest();
         }
@@ -302,6 +328,10 @@ public class Application extends Controller {
         }, 1800));
     }
 
+    public static Result history(){
+        return ok();
+    }
+
     public static Result updateCombinationStats(){
         Boolean autorized = false;
         String filesk = System.getProperty("user.dir")+"/secret/sk.txt";
@@ -315,8 +345,6 @@ public class Application extends Controller {
             Map<String, String[]> vals = request().body().asFormUrlEncoded();
             String secretKey = vals.get("secretKey")[0];
 
-            System.out.println(sk);
-            System.out.println(secretKey);
             if(sk.equals(secretKey)){
                 autorized = true;
             }

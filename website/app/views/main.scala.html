@@ -66,6 +66,11 @@
                     <li @active("/stats")>
                         <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  Global statistics</a>
                     </li>
+                    @if(request().cookies().get("amiunique") != null){
+                        <li @active("/history")>
+                            <a style="color:#ffffff" href="/history"><i class="fa fa-fw fa-book"></i>&nbsp;  My history</a>
+                        </li>
+                    }
                     <li @active("/faq")>
                         <a style="color:#ffffff" href="/faq"><i class="fa fa-fw fa-question"></i>&nbsp; FAQ</a>
                     </li>

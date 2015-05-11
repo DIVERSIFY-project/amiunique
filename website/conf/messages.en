@@ -237,6 +237,7 @@ fp.connection=Connection
 fp.encoding=Content encoding
 fp.language=Content language
 fp.plugins=List of plugins
+fp.detailPlugins=Detail of the plugins
 fp.platformJ=Platform
 fp.cookies=Cookies enabled
 fp.dnt=Do Not Track
