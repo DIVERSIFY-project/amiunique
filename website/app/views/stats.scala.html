@@ -12,16 +12,10 @@
 }
 
 @main(header, footer, "/stats") {
-    <div class="container">
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-            </div>
-        </div>
         <!-- /.row -->
 
         <h1>Fingerprints</h1>
-        <h2>Number of entries : @nbTotal</h2>
+        <h2>@Messages("stats.nbentries") : @nbTotal</h2>
 
         <div id="osGraph" style="height: auto; width: auto"></div>
         <div id="browGraph" style="height: auto; width: auto"></div>
@@ -337,5 +331,4 @@
             });
 
         </script>
-    </div>
 }

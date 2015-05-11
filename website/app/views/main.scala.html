@@ -51,9 +51,7 @@
                 </button>
                 <a class="navbar-brand" href="/">Am I Unique?</a>
             </div>
-            <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
-            </ul>
+
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
@@ -68,7 +66,7 @@
                     </li>
                     @if(request().cookies().get("amiunique") != null){
                         <li @active("/history")>
-                            <a style="color:#ffffff" href="/history"><i class="fa fa-fw fa-book"></i>&nbsp;  My history</a>
+                            <a style="color:#ffffff" href="/history"><i class="fa fa-fw fa-book"></i>&nbsp;  @Messages("menu.history")</a>
                         </li>
                     }
                     <li @active("/faq")>
@@ -92,11 +90,12 @@
         </nav>
 
         <div id="page-wrapper">
+            <div class="container-fluid">
 
             @content
 
+            </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
 
