@@ -279,3 +279,15 @@ fp.resolutionFExp=Flash attribute that indicates the resolution of the device’
 fp.languageFExp=Flash attribute that indicates the primary language of the browser (flash.system.Capabilities.language)
 fp.platformFExp=Flash attribute that indicates the platform the browser is running on (flash.system.Capabilities.os). This value can give even more information in comparison with the value given by JavaScript.
 fp.adBlockExp=Test to find out if the AdBlock extension is installed
+
+
+history.title=My history
+
+menu.home=Home
+menu.myfp=My fingerprint
+menu.globalstats= Global statistics
+menu.faq = FAQ
+menu.privpolicy = Privacy policy
+menu.links= Links
+menu.about = About
+menu.github=View on GitHub
