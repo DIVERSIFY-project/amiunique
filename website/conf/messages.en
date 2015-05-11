@@ -286,8 +286,11 @@ history.title=My history
 menu.home=Home
 menu.myfp=My fingerprint
 menu.globalstats= Global statistics
+menu.history=My history
 menu.faq = FAQ
 menu.privpolicy = Privacy policy
 menu.links= Links
 menu.about = About
 menu.github=View on GitHub
+
+stats.nbentries = Number of entries

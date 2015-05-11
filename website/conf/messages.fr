@@ -257,8 +257,11 @@ history.title=Mon historique
 menu.home=Accueil
 menu.myfp=Mon empreinte
 menu.globalstats= Statistiques globales
+menu.history=Mon historique
 menu.faq = FAQ
 menu.privpolicy = Politique de confidentialité
 menu.links= Liens
 menu.about = À propos
 menu.github=Voir sur github
+
+stats.nbentries = Nombre d’entrées
