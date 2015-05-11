@@ -74,11 +74,23 @@ public class FpDataEntityManager {
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
+
     public FpDataEntity getExistingFPByCounter(int counter){
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
 
+    public TreeSet<FpDataEntity> getExistingFPsById(String id){
+        String query = "SELECT counter FROM FpDataEntity WHERE id= :id";
+        List<Integer> counters= withTransaction(em -> (em.createQuery(query).setParameter("id", id).getResultList()));
+
+        TreeSet<FpDataEntity> fps = new TreeSet<FpDataEntity>();
+        for(int c : counters){
+            fps.add(getExistingFPByCounter(c));
+        }
+
+        return fps;
+    }
 
     public FpDataEntity createFull(String id, String addressHttp, Timestamp time, String userAgentHttp,
                                    String acceptHttp, String hostHttp, String connectionHttp, String encodingHttp,
