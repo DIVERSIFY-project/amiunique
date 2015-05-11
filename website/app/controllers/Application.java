@@ -337,11 +337,11 @@ public class Application extends Controller {
         }
             
         id = cookie.value();
+        FpDataEntityManager emf = new FpDataEntityManager();
 
-        //FpDataEntity fp = em.getExistingFPById(id);
+        TreeSet<FpDataEntity> fps = emf.getExistingFPsById(id);
 
-
-        return ok(history.render());
+        return ok(history.render(fps));
     }
 
     public static Result updateCombinationStats(){

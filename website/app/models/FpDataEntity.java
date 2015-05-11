@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "fpData", schema = "", catalog = "fingerprint")
-public class FpDataEntity {
+public class FpDataEntity implements Comparable {
     private int counter;
     private String id;
     private String addressHttp;
@@ -430,5 +430,14 @@ public class FpDataEntity {
 
     public void setRendererWebGljs(String rendererWebGljs) {
         this.rendererWebGljs = rendererWebGljs;
+    }
+
+    public int compareTo(Object o){
+        if (this == o) return 0;
+        if (o == null) return -1;
+
+        FpDataEntity that = (FpDataEntity) o;
+        return that.getCounter() - getCounter();
+
     }
 }
