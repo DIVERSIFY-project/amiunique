@@ -220,6 +220,8 @@ fp.notuniq4=%) have exactly the same fingerprint as yours.
 
 fp.btn1=View more details
 fp.btn2=View graphs
+fp.btnforcefp= Force fingerprinting
+fp.forcefp=We use a temporary cookie of 3 minutes in order to keep your fingerprint and load it faster. If you have made change and would like to see them, click on Force Fingerprinting.
 
 fp.detailsTitle=My fingerprint
 fp.detProgress=Ratio calculations in progress...
