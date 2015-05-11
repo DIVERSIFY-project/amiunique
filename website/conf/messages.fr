@@ -192,6 +192,8 @@ fp.notuniq4=%) ont exactement la même empreinte que celle de votre navigateur.
 
 fp.btn1=Voir plus de détails
 fp.btn2=Voir graphiques
+fp.btnforcefp= Forcer fingerprinting
+fp.forcefp=Nous utilisons un cookie temporaire de 3 minutes pour conserver votre fingerprint et charger votre empreinte plus rapidement. Si vous avez effectué des modifications et vous souhaitez les visualiser, cliquez sur forcer fingerprinting.
 
 fp.detailsTitle=Mon empreinte
 fp.detProgress=Calcul des ratios en cours...
