@@ -253,6 +253,7 @@ fp.platformFExp=Attribut Flash qui indique la plateforme sur laquelle le navigat
 fp.adBlockExp= Test pour savoir si l’extension AdBlock est installée
 
 history.title=Mon historique
+history.warning=Si une de vos empreintes n’apparait pas, cela est dû au fait qu’elle n’avait pas évoluée entre deux visites consécutives. Par conséquent nous ne l’avons pas stockée en base.
 history.subtitle1=Empreinte du
 history.subtitle2=à
 history.subtitle3=h
@@ -269,3 +270,10 @@ menu.about = À propos
 menu.github=Voir sur github
 
 stats.nbentries = Nombre d’entrées
+
+modal.title=Vous êtes de retour
+modal.body1=Vous pouvez vous rendre sur la page 
+modal.body2=pour calculer votre nouvelle empreinte, puis sur la page 
+modal.body3= pour visualiser l’évolation de votre empreinte depuis votre dernière visite.
+modal.close=Fermer
+modal.history=Calculer votre nouvelle empreinte

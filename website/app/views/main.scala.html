@@ -23,6 +23,8 @@
     <!-- Jquery/Bootstrap JS -->
     <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/returningVisitor.js")"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- JS Fix for IE8 display bugs -->
@@ -101,6 +103,29 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <!-- code for the modal window -->
+    <a style="display:none;" id="returningvis" href="#" data-toggle="modal" data-target="#basicModal"></a>
+
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times</button>
+                <h4 class="modal-title" id="myModalLabel">@Messages("modal.title")</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        @Messages("modal.body1") <a href="/fp">@Messages("menu.myfp")</a> @Messages("modal.body2") <a href="/history">@Messages("menu.history")</a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("modal.close")</button>
+                    <a href="/fp"><button type="button" class="btn btn-primary">@Messages("modal.history")</button></a>
+            </div>
+        </div>
+      </div>
+    </div>
 
     @footer
 
