@@ -284,13 +284,6 @@ public class Application extends Controller {
             Map<String,Double> percentages = emc.getPercentages(json);
             Map<String,Double> percentagesPlugins = emc.getPercentagesPlugins(getAttribute(json, "pluginsJs"));
 
-            System.out.println("test pourcentages plugins : ");
-            for(String key : percentagesPlugins.keySet()){
-                    double val = percentagesPlugins.get(key);
-                    System.out.println("combination : "+key+" ,valeur : "+val);
-                    
-            }
-
             ObjectNode nodePer = (ObjectNode) Json.toJson(percentages);
 
             JsonNode jsonPerPlugins = Json.toJson(percentagesPlugins);
@@ -298,16 +291,6 @@ public class Application extends Controller {
 
             json = (JsonNode) nodePer;
 
-            /*
-            System.out.println("test pourcentages plugins : ");
-            for(String key : percentagesPlugins.keySet()){
-                    double val = percentagesPlugins.get(key);
-                    System.out.println("combination : "+key+" ,valeur : "+val);
-                    
-            }
-            */
-
-            System.out.println("test stringify : "+Json.stringify(json));
             return ok(json);
         } catch (Exception e){
             return badRequest();
