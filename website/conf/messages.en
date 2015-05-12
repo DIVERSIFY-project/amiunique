@@ -282,6 +282,10 @@ fp.adBlockExp=Test to find out if the AdBlock extension is installed
 
 
 history.title=My history
+history.subtitle1=Fingerprint of the
+history.subtitle2=at
+history.subtitle3=h
+history.differences= Difference(s) with your previous fingerprint
 
 menu.home=Home
 menu.myfp=My fingerprint

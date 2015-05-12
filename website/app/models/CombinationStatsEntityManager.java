@@ -88,7 +88,7 @@ public class CombinationStatsEntityManager {
         HashMap<String,Double> percentage = new HashMap<>();
 
         for(int i = 1; i < pluginsParsed.length; i++) {
-            //We split the string 2 time to get the name of the plugin without the version
+            //We split the string 2 times to get the name of the plugin without the version
             String[] tab1 = pluginsParsed[i].split(": ");
             String[] tab2 = tab1[1].split(";");
             String plugin = tab2[0];
