@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "fpData", schema = "", catalog = "fingerprint")
-public class FpDataEntity implements Comparable {
+public class FpDataEntity implements Comparable, Cloneable {
     private int counter;
     private String id;
     private String addressHttp;
@@ -439,5 +439,16 @@ public class FpDataEntity implements Comparable {
         FpDataEntity that = (FpDataEntity) o;
         return that.getCounter() - getCounter();
 
+    }
+
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            cnse.printStackTrace(System.err);
+        }
+        
+        return o;
     }
 }

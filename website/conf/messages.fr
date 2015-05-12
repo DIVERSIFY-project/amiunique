@@ -253,6 +253,10 @@ fp.platformFExp=Attribut Flash qui indique la plateforme sur laquelle le navigat
 fp.adBlockExp= Test pour savoir si l’extension AdBlock est installée
 
 history.title=Mon historique
+history.subtitle1=Empreinte du
+history.subtitle2=à
+history.subtitle3=h
+history.differences= Différence(s) avec votre empreinte précédente
 
 menu.home=Accueil
 menu.myfp=Mon empreinte
