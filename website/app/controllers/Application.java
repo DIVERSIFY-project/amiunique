@@ -20,6 +20,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
 
 //@With(ForceHttps.class)
 public class Application extends Controller {
@@ -430,6 +435,26 @@ public class Application extends Controller {
         }
 
         return ok();
+    }
+
+    public static Result statsTime(){
+        Map<String, String[]> vals = request().body().asFormUrlEncoded();
+        String dateString = vals.get("period")[0];
+
+        try{
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = dateFormat.parse(dateString);
+            Timestamp dateTs = new Timestamp(date.getTime());
+
+            Stats s = new Stats(dateTs);
+            return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts())));
+
+        }catch(ParseException e){
+            System.out.println("Parse exception : "+e);
+        }
+
+        return redirect("/stats");
     }
 
 }

@@ -1,6 +1,8 @@
 package models;
 
 import java.util.HashMap;
+import java.sql.Timestamp;
+
 
 public class Stats{
 
@@ -40,6 +42,17 @@ public class Stats{
         this.nbTotal = em.getNumberOfEntries();
         this.timezone = em.getTimezoneStats();
         HashMap<String,HashMap<String, VersionMap>> resMap = em.getOSBrowserStats();
+        this.browsers = resMap.get("browsers");
+        this.os = resMap.get("os");
+        this.languages = em.getLanguageStats();
+        this.nbFonts = em.getFontsStats();
+    }
+
+    public Stats(Timestamp ts){
+        FpDataEntityManager em = new FpDataEntityManager();
+        this.nbTotal = em.getNumberOfEntriesSinceDate(ts);
+        this.timezone = em.getTimezoneStatsSinceDate(ts);
+        HashMap<String,HashMap<String, VersionMap>> resMap = em.getOSBrowserStatsSinceDate(ts);
         this.browsers = resMap.get("browsers");
         this.os = resMap.get("os");
         this.languages = em.getLanguageStats();

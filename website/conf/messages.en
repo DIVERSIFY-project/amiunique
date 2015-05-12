@@ -299,6 +299,7 @@ menu.about = About
 menu.github=View on GitHub
 
 stats.nbentries = Number of entries
+stats.zero=There was no entry in the database during the selected period. Please choose another one.
 
 modal.title=You are back
 modal.body1=You can go on the 

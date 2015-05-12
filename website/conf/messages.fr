@@ -270,6 +270,7 @@ menu.about = À propos
 menu.github=Voir sur github
 
 stats.nbentries = Nombre d’entrées
+stats.zero=Il n’y a eu aucune entrée en base sur la période sélectionnée. Veuillez en choisir une nouvelle.
 
 modal.title=Vous êtes de retour
 modal.body1=Vous pouvez vous rendre sur la page 

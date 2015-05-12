@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Calendar;
 
 public class FpDataEntityManager {
 
@@ -229,6 +230,15 @@ public class FpDataEntityManager {
         return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).intValue());
     }
 
+    public int getNumberOfEntriesSinceDate(Timestamp ts){
+        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+        String nbTotalQuery = "SELECT count(*) FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery)
+            .setParameter("lower",ts)
+            .setParameter("upper",currentTimestamp)
+            .getResultList().get(0)).intValue());
+    }
+
     public CounterMap getTimezoneStats(){
         String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData GROUP BY timezoneJS";
         ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery).getResultList()));
@@ -239,6 +249,22 @@ public class FpDataEntityManager {
         }
         return res;
     }
+
+    public CounterMap getTimezoneStatsSinceDate(Timestamp ts){
+        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+        String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData WHERE time BETWEEN :lower AND :upper GROUP BY timezoneJS";
+        ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery)
+            .setParameter("lower",ts)
+            .setParameter("upper",currentTimestamp)
+            .getResultList()));
+
+        CounterMap res = new CounterMap();
+        for(Object[] obj:  q){
+            res.add(obj[0].toString(), obj[1].toString());
+        }
+        return res;
+    }
+
 
     public VersionMap getLanguageStats(){
         String query = "SELECT languageHttp FROM FpDataEntity";
@@ -261,6 +287,47 @@ public class FpDataEntityManager {
 
         String query = "SELECT userAgentHttp FROM FpDataEntity";
         ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
+
+        /* Browser */
+        HashMap<String, VersionMap> browsers = new HashMap<>();
+        browsers.put("Firefox", new VersionMap());
+        browsers.put("Chrome", new VersionMap());
+        browsers.put("Safari", new VersionMap());
+        browsers.put("IE", new VersionMap());
+        browsers.put("Opera", new VersionMap());
+        browsers.put("Others", new VersionMap());
+
+        /* OS */
+        HashMap<String, VersionMap> os  = new HashMap<>();
+        os.put("Windows", new VersionMap());
+        os.put("Linux", new VersionMap());
+        os.put("Mac", new VersionMap());
+        os.put("Android", new VersionMap());
+        os.put("iOS", new VersionMap());
+        os.put("Windows Phone", new VersionMap());
+        os.put("Others", new VersionMap());
+
+
+        /* Parse user agents */
+        for(int i=0; i<userAgents.size(); i++){
+            ParsedFP ua = new ParsedFP(userAgents.get(i));
+            browsers.get(ua.getBrowser()).add(ua.getBrowserVersion());
+            os.get(ua.getOs()).add(ua.getOsVersion());
+        }
+
+        HashMap<String,HashMap<String, VersionMap>> res = new HashMap<>();
+        res.put("browsers",browsers);
+        res.put("os",os);
+        return res;
+    }
+
+    public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStatsSinceDate(Timestamp ts){
+        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+        String query = "SELECT userAgentHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",ts)
+            .setParameter("upper",currentTimestamp)
+            .getResultList()));
 
         /* Browser */
         HashMap<String, VersionMap> browsers = new HashMap<>();
