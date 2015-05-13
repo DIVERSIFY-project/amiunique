@@ -147,7 +147,11 @@
     @if(differences.get(fp.getCounter()) != null){
         <h3 style="color:#149c82;">@Messages("history.differences")</h3>
         <p>
-            @differences.get(fp.getCounter())
+            @if(!differences.get(fp.getCounter()).equals("nodiff")){
+                @differences.get(fp.getCounter())
+            }else{
+                @Messages("history.nodiff")
+            }
         </p>
         <br/>
         <br/>

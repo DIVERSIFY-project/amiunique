@@ -369,13 +369,15 @@ public class Application extends Controller {
             if (fp1.getPlatformFlash() != null ? !fp1.getPlatformFlash().equals(fp0.getPlatformFlash()) : fp0.getPlatformFlash() != null) diff +="platformFlash, ";
 
             if (fp1.getAdBlock() != null ? !fp1.getAdBlock().equals(fp0.getAdBlock()) : fp0.getAdBlock() != null) diff += "adBlock, ";
-
             //if (fp1.getConnectionHttp() != null ? !fp1.getConnectionHttp().equals(fp0.getConnectionHttp()) : fp0.getConnectionHttp() != null) diff += "connectionHttp, ";
             //if (fp1.getWebGlJs() != null ? !fp1.getWebGlJs().equals(fp0.getWebGlJs()) : fp0.getWebGlJs() != null) diff += "webGlJs, ";
-
-            diff = diff.substring(0, diff.length()-2);
-            differencesMap.put(fp1.getCounter(), diff);
-            fp0 = (FpDataEntity) fp1.clone();
+            try{
+                diff = diff.substring(0, diff.length()-2);
+                differencesMap.put(fp1.getCounter(), diff);
+                fp0 = (FpDataEntity) fp1.clone();
+            }catch(StringIndexOutOfBoundsException e){
+                differencesMap.put(fp1.getCounter(), "nodiff");
+            }
         }
 
         return ok(history.render(fps, differencesMap));

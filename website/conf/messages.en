@@ -287,6 +287,7 @@ history.subtitle1=Fingerprint of the
 history.subtitle2=at
 history.subtitle3=h
 history.differences= Difference(s) with your previous fingerprint
+history.nodiff=Your fingerprint has no difference with the previous one.
 
 menu.home=Home
 menu.myfp=My fingerprint
