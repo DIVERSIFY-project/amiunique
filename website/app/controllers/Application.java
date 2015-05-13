@@ -340,9 +340,17 @@ public class Application extends Controller {
         //Initialisation for the first fingerprint
         FpDataEntity fp0 = it.next();
 
+        HashMap<String, String> att0 = fp0.fpToHashMap();
+        HashMap<Integer, String> tabHtmlDifferences = new HashMap<Integer,String>();
 
         while(it.hasNext()){
             FpDataEntity fp1 = it.next();
+            HashMap<String, String> att1 = fp1.fpToHashMap();
+            /*
+            for(String s : att1.values()){
+                System.out.println("test att : "+s);
+            }
+            */
             String diff = "";
 
             //We compare fp1 with fp0
@@ -373,14 +381,28 @@ public class Application extends Controller {
             //if (fp1.getWebGlJs() != null ? !fp1.getWebGlJs().equals(fp0.getWebGlJs()) : fp0.getWebGlJs() != null) diff += "webGlJs, ";
             try{
                 diff = diff.substring(0, diff.length()-2);
+                String[] attDiff = diff.split(",");
+                String rowValue = "";
+                for(String att : attDiff){
+                    att = att.trim();
+                    rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td></tr>";
+                }
+                tabHtmlDifferences.put(fp1.getCounter(), rowValue);
+
                 differencesMap.put(fp1.getCounter(), diff);
                 fp0 = (FpDataEntity) fp1.clone();
+                att0 = (HashMap<String, String>) att1.clone();
             }catch(StringIndexOutOfBoundsException e){
                 differencesMap.put(fp1.getCounter(), "nodiff");
             }
         }
 
-        return ok(history.render(fps, differencesMap));
+        //Tests
+        for(String s : tabHtmlDifferences.values()){
+            System.out.println("test tabHtmlDifferences : "+s);
+        }
+
+        return ok(history.render(fps, differencesMap, tabHtmlDifferences));
     }
 
     public static Result updateCombinationStats(){

@@ -259,6 +259,8 @@ history.subtitle2=à
 history.subtitle3=h
 history.differences= Différence(s) avec votre empreinte précédente
 history.nodiff=Votre empreinte ne présente pas de différence avec l’empreinte précédente.
+history.before=Avant
+history.after=Après
 
 menu.home=Accueil
 menu.myfp=Mon empreinte
