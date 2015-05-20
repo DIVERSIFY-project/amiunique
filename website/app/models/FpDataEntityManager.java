@@ -230,12 +230,11 @@ public class FpDataEntityManager {
         return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).intValue());
     }
 
-    public int getNumberOfEntriesSinceDate(Timestamp ts){
-        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+    public int getNumberOfEntriesSinceDate(Timestamp tsl, Timestamp tsu){
         String nbTotalQuery = "SELECT count(*) FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
         return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery)
-            .setParameter("lower",ts)
-            .setParameter("upper",currentTimestamp)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
             .getResultList().get(0)).intValue());
     }
 
@@ -250,12 +249,11 @@ public class FpDataEntityManager {
         return res;
     }
 
-    public CounterMap getTimezoneStatsSinceDate(Timestamp ts){
-        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+    public CounterMap getTimezoneStatsSinceDate(Timestamp tsl, Timestamp tsu){
         String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData WHERE time BETWEEN :lower AND :upper GROUP BY timezoneJS";
         ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery)
-            .setParameter("lower",ts)
-            .setParameter("upper",currentTimestamp)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
             .getResultList()));
 
         CounterMap res = new CounterMap();
@@ -282,6 +280,27 @@ public class FpDataEntityManager {
         }
         return langMap;
     }
+
+    public VersionMap getLanguageStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String query = "SELECT languageHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> langList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
+        Pattern langP = Pattern.compile("^(\\S\\S)");
+        VersionMap langMap = new VersionMap();
+
+        for(int i=0; i<langList.size(); i++){
+             Matcher langM = langP.matcher(langList.get(i));
+             if(langM.find()) {
+                 langMap.add(langM.group(1));
+             } else {
+                 langMap.add("Not communicated");
+             }
+        }
+        return langMap;
+    }
+
 
     public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStats(){
 
@@ -321,12 +340,11 @@ public class FpDataEntityManager {
         return res;
     }
 
-    public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStatsSinceDate(Timestamp ts){
-        Timestamp currentTimestamp = new Timestamp(Calendar.getInstance().getTime().getTime());
+    public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStatsSinceDate(Timestamp tsl, Timestamp tsu){
         String query = "SELECT userAgentHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
         ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
-            .setParameter("lower",ts)
-            .setParameter("upper",currentTimestamp)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
             .getResultList()));
 
         /* Browser */
@@ -380,6 +398,29 @@ public class FpDataEntityManager {
         }
         return nbFontsMap;
     }
+
+    public RangeMap getFontsStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String query = "SELECT fontsFlash FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> fontsList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
+        RangeMap nbFontsMap = new RangeMap();
+
+        for(int i=0; i<fontsList.size(); i++){
+            Integer nbFonts = fontsList.get(i).split("_").length;
+            if(nbFonts>2) {
+                int step = 50;
+                int j = step;
+                while (j < nbFonts) {
+                    j += step;
+                }
+                nbFontsMap.add((j - step) + "-" + j);
+            }
+        }
+        return nbFontsMap;
+    }
+
 
     public ArrayList<String> getAttribute(String attribute){
         String query = "SELECT "+attribute+" FROM FpDataEntity";

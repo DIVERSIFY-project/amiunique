@@ -48,15 +48,15 @@ public class Stats{
         this.nbFonts = em.getFontsStats();
     }
 
-    public Stats(Timestamp ts){
+    public Stats(Timestamp tsl, Timestamp tsu){
         FpDataEntityManager em = new FpDataEntityManager();
-        this.nbTotal = em.getNumberOfEntriesSinceDate(ts);
-        this.timezone = em.getTimezoneStatsSinceDate(ts);
-        HashMap<String,HashMap<String, VersionMap>> resMap = em.getOSBrowserStatsSinceDate(ts);
+        this.nbTotal = em.getNumberOfEntriesSinceDate(tsl, tsu);
+        this.timezone = em.getTimezoneStatsSinceDate(tsl, tsu);
+        HashMap<String,HashMap<String, VersionMap>> resMap = em.getOSBrowserStatsSinceDate(tsl, tsu);
         this.browsers = resMap.get("browsers");
         this.os = resMap.get("os");
-        this.languages = em.getLanguageStats();
-        this.nbFonts = em.getFontsStats();
+        this.languages = em.getLanguageStatsSinceDate(tsl, tsu);
+        this.nbFonts = em.getFontsStatsSinceDate(tsl, tsu);
     }
 
     private static Stats INSTANCE = new Stats();
