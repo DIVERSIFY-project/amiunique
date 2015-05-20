@@ -274,6 +274,8 @@ menu.github=Voir sur github
 
 stats.nbentries = Nombre d’entrées
 stats.zero=Il n’y a eu aucune entrée en base sur la période sélectionnée. Veuillez en choisir une nouvelle.
+stats.beg=Date de début
+stats.end=Date de fin
 
 modal.title=Vous êtes de retour
 modal.body1=Vous pouvez vous rendre sur la page 

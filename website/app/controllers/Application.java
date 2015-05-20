@@ -312,7 +312,7 @@ public class Application extends Controller {
         return ok(Cache.getOrElse("stats-html", () -> {
             Stats s = Stats.getInstance();
             return stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
-                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()));
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()),"","");
         }, 1800));
     }
 
@@ -463,16 +463,20 @@ public class Application extends Controller {
 
     public static Result statsTime(){
         Map<String, String[]> vals = request().body().asFormUrlEncoded();
-        String dateString = vals.get("period")[0];
+        String datelString = vals.get("datel")[0];
+        String dateuString = vals.get("dateu")[0];
 
         try{
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = dateFormat.parse(dateString);
-            Timestamp dateTs = new Timestamp(date.getTime());
+            Date datel = dateFormat.parse(datelString);
+            Date dateu = dateFormat.parse(dateuString);
 
-            Stats s = new Stats(dateTs);
+            Timestamp datelTs = new Timestamp(datel.getTime());
+            Timestamp dateuTs = new Timestamp(dateu.getTime());
+
+            Stats s = new Stats(datelTs, dateuTs);
             return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
-                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts())));
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString));
 
         }catch(ParseException e){
             System.out.println("Parse exception : "+e);

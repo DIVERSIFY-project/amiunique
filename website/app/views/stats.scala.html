@@ -1,5 +1,5 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)
+@(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)(datel: String = "")(dateu: String = "")
 
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
@@ -19,7 +19,11 @@
 
         if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
             jQuery(function($){ 
-                $('#period').datepicker({
+                $('#datel').datepicker({
+                  dateFormat: "yy-mm-dd"
+                });
+
+                $('#dateu').datepicker({
                   dateFormat: "yy-mm-dd"
                 });
             })
@@ -38,9 +42,15 @@
 
         <form id="dateForm" method="POST" action="/stats">
             <div class="form-group">
-                <label for="period">Date de début</label>
-                <input class="form-control" type="date" id="period" name="period" size="20" />
+                <label for="datel">@Messages("stats.beg")Date de début</label>
+                <input class="form-control" type="date" id="datel" name="datel" size="20" value="@datel"/>
             </div>
+
+            <div class="form-group">
+                <label for="dateu">@Messages("stats.end")Date de fin</label>
+                <input class="form-control" type="date" id="dateu" name="dateu" size="20" value="@dateu"/>
+            </div>
+
             <button id="validate" type="submit" class="btn btn-default">Envoyer</button>
         </form>
         @if(nbTotal == 0 ){
