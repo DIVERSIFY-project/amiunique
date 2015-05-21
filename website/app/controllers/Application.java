@@ -485,4 +485,40 @@ public class Application extends Controller {
         return redirect("/stats");
     }
 
+
+
+    /*
+
+
+    This method is only used with the amiunique extension
+
+
+    */
+
+    public static Result addFingerprinFromExtension(){
+        response().setHeader("Access-Control-Allow-Origin", "*");
+        response().setHeader("Content-type", "application/json; charset=utf-8");
+        response().setHeader("Access-Control-Allow-Credentials", "true");
+
+        Map<String, String[]> vals = request().body().asFormUrlEncoded();
+        FpDataEntityManager em = new FpDataEntityManager();
+        FpDataEntity fp;
+
+        LocalDateTime time = LocalDateTime.now();
+        time = time.truncatedTo(ChronoUnit.HOURS);
+        System.out.println("val id "+vals.get("localJs")[0]);
+        fp = em.createFull(vals.get("id")[0],
+            DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), request().getHeader("User-Agent"),
+            request().getHeader("Accept"), request().getHeader("Host"), request().getHeader("Connection"),
+            request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"), "a venir",
+            vals.get("pluginsJs")[0], vals.get("platformJs")[0], vals.get("cookiesJs")[0],
+            vals.get("dntJs")[0], vals.get("timezoneJs")[0], vals.get("resolutionJs")[0],
+            vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],
+            vals.get("canvasJs")[0], "nc", vals.get("fontsFlash")[0],
+            vals.get("resolutionFlash")[0], vals.get("languageFlash")[0], vals.get("platformFlash")[0],
+            vals.get("adBlock")[0], "nc","nc", "", "");
+
+        return ok();
+    }
+
 }
