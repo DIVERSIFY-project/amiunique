@@ -53,6 +53,7 @@
                             cell.textContent = "<0.1%";
                         }
                     }else{
+                        //Details of percentages for plugins
                         var cpt = 0;
                         for(var t in per[k]){
                             $('<tr><td></td><td>'+per[k][t].toFixed(2)+' % </td><td>'+t+'</td></tr>').insertAfter('#pluginsJs');

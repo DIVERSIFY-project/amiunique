@@ -3,6 +3,21 @@ package models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+/*
+    Entity bind to the table combinationStats
+
+    We stock all the combination of all the indicators with their associated percentage
+    This table is update by making a POST request to /secret passing a parameter named secretKey
+    The method which executes the update is Application.controllers.updateCombinationStats()
+    The update is only made if the secretKey parameter is equal to the secretKey defined in secret/sk.txt 
+    If you want to automatize this action you can use crontab
+
+    You can use the following command line : 
+    curl --data "secretKey=abcdefghijklmnopqrstuvwxyz" http://localhost:9000/secret http://localhost:9000/secret
+
+    In our case, the key is equal to abcdefghijklmnopqrstuvwxyz and the website is hosted on localhost
+*/
+
 @Entity
 @Table(name = "combinationStats", schema = "", catalog="fingerprint")
 public class CombinationStatsEntity {

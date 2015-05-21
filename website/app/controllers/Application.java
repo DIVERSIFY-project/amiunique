@@ -43,7 +43,7 @@ public class Application extends Controller {
 
     public static Result fp() {
         if(request().cookies().get("amiunique") == null){
-            response().setCookie("amiunique",UUID.randomUUID().toString(),60*60*24*120); //remettre true,true en prod
+            response().setCookie("amiunique",UUID.randomUUID().toString(),60*60*24*120); //Warning set true,true for production
         }
 
         return ok(fp.render(request()));
