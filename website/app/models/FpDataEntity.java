@@ -2,10 +2,11 @@ package models;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 @Entity
 @Table(name = "fpData", schema = "", catalog = "fingerprint")
-public class FpDataEntity {
+public class FpDataEntity implements Comparable, Cloneable {
     private int counter;
     private String id;
     private String addressHttp;
@@ -325,7 +326,7 @@ public class FpDataEntity {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
 
         FpDataEntity that = (FpDataEntity) o;
 
@@ -402,6 +403,40 @@ public class FpDataEntity {
         return result;
     }
 
+    public HashMap<String, String> fpToHashMap(){
+        HashMap<String, String> fpHashMap = new HashMap<String, String>();
+
+        fpHashMap.put("id",this.getId());
+        fpHashMap.put("addressHttp",this.getAddressHttp());
+        fpHashMap.put("userAgentHttp",this.getUserAgentHttp());
+        fpHashMap.put("acceptHttp",this.getAcceptHttp());
+        fpHashMap.put("hostHttp",this.getHostHttp());
+        fpHashMap.put("connectionHttp",this.getConnectionHttp());
+        fpHashMap.put("encodingHttp",this.getEncodingHttp());
+        fpHashMap.put("languageHttp",this.getLanguageHttp());
+        fpHashMap.put("orderHttp",this.getOrderHttp());
+        fpHashMap.put("pluginsJs",this.getPluginsJs());
+        fpHashMap.put("platformJs",this.getPlatformJs());
+        fpHashMap.put("cookiesJs",this.getCookiesJs());
+        fpHashMap.put("dntJs",this.getDntJs());
+        fpHashMap.put("timezoneJs",this.getTimezoneJs());
+        fpHashMap.put("resolutionJs",this.getResolutionJs());
+        fpHashMap.put("localJs",this.getLocalJs());
+        fpHashMap.put("sessionJs",this.getSessionJs());
+        fpHashMap.put("ieDataJs",this.getIeDataJs());
+        fpHashMap.put("canvasJs",this.getCanvasJs());
+        fpHashMap.put("webGlJs",this.getWebGlJs());
+        fpHashMap.put("fontsFlash",this.getFontsFlash());
+        fpHashMap.put("resolutionFlash",this.getResolutionFlash());
+        fpHashMap.put("languageFlash",this.getLanguageFlash());
+        fpHashMap.put("platformFlash",this.getPlatformFlash());
+        fpHashMap.put("adBlock",this.getAdBlock());
+        fpHashMap.put("octaneScore",this.getOctaneScore());
+        fpHashMap.put("sunspiderTime",this.getSunspiderTime());
+
+        return fpHashMap;
+    }
+
     @Basic
     @Column(name = "webGLJs")
     public String getWebGlJs() {
@@ -430,5 +465,25 @@ public class FpDataEntity {
 
     public void setRendererWebGljs(String rendererWebGljs) {
         this.rendererWebGljs = rendererWebGljs;
+    }
+
+    public int compareTo(Object o){
+        if (this == o) return 0;
+        if (o == null) return -1;
+
+        FpDataEntity that = (FpDataEntity) o;
+        return that.getCounter() - getCounter();
+
+    }
+
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            cnse.printStackTrace(System.err);
+        }
+        
+        return o;
     }
 }

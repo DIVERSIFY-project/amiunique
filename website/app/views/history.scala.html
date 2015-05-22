@@ -1,0 +1,163 @@
+@import java.util._;
+@import models._;
+@import java.sql.Timestamp;
+@import org.apache.commons.lang.time.DateFormatUtils;
+
+@(fps : TreeSet[FpDataEntity], differences : HashMap[Integer, String], tabHtmlDifferences : HashMap[Integer, String])
+
+@header = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
+    <script>
+    $(document).ready(function() {
+        $("[rel=popover]").popover({'trigger':'hover'});
+    });
+    </script>
+
+    <style>
+    [rel="popover"]{
+        cursor: pointer;
+        display:inline-block; /* chrome-fix */
+    }
+
+    td:nth-child(2){
+        word-break:break-all;
+    }
+    </style>
+}
+@footer = {
+}
+
+@main(header, footer, "/history") {
+    <h1>@Messages("history.title")</h1>
+    
+    <p>
+        @Messages("history.warning")
+    </p>
+
+    @for(fp <- fps.iterator) {
+    <h2>@Messages("history.subtitle1") @DateFormatUtils.format(fp.getTime(), "dd/MM/yyyy") @Messages("history.subtitle2") @DateFormatUtils.format(fp.getTime(), "HH") @Messages("history.subtitle3")</h2>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>@Messages("fp.detAtt")</th>
+                <th>@Messages("fp.detVal")</th>
+            </tr>
+
+            <tr id="userAgentHttp">
+                <td>@Messages("fp.userAgent") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.userAgentExp")"></i></td>
+                <td>@fp.getUserAgentHttp()</td>
+            </tr>
+            <tr id="acceptHttp">
+                <td>@Messages("fp.accept") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.acceptExp")"></i></td>
+                <td>@fp.getAcceptHttp()</td>
+            </tr>
+
+            <tr id="encodingHttp">
+                <td>@Messages("fp.encoding") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.encodingExp")"></i></td>
+                <td>@fp.getEncodingHttp()</td>
+            </tr>
+
+            <tr id="languageHttp">
+                <td>@Messages("fp.language") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageExp")"></i></td>
+                <td>@fp.getLanguageHttp()</td>
+            </tr>
+
+            <tr id="pluginsJs">
+                <td>@Messages("fp.plugins") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.pluginsExp")"></i></td>
+                <td>@fp.getPluginsJs()</td>
+            </tr>
+
+            <tr id="platformJs">
+                <td>@Messages("fp.platformJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformJExp")"></i></td>
+                <td>@fp.getPlatformJs()</td>
+            </tr>
+
+            <tr id="cookiesJs">
+                <td>@Messages("fp.cookies") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.cookiesExp")"></i></td>
+                <td>@fp.getCookiesJs()</td>
+            </tr>
+
+            <tr id="dntJs">
+                <td>@Messages("fp.dnt") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.dntExp")"></i></td>
+                <td>@fp.getDntJs()</td>
+            </tr>
+
+            <tr id="timezoneJs">
+                <td>@Messages("fp.timezone") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.timezoneExp")"></i></td>
+                <td>@fp.getTimezoneJs()</td>
+            </tr>
+
+            <tr id="resolutionJs">
+                <td>@Messages("fp.resolutionJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionJExp")"></i></td>
+                <td>@fp.getResolutionJs()</td>
+            </tr>
+
+            <tr id="localJs">
+                <td>@Messages("fp.local") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.localExp")"></i></td>
+                <td>@fp.getLocalJs()</td>
+            </tr>
+
+            <tr id="sessionJs">
+                <td>@Messages("fp.session") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.sessionExp")"></i></td>
+                <td>@fp.getSessionJs()</td>
+            </tr>
+
+            <tr id="canvasJs">
+                <td>@Messages("fp.canvas") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.canvasExp")"></i></td>
+                <td><img src="@fp.getCanvasJs()"></td>
+            </tr>
+
+            <tr id="vendorWebGljs">
+                <td>@Messages("fp.vendorWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.vendorWebGlExp")"></i></td>
+                <td>@fp.getVendorWebGljs()</td>
+            </tr>
+
+            <tr id="rendererWebGljs">
+                <td>@Messages("fp.rendererWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.rendererWebGlExp")"></i></td>
+                <td>@fp.getRendererWebGljs()</td>
+            </tr>
+
+            <tr id="fontsFlash">
+                <td>@Messages("fp.fonts") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.fontsExp")"></i></td>
+                <td>@fp.getFontsFlash()</td>
+            </tr>
+
+            <tr id="resolutionFlash">
+                <td>@Messages("fp.resolutionF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionFExp")"></i></td>
+                <td>@fp.getResolutionFlash()</td>
+            </tr>
+
+            <tr id="languageFlash">
+                <td>@Messages("fp.languageF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageFExp")"></i></td>
+                <td>@fp.getLanguageFlash()</td>
+            </tr>
+
+            <tr id="platformFlash">
+                <td>@Messages("fp.platformF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformFExp")"></i></td>
+                <td>@fp.getPlatformFlash</td>
+            </tr>
+
+            <tr id="adBlock">
+                <td>@Messages("fp.adBlock") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.adBlockExp")"></i></td>
+                <td>@fp.getAdBlock()</td>
+            </tr>
+        </table>
+    </div>
+
+    @if(differences.get(fp.getCounter()) != null){
+        <h3 style="color:#149c82;">@Messages("history.differences")</h3>
+        <p>
+            @if(!differences.get(fp.getCounter()).equals("nodiff")){
+                <table class="table table-striped table-hover"><tr><th>@Messages("fp.detAtt")</th><th>@Messages("history.before")</th><th>@Messages("history.after")</th></tr>
+                    @Html(tabHtmlDifferences.get(fp.getCounter()))
+                </table>
+            }else{
+                @Messages("history.nodiff")
+            }
+        </p>
+        <br/>
+        <br/>
+    }   
+    }
+}
+

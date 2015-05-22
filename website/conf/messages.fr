@@ -192,6 +192,8 @@ fp.notuniq4=%) ont exactement la même empreinte que celle de votre navigateur.
 
 fp.btn1=Voir plus de détails
 fp.btn2=Voir graphiques
+fp.btnforcefp= Forcer fingerprinting
+fp.forcefp=Nous utilisons un cookie temporaire de 3 minutes pour conserver votre fingerprint et charger votre empreinte plus rapidement. Si vous avez effectué des modifications et vous souhaitez les visualiser, cliquez sur forcer fingerprinting.
 
 fp.detailsTitle=Mon empreinte
 fp.detProgress=Calcul des ratios en cours...
@@ -209,6 +211,7 @@ fp.connection=En-tête "Connection"
 fp.encoding=En-tête "Content encoding"
 fp.language=En-tête "Content language"
 fp.plugins=Liste des plugins
+fp.detailPlugins=Détail des plugins
 fp.platformJ=Plateforme
 fp.cookies=Utilisation des cookies
 fp.dnt=Utilisation du Do Not Track
@@ -248,3 +251,35 @@ fp.resolutionFExp=Attribut Flash qui indique la résolution de l’écran de l�
 fp.languageFExp=Attribut Flash qui indique la langue principale utilisée dans le navigateur (flash.system.Capabilities.language)
 fp.platformFExp=Attribut Flash qui indique la plateforme sur laquelle le navigateur fonctionne (flash.system.Capabilities.os). Cette valeur peut être beaucoup plus informative que celle donnée par JavaScript.
 fp.adBlockExp= Test pour savoir si l’extension AdBlock est installée
+
+history.title=Mon historique
+history.warning=Si une de vos empreintes n’apparait pas, cela est dû au fait qu’elle n’avait pas évoluée entre deux visites consécutives. Par conséquent nous ne l’avons pas stockée en base.
+history.subtitle1=Empreinte du
+history.subtitle2=à
+history.subtitle3=h
+history.differences= Différence(s) avec votre empreinte précédente
+history.nodiff=Votre empreinte ne présente pas de différence avec l’empreinte précédente.
+history.before=Avant
+history.after=Après
+
+menu.home=Accueil
+menu.myfp=Mon empreinte
+menu.globalstats= Statistiques globales
+menu.history=Mon historique
+menu.faq = FAQ
+menu.privpolicy = Politique de confidentialité
+menu.links= Liens
+menu.about = À propos
+menu.github=Voir sur github
+
+stats.nbentries = Nombre d’entrées
+stats.zero=Il n’y a eu aucune entrée en base sur la période sélectionnée. Veuillez en choisir une nouvelle.
+stats.beg=Date de début
+stats.end=Date de fin
+
+modal.title=Vous êtes de retour
+modal.body1=Vous pouvez vous rendre sur la page 
+modal.body2=pour calculer votre nouvelle empreinte, puis sur la page 
+modal.body3= pour visualiser l’évolation de votre empreinte depuis votre dernière visite.
+modal.close=Fermer
+modal.history=Calculer votre nouvelle empreinte

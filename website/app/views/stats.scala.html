@@ -1,341 +1,375 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)
+@(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)(datel: String = "")(dateu: String = "")
 
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts-drilldown.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
     <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/stats.js")"></script>
+
+    <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/jquery-ui.min.css")">
+
+    <script type="text/javascript">
+        var datefield=document.createElement("input")
+        datefield.setAttribute("type", "date")
+
+        if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+            jQuery(function($){ 
+                $('#datel').datepicker({
+                  dateFormat: "yy-mm-dd"
+                });
+
+                $('#dateu').datepicker({
+                  dateFormat: "yy-mm-dd"
+                });
+            })
+        }
+    </script>
+    
 }
 @footer = {
 }
 
 @main(header, footer, "/stats") {
-    <div class="container">
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-            </div>
-        </div>
         <!-- /.row -->
 
         <h1>Fingerprints</h1>
-        <h2>Number of entries : @nbTotal</h2>
+        <h2>@Messages("stats.nbentries") : @nbTotal</h2>
 
-        <div id="osGraph" style="height: auto; width: auto"></div>
-        <div id="browGraph" style="height: auto; width: auto"></div>
-        <div id="langGraph" style="height: auto; width: auto"></div>
-        <div id="fontsGraph" style="height: auto; width: auto"></div>
-        <div id="timezoneGraph" style="height: auto; width: auto"></div>
+        <form id="dateForm" method="POST" action="/stats">
+            <div class="form-group">
+                <label for="datel">@Messages("stats.beg")Date de début</label>
+                <input class="form-control" type="date" id="datel" name="datel" size="20" value="@datel"/>
+            </div>
 
-        <script type="application/javascript">
-            var nbTotal = @nbTotal;
-            var options = {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: 1,//null,
-                    plotShadow: false
-                },
-                title:{
-                    text: ''
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %{point.user}',
-                            formatter: 'percentage',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            <div class="form-group">
+                <label for="dateu">@Messages("stats.end")Date de fin</label>
+                <input class="form-control" type="date" id="dateu" name="dateu" size="20" value="@dateu"/>
+            </div>
+
+            <button id="validate" type="submit" class="btn btn-default">Envoyer</button>
+        </form>
+        @if(nbTotal == 0 ){
+            <br/>
+            <h3>@Messages("stats.zero")</h3>
+        }else{
+            <div id="osGraph" style="height: auto; width: auto"></div>
+            <div id="browGraph" style="height: auto; width: auto"></div>
+            <div id="langGraph" style="height: auto; width: auto"></div>
+            <div id="fontsGraph" style="height: auto; width: auto"></div>
+            <div id="timezoneGraph" style="height: auto; width: auto"></div>
+
+            <script type="application/javascript">
+                var nbTotal = @nbTotal;
+                var options = {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: 1,//null,
+                        plotShadow: false
+                    },
+                    title:{
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>: {point.percentage:.1f} %{point.user}',
+                                formatter: 'percentage',
+                                style: {
+                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                }
                             }
                         }
                     }
-                }
-            };
+                };
 
-            /* Timezone */
-            var timeData = '@{Html(timezone.toString())}';
-            timeData = $.parseJSON(timeData);
-            var timeArray = [];
-            var timeDrillArray = [];
-            var nbTimeOthers = 0;
-            $.each(timeData, function(key, tab){
-                if(key != "no JS") {
-                    var name = parseInt(key,10)/-60;
-                    if(name<0){
-                        name = "UTC" + name ;
+                /* Timezone */
+                var timeData = '@{Html(timezone.toString())}';
+                timeData = $.parseJSON(timeData);
+                var timeArray = [];
+                var timeDrillArray = [];
+                var nbTimeOthers = 0;
+                $.each(timeData, function(key, tab){
+                    if(key != "no JS") {
+                        var name = parseInt(key,10)/-60;
+                        if(name<0){
+                            name = "UTC" + name ;
+                        } else {
+                            name = "UTC+" + name ;
+                        }
                     } else {
-                        name = "UTC+" + name ;
+                        var name = "Not specified";
                     }
-                } else {
-                    var name = "Not specified";
-                }
-                var per = tab*100/nbTotal;
-                if(per>3){
-                    timeArray.push({name:name, y:per});
-                } else {
-                    nbTimeOthers += per;
-                    timeDrillArray.push({name:name,y:per});
-                }
-            });
-            timeArray.push({name:"Others", drilldown:"Others", y:nbTimeOthers});
-            var timeDrillSeries = [{id:"Others", name:"Others", data: timeDrillArray}];
-            $('#timezoneGraph').highcharts({
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Timezone'
-                },
-                subtitle: {
-                    text: 'Click on the \"Others\" slice to view more details.'
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}: {point.y:.1f}%'
-                        }
+                    var per = tab*100/nbTotal;
+                    if(per>3){
+                        timeArray.push({name:name, y:per});
+                    } else {
+                        nbTimeOthers += per;
+                        timeDrillArray.push({name:name,y:per});
                     }
-                },
-
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                },
-
-                series: [{
-                    name: 'Timezones',
-                    colorByPoint: true,
-                    data: timeArray
-                }],
-                drilldown: {
-                    series: timeDrillSeries
-                }
-            });
-
-
-            /* Language */
-            var langData = '@{Html(languages.toString())}';
-            langData = $.parseJSON(langData);
-            var langArray = [];
-            var langDrillArray = [];
-            var nbOthers = 0;
-            $.each(langData, function(key, value){
-                var per = value*100/nbTotal;
-                if(per>3){
-                    langArray.push({name:key, y:per});
-                } else {
-                    nbOthers += per;
-                    langDrillArray.push({name:key,y:per});
-                }
-            });
-            langArray.push({name:"Others", drilldown:"Others", y:nbOthers});
-            var langDrillSeries = [{id:"Others", name:"Others", data: langDrillArray}];
-            $('#langGraph').highcharts({
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Primary languages'
-                },
-                subtitle: {
-                    text: 'Click on the \"Others\" slice to view more details.'
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}: {point.y:.1f}%'
-                        }
-                    }
-                },
-
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                },
-
-                series: [{
-                    name: 'Languages',
-                    colorByPoint: true,
-                    data: langArray
-                }],
-                drilldown: {
-                    series: langDrillSeries
-                }
-            });
-
-
-            /* OS */
-            var osData = '@{Html(os.toString())}';
-            osData = $.parseJSON(osData);
-            var osArray = [];
-            var verArray = [];
-            var colors = Highcharts.getOptions().colors;
-            var colorI = 0;
-
-            $.each(osData, function(key, os) {
-                var total = 0 ;
-                $.each(os, function(ver, numb){
-                    total += numb;
-                    verArray.push({name: ver,y: numb*100/nbTotal, color: Highcharts.Color(colors[colorI]).brighten(0.12).get() , visible: true});
                 });
-                osArray.push({name: key,y: total*100/nbTotal,
-                    color:colors[colorI]});
-                colorI += 1;
-            });
-
-            $('#osGraph').highcharts({
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Operating systems'
-                },
-                yAxis: {
+                timeArray.push({name:"Others", drilldown:"Others", y:nbTimeOthers});
+                var timeDrillSeries = [{id:"Others", name:"Others", data: timeDrillArray}];
+                $('#timezoneGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
                     title: {
-                        text: 'Total percent share'
-                    }
-                },
-                plotOptions: {
-                    pie: {
-                        shadow: false,
-                        center: ['50%', '50%']
-                    }
-                },
-                tooltip: {
-                    valueSuffix: '%',
-                    formatter: function() {
-                        return '<b>'+ this.point.name +'</b><br>Percentage : '+ Highcharts.numberFormat(this.y,2)+'%';
-                    }
-                },
-                series: [{
-                    name: 'Percentage',
-                    data: osArray,
-                    size: '60%',
-                    dataLabels: {
-                        formatter: function () {
-                            return this.y > 5 ? this.point.name : null;
-                        },
-                        color: 'white',
-                        distance: -30
-                    }
-                }, {
-                    name: 'Percentage',
-                    data: verArray,
-                    size: '80%',
-                    innerSize: '60%',
-                    dataLabels: {
-                        formatter: function () {
-                            // display only if larger than 1
-                            return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Highcharts.numberFormat(this.y,2) + '%'  : null;
+                        text: 'Timezone'
+                    },
+                    subtitle: {
+                        text: 'Click on the \"Others\" slice to view more details.'
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}: {point.y:.1f}%'
+                            }
                         }
+                    },
+
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+
+                    series: [{
+                        name: 'Timezones',
+                        colorByPoint: true,
+                        data: timeArray
+                    }],
+                    drilldown: {
+                        series: timeDrillSeries
                     }
-                }]
-            });
-
-
-            /* Browser */
-            var browData = '@{Html(browsers.toString())}';
-            browData = $.parseJSON(browData);
-            var browArray = [];
-            var drillArray = [];
-            colorI = 0;
-
-            $.each(browData, function(key, browser) {
-                var total = 0 ;
-                verArray = [];
-                $.each(browser, function(ver, numb){
-                    total += numb;
-                    verArray.push(["v"+ver, numb*100/nbTotal]);
                 });
-                drillArray.push({name: key, id: key, data: verArray});
-                browArray.push({drilldown: key, name: key, y: total*100/nbTotal});
-                colorI += 1;
-            });
-            $('#browGraph').highcharts({
-                chart: {
-                    type: 'pie'
-                },
-                title: {
-                    text: 'Browsers'
-                },
-                subtitle: {
-                    text: 'Click the slices to view versions.'
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}: {point.y:.1f}%'
-                        }
+
+
+                /* Language */
+                var langData = '@{Html(languages.toString())}';
+                langData = $.parseJSON(langData);
+                var langArray = [];
+                var langDrillArray = [];
+                var nbOthers = 0;
+                $.each(langData, function(key, value){
+                    var per = value*100/nbTotal;
+                    if(per>3){
+                        langArray.push({name:key, y:per});
+                    } else {
+                        nbOthers += per;
+                        langDrillArray.push({name:key,y:per});
                     }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                },
-
-                series: [{
-                    name: 'Browsers',
-                    colorByPoint: true,
-                    data: browArray
-                }],
-                drilldown: {
-                    series: drillArray
-                }
-            });
-
-            /* Fonts */
-            var fontsData = '@{Html(fonts.toString())}';
-            fontsData = $.parseJSON(fontsData);
-            var catArray = [];
-            var seriesArray = [];
-            $.each(fontsData, function(key, value){
-                catArray.push(key);
-                seriesArray.push(value);
-            });
-            $('#fontsGraph').highcharts({
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Distribution of number of fonts'
-                },
-                xAxis: {
-                    categories: catArray
-                },
-                yAxis: {
-                    min: 0,
+                });
+                langArray.push({name:"Others", drilldown:"Others", y:nbOthers});
+                var langDrillSeries = [{id:"Others", name:"Others", data: langDrillArray}];
+                $('#langGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
                     title: {
-                        text: 'Number of fingerprints'
-                    }
-                },
-                tooltip: {
-                    headerFormat: '{point.y} fingerprints have {point.key} fonts.',
-                    pointFormat: '',
-                    shared: true,
-                    useHTML: true
-                },
-                plotOptions: {
-                    column: {
-                        pointPadding: 0.2,
-                        borderWidth: 0
-                    }
-                },
-                series: [{
-                    name: 'Number',
-                    data: seriesArray
-                }]
-            });
+                        text: 'Primary languages'
+                    },
+                    subtitle: {
+                        text: 'Click on the \"Others\" slice to view more details.'
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}: {point.y:.1f}%'
+                            }
+                        }
+                    },
 
-        </script>
-    </div>
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+
+                    series: [{
+                        name: 'Languages',
+                        colorByPoint: true,
+                        data: langArray
+                    }],
+                    drilldown: {
+                        series: langDrillSeries
+                    }
+                });
+
+
+                /* OS */
+                var osData = '@{Html(os.toString())}';
+                osData = $.parseJSON(osData);
+                var osArray = [];
+                var verArray = [];
+                var colors = Highcharts.getOptions().colors;
+                var colorI = 0;
+
+                $.each(osData, function(key, os) {
+                    var total = 0 ;
+                    $.each(os, function(ver, numb){
+                        total += numb;
+                        verArray.push({name: ver,y: numb*100/nbTotal, color: Highcharts.Color(colors[colorI]).brighten(0.12).get() , visible: true});
+                    });
+                    osArray.push({name: key,y: total*100/nbTotal,
+                        color:colors[colorI]});
+                    colorI += 1;
+                });
+
+                $('#osGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Operating systems'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent share'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            shadow: false,
+                            center: ['50%', '50%']
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: '%',
+                        formatter: function() {
+                            return '<b>'+ this.point.name +'</b><br>Percentage : '+ Highcharts.numberFormat(this.y,2)+'%';
+                        }
+                    },
+                    series: [{
+                        name: 'Percentage',
+                        data: osArray,
+                        size: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                return this.y > 5 ? this.point.name : null;
+                            },
+                            color: 'white',
+                            distance: -30
+                        }
+                    }, {
+                        name: 'Percentage',
+                        data: verArray,
+                        size: '80%',
+                        innerSize: '60%',
+                        dataLabels: {
+                            formatter: function () {
+                                // display only if larger than 1
+                                return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + Highcharts.numberFormat(this.y,2) + '%'  : null;
+                            }
+                        }
+                    }]
+                });
+
+
+                /* Browser */
+                var browData = '@{Html(browsers.toString())}';
+                browData = $.parseJSON(browData);
+                var browArray = [];
+                var drillArray = [];
+                colorI = 0;
+
+                $.each(browData, function(key, browser) {
+                    var total = 0 ;
+                    verArray = [];
+                    $.each(browser, function(ver, numb){
+                        total += numb;
+                        verArray.push(["v"+ver, numb*100/nbTotal]);
+                    });
+                    drillArray.push({name: key, id: key, data: verArray});
+                    browArray.push({drilldown: key, name: key, y: total*100/nbTotal});
+                    colorI += 1;
+                });
+                $('#browGraph').highcharts({
+                    chart: {
+                        type: 'pie'
+                    },
+                    title: {
+                        text: 'Browsers'
+                    },
+                    subtitle: {
+                        text: 'Click the slices to view versions.'
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.name}: {point.y:.1f}%'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+
+                    series: [{
+                        name: 'Browsers',
+                        colorByPoint: true,
+                        data: browArray
+                    }],
+                    drilldown: {
+                        series: drillArray
+                    }
+                });
+
+                /* Fonts */
+                var fontsData = '@{Html(fonts.toString())}';
+                fontsData = $.parseJSON(fontsData);
+                var catArray = [];
+                var seriesArray = [];
+                $.each(fontsData, function(key, value){
+                    catArray.push(key);
+                    seriesArray.push(value);
+                });
+                $('#fontsGraph').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Distribution of number of fonts'
+                    },
+                    xAxis: {
+                        categories: catArray
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Number of fingerprints'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '{point.y} fingerprints have {point.key} fonts.',
+                        pointFormat: '',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Number',
+                        data: seriesArray
+                    }]
+                });
+
+            </script>
+        }
 }
