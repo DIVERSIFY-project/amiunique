@@ -312,7 +312,7 @@ public class Application extends Controller {
         return ok(Cache.getOrElse("stats-html", () -> {
             Stats s = Stats.getInstance();
             return stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
-                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()),"","");
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()),"","","");
         }, 1800));
     }
 
@@ -465,6 +465,7 @@ public class Application extends Controller {
         Map<String, String[]> vals = request().body().asFormUrlEncoded();
         String datelString = vals.get("datel")[0];
         String dateuString = vals.get("dateu")[0];
+        String typeReq = vals.get("typereq")[0];
 
         try{
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -476,7 +477,7 @@ public class Application extends Controller {
 
             Stats s = new Stats(datelTs, dateuTs);
             return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
-                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString));
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString, typeReq));
 
         }catch(ParseException e){
             System.out.println("Parse exception : "+e);
@@ -506,7 +507,6 @@ public class Application extends Controller {
 
         LocalDateTime time = LocalDateTime.now();
         time = time.truncatedTo(ChronoUnit.HOURS);
-        System.out.println("val id "+vals.get("localJs")[0]);
         fp = em.createFull(vals.get("id")[0],
             DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), request().getHeader("User-Agent"),
             request().getHeader("Accept"), request().getHeader("Host"), request().getHeader("Connection"),
