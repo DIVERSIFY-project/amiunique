@@ -17,6 +17,7 @@ POST        /results                 controllers.Application.addFingerprint()
 POST        /percentages             controllers.Application.percentages()
 POST        /stats                   controllers.Application.statsTime()
 POST		/evolution				 controllers.Application.addFingerprinFromExtension()
+POST		/compareFpHistory		 controllers.Application.compareFpHistory()
 
 #JavaScript router
 GET         /assets/js/routes        controllers.Application.jsRoutes()
