@@ -282,7 +282,7 @@ fp.adBlockExp=Test to find out if the AdBlock extension is installed
 
 
 history.title=My history
-history.warning=If one of your fingerprints does not appear, it is due to the fact that it had not evolved between two consecutive visits. Therefore, we did not store it in the database.
+history.warning=On this page you can visualize and compare all of your fingerprints.If one of your fingerprints does not appear, it is due to the fact that it had not evolved between two consecutive visits. Therefore, we did not store it in the database.
 history.subtitle1=Fingerprint of the
 history.subtitle2=at
 history.subtitle3=h
