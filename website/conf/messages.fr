@@ -261,6 +261,11 @@ history.differences= Différence(s) avec votre empreinte précédente
 history.nodiff=Votre empreinte ne présente pas de différence avec l’empreinte précédente.
 history.before=Avant
 history.after=Après
+history.warningmodal=Avertissement
+history.warningmessage=Vous devez sélectionner 2 checkbox au minimum.
+history.compare = Comparer
+history.btn1 = Historique de mes empreintes
+history.btn2 = Comparer mes empreintes
 
 menu.home=Accueil
 menu.myfp=Mon empreinte
