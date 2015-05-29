@@ -290,6 +290,11 @@ history.differences= Difference(s) with your previous fingerprint
 history.nodiff=Your fingerprint has no difference with the previous one.
 history.before=Before
 history.after=After
+history.warningmodal=Warning
+history.warningmessage=You must select at least 2 checkboxes.
+history.compare= Compare
+history.btn1 = History of my fingerprints
+history.btn2 = Compare my fingerprints
 
 menu.home=Home
 menu.myfp=My fingerprint
