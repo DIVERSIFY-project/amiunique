@@ -44,7 +44,6 @@ public class CombinationStatsEntityManager {
                         .setParameter("indicator", indicator)
                         .setParameter("combination", combination)
                         .executeUpdate()));
-        System.out.println("counter  == "+counter);
         return counter;
     }
 

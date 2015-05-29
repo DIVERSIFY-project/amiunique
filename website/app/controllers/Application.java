@@ -397,62 +397,6 @@ public class Application extends Controller {
         return ok(history.render(fps, differencesMap, tabHtmlDifferences));
     }
 
-    public static Result updateCombinationStats(){
-        Boolean autorized = false;
-        String filesk = System.getProperty("user.dir")+"/secret/sk.txt";
-        try {
-            FileReader fileReader = new FileReader(filesk);
-
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String sk = bufferedReader.readLine() ;
-            bufferedReader.close();     
-
-            Map<String, String[]> vals = request().body().asFormUrlEncoded();
-            String secretKey = vals.get("secretKey")[0];
-
-            if(sk.equals(secretKey)){
-                autorized = true;
-            }
-
-        }catch(FileNotFoundException ex) {
-            System.out.println("file not found : "+filesk);
-        }
-        catch(IOException ex) {
-            System.out.println("IOException");
-        }
-
-        if(autorized){
-            FpDataEntityManager em = new FpDataEntityManager();
-            CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
-            String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","encodingHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
-            "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
-            int nbEntries = em.getNumberOfEntries();
-
-            for(String attribute : fields){
-                HashMap<String,Integer> stats = new HashMap<String,Integer>();
-                ArrayList<String> values = em.getAttribute(attribute);
-                for(String combination : values){
-                    if(stats.get(combination) != null){
-                        stats.put(combination, stats.get(combination)+1);
-                    }else{
-                        stats.put(combination, 1);
-                    }
-                }
-
-                for(String key : stats.keySet()){
-                    int val = stats.get(key);
-
-                    //We delete the old row before adding the new one
-                    if(emc.updateCombinationStats(key, attribute, val, (val/((float)nbEntries))*100) == 0){
-                        emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
-                    }
-                }
-            }
-        }
-
-        return ok();
-    }
-
 
     public static Result compareFpHistory(){
         String[] values = request().body().asFormUrlEncoded().get("list")[0].split(",");
