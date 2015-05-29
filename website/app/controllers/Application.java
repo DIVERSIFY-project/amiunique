@@ -347,11 +347,7 @@ public class Application extends Controller {
         while(it.hasNext()){
             FpDataEntity fp1 = it.next();
             HashMap<String, String> att1 = fp1.fpToHashMap();
-            /*
-            for(String s : att1.values()){
-                System.out.println("test att : "+s);
-            }
-            */
+            
             String diff = "";
 
             //We compare fp1 with fp0
@@ -462,7 +458,6 @@ public class Application extends Controller {
         String[] values = request().body().asFormUrlEncoded().get("list")[0].split(",");
         ArrayList<Integer> valuesCasted = new ArrayList<Integer>();
         for(String s : values){
-            System.out.println(s);
             valuesCasted.add(Integer.parseInt(s));
         }
 
@@ -487,7 +482,6 @@ public class Application extends Controller {
         HashMap<Integer, String> tabHtmlDifferences = new HashMap<Integer,String>();
         int numberFp = fpsInversed.size();
 
-        System.out.println("valeur de fp0 "+fp0.getCounter());
         while(it.hasNext()){
             FpDataEntity fp1 = it.next();
             HashMap<String, String> att1 = fp1.fpToHashMap();
