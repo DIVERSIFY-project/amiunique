@@ -112,9 +112,8 @@ $( document ).ready(function() {
 
                     tables.each(function( index ) {
                         var $row = $(this);
-                        //$row.find(':nth-child(2)').html("<p>toto est gentil</p>");
-                        colBefore = $row.find(':nth-child(2)');
-                        colAfter = $row.find(':nth-child(3)');
+                        colBefore = $row.find(':nth-child(3)');
+                        colAfter = $row.find(':nth-child(2)');
 
 
                         //We search the differences between the 2 strings
@@ -131,29 +130,15 @@ $( document ).ready(function() {
                         console.log(dmp.diff_prettyHtml(diff));
 
                         if(colBefore.text()==="Flash not detected"){
-                            $row.find(':nth-child(3)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter.text()+'</ins>');
+                            $row.find(':nth-child(2)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter.text()+'</ins>');
                         }else if(colAfter.text()==="Flash not detected"){
-                            $row.find(':nth-child(3)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore.text()+'</del>');
+                            $row.find(':nth-child(2)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore.text()+'</del>');
                         }else{
-                            $row.find(':nth-child(3)').html(dmp.diff_prettyHtml(diff));
+                            $row.find(':nth-child(2)').html(dmp.diff_prettyHtml(diff));
                         }
 
-                        //console.log(diff);
-
-                        //console.log( index + ": " + $( this ).text() );*/
                     });
-
-                    for(i = 0; i < tables.length; i++){
-                        var elements = $(tables[i]);
-                        var trs = $("tr", elements);
-                        /*
-                        for( j = 2; j < trs.length; j++){
-                            console.log("i = "+i+" "+trs[j]); 
-                            console.log(trs[j];   
-                        }
-                        */
-
-                    }                                               
+                                            
                 }
             });
         }
