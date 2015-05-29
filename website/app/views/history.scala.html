@@ -6,6 +6,7 @@
 @(fps : TreeSet[FpDataEntity], differences : HashMap[Integer, String], tabHtmlDifferences : HashMap[Integer, String])
 
 @header = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/history.js")"></script>
     <script>
@@ -34,7 +35,7 @@
         display:inline-block; /* chrome-fix */
     }
 
-    td:nth-child(2){
+    td:nth-child(2), td:nth-child(3){
         word-break:break-all;
     }
 

@@ -459,7 +459,7 @@ public class Application extends Controller {
             try{
                 diff = diff.substring(0, diff.length()-2);
                 String[] attDiff = diff.split(",");
-                String rowValue = "<tr><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+"<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+"</td></tr>";
+                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+"<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+"</td></tr>";
                 for(String att : attDiff){
                     att = att.trim();
                     rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td></tr>";

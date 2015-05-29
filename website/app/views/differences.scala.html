@@ -12,7 +12,7 @@
             @if(differences.get(fp.getCounter()) != null){
                 <p>
                     @if(!differences.get(fp.getCounter()).equals("nodiff")){
-                        <table class="table table-striped table-hover"><tr><th>@Messages("fp.detAtt")</th><th>@Messages("history.before")</th><th>@Messages("history.after")</th></tr>
+                        <table class="table table-striped table-hover"><tr class="legend"><th>@Messages("fp.detAtt")</th><th>@Messages("history.before")</th><th>@Messages("history.after")</th></tr>
                             @Html(tabHtmlDifferences.get(fp.getCounter()))
                         </table>
                     }else{
