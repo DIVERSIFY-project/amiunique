@@ -397,14 +397,15 @@ public class Application extends Controller {
             if (fp1.getPlatformFlash() != null ? !fp1.getPlatformFlash().equals(fp0.getPlatformFlash()) : fp0.getPlatformFlash() != null) diff +="platformFlash, ";
 
             if (fp1.getAdBlock() != null ? !fp1.getAdBlock().equals(fp0.getAdBlock()) : fp0.getAdBlock() != null) diff += "adBlock, ";
-
+            System.out.println("counter fp1 "+fp1.getCounter());
+            System.out.println("counter fp0 "+fp0.getCounter());
             try{
                 diff = diff.substring(0, diff.length()-2);
                 String[] attDiff = diff.split(",");
-                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+"<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+"</td></tr>";
+                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp1.getTime(), "HH")+"h<td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp0.getTime(), "HH")+"h</td></tr>";
                 for(String att : attDiff){
                     att = att.trim();
-                    rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td></tr>";
+                    rowValue += "<tr><td>"+att+"</td><td>"+att1.get(att)+"</td><td>"+att0.get(att)+"</td></tr>";
                 }
                 tabHtmlDifferences.put(fp1.getCounter(), rowValue);
 
