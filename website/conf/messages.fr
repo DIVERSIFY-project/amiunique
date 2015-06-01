@@ -292,3 +292,7 @@ modal.body2=pour calculer votre nouvelle empreinte, puis sur la page
 modal.body3= pour visualiser l’évolation de votre empreinte depuis votre dernière visite.
 modal.close=Fermer
 modal.history=Calculer votre nouvelle empreinte
+
+extension.success = Vos données ont été ajoutées avec succès. Pour obtenir plus d’informations sur vos empreintes vous pouvez consulter la section 
+extension.pres1=Nous souhaitons obtenir plus d’informations en observant l’évolution des empreintes. Si vous souhaitez soutenir nos recherches vous pouvez télécharger notre extension.
+extension.pres2=Cette extension enverra quotidiennement des informations sur nos serveurs afin que nous puissions les analyser.
