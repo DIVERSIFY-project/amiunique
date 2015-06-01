@@ -58,20 +58,6 @@ diff_match_patch.prototype.diff_linesToWords_ = function(text1, text2) {
   return {chars1: chars1, chars2: chars2, lineArray: lineArray};
 };
  
-// ----------------------------------------------------------------------------------------------------------------- //
-// Then you can calculate diff like this:
-var dmp = new diff_match_patch();
-var text1 = "j'aime le pain aux olives";
-var text2 = "j'aime la baguette aux olives";
-var a = dmp.diff_linesToWords_(text1, text2);
- 
-var lineText1 = a['chars1'];
-var lineText2 = a['chars2'];
-var lineArray = a['lineArray'];
- 
-diff = dmp.diff_main(lineText1, lineText2, false);
-dmp.diff_charsToLines_(diff, lineArray);
-//console.log(diff);
 
 function getCheckedValues()
 {
