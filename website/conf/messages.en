@@ -321,3 +321,7 @@ modal.body2= page to get your new fingerprint, then on the page
 modal.body3=to visualize the evolution of your fingeprint since your last visit.
 modal.close=Close
 modal.history=Get your new fingerprint
+
+extension.success = Your data have been collected successfully. To obtain further information you can check 
+extension.pres1=We would like to obtain more information by analyzing the evolution of fingerprints. If you want to support our research you can download our extension for Chrome browser.
+extension.pres2=This extension will send information daily to our servers so that we can analyze them.

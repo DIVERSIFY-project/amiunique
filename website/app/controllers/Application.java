@@ -462,10 +462,12 @@ public class Application extends Controller {
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     */
 
+    public static Result extension(){
+        return ok(extension.render());
+    }
+
+
     public static Result addFingerprinFromExtension(){
-        response().setHeader("Access-Control-Allow-Origin", "*");
-        response().setHeader("Content-type", "application/json; charset=utf-8");
-        response().setHeader("Access-Control-Allow-Credentials", "true");
 
         Map<String, String[]> vals = request().body().asFormUrlEncoded();
         FpDataEntityManager em = new FpDataEntityManager();
@@ -476,7 +478,7 @@ public class Application extends Controller {
         fp = em.createFull(vals.get("id")[0],
             DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), request().getHeader("User-Agent"),
             request().getHeader("Accept"), request().getHeader("Host"), request().getHeader("Connection"),
-            request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"), "a venir",
+            request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"), vals.get("orderHttp")[0],
             vals.get("pluginsJs")[0], vals.get("platformJs")[0], vals.get("cookiesJs")[0],
             vals.get("dntJs")[0], vals.get("timezoneJs")[0], vals.get("resolutionJs")[0],
             vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],

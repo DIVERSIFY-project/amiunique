@@ -12,6 +12,7 @@ GET         /faq                     controllers.Application.faq()
 GET         /privacy                 controllers.Application.privacy()
 GET         /links                   controllers.Application.links()
 GET         /about                   controllers.Application.about()
+GET			/extension 				 controllers.Application.extension()
 
 POST        /results                 controllers.Application.addFingerprint()
 POST        /percentages             controllers.Application.percentages()
