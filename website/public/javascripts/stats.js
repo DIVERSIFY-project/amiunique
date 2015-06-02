@@ -3,26 +3,9 @@ function sendDates(datel, dateu, typeRequest){
 	dates.datel = datel;
 	dates.dateu = dateu;
 
-	$("body").append('<form style="visibility:hidden" id="fakeForm" aaction="/stats" method="POST"><input type="date"  value="'+datel+'" name="datel" /><input type="date"  value="'+dateu+'" name="dateu"/><input type="text" value="'+typeRequest+'" name="typereq"><button id="valid" type="submit" class="btn btn-default">Envoyer</button>');
+	$("body").append('<form style="visibility:hidden" id="fakeForm" action="/stats" method="POST"><input type="date"  value="'+datel+'" name="datel" /><input type="date"  value="'+dateu+'" name="dateu"/><input type="text" value="'+typeRequest+'" name="typereq"><button id="valid" type="submit" class="btn btn-default">Envoyer</button>');
 
     $('#valid').trigger('click');
-	/*
-	$.ajax({
-	    url: '/stats',
-	    data: dates, 
-	    contentType: 'application/x-www-form-urlencoded', 
-	    method: "POST",
-	    success: function(data){
-	    	
-	    	//regexp to get the body
-		   	var body=data.replace(/^[\S\s]*<body[^>]*?>/i, "")
-	                    .replace(/<\/body[\S\s]*$/i, "");
-	    	$("body").html(body);
-	    	$("head").html("");
-	    	
-	    }
-  	});
-	*/
 }
 
 $( document ).ready(function() {
@@ -51,6 +34,11 @@ $( document ).ready(function() {
       //We check if the date has the good format
       if(!(date1.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/) && dateu.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)))
       {
+        /*
+
+            Ajouter un traitement !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+        */
         e.preventDefault();
       }
     });

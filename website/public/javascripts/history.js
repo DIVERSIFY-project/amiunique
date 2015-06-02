@@ -110,17 +110,16 @@ $( document ).ready(function() {
                         var lineText2 = a['chars2'];
                         var lineArray = a['lineArray'];
                          
-                        diff = dmp.diff_main(lineText1, lineText2, false);
+                        diff = dmp.diff_main(lineText2, lineText1, false);
                         dmp.diff_charsToLines_(diff, lineArray);
-                        console.log("test ");
-                        console.log(dmp.diff_prettyHtml(diff));
+
 
                         if(colBefore.text()==="Flash not detected"){
-                            $row.find(':nth-child(2)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter.text()+'</ins>');
+                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter.text()+'</ins>');
                         }else if(colAfter.text()==="Flash not detected"){
-                            $row.find(':nth-child(2)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore.text()+'</del>');
+                            $row.find(':nth-child(4)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore.text()+'</del>');
                         }else{
-                            $row.find(':nth-child(2)').html(dmp.diff_prettyHtml(diff));
+                            $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
                         }
 
                     });
