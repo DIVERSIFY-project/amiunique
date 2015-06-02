@@ -9,6 +9,7 @@ import play.cache.Cache;
 import play.libs.Json;
 import play.libs.Crypto;
 import play.mvc.*;
+import play.cache.Cache;
 
 import views.html.*;
 
@@ -402,10 +403,10 @@ public class Application extends Controller {
             try{
                 diff = diff.substring(0, diff.length()-2);
                 String[] attDiff = diff.split(",");
-                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp1.getTime(), "HH")+"h<td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp0.getTime(), "HH")+"h</td></tr>";
+                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp0.getTime(), "HH")+"h<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp1.getTime(), "HH")+"h</td><td></td></tr>";
                 for(String att : attDiff){
                     att = att.trim();
-                    rowValue += "<tr><td>"+att+"</td><td>"+att1.get(att)+"</td><td>"+att0.get(att)+"</td></tr>";
+                    rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td><td></td></tr>";
                 }
                 tabHtmlDifferences.put(fp1.getCounter(), rowValue);
 
@@ -413,6 +414,8 @@ public class Application extends Controller {
                 fp0 = (FpDataEntity) fp1.clone();
                 att0 = (HashMap<String, String>) att1.clone();
             }catch(StringIndexOutOfBoundsException e){
+                String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp0.getTime(), "HH")+"h<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp1.getTime(), "HH")+"h</td><td></td></tr>";
+                tabHtmlDifferences.put(fp1.getCounter(), rowValue);
                 differencesMap.put(fp1.getCounter(), "nodiff");
             }
 
@@ -433,7 +436,19 @@ public class Application extends Controller {
         String dateuString = vals.get("dateu")[0];
         String typeReq = vals.get("typereq")[0];
 
+        //We check if the information is already in cache
+        if((typeReq.equals("month") && Cache.get("monthStats") != null) || (typeReq.equals("week") && Cache.get("weekStats") != null)){      
+            System.out.println("test cache");  
+            Stats s = (Stats) Cache.get(typeReq+"Stats");
+
+            return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
+                    Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString, typeReq));
+        }
+
+        System.out.println("test cache month "+Cache.get("monthStats"));
+        //Only if custom or if the information is not in cache
         try{
+            System.out.println("test non cache");  
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date datel = dateFormat.parse(datelString);
             Date dateu = dateFormat.parse(dateuString);
@@ -442,6 +457,15 @@ public class Application extends Controller {
             Timestamp dateuTs = new Timestamp(dateu.getTime());
 
             Stats s = new Stats(datelTs, dateuTs);
+
+            //We check if the cache is empty
+            if(typeReq.equals("month") && Cache.get("monthStats") == null){
+                Cache.set("monthStats", s, 60*60*24);
+            }else if(typeReq.equals("week") && Cache.get("weekStats") == null){
+                Cache.set("weekStats", s, 60*60*12);
+            }
+            //The case for "all" is managed by controllers.stats
+            
             return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
                     Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString, typeReq));
 
