@@ -2,8 +2,6 @@
 @(nbTotal: Integer)(timezone: JsonNode)(browsers: JsonNode)(os: JsonNode)(languages: JsonNode)(fonts: JsonNode)
 
 @header = {
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts-drilldown.js")"></script>
     <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
@@ -12,7 +10,6 @@
 }
 
 @main(header, footer, "/stats") {
-    <div class="container">
         <!-- Page Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -337,5 +334,4 @@
             });
 
         </script>
-    </div>
 }
