@@ -49,6 +49,10 @@ public class Application extends Controller {
         return ok(about.render());
     }
 
+    public static Result tools() {
+        return ok(tools.render());
+    }
+
     public static String getHeader(Http.Request request, String header){
         if(request.getHeader(header) == null){
             return "Not specified";
