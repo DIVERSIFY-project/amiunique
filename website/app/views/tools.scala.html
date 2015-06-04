@@ -1,0 +1,185 @@
+@header = {
+}
+@footer = {
+}
+
+@main(header, footer , "/tools") {
+
+        On this page, you will find links to tools that can help improve your privacy on the Internet.
+        With respect to fingerprinting, the best solutions that exist today are to simply block tracking scripts.
+        Profile spoofers and user-agent switchers are counterproductive since they make you more visible by having
+        an inconsistent fingerprint and they do not completely block access to the information you are trying
+        to prevent from leaking.
+
+        <h2>Browser extensions</h2>
+        <div class="table-responsive">
+            <table class="table table-hover text-center">
+                <thead>
+                    <tr>
+                        <th class="text-center">Extension</th>
+                        <th class="text-center">Description</th>
+                        <th>Website</th>
+                        <th><img height="40px" src="@routes.Assets.at("images/tools/firefox.png")"/></th>
+                        <th><img height="40px" src="@routes.Assets.at("images/tools/chrome.png")"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/ublock.png")"/> <b>uBlock Origin</b></td>
+                        <td>An efficient ad and tracker blocker with a small performance footprint!</td>
+                        <td> <a href="https://github.com/gorhill/uBlock" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td align="center"><a href="https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/ghostery.png")"/> <b>Ghostery</b></td>
+                        <td>Protect your privacy by blocking trackers on the Web and by learning who is watching you!</td>
+                        <td> <a href="https://www.ghostery.com/home" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/ghostery/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://chrome.google.com/webstore/detail/ghostery/mlomiejdfkolichcflejclcbmpeaniij" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/https.jpg")"/> <b>HTTPS Everywhere</b></td>
+                        <td>Encrypt the web! Enable HTTPS automatically on websites that are known to support it. A project by the EFF (Electronic Frontier Foundation).</td>
+                        <td> <a href="https://www.eff.org/HTTPS-EVERYWHERE" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/https-everywhere/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://chrome.google.com/webstore/detail/https-everywhere/gcbommkclmclpchllfjekcdonpmejbdp" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/lightbeam.png")"/> <b>Lightbeam</b></td>
+                        <td>Visualize in details the servers you are contacting when you are surfing on the Internet! Developed by Mozilla.<br>
+                            <a href="http://www.ted.com/talks/gary_kovacs_tracking_the_trackers" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i> Presentation of Lightbeam
+                            </a>
+                            by Gary Kovacs, former CEO of Mozilla, in a TED talk
+                        </td>
+                        <td> <a href="https://www.mozilla.org/lightbeam/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/lightbeam/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><i class="fa fa-fw fa-ban"></i></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/adblock.png")"/> <b>AdBlock Plus</b></td>
+                        <td>Block advertisements, trackers and more!
+                            We recommend the use of additional lists like the
+                            <a href="abp:subscribe?location=https://secure.fanboy.co.nz/r/fanboy-complete.txt&title=Fanboy%20Complete%20Adblock">
+                                Fanboy Complete AdBlock list
+                            </a>.</td>
+                        <td> <a href="https://adblockplus.org" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/adblock-plus/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://chrome.google.com/webstore/detail/adblock-plus/cfhdojbkjhnklbpkdaibdccddilifddb" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/disconnect.jpg")"/> <b>Disconnect</b></td>
+                        <td>Stop tracking by third-party sites and visualize who is tracking you!</td>
+                        <td> <a href="https://disconnect.me/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/disconnect/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://chrome.google.com/webstore/detail/disconnect/jeoacafpbcihiomhlakheieifhpjdfeo" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/privacy-badger.png")"/> <b>Privacy Badger</b></td>
+                        <td>Block spying ads and invisible trackers! A project by the EFF (Electronic Frontier Foundation).</td>
+                        <td> <a href="https://www.eff.org/privacybadger" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/privacy-badger-firefox/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://chrome.google.com/webstore/detail/privacy-badger/pkehgijcmpdhfbdbbnkijodmdjhbjlgp" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/noscript.png")"/> <b>NoScript</b></td>
+                        <td>Take control of what is running in your browser by blocking unwanted scripts!</td>
+                        <td> <a href="https://noscript.net/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><a href="https://addons.mozilla.org/fr/firefox/addon/noscript/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><i class="fa fa-fw fa-ban"></i></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Search engine, browser and operating systems</h2>
+            <img height="40px" src="@routes.Assets.at("images/tools/duck.png")"/> <b>DuckDuckGo</b> -
+            <a href="https://duckduckgo.com/" target="_blank">
+                <i class="fa fa-fw fa-external-link"></i> Official webpage
+            </a><br>
+            "The search engine that doesn't track you." Launched in 2008, DuckDuckGo differentiates itself from
+            other search engines by emphasizing the protection of searchers' privacy and avoiding
+            <a href="http://dontbubble.us/">the filter bubble</a>
+            of personalized search results. DuckDuckGo does not collect or share personal information.<br><br>
+
+            <img height="40px" src="@routes.Assets.at("images/tools/tor.png")"/> <b>Tor and the Tor browser</b> -
+            <a href="https://www.torproject.org/" target="_blank">
+                <i class="fa fa-fw fa-external-link"></i> Official webpage
+            </a><br>
+            The Tor network is a group of servers aimed at improving users' anonymity by routing all their traffic through
+            a dedicated network. The Tor browser is based on Firefox and it uses the Tor network. It has been heavily modified
+            to limit as most as possible known fingerprinting techniques so that users share a unique fingerprint (even if in practice,
+            the reality is a little bit different).<br><br>
+
+            <img height="40px" src="@routes.Assets.at("images/tools/tails.png")"/> <b>Tails</b> -
+            <a href="https://tails.boum.org/" target="_blank">
+                <i class="fa fa-fw fa-external-link"></i> Official webpage
+            </a><br>
+            Based around the Tor browser and the Tor network, Tails (The Amnesic Incognito Live System) goes a step further
+            by providing the exact same environment to its users. The operating system has been heavily modified so that it
+            does not leave a single trace on the computer. With the Tor browser, these are the strongest tools against
+            fingerprinting at the price of a delcine in usability.<br>
+
+        <h2>Modifying the IP address</h2>
+            Contrary to what people may think, modifying the IP address has no impact on fingerprinting since
+            no addresses are collected to form your fingerprint. Your computer can still be identified and
+            tracked on several browsing sessions. However, it can still help you hide your location and
+            the country from which you are connecting.<br>
+            The most widespread way to modify your IP address is to use a VPN (Virtual Private Network) service
+            that will route securely all your network traffic through a trusted server. The
+            <a href="https://www.bestvpn.com/" target="_blank">Best VPN website</a> has a rich list of VPN providers
+            with detailed reviews about their strengths and weaknesses.
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    </script>
+}
