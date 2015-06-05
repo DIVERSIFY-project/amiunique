@@ -20,7 +20,8 @@ public class ParsedFP {
     private static Pattern langP = Pattern.compile("^(\\S\\S)");
     private static Pattern fireP = Pattern.compile("Firefox/(\\d*\\.\\d*)");
     private static Pattern chromeP = Pattern.compile("Chrome/(\\d*\\.\\d*)");
-    private static Pattern safariP = Pattern.compile("Version/(\\d*\\.\\d*) Safari");
+    private static Pattern criOSP = Pattern.compile("CriOS/(\\d*\\.\\d*)");
+    private static Pattern safariP = Pattern.compile("Version/(\\d*(\\.\\d*){1,2}) Safari");
     private static Pattern IEP = Pattern.compile("MSIE (\\d*\\.\\d*)");
     private static Pattern operaP1 = Pattern.compile("Opera.*?Version/(\\d*\\.\\d*)");
     private static Pattern operaP2 = Pattern.compile("OPR/(\\d*\\.\\d*)");
@@ -55,6 +56,7 @@ public class ParsedFP {
             /* Browser */
             Matcher fireM = fireP.matcher(ua);
             Matcher chromeM = chromeP.matcher(ua);
+            Matcher criOSM = criOSP.matcher(ua);
             Matcher safariM = safariP.matcher(ua);
             Matcher IEM = IEP.matcher(ua);
             Matcher operaM1 = operaP1.matcher(ua);
@@ -76,6 +78,10 @@ public class ParsedFP {
                 String ver = chromeM.group(1);
                 this.browser = "Chrome";
                 this.browserVersion = ver;
+            } else if (criOSM.find()){//Chrome sous iOS
+                String ver = criOSM.group(1);
+                this.browser = "Chrome";
+                this.browserVersion = ver;
             } else if (safariM.find()) {//Safari
                 String ver = safariM.group(1);
                 this.browser = "Safari";
@@ -84,12 +90,22 @@ public class ParsedFP {
                 String ver = IEM.group(1);
                 this.browser = "IE";
                 this.browserVersion = ver;
-            } else if (ua.contains("Trident/7.0; rv:11.0")) {//IE11
+            } else if (ua.contains("Trident/7.0;") && ua.contains("rv:11.0")) {//IE11
                 this.browser = "IE";
                 this.browserVersion = "11.0";
-            } else {//Others
+            } else {
                 this.browser = "Others";
-                this.browserVersion = "Unknown";
+                if (ua.contains("CPU") && ua.contains("AppleWebKit") && ua.contains("Mobile")){//iOS Web View
+                    this.browserVersion = "iOS App";
+                } else if (ua.contains("Android") && ua.contains("Safari")) {//Android Web View
+                    this.browserVersion = "Android App";
+                } else if (ua.contains("bot")) {//Bot
+                    this.browserVersion = "Bot";
+                } else if (ua.contains("FBAN")){//Facebook App
+                    this.browserVersion = "Facebook App";
+                } else {//Others
+                    this.browserVersion = "Unknown";
+                }
             }
 
             /* OS */
