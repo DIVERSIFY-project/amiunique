@@ -7,9 +7,11 @@
 
         On this page, you will find links to tools that can help improve your privacy on the Internet.
         With respect to fingerprinting, the best solutions that exist today are to simply block tracking scripts.
-        Profile spoofers and user-agent switchers are counterproductive since they make you more visible by having
-        an inconsistent fingerprint and they do not completely block access to the information you are trying
-        to prevent from leaking.
+        We cannot recommended spoofers because there is a risk that fingerprinters can detect such spoofing
+        techniques quite easily, which would quickly identify you as a liar.
+        Because the number of spoofers is likely low, your other discriminating
+        data (e.g. fonts and plugins) should be more than sufficient to
+        fingerprint and track you.
 
         <h2>Browser extensions</h2>
         <div class="table-responsive">
@@ -52,7 +54,10 @@
                     </tr>
                     <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/https.jpg")"/> <b>HTTPS Everywhere</b></td>
-                        <td>Encrypt the web! Enable HTTPS automatically on websites that are known to support it. A project by the EFF (Electronic Frontier Foundation).</td>
+                        <td>Encrypt the web! Enable HTTPS automatically on websites that are known to support it. A project by the EFF (Electronic Frontier Foundation).<br>
+                            This extension includes an option to verify SSL certificates directly by <a href="https://www.eff.org/observatory" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>the EFF SSL Observatory</a>.
+                        </td>
                         <td> <a href="https://www.eff.org/HTTPS-EVERYWHERE" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -128,7 +133,16 @@
                         <td> <a href="https://noscript.net/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
-                        <td><a href="https://addons.mozilla.org/fr/firefox/addon/noscript/" target="_blank">
+                        <td><a href="https://addons.mozilla.org/firefox/addon/noscript/" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>
+                            </a></td>
+                        <td><i class="fa fa-fw fa-ban"></i></td>
+                    </tr>
+                    <tr>
+                        <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/self.png")"/> <b>Self-Destructing Cookies</b></td>
+                        <td>Remove cookies that are no longer used as soon as you close a tab!</td>
+                        <td></td>
+                        <td><a href="https://addons.mozilla.org/firefox/addon/self-destructing-cookies/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
                         <td><i class="fa fa-fw fa-ban"></i></td>
@@ -166,16 +180,30 @@
             does not leave a single trace on the computer. With the Tor browser, these are the strongest tools against
             fingerprinting at the price of a delcine in usability.<br>
 
-        <h2>Modifying the IP address</h2>
+        <h2>IP address</h2>
             Contrary to what people may think, modifying the IP address has no impact on fingerprinting since
             no addresses are collected to form your fingerprint. Your computer can still be identified and
-            tracked on several browsing sessions. However, it can still help you hide your location and
-            the country from which you are connecting.<br>
-            The most widespread way to modify your IP address is to use a VPN (Virtual Private Network) service
+            tracked on several browsing sessions. On its own, the IP address is still a really strong form of
+            identification since it may hardly vary over time depending on your internet service provider. Modifying
+            your IP address is a good way to cover your tracks and hide your true location when you are browsing
+            the web.<br>
+            The most widespread way to change your IP address is to use a VPN (Virtual Private Network) service
             that will route securely all your network traffic through a trusted server. The
             <a href="https://www.bestvpn.com/" target="_blank">Best VPN website</a> has a rich list of VPN providers
             with detailed reviews about their strengths and weaknesses.
 
+        <h2>Cookies</h2>
+            Cookies can be used in addition to fingerprinting to track users on the web and identify with ease returning visitors.
+            One way to counter unwanted tracking is to either limit authorized cookies or block cookies altogether.
+            One recommendad setting is to never accpet cookies from third-party sites since it is one of the main way for
+            advertisers to track you. You will find instructions on how to block them on
+            <a href="https://support.mozilla.org/kb/disable-third-party-cookies"><i class="fa fa-fw fa-external-link"></i> Firefox</a>
+            and <a href="https://support.google.com/chrome/answer/95647"><i class="fa fa-fw fa-external-link"></i> Chrome</a>.<br>
+            For the more privacy conscious users among us, you can completely block them in the browser settings
+            (<a href="https://support.mozilla.org/kb/block-websites-storing-site-preferences"><i class="fa fa-fw fa-external-link"></i> Firefox</a>
+            or <a href="https://support.google.com/accounts/answer/61416"><i class="fa fa-fw fa-external-link"></i> Chrome</a>)
+            or use an extension like Self-Destructing Cookies as mentionned in the browser extensions section. The only downside to these
+            techniques is that you have to whitelist sites if you still want to authorize cookies on some on them.
 
     <script type="text/javascript">
         $(function () {
