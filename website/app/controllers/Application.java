@@ -300,10 +300,6 @@ public class Application extends Controller {
             node.remove("fontsFlash");
             node.remove("webGLJsHashed");
 
-           /* String pluginsJsHashed = DigestUtils.sha1Hex(getAttribute(json,"pluginsJs"));
-            String canvasJsHashed = DigestUtils.sha1Hex(getAttribute(json,"canvasJs"));
-            String webGLJsHashed = DigestUtils.sha1Hex(getAttribute(json,"webGLJs"));
-            String fontsFlashHashed = DigestUtils.sha1Hex(getAttribute(json,"fontsFlash"));*/
 
             JsonNode json = (JsonNode) node;
             Map<String,Double> percentages = emc.getPercentages(json);
