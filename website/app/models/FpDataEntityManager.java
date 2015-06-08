@@ -184,7 +184,7 @@ public class FpDataEntityManager {
          -> computation of the percentage of each value
          **/
         //Query to get the number of entries with the same value
-        String nbSameValueBaseQuery = "SELECT count FROM FpDataEntity WHERE ";//Add attribute = value
+        String nbSameValueBaseQuery = "SELECT count(*) FROM FpDataEntity WHERE ";//Add attribute = value
         HashMap<String,Double> percentage = new HashMap<>();
 
         Iterator<String> it = values.fieldNames();

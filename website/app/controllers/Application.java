@@ -31,10 +31,6 @@ import org.apache.commons.lang.time.DateFormatUtils;
 //@With(ForceHttps.class)
 public class Application extends Controller {
 
-    public static Result secret(){
-        return ok("Got request " + request() + "!");
-    }
-
     public static Result home() {
         return ok(home.render());
     }
@@ -46,6 +42,7 @@ public class Application extends Controller {
     public static Result fp() {
         if(request().cookies().get("amiunique") == null){
             response().setCookie("amiunique",UUID.randomUUID().toString(),60*60*24*120); //Warning set true,true for production
+            response().setCookie("tempReturningVis","temp",60*60*12);
         }
 
         return ok(fp.render(request()));
@@ -82,9 +79,9 @@ public class Application extends Controller {
         }
 
         FpDataEntityManager em = new FpDataEntityManager();
+        CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
         FpDataEntity fp;
         boolean newFp;
-
         if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
                 getHeader(request(), "Accept"),getHeader(request(), "Accept-Encoding"),
                 getHeader(request(), "Accept-Language"))){
@@ -98,6 +95,16 @@ public class Application extends Controller {
                     getHeader(request(),"Accept"), getHeader(request(),"Host"), getHeader(request(),"Connection"),
                     getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"),
                     request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""));
+
+            emc.updateCombinationStats(getAttribute(json,"userAgentHttp"),
+                    getAttribute(json,"acceptHttp"), getAttribute(json,"connectionHttp"),
+                    getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"), getAttribute(json,"orderHttp"),
+                    getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
+                    getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
+                    getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
+                    getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
+                    getAttribute(json,"adBlock"), pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
+
             newFp = true;
         }
 
@@ -132,7 +139,7 @@ public class Application extends Controller {
         //Number of identical fingerprints
         Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
         //Get the percentages of every attribute
-        Map<String,Double> percentages = em.getPercentages(json);
+        Map<String,Double> percentages = emc.getPercentages(json);
 
         //Get some general stats
         HashMap<String, VersionMap> osMap = s.getOs();
@@ -173,6 +180,7 @@ public class Application extends Controller {
         //Get FP attributes (body content)
         JsonNode json = request().body().asJson();
         FpDataEntityManager em = new FpDataEntityManager();
+        CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
         FpDataEntity fp;
         boolean newFp;
 
@@ -207,6 +215,16 @@ public class Application extends Controller {
                     getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                     getAttribute(json,"adBlock"), getAttribute(json,"vendorWebGLJs"),getAttribute(json,"rendererWebGLJs"), "", "",
                     pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
+
+                 emc.updateCombinationStats(getAttribute(json,"userAgentHttp"),
+                    getAttribute(json,"acceptHttp"), getAttribute(json,"connectionHttp"),
+                    getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"), getAttribute(json,"orderHttp"),
+                    getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
+                    getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
+                    getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
+                    getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
+                    getAttribute(json,"adBlock"), pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
+
             newFp = true;
         }
 
