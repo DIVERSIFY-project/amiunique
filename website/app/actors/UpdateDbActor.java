@@ -5,6 +5,8 @@ import akka.actor.ActorRef;
 import akka.actor.UntypedActor;
 import models.*;
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
  
 public class UpdateDbActor extends UntypedActor {
 
@@ -14,28 +16,55 @@ public class UpdateDbActor extends UntypedActor {
 	public void onReceive(Object msg) throws Exception {
         FpDataEntityManager em = new FpDataEntityManager();
         CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
-        String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","encodingHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
-        "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
+
+        String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","encodingHttp","pluginsJsHashed","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
+        "sessionJs","ieDataJs","canvasJsHashed","fontsFlashHashed","resolutionFlash","languageFlash","platformFlash","adBlock"};
         int nbEntries = em.getNumberOfEntries();
 
-        for(String attribute : fields){
-            HashMap<String,Integer> stats = new HashMap<String,Integer>();
-            ArrayList<String> values = em.getAttribute(attribute);
-            for(String combination : values){
-                if(stats.get(combination) != null){
-                    stats.put(combination, stats.get(combination)+1);
-                }else{
-                    stats.put(combination, 1);
-                }
-            }
+        ArrayList<String> plugins = em.getAttribute("pluginsJs");
+        HashSet<String> pluginsAdded = new HashSet<String>();
 
-            for(String key : stats.keySet()){
-                int val = stats.get(key);
-                //We delete the old row before adding the new one
-                if(emc.updateCombinationStats(key, attribute, val, (val/((float)nbEntries))*100) == 0){
-                    emc.createCombinationStats(key, attribute, val, (val/((float)nbEntries))*100);
+        String patternStringPlugin = "Plugin [0-9]+: ([a-zA-Z -.]+)";
+        Pattern pattern = Pattern.compile(patternStringPlugin);
+        
+        int j = 1;
+        for(String rowPlugins : plugins){
+            Matcher matcher = pattern.matcher(rowPlugins);
+
+            while(matcher.find()) {
+                String plugin = matcher.group(1);
+                System.out.println("Plugin  "+j+" "+ plugin);
+                if(!pluginsAdded.contains(plugin) && plugins !=null){
+                    long nbSimilarPlugins = emc.getNbIdenticalPlugins(plugin);
+                    if(emc.testExistingCombination(plugin)){
+                        emc.updateCombinationStats(plugin, "pluginsJs", nbSimilarPlugins, (nbSimilarPlugins/((float)nbEntries))*100);
+                    }else{
+                        emc.createCombinationStats(plugin, "pluginsJs", nbSimilarPlugins, (nbSimilarPlugins/((float)nbEntries))*100);
+                    }
+                    pluginsAdded.add(plugin);
+                    j++;
                 }
             }
         }
+
+        /*
+        for(String attribute : fields){ 
+            System.out.println("attribute : "+attribute);
+            List<Object[]> res =  em.getStatsAttribute(attribute);
+
+            for (Object[] resultElement : res) {
+                String combination = (String)resultElement[0];
+                if(combination == null){
+                    combination = "";
+                }
+                Long nb= (Long)resultElement[1];
+                if(emc.updateCombinationStats(combination, attribute, nb, (nb/((float)nbEntries))*100) == 0){
+                    emc.createCombinationStats(combination, attribute, nb, (nb/((float)nbEntries))*100);
+                }
+            }
+        }
+        */
+
 	}
+
 }

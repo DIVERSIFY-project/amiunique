@@ -21,7 +21,7 @@ public class Global extends GlobalSettings {
  		ActorRef myActor = Akka.system().actorOf(Props.create(UpdateDbActor.class));
  		Akka.system().scheduler().schedule(
 			Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
-			Duration.create(720, TimeUnit.MINUTES),     //Frequency 720 minutes <=> 12hours
+			Duration.create(1440, TimeUnit.MINUTES),     //Frequency 1440 minutes <=> 24hours
 			myActor,
 			"hello",
 			Akka.system().dispatcher(),

@@ -39,6 +39,12 @@ public class FpDataEntity implements Comparable, Cloneable {
     private String vendorWebGljs;
     private String rendererWebGljs;
 
+    //Hashed Attributes
+    private String pluginsJsHashed;
+    private String canvasJsHashed;
+    private String webGLJsHashed;
+    private String fontsFlashHashed;
+
     public FpDataEntity() {
     }
 
@@ -323,6 +329,50 @@ public class FpDataEntity implements Comparable, Cloneable {
         this.sunspiderTime = sunspiderTime;
     }
 
+
+    @Basic
+    @Column(name = "pluginsJSHashed")
+    public String getPluginsJsHashed() {
+        return pluginsJsHashed;
+    }
+
+    public void setPluginsJsHashed(String pluginsJsHashed){
+        this.pluginsJsHashed = pluginsJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "canvasJSHashed")
+    public String getCanvasJsHashed() {
+        return canvasJsHashed;
+    }
+
+    public void setCanvasJsHashed(String canvasJsHashed){
+        this.canvasJsHashed = canvasJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "webGLJsHashed")
+    public String getWebGLJsHashed() {
+        return webGLJsHashed;
+    }
+
+    public void setWebGLJsHashed(String webGLJsHashed){
+        this.webGLJsHashed = webGLJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "fontsFlashHashed")
+    public String getFontsFlashHashed() {
+        return fontsFlashHashed;
+    }
+
+    public void setFontsFlashHashed(String fontsFlashHashed){
+        this.fontsFlashHashed = fontsFlashHashed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -366,6 +416,11 @@ public class FpDataEntity implements Comparable, Cloneable {
             return false;
         if (webGlJs != null ? !webGlJs.equals(that.webGlJs) : that.webGlJs != null) return false;
 
+        if (pluginsJsHashed != null ? !pluginsJsHashed.equals(that.pluginsJsHashed) : that.pluginsJsHashed != null) return false;
+        if (canvasJsHashed != null ? !canvasJsHashed.equals(that.canvasJsHashed) : that.canvasJsHashed != null) return false;
+        if (webGLJsHashed != null ? !webGLJsHashed.equals(that.webGLJsHashed) : that.webGLJsHashed != null) return false;
+        if (fontsFlashHashed!= null ? !fontsFlashHashed.equals(that.fontsFlashHashed) : that.fontsFlashHashed != null) return false;
+
         return true;
     }
 
@@ -400,6 +455,12 @@ public class FpDataEntity implements Comparable, Cloneable {
         result = 31 * result + (adBlock != null ? adBlock.hashCode() : 0);
         result = 31 * result + (octaneScore != null ? octaneScore.hashCode() : 0);
         result = 31 * result + (sunspiderTime != null ? sunspiderTime.hashCode() : 0);
+
+        result = 31 * result + (pluginsJsHashed != null ? pluginsJsHashed.hashCode() : 0);
+        result = 31 * result + (canvasJsHashed != null ? canvasJsHashed.hashCode() : 0);
+        result = 31 * result + (webGLJsHashed != null ? webGLJsHashed.hashCode() : 0);
+        result = 31 * result + (fontsFlashHashed != null ? fontsFlashHashed.hashCode() : 0);
+
         return result;
     }
 
@@ -433,6 +494,11 @@ public class FpDataEntity implements Comparable, Cloneable {
         fpHashMap.put("adBlock",this.getAdBlock());
         fpHashMap.put("octaneScore",this.getOctaneScore());
         fpHashMap.put("sunspiderTime",this.getSunspiderTime());
+
+        fpHashMap.put("pluginsJsHashed",this.getPluginsJsHashed());
+        fpHashMap.put("canvasJsHashed",this.getCanvasJsHashed());
+        fpHashMap.put("webGLJsHashed",this.getWebGLJsHashed());
+        fpHashMap.put("fontsFlashHashed",this.getFontsFlashHashed());
 
         return fpHashMap;
     }

@@ -98,13 +98,46 @@ $( document ).ready(function() {
 
                     tables.each(function( index ) {
                         var $row = $(this);
-                        colBefore = $row.find(':nth-child(3)');
-                        colAfter = $row.find(':nth-child(2)');
+                        colAttribute = $row.find(' :nth-child(1)').text();
+                        colBefore = $row.find(':nth-child(3)').text();
+                        colAfter = $row.find(':nth-child(2)').text();
+
+                        if(colAttribute === "pluginsJs"){
+                          var pluginsParsedBefore = colBefore.split("Plugin ");
+                          var pluginsParsedAfter = colAfter.split("Plugin ");
+
+                          var pluginsBefore = new Array(); 
+                          for(var i = 1; i < pluginsParsedBefore.length; i++){
+                            pluginsBefore[i-1] = pluginsParsedBefore[i].split(": ")[1]+' ';
+                          }
+
+                          var pluginsAfter = new Array(); 
+                          for(var i = 1; i < pluginsParsedAfter.length; i++){
+                            pluginsAfter[i-1] = pluginsParsedAfter[i].split(": ")[1]+"  ";
+                          }
+
+                          colBefore = pluginsBefore.toString();
+                          colAfter = pluginsAfter.toString();
+
+                          /*
+                          for(var i = 0; i < pluginsBefore.length; i++){
+                            pluginsBefore[i] = "Plugin "+i+" : "+pluginsBefore[i];
+                          }
+
+                          for(var i = 0; i < pluginsAfter.length; i++){
+                            pluginsAfter[i] = "Plugin "+i+" : "+pluginsAfter[i];
+                          }
+                          */
+                          $row.find(':nth-child(2)').html(colBefore);
+                          $row.find(':nth-child(3)').html(colAfter);
+
+
+                        }
 
 
                         //We search the differences between the 2 strings
                         var dmp = new diff_match_patch();
-                        var a = dmp.diff_linesToWords_(colBefore.text()+" ", colAfter.text()+" ");
+                        var a = dmp.diff_linesToWords_(colAfter+" ", colBefore+" ");
                          
                         var lineText1 = a['chars1'];
                         var lineText2 = a['chars2'];
@@ -114,10 +147,10 @@ $( document ).ready(function() {
                         dmp.diff_charsToLines_(diff, lineArray);
 
 
-                        if(colBefore.text()==="Flash not detected"){
-                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter.text()+'</ins>');
-                        }else if(colAfter.text()==="Flash not detected"){
-                            $row.find(':nth-child(4)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore.text()+'</del>');
+                        if(colBefore==="Flash not detected"){
+                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
+                        }else if(colAfter==="Flash not detected"){
+                            $row.find(':nth-child(4)').html('<ins style="background:#e6ffe6;">Flash not detected </ins><del style="background:#ffe6e6;">'+colBefore+'</del>');
                         }else{
                             $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
                         }
