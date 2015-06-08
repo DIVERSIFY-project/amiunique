@@ -63,7 +63,7 @@
                     <li @active("/fp")>
                         <a style="color:#ffffff" id="menuLink" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; @Messages("menu.myfp")</a>
                     </li>
-                    @if(request().cookies().get("amiunique") != null){
+                    @if(request().cookies().get("amiunique") != null && request().cookies().get("tempReturningVis") == null){
                         <li @active("/history")>
                             <a style="color:#ffffff" href="/history"><i class="fa fa-fw fa-book"></i>&nbsp;  @Messages("menu.history")</a>
                         </li>

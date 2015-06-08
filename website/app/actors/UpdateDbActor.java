@@ -37,9 +37,9 @@ public class UpdateDbActor extends UntypedActor {
                 if(!pluginsAdded.contains(plugin) && plugins !=null){
                     long nbSimilarPlugins = emc.getNbIdenticalPlugins(plugin);
                     if(emc.testExistingCombination(plugin)){
-                        emc.updateCombinationStats(plugin, "pluginsJs", nbSimilarPlugins, (nbSimilarPlugins/((float)nbEntries))*100);
+                        emc.updateCombinationStats(plugin, "pluginsJs", nbSimilarPlugins);
                     }else{
-                        emc.createCombinationStats(plugin, "pluginsJs", nbSimilarPlugins, (nbSimilarPlugins/((float)nbEntries))*100);
+                        emc.createCombinationStats(plugin, "pluginsJs", nbSimilarPlugins);
                     }
                     pluginsAdded.add(plugin);
                     j++;
@@ -57,8 +57,8 @@ public class UpdateDbActor extends UntypedActor {
                     combination = "";
                 }
                 Long nb= (Long)resultElement[1];
-                if(emc.updateCombinationStats(combination, attribute, nb, (nb/((float)nbEntries))*100) == 0){
-                    emc.createCombinationStats(combination, attribute, nb, (nb/((float)nbEntries))*100);
+                if(emc.updateCombinationStats(combination, attribute, nb) == 0){
+                    emc.createCombinationStats(combination, attribute, nb);
                 }
             }
         }

@@ -15,7 +15,7 @@ import akka.actor.Props;
 import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
-
+/*
     @Override
 	public void onStart(Application app) {
  		ActorRef myActor = Akka.system().actorOf(Props.create(UpdateDbActor.class));
@@ -27,7 +27,7 @@ public class Global extends GlobalSettings {
 			Akka.system().dispatcher(),
 			null
 	 	);
-   }
+   }*/
 
     @Override
     public void onStop(Application app) {

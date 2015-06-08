@@ -25,7 +25,6 @@ public class CombinationStatsEntity {
     private String combination;
     private String indicator;
     private long number;
-    private float percentage;
 
     @Id
     @Column(name = "counter")
@@ -71,16 +70,6 @@ public class CombinationStatsEntity {
     }
 
 
-    @Basic
-    @Column(name = "percentage")
-    public float getPercentage() {
-        return percentage;
-    }
-
-    public void setPercentage(float percentage) {
-        this.percentage = percentage;
-    }
-
     
 
     @Override
@@ -93,7 +82,6 @@ public class CombinationStatsEntity {
         if(that.getIndicator() != this.getIndicator()) return false;
         if(that.getCombination() != this.getCombination()) return false;
         if(that.getNumber() != this.getNumber()) return false;
-        if(that.getPercentage() != this.getPercentage()) return false;
 
         return true;
     }
