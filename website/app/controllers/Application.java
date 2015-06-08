@@ -52,6 +52,7 @@ public class Application extends Controller {
     }
 
     public static Result faq(){
+
         return ok(faq.render());
     }
 
@@ -175,12 +176,17 @@ public class Application extends Controller {
         FpDataEntity fp;
         boolean newFp;
 
+        String pluginsJsHashed = DigestUtils.sha1Hex(getAttribute(json,"pluginsJs"));
+        String canvasJsHashed = DigestUtils.sha1Hex(getAttribute(json,"canvasJs"));
+        String webGLJsHashed = DigestUtils.sha1Hex(getAttribute(json,"webGLJs"));
+        String fontsFlashHashed = DigestUtils.sha1Hex(getAttribute(json,"fontsFlash"));
+
         if(!id.equals("Not supported") && em.checkIfFPExists(id,getAttribute(json,"userAgentHttp"),
                 getAttribute(json,"acceptHttp"),getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"),
-                getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
+                pluginsJsHashed, getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
                 getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
                 getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
-                getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
+                canvasJsHashed, webGLJsHashed, fontsFlashHashed,
                 getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                 getAttribute(json,"adBlock"))){
 
@@ -199,7 +205,8 @@ public class Application extends Controller {
                     getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
                     getAttribute(json,"canvasJs"), getAttribute(json,"webGLJs"), getAttribute(json,"fontsFlash"),
                     getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
-                    getAttribute(json,"adBlock"), getAttribute(json,"vendorWebGLJs"),getAttribute(json,"rendererWebGLJs"), "", "");
+                    getAttribute(json,"adBlock"), getAttribute(json,"vendorWebGLJs"),getAttribute(json,"rendererWebGLJs"), "", "",
+                    pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
             newFp = true;
         }
 
@@ -287,9 +294,27 @@ public class Application extends Controller {
             node.remove("vendorWebGljs");
             node.remove("rendererWebGljs");
             node.remove("webGlJs");
+            String pluginsJs = fp.getPluginsJs();
+            node.remove("pluginsJs");
+            node.remove("canvasJs");
+            node.remove("fontsFlash");
+            node.remove("webGLJsHashed");
+
+           /* String pluginsJsHashed = DigestUtils.sha1Hex(getAttribute(json,"pluginsJs"));
+            String canvasJsHashed = DigestUtils.sha1Hex(getAttribute(json,"canvasJs"));
+            String webGLJsHashed = DigestUtils.sha1Hex(getAttribute(json,"webGLJs"));
+            String fontsFlashHashed = DigestUtils.sha1Hex(getAttribute(json,"fontsFlash"));*/
+
             JsonNode json = (JsonNode) node;
             Map<String,Double> percentages = emc.getPercentages(json);
-            Map<String,Double> percentagesPlugins = emc.getPercentagesPlugins(getAttribute(json, "pluginsJs"));
+            Map<String,Double> percentagesPlugins = emc.getPercentagesPlugins(pluginsJs);
+
+            percentages.put("pluginsJs", percentages.get("pluginsJsHashed"));
+            percentages.put("canvasJs", percentages.get("canvasJsHashed"));
+            percentages.put("fontsFlash", percentages.get("fontsFlashHashed"));
+            percentages.remove("pluginsJsHashed");
+            percentages.remove("canvasJsHashed");
+            percentages.remove("fontsFlashHashed");
 
             ObjectNode nodePer = (ObjectNode) Json.toJson(percentages);
 
@@ -497,6 +522,11 @@ public class Application extends Controller {
         FpDataEntityManager em = new FpDataEntityManager();
         FpDataEntity fp;
 
+        String pluginsJsHashed = DigestUtils.sha1Hex(vals.get("pluginsJs")[0]);
+        String canvasJsHashed = DigestUtils.sha1Hex(vals.get("canvasJs")[0]);
+        String webGLJsHashed = "";
+        String fontsFlashHashed = DigestUtils.sha1Hex(vals.get("fontsFlash")[0]);
+
         LocalDateTime time = LocalDateTime.now();
         time = time.truncatedTo(ChronoUnit.HOURS);
         fp = em.createFull(vals.get("id")[0],
@@ -508,7 +538,7 @@ public class Application extends Controller {
             vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],
             vals.get("canvasJs")[0], "nc", vals.get("fontsFlash")[0],
             vals.get("resolutionFlash")[0], vals.get("languageFlash")[0], vals.get("platformFlash")[0],
-            vals.get("adBlock")[0], "nc","nc", "", "");
+            vals.get("adBlock")[0], "nc","nc", "", "", pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
 
         return ok();
     }

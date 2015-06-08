@@ -23,29 +23,29 @@ public class FpDataEntityManager {
 
     public boolean checkIfFPExists(String id,String userAgentHttp,
                                    String acceptHttp, String encodingHttp,
-                                   String languageHttp, String pluginsJs, String platformJs, String cookiesJs,
+                                   String languageHttp, String pluginsJsHashed, String platformJs, String cookiesJs,
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
-                                   String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
+                                   String ieDataJs, String canvasJsHashed, String webGlJsHashed, String fontsFlashHashed, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock){
 
         String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
                 "AND userAgentHttp= :userAgentHttp AND encodingHttp= :encodingHttp "+
-                "AND languageHttp= :languageHttp AND pluginsJS = :pluginsJs "+
+                "AND languageHttp= :languageHttp AND pluginsJsHashed = :pluginsJsHashed "+
                 "AND platformJs= :platformJs AND cookiesJs= :cookiesJs AND dntJs= :dntJs " +
                 "AND timezoneJs= :timezoneJs AND resolutionJs= :resolutionJs AND localJs= :localJs "+
-                "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJs= :canvasJs "+
-                "AND webGlJs= :webGlJs AND fontsFlash= :fontsFlash AND resolutionFlash= :resolutionFlash "+
+                "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJsHashed= :canvasJsHashed "+
+                "AND webGlJsHashed= :webGlJsHashed AND fontsFlashHashed= :fontsFlashHashed AND resolutionFlash= :resolutionFlash "+
                 "AND languageFlash= :languageFlash AND platformFlash= :platformFlash AND adBlock= :adBlock ";
 
         int nbId = withTransaction(em -> {
             Query q = em.createQuery(query)
             .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
             .setParameter("encodingHttp", encodingHttp);
-            q.setParameter("languageHttp",languageHttp).setParameter("pluginsJs",pluginsJs).setParameter("platformJs",platformJs)
+            q.setParameter("languageHttp",languageHttp).setParameter("pluginsJsHashed",pluginsJsHashed).setParameter("platformJs",platformJs)
             .setParameter("cookiesJs", cookiesJs).setParameter("dntJs",dntJs).setParameter("timezoneJs",timezoneJs);
             q.setParameter("resolutionJs",resolutionJs).setParameter("localJs",localJs).setParameter("sessionJs",sessionJs)
-            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJs",canvasJs).setParameter("webGlJs",webGlJs);
-            q.setParameter("fontsFlash", fontsFlash).setParameter("resolutionFlash",resolutionFlash)
+            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJsHashed",canvasJsHashed).setParameter("webGlJsHashed",webGlJsHashed);
+            q.setParameter("fontsFlashHashed", fontsFlashHashed).setParameter("resolutionFlash",resolutionFlash)
             .setParameter("languageFlash", languageFlash).setParameter("platformFlash",platformFlash)
             .setParameter("adBlock", adBlock);
             return ((Long) q.getResultList().get(0)).intValue();
@@ -99,7 +99,8 @@ public class FpDataEntityManager {
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
                                    String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock, String vendorJs,
-                                   String rendererJs, String octaneScore, String sunspiderTime) {
+                                   String rendererJs, String octaneScore, String sunspiderTime, String pluginsJsHashed,
+                                   String canvasJsHashed, String webGLJsHashed, String fontsFlashHashed) {
         return withTransaction(em -> {
             FpDataEntity fp = new FpDataEntity();
             fp.setId(id);
@@ -132,6 +133,10 @@ public class FpDataEntityManager {
             fp.setRendererWebGljs(rendererJs);
             fp.setOctaneScore(octaneScore);
             fp.setSunspiderTime(sunspiderTime);
+            fp.setPluginsJsHashed(pluginsJsHashed);
+            fp.setCanvasJsHashed(canvasJsHashed);
+            fp.setWebGLJsHashed(webGLJsHashed);
+            fp.setFontsFlashHashed(fontsFlashHashed);
             em.persist(fp);
             return fp;
         });
@@ -142,13 +147,15 @@ public class FpDataEntityManager {
                                            String languageHttp, String orderHttp, String pluginsJs, String platformJs, String cookiesJs,
                                            String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
                                            String ieDataJs, String canvasJs, String webGlJs, String adBlock, String vendorJs, String rendererJs,
-                                           String octaneScore, String sunspiderTime) {
+                                           String octaneScore, String sunspiderTime, String pluginsJsHashed,
+                                           String canvasJsHashed, String webGLJsHashed) {
         return createFull(id, addressHttp, time, userAgentHttp,
                 acceptHttp, hostHttp, connectionHttp, encodingHttp,
                 languageHttp, orderHttp, pluginsJs, platformJs, cookiesJs,
                 dntJs, timezoneJs, resolutionJs, localJs, sessionJs,
                 ieDataJs, canvasJs, webGlJs, "", "",
-                "", "", adBlock, vendorJs, rendererJs, octaneScore, sunspiderTime);
+                "", "", adBlock, vendorJs, rendererJs, octaneScore, sunspiderTime,
+                pluginsJsHashed, canvasJsHashed, webGLJsHashed, "");
 
     }
 
@@ -163,7 +170,7 @@ public class FpDataEntityManager {
                 noJs, noJs, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
-                noJs, noJs);
+                noJs, noJs, noJs, noJs, noJs, noJs);
     }
 
 
@@ -428,5 +435,14 @@ public class FpDataEntityManager {
 
         return listAttribute;
     }
+
+    public List<Object[]> getStatsAttribute(String attribute){
+        String query = "SELECT "+attribute+", count(*) AS nbAtt FROM FpDataEntity Group By "+attribute;
+
+        List<Object[]> result = withTransaction(em -> ((List<Object[]>) em.createQuery(query).getResultList()));
+        return result;
+
+    }
+
 
 }

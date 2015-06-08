@@ -24,7 +24,7 @@ public class CombinationStatsEntity {
     private int counter;
     private String combination;
     private String indicator;
-    private int number;
+    private long number;
     private float percentage;
 
     @Id
@@ -62,11 +62,11 @@ public class CombinationStatsEntity {
 
     @Basic
     @Column(name = "number")
-    public int getNumber() {
+    public long getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(long number) {
         this.number = number;
     }
 

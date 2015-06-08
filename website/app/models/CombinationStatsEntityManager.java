@@ -23,7 +23,7 @@ public class CombinationStatsEntityManager {
 
 
 
-    public CombinationStatsEntity createCombinationStats(String combination, String indicator, int number, float percentage){
+    public CombinationStatsEntity createCombinationStats(String combination, String indicator, long number, float percentage){
         return withTransaction(em -> {
             CombinationStatsEntity cs = new CombinationStatsEntity();
             cs.setCombination(combination);
@@ -36,7 +36,7 @@ public class CombinationStatsEntityManager {
         });
     }
 
-    public int updateCombinationStats(String combination, String indicator, int number, float percentage){
+    public int updateCombinationStats(String combination, String indicator, long number, float percentage){
         String query = "UPDATE CombinationStatsEntity cs SET cs.number = :number, cs.percentage = :percentage WHERE cs.indicator = :indicator AND cs.combination = :combination";
         int counter = withTransaction(em -> (Integer)( em.createQuery(query)
                         .setParameter("number", number)
@@ -48,6 +48,7 @@ public class CombinationStatsEntityManager {
     }
 
     public Map<String,Double> getPercentages(JsonNode values) {
+
         //Get the total number of entries in the database
         String nbTotalQuery = "SELECT count(*) FROM FpDataEntity";
         double nbTotal = withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).doubleValue());
@@ -76,53 +77,57 @@ public class CombinationStatsEntityManager {
         return percentage;
     }
 
-    public Map<String,Double> getPercentagesPlugins(String plugins) {
-        String[] pluginsParsed = plugins.split("Plugin ");
+    public boolean testExistingCombination(String combi){
+        String query = "SELECT count(*) FROM CombinationStatsEntity WHERE combination = :combi";
+        long nbTotal = withTransaction(em -> ((Long) em.createQuery(query)
+            .setParameter("combi",combi)
+            .getResultList().get(0)).intValue());
+
+        if(nbTotal > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Long getNbIdenticalPlugins(String plugin) {
+        String query = "SELECT count(*) FROM FpDataEntity WHERE pluginsJs LIKE :plugin";
+        Long nbTotal = withTransaction(em -> ((Long) em.createQuery(query)
+            .setParameter("plugin","%"+plugin+"%")
+            .getResultList().get(0)).longValue());
+        return nbTotal;
+    }
+
+    public HashMap<String,Double> getPercentagesPlugins(String pluginsJs){
+
         //Get the total number of entries in the database
         String nbTotalQuery = "SELECT count(*) FROM FpDataEntity";
         double nbTotal = withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).doubleValue());
 
+        String patternStringPlugin = "Plugin [0-9]+: ([a-zA-Z -.]+)";
+        Pattern pattern = Pattern.compile(patternStringPlugin);
+        Matcher matcher = pattern.matcher(pluginsJs);
 
-        String nbSameValueBaseQuery = "SELECT percentage FROM CombinationStatsEntity WHERE indicator = 'pluginsJs' AND ";//Add attribute = value
         HashMap<String,Double> percentage = new HashMap<>();
+        String query = "SELECT percentage FROM CombinationStatsEntity WHERE indicator='pluginsJs' AND combination = :combination";
 
-        for(int i = 1; i < pluginsParsed.length; i++) {
-            //We split the string 2 times to get the name of the plugin without the version
-            String[] tab1 = pluginsParsed[i].split(": ");
-            String[] tab2 = tab1[1].split(";");
-            String plugin = tab2[0];
+        while(matcher.find()) {
+            String plugin = matcher.group(1);
+            if(plugin !=null){                    
+                try{
+                    double percSameValue = withTransaction(em -> ((Float) em.createQuery(query)
+                            .setParameter("combination",plugin)
+                            .getResultList().get(0)).doubleValue());
 
-            String nbSameValueQuery = nbSameValueBaseQuery+" combination LIKE :combination";
-            try{
-                double percSameValue = withTransaction(em -> ((Float) em.createQuery(nbSameValueQuery)
-                        .setParameter("combination", "%"+plugin.replace("\"", "'")+"%")
-                        .getResultList().get(0)).doubleValue());
-
-                String p = plugin.replace("\"", "'");
-                String[] espaces = p.split(" ");
-                String attJs ="";
-
-                for(String s : espaces){
-                    attJs += s.substring(0, 1).toUpperCase()+ s.substring(1); 
+                    percentage.put(plugin, percSameValue);
+                }catch(Exception e){
+                    double percSameValue = 1.0 / nbTotal;
+                    percentage.put(plugin, percSameValue);
                 }
-
-                percentage.put(attJs, percSameValue);
-            }catch(Exception e){
-                double percSameValue = 1.0 / nbTotal;
-
-                String p = plugin.replace("\"", "'");
-                String[] espaces = p.split(" ");
-                String attJs ="";
-
-                for(String s : espaces){
-                    attJs += s.substring(0, 1).toUpperCase()+ s.substring(1); 
-                }
-
-                percentage.put(attJs, percSameValue);
             }
-
         }
         return percentage;
     }
+
 
 }
