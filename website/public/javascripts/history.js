@@ -119,15 +119,6 @@ $( document ).ready(function() {
                           colBefore = pluginsBefore.toString();
                           colAfter = pluginsAfter.toString();
 
-                          /*
-                          for(var i = 0; i < pluginsBefore.length; i++){
-                            pluginsBefore[i] = "Plugin "+i+" : "+pluginsBefore[i];
-                          }
-
-                          for(var i = 0; i < pluginsAfter.length; i++){
-                            pluginsAfter[i] = "Plugin "+i+" : "+pluginsAfter[i];
-                          }
-                          */
                           $row.find(':nth-child(2)').html(colBefore);
                           $row.find(':nth-child(3)').html(colAfter);
 

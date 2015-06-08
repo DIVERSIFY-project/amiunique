@@ -47,7 +47,6 @@ public class UpdateDbActor extends UntypedActor {
             }
         }
 
-        /*
         for(String attribute : fields){ 
             System.out.println("attribute : "+attribute);
             List<Object[]> res =  em.getStatsAttribute(attribute);
@@ -63,7 +62,6 @@ public class UpdateDbActor extends UntypedActor {
                 }
             }
         }
-        */
 
 	}
 
