@@ -46,26 +46,22 @@ public class CombinationStatsEntityManager {
     }
 
     public Map<String,Double> getPercentages(JsonNode values) {
-
         //Get the total number of entries in the database
         String nbTotalQuery = "SELECT count(*) FROM FpDataEntity";
         double nbTotal = withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).doubleValue());
 
-
-        String nbSameValueBaseQuery = "SELECT percentage FROM CombinationStatsEntity WHERE ";//Add attribute = value
+        String nbSameValueBaseQuery = "SELECT number FROM CombinationStatsEntity WHERE ";//Add attribute = value
         HashMap<String,Double> percentage = new HashMap<>();
         Iterator<String> it = values.fieldNames();
         while(it.hasNext()) {
             String column = it.next();
             String nbSameValueQuery = nbSameValueBaseQuery+" combination = :col and indicator = :indic";
                       
-            double percSameValue = (withTransaction(em -> ((Float) em.createQuery(nbSameValueQuery)
-                    .setParameter("col", (values.get(column).asText()).replace("\"", "'"))
+            long nbSameValue = (withTransaction(em -> ((Long) em.createQuery(nbSameValueQuery)
+                    .setParameter("col", values.get(column).asText().replace("\"", "'"))
                     .setParameter("indic",column)
-                    .getResultList().get(0)).doubleValue()))/nbTotal;
-
-            percentage.put(column, percSameValue);
-
+                    .getResultList().get(0)).intValue()));
+            percentage.put(column, (nbSameValue/nbTotal)*100);
         }
         return percentage;
     }
@@ -107,11 +103,11 @@ public class CombinationStatsEntityManager {
         while(matcher.find()) {
             String plugin = matcher.group(1);
             if(plugin !=null){                    
-                double percSameValue = (withTransaction(em -> ((Float) em.createQuery(query)
+                double percSameValue = (withTransaction(em -> ((Long) em.createQuery(query)
                         .setParameter("combination",plugin)
-                        .getResultList().get(0)).doubleValue()))/nbTotal;
+                        .getResultList().get(0)).intValue()))/nbTotal;
 
-                percentage.put(plugin, percSameValue);
+                percentage.put(plugin, percSameValue*100);
             }
         }
         return percentage;
