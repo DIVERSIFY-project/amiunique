@@ -15,6 +15,7 @@ import akka.actor.Props;
 import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
+//Commented so that it doesn't make a big update everytime we restart
 /*
     @Override
 	public void onStart(Application app) {
