@@ -96,14 +96,14 @@ public class Application extends Controller {
                     getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"),
                     request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""));
 
-            emc.updateCombinationStats(getAttribute(json,"userAgentHttp"),
-                    getAttribute(json,"acceptHttp"), getAttribute(json,"connectionHttp"),
-                    getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"), getAttribute(json,"orderHttp"),
-                    getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
-                    getAttribute(json,"dntJs"), getAttribute(json,"timezoneJs"), getAttribute(json,"resolutionJs"),
-                    getAttribute(json,"localJs"), getAttribute(json,"sessionJs"), getAttribute(json,"IEDataJs"),
-                    getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
-                    getAttribute(json,"adBlock"), pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
+            emc.updateCombinationStats(getHeader(request(),"User-Agent"),
+                    getHeader(request(),"Accept"), getHeader(request(),"Connection"),
+                    getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"), request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""),
+                    "", "", "",
+                    "", "", "",
+                    "", "", "",
+                    "", "", "",
+                    "", "", "", "");
 
             newFp = true;
         }
