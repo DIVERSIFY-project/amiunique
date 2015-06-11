@@ -33,7 +33,6 @@ public class UpdateDbActor extends UntypedActor {
 
             while(matcher.find()) {
                 String plugin = matcher.group(1);
-                System.out.println("Plugin  "+j+" "+ plugin);
                 if(!pluginsAdded.contains(plugin) && plugins !=null){
                     long nbSimilarPlugins = emc.getNbIdenticalPlugins(plugin);
                     if(emc.testExistingCombination(plugin)){
@@ -48,7 +47,6 @@ public class UpdateDbActor extends UntypedActor {
         }
 
         for(String attribute : fields){ 
-            System.out.println("attribute : "+attribute);
             List<Object[]> res =  em.getStatsAttribute(attribute);
 
             for (Object[] resultElement : res) {

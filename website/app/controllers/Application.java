@@ -318,7 +318,6 @@ public class Application extends Controller {
             node.remove("fontsFlash");
             node.remove("webGLJsHashed");
 
-
             JsonNode json = (JsonNode) node;
             Map<String,Double> percentages = emc.getPercentages(json);
             Map<String,Double> percentagesPlugins = emc.getPercentagesPlugins(pluginsJs);
@@ -437,8 +436,7 @@ public class Application extends Controller {
             if (fp1.getPlatformFlash() != null ? !fp1.getPlatformFlash().equals(fp0.getPlatformFlash()) : fp0.getPlatformFlash() != null) diff +="platformFlash, ";
 
             if (fp1.getAdBlock() != null ? !fp1.getAdBlock().equals(fp0.getAdBlock()) : fp0.getAdBlock() != null) diff += "adBlock, ";
-            System.out.println("counter fp1 "+fp1.getCounter());
-            System.out.println("counter fp0 "+fp0.getCounter());
+
             try{
                 diff = diff.substring(0, diff.length()-2);
                 String[] attDiff = diff.split(",");
@@ -476,18 +474,15 @@ public class Application extends Controller {
         String typeReq = vals.get("typereq")[0];
 
         //We check if the information is already in cache
-        if((typeReq.equals("month") && Cache.get("monthStats") != null) || (typeReq.equals("week") && Cache.get("weekStats") != null)){      
-            System.out.println("test cache");  
+        if((typeReq.equals("month") && Cache.get("monthStats") != null) || (typeReq.equals("week") && Cache.get("weekStats") != null)){       
             Stats s = (Stats) Cache.get(typeReq+"Stats");
 
             return ok(stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
                     Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()), datelString, dateuString, typeReq));
         }
 
-        System.out.println("test cache month "+Cache.get("monthStats"));
         //Only if custom or if the information is not in cache
-        try{
-            System.out.println("test non cache");  
+        try{ 
             DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date datel = dateFormat.parse(datelString);
             Date dateu = dateFormat.parse(dateuString);
