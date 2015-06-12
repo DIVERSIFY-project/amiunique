@@ -272,8 +272,8 @@ fp.localExp=JavaScript test to find out if local storage is supported (storage o
 fp.sessionExp=JavaScript test to find out if session storage is supported (storage of a specific value in "sessionStorage")
 fp.canvasExp=Rendering of a specific picture with the HTML5 Canvas element following a fixed set of instructions. The picture presents some slight noticeable variations depending on the OS and the browser used.
 fp.webGlExp=Rendering of specific 3D forms following a fixed set of instructions. The picture presents some slight noticeable variations depending on the device of the user.
-fp.vendorWebGlExp=(Newly added!) Name of the WebGL Vendor. Some browsers give the full name of the underlying graphics card used by the device.
-fp.rendererWebGlExp=(Newly added!) Name of the WebGL Renderer. Some browsers give the full name of the underlying graphics driver.
+fp.vendorWebGlExp=Name of the WebGL Vendor. Some browsers give the full name of the underlying graphics card used by the device.
+fp.rendererWebGlExp=Name of the WebGL Renderer. Some browsers give the full name of the underlying graphics driver.
 fp.fontsExp=Flash attribute that gives the entire list of fonts installed on the operating system (flash.text.Font.enumerateFonts(true))
 fp.resolutionFExp=Flash attribute that indicates the resolution of the device’s screen (flash.system.Capabilities. screenResolutionX/Y). This resolution can differ from the JavaScript one, mostly in the presence of a multi-screen setup.
 fp.languageFExp=Flash attribute that indicates the primary language of the browser (flash.system.Capabilities.language)
@@ -282,11 +282,10 @@ fp.adBlockExp=Test to find out if the AdBlock extension is installed
 
 
 history.title=My history
-history.warning=On this page you can visualize and compare all of your fingerprints.If one of your fingerprints does not appear, it is due to the fact that it had not evolved between two consecutive visits. Therefore, we did not store it in the database.
+history.warning=On this page, you can visualize and compare all of your fingerprints. If one of your fingerprints does not appear, it is due to the fact that it had not evolved between two consecutive visits. Therefore, we did not store it in the database.
 history.subtitle1=Fingerprint of the
 history.subtitle2=at
 history.subtitle3=h
-history.differences= Difference(s) with your previous fingerprint
 history.nodiff=Your fingerprint has no difference with the previous one.
 history.before=Before
 history.after=After
@@ -310,12 +309,13 @@ menu.github=View on GitHub
 
 stats.nbentries = Number of entries
 stats.zero=There was no entry in the database during the selected period. Please choose another one.
-stats.beg=Date of beginning
-stats.end=Date of end
+stats.beg=Start date
+stats.end=End date
 stats.btn1= All time
 stats.btn2= Past month
 stats.btn3= Past week
 stats.btn4= Custom range
+stats.btn5= Send
 
 modal.title=You are back
 modal.body1=You can go on the 
@@ -325,5 +325,5 @@ modal.close=Close
 modal.history=Get your new fingerprint
 
 extension.success = Your data have been collected successfully. To obtain further information you can check 
-extension.pres1=We would like to obtain more information by analyzing the evolution of fingerprints. If you want to support our research you can download our extension for Chrome browser.
+extension.pres1=We would like to obtain more information by analyzing the evolution of fingerprints. If you want to support our research you can download our extension for the Chrome browser.
 extension.pres2=This extension will send information daily to our servers so that we can analyze them.

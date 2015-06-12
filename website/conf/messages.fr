@@ -253,11 +253,10 @@ fp.platformFExp=Attribut Flash qui indique la plateforme sur laquelle le navigat
 fp.adBlockExp= Test pour savoir si l’extension AdBlock est installée
 
 history.title=Mon historique
-history.warning=Sur cette page vous pouvez à la fois visualiser et comparer l’ensemble de vos empreintes. Si une de vos empreintes n’apparait pas, cela est dû au fait qu’elle n’avait pas évoluée entre deux visites consécutives. Par conséquent nous ne l’avons pas stockée en base.
+history.warning=Sur cette page, vous pouvez à la fois visualiser et comparer l’ensemble de vos empreintes. Si une de vos empreintes n’apparait pas, cela est dû au fait qu’elle n’avait pas évoluée entre deux visites consécutives. Par conséquent, nous ne l’avons pas stockée en base.
 history.subtitle1=Empreinte du
 history.subtitle2=à
 history.subtitle3=h
-history.differences= Différence(s) avec votre empreinte précédente
 history.nodiff=Votre empreinte ne présente pas de différence avec l’empreinte précédente.
 history.before=Avant
 history.after=Après
@@ -287,14 +286,15 @@ stats.btn1= Toutes les empreintes
 stats.btn2= Dernier mois
 stats.btn3= Dernière semaine
 stats.btn4= Intervalle personnalisé
+stats.btn5= Envoyer
 
 modal.title=Vous êtes de retour
 modal.body1=Vous pouvez vous rendre sur la page 
 modal.body2=pour calculer votre nouvelle empreinte, puis sur la page 
-modal.body3= pour visualiser l’évolation de votre empreinte depuis votre dernière visite.
+modal.body3= pour visualiser l’évolution de votre empreinte depuis votre dernière visite.
 modal.close=Fermer
 modal.history=Calculer votre nouvelle empreinte
 
-extension.success = Vos données ont été ajoutées avec succès. Pour obtenir plus d’informations sur vos empreintes vous pouvez consulter la section 
-extension.pres1=Nous souhaitons obtenir plus d’informations en observant l’évolution des empreintes. Si vous souhaitez soutenir nos recherches vous pouvez télécharger notre extension.
-extension.pres2=Cette extension enverra quotidiennement des informations sur nos serveurs afin que nous puissions les analyser.
+extension.success = Vos données ont été ajoutées avec succès. Pour obtenir plus d’informations sur vos empreintes, vous pouvez consulter la section
+extension.pres1=Nous souhaitons obtenir plus d’informations en observant l’évolution des empreintes. Si vous souhaitez soutenir nos travaux de recherche, vous pouvez télécharger notre extension.
+extension.pres2=Cette extension enverra quotidiennement votre empreinte sur nos serveurs afin que nous puissions l'analyser.
