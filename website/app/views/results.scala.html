@@ -6,12 +6,18 @@
     cursor: pointer;
     display:inline-block; /* chrome-fix */
 }
+
+td:nth-child(3){
+    word-break:break-all;
+}
+
 </style>
 
 <script>
 $(document).ready(function() {
     $("[rel=popover]").popover({'trigger':'hover'});
 });
+
 </script>
 
 <script type="text/javascript">
@@ -184,11 +190,6 @@ $(document).ready(function() {
                     <tr id="canvasJs">
                         <td>@Messages("fp.canvas") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.canvasExp")"></i></td>
                         @display(column = "canvasJs")
-                    </tr>
-
-                    <tr id="webGlJs">
-                        <td>@Messages("fp.webGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.webGlExp")"></i></td>
-                        @display(column = "webGlJs")
                     </tr>
 
                     <tr id="vendorWebGljs">
