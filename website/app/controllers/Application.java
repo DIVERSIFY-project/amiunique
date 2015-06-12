@@ -443,7 +443,11 @@ public class Application extends Controller {
                 String rowValue = "<tr class=\"legend\"><td>date</td><td>"+DateFormatUtils.format(fp0.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp0.getTime(), "HH")+"h<td>"+DateFormatUtils.format(fp1.getTime(), "dd/MM/yyyy")+" - "+DateFormatUtils.format(fp1.getTime(), "HH")+"h</td><td></td></tr>";
                 for(String att : attDiff){
                     att = att.trim();
-                    rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td><td></td></tr>";
+                    if(!att.equals("canvasJs")){
+                        rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td><td></td></tr>";
+                    }else{
+                        rowValue +="<tr><td>"+att+"</td><td><img src=\""+att0.get(att)+"\"></td><td><img src=\""+att1.get(att)+"\"></td><td></td></tr>";
+                    }
                 }
                 tabHtmlDifferences.put(fp1.getCounter(), rowValue);
 
