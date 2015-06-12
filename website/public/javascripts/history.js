@@ -134,7 +134,7 @@ $( document ).ready(function() {
                         var lineText2 = a['chars2'];
                         var lineArray = a['lineArray'];
                          
-                        diff = dmp.diff_main(lineText2, lineText1, false);
+                        diff = dmp.diff_main(lineText1, lineText2, false);
                         dmp.diff_charsToLines_(diff, lineArray);
 
 
