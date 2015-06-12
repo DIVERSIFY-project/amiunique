@@ -25,7 +25,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
 
 //@With(ForceHttps.class)
