@@ -142,7 +142,6 @@
                                         if(k != 'perPluginsJs'){
                                             var percentage = per[k];
                                             var cell = document.getElementById(k+"Per");
-                                            console.log(k);
                                             if(percentage == -1) {
                                                 cell.textContent = "Unique";
                                             } else if(percentage >= 0.1){
@@ -152,7 +151,6 @@
                                             }
                                         }else{
                                             var cpt = 0;
-                                            console.log("test percentage plugins");
                                             for(var t in per[k]){
                                                 $('<tr><td></td><td>'+per[k][t].toFixed(2)+' % </td><td>'+t+'</td></tr>').insertAfter('#pluginsJs');
                                                 cpt++;
