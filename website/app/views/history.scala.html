@@ -1,13 +1,10 @@
 @import java.util._;
 @import models._;
-@import java.sql.Timestamp;
-@import org.apache.commons.lang.time.DateFormatUtils;
 
 @(fps : TreeSet[FpDataEntity])
 
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/cookies.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/history.js")"></script>
     <script>
     $(document).ready(function() {
