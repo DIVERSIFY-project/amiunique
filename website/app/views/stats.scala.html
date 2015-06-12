@@ -15,8 +15,6 @@
 }
 
 @header = {
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts-drilldown.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
@@ -27,20 +25,22 @@
     <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/jquery-ui.min.css")">
 
     <script type="text/javascript">
-        var datefield=document.createElement("input")
-        datefield.setAttribute("type", "date")
+        jQuery(function($){
+            $('#datel').datepicker({
+              dateFormat: "dd-mm-yy",
+              showAnim: "slideDown",
+              minDate: "01-11-2014",
+              maxDate: 0
+            });
 
-        if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
-            jQuery(function($){ 
-                $('#datel').datepicker({
-                  dateFormat: "yy-mm-dd"
-                });
+            $('#dateu').datepicker({
+              dateFormat: "dd-mm-yy",
+              showAnim: "slideDown",
+              minDate: "01-11-2014",
+              maxDate: 0
+            });
 
-                $('#dateu').datepicker({
-                  dateFormat: "yy-mm-dd"
-                });
-            })
-        }
+        });
     </script>
     
 }
@@ -64,13 +64,13 @@
 
         <form @displayCustom() id="dateForm" method="POST" action="/stats">
             <div class="form-group">
-                <label for="datel">@Messages("stats.beg")</label>                                                                                                               
-                <input class="form-control" type="date" id="datel" name="datel" size="20" value="@datel"/>
+                <label for="datel">@Messages("stats.beg")</label>
+                <input class="form-control" id="datel" name="datel" size="20" value="@datel" placeholder="dd-mm-yyyy"/>
             </div>
 
             <div class="form-group">
                 <label for="dateu">@Messages("stats.end")</label>
-                <input class="form-control" type="date" id="dateu" name="dateu" size="20" value="@dateu"/>
+                <input class="form-control" id="dateu" name="dateu" size="20" value="@dateu" placeholder="dd-mm-yyyy"/>
             </div>
 
             <input type="hidden" value="custom" name="typereq">
