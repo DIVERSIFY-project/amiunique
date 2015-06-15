@@ -444,7 +444,7 @@ public class Application extends Controller {
                     if(!att.equals("canvasJs")){
                         rowValue += "<tr><td>"+att+"</td><td>"+att0.get(att)+"</td><td>"+att1.get(att)+"</td><td></td></tr>";
                     }else{
-                        rowValue +="<tr><td>"+att+"</td><td><img src=\""+att0.get(att)+"\"></td><td><img src=\""+att1.get(att)+"\"></td><td></td></tr>";
+                        rowValue +="<tr><td>"+att+"</td><td><img id=\"img1\" src=\""+att0.get(att)+"\"></td><td><img id=\"img2\" src=\""+att1.get(att)+"\"></td><td><img id=\"diffImg\"></td></tr>";
                     }
                 }
                 tabHtmlDifferences.put(fp1.getCounter(), rowValue);

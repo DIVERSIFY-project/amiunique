@@ -6,7 +6,9 @@
 
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvasCompare.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/history.js")"></script>
+
     <script>
     $(document).ready(function() {
         $("[rel=popover]").popover({'trigger':'hover'});
@@ -104,7 +106,7 @@
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("history.close")</button>
             </div>
         </div>
       </div>
