@@ -361,14 +361,12 @@ public class Application extends Controller {
         Http.Cookie cookie = request().cookies().get("amiunique");
         String id;
         if(cookie == null){
-            return redirect("/home");
+            return redirect("/");
         }
             
         id = cookie.value();
         FpDataEntityManager emf = new FpDataEntityManager();
 
-        String[] fields ={"userAgentHttp","acceptHttp","connectionHttp","languageHttp","orderHttp","encodingHttp","pluginsJs","platformJs","cookiesJs","dntJs","timezoneJs","resolutionJs","localJs",
-            "sessionJs","ieDataJs","canvasJs","fontsFlash","resolutionFlash","languageFlash","platformFlash","adBlock","vendorWebGljs","rendererWebGljs"};
         TreeSet<FpDataEntity> fps = emf.getExistingFPsById(id);
         
         return ok(history.render(fps));
