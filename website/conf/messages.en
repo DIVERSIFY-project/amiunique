@@ -293,6 +293,7 @@ history.differences=Differences
 history.warningmodal=Warning
 history.warningmessage=You must select at least 2 checkboxes.
 history.compare= Compare
+history.close = Close
 history.btn1 = History of my fingerprints
 history.btn2 = Compare my fingerprints
 
