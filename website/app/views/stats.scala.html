@@ -85,12 +85,12 @@
         @if(nbTotal == 0 ){
             <br/>
             <h3>@Messages("stats.zero")</h3>
-        }else{
-            <div id="osGraph" style="height: auto; width: auto"></div>
-            <div id="browGraph" style="height: auto; width: auto"></div>
-            <div id="langGraph" style="height: auto; width: auto"></div>
-            <div id="fontsGraph" style="height: auto; width: auto"></div>
-            <div id="timezoneGraph" style="height: auto; width: auto"></div>
+        }else {
+            <div id="osGraph" style="height : auto ; width : auto"></div>
+            <div id="browGraph" style="height : auto ; width : auto"></div>
+            <div id="langGraph" style="height : auto ; width : auto"></div>
+            <div id="fontsGraph" style="height : auto ; width : auto"></div>
+            <div id="timezoneGraph" style="height : auto ; width : auto"></div>
 
             <script type="application/javascript">
                 var nbTotal = @nbTotal;
@@ -123,7 +123,9 @@
                 };
 
                 /* Timezone */
-                var timeData = '@{Html(timezone.toString())}';
+                var timeData = '@{
+                Html(timezone.toString())
+            }';
                 timeData = $.parseJSON(timeData);
                 var timeArray = [];
                 var timeDrillArray = [];
@@ -185,7 +187,9 @@
 
 
                 /* Language */
-                var langData = '@{Html(languages.toString())}';
+                var langData = '@{
+                Html(languages.toString())
+            }';
                 langData = $.parseJSON(langData);
                 var langArray = [];
                 var langDrillArray = [];
@@ -237,7 +241,9 @@
 
 
                 /* OS */
-                var osData = '@{Html(os.toString())}';
+                var osData = '@{
+                Html(os.toString())
+            }';
                 osData = $.parseJSON(osData);
                 var osArray = [];
                 var verArray = [];
@@ -306,7 +312,9 @@
 
 
                 /* Browser */
-                var browData = '@{Html(browsers.toString())}';
+                var browData = '@{
+                Html(browsers.toString())
+            }';
                 browData = $.parseJSON(browData);
                 var browArray = [];
                 var drillArray = [];
@@ -357,7 +365,9 @@
                 });
 
                 /* Fonts */
-                var fontsData = '@{Html(fonts.toString())}';
+                var fontsData = '@{
+                Html(fonts.toString())
+            }';
                 fontsData = $.parseJSON(fontsData);
                 var catArray = [];
                 var seriesArray = [];
@@ -400,4 +410,5 @@
                 });
 
         </script>
+        }
 }
