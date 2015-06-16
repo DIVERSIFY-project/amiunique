@@ -1,0 +1,234 @@
+@import java.util._;
+@import models._;
+@import org.apache.commons.lang3.time.DateFormatUtils;
+
+@(fps : TreeSet[FpDataEntity])
+
+@header = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvasCompare.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/history.js")"></script>
+
+    <script>
+    $(document).ready(function() {
+        $("[rel=popover]").popover({'trigger':'hover'});
+
+        $("#showHistory").click(function(){
+            $("#compareFp").css("display", "none");
+            $("#resultComparaison").css("display","none");
+            $("#history").toggle();
+        });
+
+        $("#compareFpbutton").click(function(){
+            $("#history").css("display", "none");
+            $("#resultComparaison").css("display","block");
+            $("#compareFp").toggle();
+        });
+    });
+
+
+    </script>
+
+    <style>
+    [rel="popover"]{
+        cursor: pointer;
+        display:inline-block; /* chrome-fix */
+    }
+
+    td:nth-child(2), td:nth-child(3), td:nth-child(4){
+        word-break:break-all;
+    }
+
+    .history{
+        display:none;
+    }
+
+    .checkbox{
+        margin-right:15px;
+    }
+
+    #resultComparaison td:nth-child(2), #resultComparaison td:nth-child(3), #resultComparaison td:nth-child(4){
+        width:30%;
+    }
+
+    #resultComparaison td:nth-child(1){
+        width:10%;
+    }
+    </style>
+}
+@footer = {
+}
+
+@main(header, footer, "/history") {
+
+    <h1>@Messages("history.title")</h1>
+    
+    <p>
+        @Messages("history.warning")
+    </p>
+
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+        <button id="showHistory" type="button" class="btn btn-default">@Messages("history.btn1")</button>
+      </div>
+
+      <div class="btn-group" role="group">
+        <button id="compareFpbutton" type="button" class="btn btn-default">@Messages("history.btn2")</button>
+      </div>
+    </div>
+
+    <div style="display:none" id="compareFp">
+        @for(fp <- fps.iterator){
+            <div style="display:inline-block" class="checkbox">
+                <label>
+                    <input type="checkbox" value="@fp.getCounter()">
+                        @Messages("history.subtitle1") @DateFormatUtils.format(fp.getTime(), "dd/MM/yyyy") @Messages("history.subtitle2") @DateFormatUtils.format(fp.getTime(), "HH") @Messages("history.subtitle3")
+                </label>
+            </div>
+        }
+
+        <br/><button id="compareButton" type="button" class="btn btn-default">@Messages("history.compare")</button>
+    </div>
+
+    <!-- modal popup for the checkbox -->
+    <a style="display:none;" id="verifycb" href="#" data-toggle="modal" data-target="#checkboxModal"></a>
+
+    <div class="modal fade" id="checkboxModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="ModalLabel">@Messages("history.warningmodal")</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        @Messages("history.warningmessage")
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@Messages("history.close")</button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of modal popup -->
+    <div class="table-responsive">
+        <div style="display:none" id="resultComparaison"></div>
+    </div>
+
+    <div style="display:none" id="history">
+
+        @for(fp <- fps.iterator) {
+            <h2>@Messages("history.subtitle1") @DateFormatUtils.format(fp.getTime(), "dd/MM/yyyy") @Messages("history.subtitle2") @DateFormatUtils.format(fp.getTime(), "HH") @Messages("history.subtitle3")</h2>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <tr>
+                        <th>@Messages("fp.detAtt")</th>
+                        <th>@Messages("fp.detVal")</th>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.userAgent") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.userAgentExp")"></i></td>
+                        <td>@fp.getUserAgentHttp()</td>
+                    </tr>
+                    <tr>
+                        <td>@Messages("fp.accept") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.acceptExp")"></i></td>
+                        <td>@fp.getAcceptHttp()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.encoding") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.encodingExp")"></i></td>
+                        <td>@fp.getEncodingHttp()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.language") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageExp")"></i></td>
+                        <td>@fp.getLanguageHttp()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.plugins") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.pluginsExp")"></i></td>
+                        <td>@fp.getPluginsJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.platformJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformJExp")"></i></td>
+                        <td>@fp.getPlatformJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.cookies") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.cookiesExp")"></i></td>
+                        <td>@fp.getCookiesJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.dnt") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.dntExp")"></i></td>
+                        <td>@fp.getDntJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.timezone") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.timezoneExp")"></i></td>
+                        <td>@fp.getTimezoneJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.resolutionJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionJExp")"></i></td>
+                        <td>@fp.getResolutionJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.local") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.localExp")"></i></td>
+                        <td>@fp.getLocalJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.session") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.sessionExp")"></i></td>
+                        <td>@fp.getSessionJs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.canvas") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.canvasExp")"></i></td>
+                        <td><img src="@fp.getCanvasJs()"></td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.vendorWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.vendorWebGlExp")"></i></td>
+                        <td>@fp.getVendorWebGljs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.rendererWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.rendererWebGlExp")"></i></td>
+                        <td>@fp.getRendererWebGljs()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.fonts") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.fontsExp")"></i></td>
+                        <td>@fp.getFontsFlash()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.resolutionF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionFExp")"></i></td>
+                        <td>@fp.getResolutionFlash()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.languageF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageFExp")"></i></td>
+                        <td>@fp.getLanguageFlash()</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.platformF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformFExp")"></i></td>
+                        <td>@fp.getPlatformFlash</td>
+                    </tr>
+
+                    <tr>
+                        <td>@Messages("fp.adBlock") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.adBlockExp")"></i></td>
+                        <td>@fp.getAdBlock()</td>
+                    </tr>
+                </table>
+            </div>
+
+        }
+    </div>
+}
+

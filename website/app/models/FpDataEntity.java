@@ -2,10 +2,11 @@ package models;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashMap;
 
 @Entity
 @Table(name = "fpData", schema = "", catalog = "fingerprint")
-public class FpDataEntity {
+public class FpDataEntity implements Comparable, Cloneable {
     private int counter;
     private String id;
     private String addressHttp;
@@ -37,6 +38,12 @@ public class FpDataEntity {
     private String webGlJs;
     private String vendorWebGljs;
     private String rendererWebGljs;
+
+    //Hashed Attributes
+    private String pluginsJsHashed;
+    private String canvasJsHashed;
+    private String webGLJsHashed;
+    private String fontsFlashHashed;
 
     public FpDataEntity() {
     }
@@ -322,10 +329,54 @@ public class FpDataEntity {
         this.sunspiderTime = sunspiderTime;
     }
 
+
+    @Basic
+    @Column(name = "pluginsJSHashed")
+    public String getPluginsJsHashed() {
+        return pluginsJsHashed;
+    }
+
+    public void setPluginsJsHashed(String pluginsJsHashed){
+        this.pluginsJsHashed = pluginsJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "canvasJSHashed")
+    public String getCanvasJsHashed() {
+        return canvasJsHashed;
+    }
+
+    public void setCanvasJsHashed(String canvasJsHashed){
+        this.canvasJsHashed = canvasJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "webGLJsHashed")
+    public String getWebGLJsHashed() {
+        return webGLJsHashed;
+    }
+
+    public void setWebGLJsHashed(String webGLJsHashed){
+        this.webGLJsHashed = webGLJsHashed;
+    }
+
+
+    @Basic
+    @Column(name = "fontsFlashHashed")
+    public String getFontsFlashHashed() {
+        return fontsFlashHashed;
+    }
+
+    public void setFontsFlashHashed(String fontsFlashHashed){
+        this.fontsFlashHashed = fontsFlashHashed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
 
         FpDataEntity that = (FpDataEntity) o;
 
@@ -365,6 +416,11 @@ public class FpDataEntity {
             return false;
         if (webGlJs != null ? !webGlJs.equals(that.webGlJs) : that.webGlJs != null) return false;
 
+        if (pluginsJsHashed != null ? !pluginsJsHashed.equals(that.pluginsJsHashed) : that.pluginsJsHashed != null) return false;
+        if (canvasJsHashed != null ? !canvasJsHashed.equals(that.canvasJsHashed) : that.canvasJsHashed != null) return false;
+        if (webGLJsHashed != null ? !webGLJsHashed.equals(that.webGLJsHashed) : that.webGLJsHashed != null) return false;
+        if (fontsFlashHashed!= null ? !fontsFlashHashed.equals(that.fontsFlashHashed) : that.fontsFlashHashed != null) return false;
+
         return true;
     }
 
@@ -399,7 +455,52 @@ public class FpDataEntity {
         result = 31 * result + (adBlock != null ? adBlock.hashCode() : 0);
         result = 31 * result + (octaneScore != null ? octaneScore.hashCode() : 0);
         result = 31 * result + (sunspiderTime != null ? sunspiderTime.hashCode() : 0);
+
+        result = 31 * result + (pluginsJsHashed != null ? pluginsJsHashed.hashCode() : 0);
+        result = 31 * result + (canvasJsHashed != null ? canvasJsHashed.hashCode() : 0);
+        result = 31 * result + (webGLJsHashed != null ? webGLJsHashed.hashCode() : 0);
+        result = 31 * result + (fontsFlashHashed != null ? fontsFlashHashed.hashCode() : 0);
+
         return result;
+    }
+
+    public HashMap<String, String> fpToHashMap(){
+        HashMap<String, String> fpHashMap = new HashMap<String, String>();
+
+        fpHashMap.put("id",this.getId());
+        fpHashMap.put("addressHttp",this.getAddressHttp());
+        fpHashMap.put("userAgentHttp",this.getUserAgentHttp());
+        fpHashMap.put("acceptHttp",this.getAcceptHttp());
+        fpHashMap.put("hostHttp",this.getHostHttp());
+        fpHashMap.put("connectionHttp",this.getConnectionHttp());
+        fpHashMap.put("encodingHttp",this.getEncodingHttp());
+        fpHashMap.put("languageHttp",this.getLanguageHttp());
+        fpHashMap.put("orderHttp",this.getOrderHttp());
+        fpHashMap.put("pluginsJs",this.getPluginsJs());
+        fpHashMap.put("platformJs",this.getPlatformJs());
+        fpHashMap.put("cookiesJs",this.getCookiesJs());
+        fpHashMap.put("dntJs",this.getDntJs());
+        fpHashMap.put("timezoneJs",this.getTimezoneJs());
+        fpHashMap.put("resolutionJs",this.getResolutionJs());
+        fpHashMap.put("localJs",this.getLocalJs());
+        fpHashMap.put("sessionJs",this.getSessionJs());
+        fpHashMap.put("ieDataJs",this.getIeDataJs());
+        fpHashMap.put("canvasJs",this.getCanvasJs());
+        fpHashMap.put("webGlJs",this.getWebGlJs());
+        fpHashMap.put("fontsFlash",this.getFontsFlash());
+        fpHashMap.put("resolutionFlash",this.getResolutionFlash());
+        fpHashMap.put("languageFlash",this.getLanguageFlash());
+        fpHashMap.put("platformFlash",this.getPlatformFlash());
+        fpHashMap.put("adBlock",this.getAdBlock());
+        fpHashMap.put("octaneScore",this.getOctaneScore());
+        fpHashMap.put("sunspiderTime",this.getSunspiderTime());
+
+        fpHashMap.put("pluginsJsHashed",this.getPluginsJsHashed());
+        fpHashMap.put("canvasJsHashed",this.getCanvasJsHashed());
+        fpHashMap.put("webGLJsHashed",this.getWebGLJsHashed());
+        fpHashMap.put("fontsFlashHashed",this.getFontsFlashHashed());
+
+        return fpHashMap;
     }
 
     @Basic
@@ -430,5 +531,25 @@ public class FpDataEntity {
 
     public void setRendererWebGljs(String rendererWebGljs) {
         this.rendererWebGljs = rendererWebGljs;
+    }
+
+    public int compareTo(Object o){
+        if (this == o) return 0;
+        if (o == null) return -1;
+
+        FpDataEntity that = (FpDataEntity) o;
+        return that.getCounter() - getCounter();
+
+    }
+
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            cnse.printStackTrace(System.err);
+        }
+        
+        return o;
     }
 }
