@@ -15,20 +15,18 @@ import akka.actor.Props;
 import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
-//Commented so that it doesn't make a big update everytime we restart
-/*
+
     @Override
 	public void onStart(Application app) {
  		ActorRef myActor = Akka.system().actorOf(Props.create(UpdateDbActor.class));
- 		Akka.system().scheduler().schedule(
+ 		Akka.system().scheduler().scheduleOnce(
 			Duration.create(0, TimeUnit.MILLISECONDS), //Initial delay 0 milliseconds
-			Duration.create(1440, TimeUnit.MINUTES),     //Frequency 1440 minutes <=> 24hours
 			myActor,
 			"hello",
 			Akka.system().dispatcher(),
 			null
 	 	);
-   }*/
+   }
 
     @Override
     public void onStop(Application app) {
