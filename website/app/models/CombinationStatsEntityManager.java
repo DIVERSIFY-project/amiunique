@@ -21,8 +21,6 @@ public class CombinationStatsEntityManager {
         }
     }
 
-
-
     public CombinationStatsEntity createCombinationStats(String combination, String indicator, long number){
         return withTransaction(em -> {
             CombinationStatsEntity cs = new CombinationStatsEntity();
@@ -33,6 +31,11 @@ public class CombinationStatsEntityManager {
             em.persist(cs);
             return cs;
         });
+    }
+
+    public int getNumberOfEntries(){
+        String nbTotalQuery = "SELECT count(*) FROM CombinationStatsEntity";
+        return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).intValue());
     }
 
     public int updateCombinationStats(String combination, String indicator, long number){
