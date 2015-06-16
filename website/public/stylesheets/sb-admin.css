@@ -222,3 +222,12 @@ ul.alert-dropdown {
 .panel-yellow a:hover {
     color: #df8a13;
 }
+
+.diff td:nth-child(1){
+    font-weight:bold;
+    padding-right: 15px;
+}
+
+.diff td:nth-child(2){
+    padding-right: 8px;
+}

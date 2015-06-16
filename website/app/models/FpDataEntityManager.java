@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Calendar;
 
 public class FpDataEntityManager {
 
@@ -22,29 +23,29 @@ public class FpDataEntityManager {
 
     public boolean checkIfFPExists(String id,String userAgentHttp,
                                    String acceptHttp, String encodingHttp,
-                                   String languageHttp, String pluginsJs, String platformJs, String cookiesJs,
+                                   String languageHttp, String pluginsJsHashed, String platformJs, String cookiesJs,
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
-                                   String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
+                                   String ieDataJs, String canvasJsHashed, String webGlJsHashed, String fontsFlashHashed, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock){
 
         String query = "SELECT count(*) FROM FpDataEntity WHERE id= :id AND acceptHttp= :acceptHttp " +
                 "AND userAgentHttp= :userAgentHttp AND encodingHttp= :encodingHttp "+
-                "AND languageHttp= :languageHttp AND pluginsJS = :pluginsJs "+
+                "AND languageHttp= :languageHttp AND pluginsJsHashed = :pluginsJsHashed "+
                 "AND platformJs= :platformJs AND cookiesJs= :cookiesJs AND dntJs= :dntJs " +
                 "AND timezoneJs= :timezoneJs AND resolutionJs= :resolutionJs AND localJs= :localJs "+
-                "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJs= :canvasJs "+
-                "AND webGlJs= :webGlJs AND fontsFlash= :fontsFlash AND resolutionFlash= :resolutionFlash "+
+                "AND sessionJs= :sessionJs AND ieDataJs= :ieDataJs AND canvasJsHashed= :canvasJsHashed "+
+                "AND webGlJsHashed= :webGlJsHashed AND fontsFlashHashed= :fontsFlashHashed AND resolutionFlash= :resolutionFlash "+
                 "AND languageFlash= :languageFlash AND platformFlash= :platformFlash AND adBlock= :adBlock ";
 
         int nbId = withTransaction(em -> {
             Query q = em.createQuery(query)
             .setParameter("id", id).setParameter("acceptHttp",acceptHttp).setParameter("userAgentHttp", userAgentHttp)
             .setParameter("encodingHttp", encodingHttp);
-            q.setParameter("languageHttp",languageHttp).setParameter("pluginsJs",pluginsJs).setParameter("platformJs",platformJs)
+            q.setParameter("languageHttp",languageHttp).setParameter("pluginsJsHashed",pluginsJsHashed).setParameter("platformJs",platformJs)
             .setParameter("cookiesJs", cookiesJs).setParameter("dntJs",dntJs).setParameter("timezoneJs",timezoneJs);
             q.setParameter("resolutionJs",resolutionJs).setParameter("localJs",localJs).setParameter("sessionJs",sessionJs)
-            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJs",canvasJs).setParameter("webGlJs",webGlJs);
-            q.setParameter("fontsFlash", fontsFlash).setParameter("resolutionFlash",resolutionFlash)
+            .setParameter("ieDataJs", ieDataJs).setParameter("canvasJsHashed",canvasJsHashed).setParameter("webGlJsHashed",webGlJsHashed);
+            q.setParameter("fontsFlashHashed", fontsFlashHashed).setParameter("resolutionFlash",resolutionFlash)
             .setParameter("languageFlash", languageFlash).setParameter("platformFlash",platformFlash)
             .setParameter("adBlock", adBlock);
             return ((Long) q.getResultList().get(0)).intValue();
@@ -74,11 +75,23 @@ public class FpDataEntityManager {
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
+
     public FpDataEntity getExistingFPByCounter(int counter){
         return withTransaction(em -> em.find(FpDataEntity.class,counter));
     }
 
 
+    public TreeSet<FpDataEntity> getExistingFPsById(String id){
+        String query = "SELECT counter FROM FpDataEntity WHERE id= :id";
+        List<Integer> counters= withTransaction(em -> (em.createQuery(query).setParameter("id", id).getResultList()));
+
+        TreeSet<FpDataEntity> fps = new TreeSet<FpDataEntity>();
+        for(int c : counters){
+            fps.add(getExistingFPByCounter(c));
+        }
+
+        return fps;
+    }
 
     public FpDataEntity createFull(String id, String addressHttp, Timestamp time, String userAgentHttp,
                                    String acceptHttp, String hostHttp, String connectionHttp, String encodingHttp,
@@ -86,7 +99,8 @@ public class FpDataEntityManager {
                                    String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
                                    String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock, String vendorJs,
-                                   String rendererJs, String octaneScore, String sunspiderTime) {
+                                   String rendererJs, String octaneScore, String sunspiderTime, String pluginsJsHashed,
+                                   String canvasJsHashed, String webGLJsHashed, String fontsFlashHashed) {
         return withTransaction(em -> {
             FpDataEntity fp = new FpDataEntity();
             fp.setId(id);
@@ -119,6 +133,10 @@ public class FpDataEntityManager {
             fp.setRendererWebGljs(rendererJs);
             fp.setOctaneScore(octaneScore);
             fp.setSunspiderTime(sunspiderTime);
+            fp.setPluginsJsHashed(pluginsJsHashed);
+            fp.setCanvasJsHashed(canvasJsHashed);
+            fp.setWebGLJsHashed(webGLJsHashed);
+            fp.setFontsFlashHashed(fontsFlashHashed);
             em.persist(fp);
             return fp;
         });
@@ -129,13 +147,15 @@ public class FpDataEntityManager {
                                            String languageHttp, String orderHttp, String pluginsJs, String platformJs, String cookiesJs,
                                            String dntJs, String timezoneJs, String resolutionJs, String localJs, String sessionJs,
                                            String ieDataJs, String canvasJs, String webGlJs, String adBlock, String vendorJs, String rendererJs,
-                                           String octaneScore, String sunspiderTime) {
+                                           String octaneScore, String sunspiderTime, String pluginsJsHashed,
+                                           String canvasJsHashed, String webGLJsHashed) {
         return createFull(id, addressHttp, time, userAgentHttp,
                 acceptHttp, hostHttp, connectionHttp, encodingHttp,
                 languageHttp, orderHttp, pluginsJs, platformJs, cookiesJs,
                 dntJs, timezoneJs, resolutionJs, localJs, sessionJs,
                 ieDataJs, canvasJs, webGlJs, "", "",
-                "", "", adBlock, vendorJs, rendererJs, octaneScore, sunspiderTime);
+                "", "", adBlock, vendorJs, rendererJs, octaneScore, sunspiderTime,
+                pluginsJsHashed, canvasJsHashed, webGLJsHashed, "");
 
     }
 
@@ -150,7 +170,7 @@ public class FpDataEntityManager {
                 noJs, noJs, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
                 noJs, noJs, noJs, noJs, noJs,
-                noJs, noJs);
+                noJs, noJs, noJs, noJs, noJs, noJs);
     }
 
 
@@ -217,6 +237,14 @@ public class FpDataEntityManager {
         return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery).getResultList().get(0)).intValue());
     }
 
+    public int getNumberOfEntriesSinceDate(Timestamp tsl, Timestamp tsu){
+        String nbTotalQuery = "SELECT count(*) FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        return withTransaction(em -> ((Long) em.createQuery(nbTotalQuery)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList().get(0)).intValue());
+    }
+
     public CounterMap getTimezoneStats(){
         String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData GROUP BY timezoneJS";
         ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery).getResultList()));
@@ -227,6 +255,21 @@ public class FpDataEntityManager {
         }
         return res;
     }
+
+    public CounterMap getTimezoneStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String timeQuery = "SELECT timezoneJS, count(timezoneJS) FROM fpData WHERE time BETWEEN :lower AND :upper GROUP BY timezoneJS";
+        ArrayList<Object[]> q = withTransaction(em -> (ArrayList<Object[]>)  (em.createNativeQuery(timeQuery)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
+
+        CounterMap res = new CounterMap();
+        for(Object[] obj:  q){
+            res.add(obj[0].toString(), obj[1].toString());
+        }
+        return res;
+    }
+
 
     public VersionMap getLanguageStats(){
         String query = "SELECT languageHttp FROM FpDataEntity";
@@ -245,10 +288,71 @@ public class FpDataEntityManager {
         return langMap;
     }
 
+    public VersionMap getLanguageStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String query = "SELECT languageHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> langList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
+        Pattern langP = Pattern.compile("^(\\S\\S)");
+        VersionMap langMap = new VersionMap();
+
+        for(int i=0; i<langList.size(); i++){
+             Matcher langM = langP.matcher(langList.get(i));
+             if(langM.find()) {
+                 langMap.add(langM.group(1));
+             } else {
+                 langMap.add("Not communicated");
+             }
+        }
+        return langMap;
+    }
+
+
     public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStats(){
 
         String query = "SELECT userAgentHttp FROM FpDataEntity";
         ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
+
+        /* Browser */
+        HashMap<String, VersionMap> browsers = new HashMap<>();
+        browsers.put("Firefox", new VersionMap());
+        browsers.put("Chrome", new VersionMap());
+        browsers.put("Safari", new VersionMap());
+        browsers.put("IE", new VersionMap());
+        browsers.put("Opera", new VersionMap());
+        browsers.put("Others", new VersionMap());
+
+        /* OS */
+        HashMap<String, VersionMap> os  = new HashMap<>();
+        os.put("Windows", new VersionMap());
+        os.put("Linux", new VersionMap());
+        os.put("Mac", new VersionMap());
+        os.put("Android", new VersionMap());
+        os.put("iOS", new VersionMap());
+        os.put("Windows Phone", new VersionMap());
+        os.put("Others", new VersionMap());
+
+
+        /* Parse user agents */
+        for(int i=0; i<userAgents.size(); i++){
+            ParsedFP ua = new ParsedFP(userAgents.get(i));
+            browsers.get(ua.getBrowser()).add(ua.getBrowserVersion());
+            os.get(ua.getOs()).add(ua.getOsVersion());
+        }
+
+        HashMap<String,HashMap<String, VersionMap>> res = new HashMap<>();
+        res.put("browsers",browsers);
+        res.put("os",os);
+        return res;
+    }
+
+    public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String query = "SELECT userAgentHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
 
         /* Browser */
         HashMap<String, VersionMap> browsers = new HashMap<>();
@@ -301,5 +405,44 @@ public class FpDataEntityManager {
         }
         return nbFontsMap;
     }
+
+    public RangeMap getFontsStatsSinceDate(Timestamp tsl, Timestamp tsu){
+        String query = "SELECT fontsFlash FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
+        ArrayList<String> fontsList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
+            .setParameter("lower",tsl)
+            .setParameter("upper",tsu)
+            .getResultList()));
+        RangeMap nbFontsMap = new RangeMap();
+
+        for(int i=0; i<fontsList.size(); i++){
+            Integer nbFonts = fontsList.get(i).split("_").length;
+            if(nbFonts>2) {
+                int step = 50;
+                int j = step;
+                while (j < nbFonts) {
+                    j += step;
+                }
+                nbFontsMap.add((j - step) + "-" + j);
+            }
+        }
+        return nbFontsMap;
+    }
+
+
+    public ArrayList<String> getAttribute(String attribute){
+        String query = "SELECT "+attribute+" FROM FpDataEntity";
+        ArrayList<String> listAttribute = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
+
+        return listAttribute;
+    }
+
+    public List<Object[]> getStatsAttribute(String attribute){
+        String query = "SELECT "+attribute+", count(*) AS nbAtt FROM FpDataEntity Group By "+attribute;
+
+        List<Object[]> result = withTransaction(em -> ((List<Object[]>) em.createQuery(query).getResultList()));
+        return result;
+
+    }
+
 
 }
