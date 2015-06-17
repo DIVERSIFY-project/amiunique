@@ -86,6 +86,13 @@ public class Application extends Controller {
         CombinationStatsEntityManager emc = new CombinationStatsEntityManager();
         FpDataEntity fp;
         boolean newFp;
+
+        String noJS = "no JS";
+        String pluginsJsHashed = DigestUtils.sha1Hex(noJS);
+        String canvasJsHashed = DigestUtils.sha1Hex(noJS);
+        String webGLJsHashed = DigestUtils.sha1Hex(noJS);
+        String fontsFlashHashed = DigestUtils.sha1Hex(noJS);
+
         if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
                 getHeader(request(), "Accept"),getHeader(request(), "Accept-Encoding"),
                 getHeader(request(), "Accept-Language"))){
@@ -103,26 +110,16 @@ public class Application extends Controller {
             emc.updateCombinationStats(getHeader(request(),"User-Agent"),
                     getHeader(request(),"Accept"), getHeader(request(),"Connection"),
                     getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"), request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""),
-                    "", "", "",
-                    "", "", "",
-                    "", "", "",
-                    "", "", "",
-                    "", "", "", "");
+                    noJS, noJS, noJS,
+                    noJS, noJS, noJS,
+                    noJS, noJS, noJS,
+                    noJS, noJS, noJS,
+                    noJS, pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
 
             newFp = true;
         }
 
         ObjectNode node = (ObjectNode) Json.toJson(fp);
-        node.remove("counter");
-        node.remove("octaneScore");
-        node.remove("sunspiderTime");
-        node.remove("addressHttp");
-        node.remove("time");
-        node.remove("hostHttp");
-        node.remove("orderHttp");
-        node.remove("connectionHttp");
-        node.remove("id");
-        JsonNode json = (JsonNode) node;
 
         //Analyse the user agent
         ParsedFP parsedFP = new ParsedFP(node.get("userAgentHttp").asText());
@@ -130,6 +127,24 @@ public class Application extends Controller {
         parsedFP.setLanguage(node.get("languageHttp").asText());
         parsedFP.setTimezone(node.get("timezoneJs").asText());
         parsedFP.setNbFonts(node.get("fontsFlash").asText());
+
+        node.remove("counter");
+        node.remove("octaneScore");
+        node.remove("sunspiderTime");
+        node.remove("addressHttp");
+        node.remove("time");
+        node.remove("hostHttp");
+        node.remove("connectionHttp");
+        node.remove("orderHttp");
+        node.remove("ieDataJs");
+        node.remove("id");
+        node.remove("vendorWebGljs");
+        node.remove("rendererWebGljs");
+        node.remove("webGlJs");
+        node.remove("canvasJs");
+        node.remove("fontsFlash");
+        node.remove("webGLJsHashed");
+        JsonNode json = (JsonNode) node;
 
         //Get the stats instance
         Stats s = Stats.getInstance();
@@ -144,6 +159,18 @@ public class Application extends Controller {
         Integer nbIdent = em.getNumberOfIdenticalFingerprints(json);
         //Get the percentages of every attribute
         Map<String,Double> percentages = emc.getPercentages(json);
+
+        percentages.put("pluginsJs", percentages.get("pluginsJsHashed"));
+        percentages.put("canvasJs", percentages.get("canvasJsHashed"));
+        percentages.put("fontsFlash", percentages.get("fontsFlashHashed"));
+        percentages.remove("pluginsJsHashed");
+        percentages.remove("canvasJsHashed");
+        percentages.remove("fontsFlashHashed");
+
+        node.put("canvasJs","no JS");
+        node.put("vendorWebGljs","no JS");
+        node.put("rendererWebGljs","no JS");
+        node.put("fontsFlash","no JS");
 
         //Get some general stats
         HashMap<String, VersionMap> osMap = s.getOs();

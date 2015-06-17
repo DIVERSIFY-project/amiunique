@@ -59,11 +59,15 @@ public class CombinationStatsEntityManager {
         while(it.hasNext()) {
             String column = it.next();
             String nbSameValueQuery = nbSameValueBaseQuery+" combination = :col and indicator = :indic";
-                      
-            long nbSameValue = (withTransaction(em -> ((Long) em.createQuery(nbSameValueQuery)
+
+            long nbSameValue = (withTransaction(em -> {
+                Query q = em.createQuery(nbSameValueQuery)
                     .setParameter("col", values.get(column).asText().replace("\"", "'"))
-                    .setParameter("indic",column)
-                    .getResultList().get(0)).intValue()));
+                    .setParameter("indic",column);
+                List l = q.getResultList();
+                return (Long) l.get(0);
+            }));
+
             percentage.put(column, (nbSameValue/nbTotal)*100);
         }
         return percentage;
@@ -304,6 +308,12 @@ public class CombinationStatsEntityManager {
                     .setParameter("combination", plugin)
                     .executeUpdate())))==0){
                     createCombinationStats(plugin, "PluginsJs", 1);
+                }
+            } else {
+                if((withTransaction(em -> (Integer)( em.createQuery(query22)
+                    .setParameter("combination", pluginsJs)
+                    .executeUpdate())))==0){
+                        createCombinationStats(pluginsJs, "PluginsJs", 1);
                 }
             }
         }
