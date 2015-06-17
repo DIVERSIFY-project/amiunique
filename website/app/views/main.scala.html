@@ -61,7 +61,7 @@
                         <a style="color:#ffffff" href="/"><i class="fa fa-fw fa-home"></i>&nbsp; @Messages("menu.home")</a>
                     </li>
                     <li @active("/fp")>
-                        <a style="color:#ffffff" id="menuLink" href="/fp"><i class="fa fa-fw fa-paw"></i>&nbsp; @Messages("menu.myfp")</a>
+                        <a style="color:#ffffff" id="menuLink" href="/fpNoJs"><i class="fa fa-fw fa-paw"></i>&nbsp; @Messages("menu.myfp")</a>
                     </li>
                     @if(request().cookies().get("amiunique") != null){
                         <li @active("/history")>
