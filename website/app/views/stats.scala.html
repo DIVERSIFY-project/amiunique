@@ -70,12 +70,12 @@
         <form @displayCustom() id="dateForm" method="POST" action="/stats">
             <div class="form-group">
                 <label for="datel">@Messages("stats.beg")</label>
-                <input class="form-control" id="datel" name="datel" size="20" value="@datel" placeholder="dd-mm-yyyy"/>
+                <input class="form-control" id="datel" name="datel" size="20" value="@datel" placeholder="dd-mm-yyyy" readonly="readonly"/>
             </div>
 
             <div class="form-group">
                 <label for="dateu">@Messages("stats.end")</label>
-                <input class="form-control" id="dateu" name="dateu" size="20" value="@dateu" placeholder="dd-mm-yyyy"/>
+                <input class="form-control" id="dateu" name="dateu" size="20" value="@dateu" placeholder="dd-mm-yyyy" readonly="readonly"/>
             </div>
 
             <input type="hidden" value="custom" name="typereq">
