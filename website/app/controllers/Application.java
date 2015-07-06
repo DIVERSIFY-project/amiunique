@@ -546,11 +546,7 @@ public class Application extends Controller {
 
 
     /*
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-    This method is only used with the amiunique extension
-    
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        AmIUnique Extension
     */
 
     public static Result extension(){
@@ -558,29 +554,68 @@ public class Application extends Controller {
     }
 
 
-    public static Result addFingerprinFromExtension(){
+    public static Result addFingerprintFromExtension(){
 
         Map<String, String[]> vals = request().body().asFormUrlEncoded();
-        FpDataEntityManager em = new FpDataEntityManager();
-        FpDataEntity fp;
+        ExtensionDataEntityManager em = new ExtensionDataEntityManager();
 
+        String uuid = vals.get("uuid")[0];
         String pluginsJsHashed = DigestUtils.sha1Hex(vals.get("pluginsJs")[0]);
         String canvasJsHashed = DigestUtils.sha1Hex(vals.get("canvasJs")[0]);
-        String webGLJsHashed = "";
+        String webGLJsHashed = DigestUtils.sha1Hex(vals.get("webGLJs")[0]);
         String fontsFlashHashed = DigestUtils.sha1Hex(vals.get("fontsFlash")[0]);
 
-        LocalDateTime time = LocalDateTime.now();
-        time = time.truncatedTo(ChronoUnit.HOURS);
-        fp = em.createFull(vals.get("id")[0],
-            DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), request().getHeader("User-Agent"),
-            request().getHeader("Accept"), request().getHeader("Host"), request().getHeader("Connection"),
-            request().getHeader("Accept-Encoding"), request().getHeader("Accept-Language"), vals.get("orderHttp")[0],
-            vals.get("pluginsJs")[0], vals.get("platformJs")[0], vals.get("cookiesJs")[0],
-            vals.get("dntJs")[0], vals.get("timezoneJs")[0], vals.get("resolutionJs")[0],
-            vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],
-            vals.get("canvasJs")[0], "nc", vals.get("fontsFlash")[0],
-            vals.get("resolutionFlash")[0], vals.get("languageFlash")[0], vals.get("platformFlash")[0],
-            vals.get("adBlock")[0], "nc","nc", "", "", pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
+        Timestamp currentTime = Timestamp.valueOf(LocalDateTime.now().truncatedTo(ChronoUnit.HOURS));
+
+        boolean create = false;
+        boolean update = false;
+        boolean end = false;
+
+        //Check if FP with this ID exist
+        //If no, we add the presented FP
+        //If yes, we check if it is identical with the last one
+        //  If no, we update the last one (endDate) and add the new one
+        //  If yes, we update the last one (updateDate)
+
+        if(em.checkIfIDExists(uuid)){
+            if(em.checkIfLastFPIsIdentical(uuid,vals.get("userAgentHttp")[0],
+                    vals.get("acceptHttp")[0],vals.get("encodingHttp")[0], vals.get("languageHttp")[0],
+                    pluginsJsHashed, vals.get("platformJs")[0], vals.get("cookiesJs")[0],
+                    vals.get("dntJs")[0], vals.get("timezoneJs")[0], vals.get("resolutionJs")[0],
+                    vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],
+                    canvasJsHashed,fontsFlashHashed, vals.get("resolutionFlash")[0],
+                    vals.get("languageFlash")[0], vals.get("platformFlash")[0], vals.get("adBlock")[0])){
+                update=true;
+            } else {
+                end = true;
+                create=true;
+            }
+        } else {
+            create = true;
+        }
+
+
+        if(update){
+            em.updateLastFP(uuid,currentTime);
+        }
+
+        if(end){
+            em.endLastFP(uuid,currentTime);
+        }
+
+        if(create) {
+            em.createFP(uuid,
+                    DigestUtils.sha1Hex(request().remoteAddress()), currentTime, null, null, vals.get("userAgentHttp")[0],
+                    vals.get("acceptHttp")[0], vals.get("hostHttp")[0], vals.get("connectionHttp")[0],
+                    vals.get("encodingHttp")[0], vals.get("languageHttp")[0], vals.get("orderHttp")[0],
+                    vals.get("pluginsJs")[0], vals.get("platformJs")[0], vals.get("cookiesJs")[0],
+                    vals.get("dntJs")[0], vals.get("timezoneJs")[0], vals.get("resolutionJs")[0],
+                    vals.get("localJs")[0], vals.get("sessionJs")[0], vals.get("IEDataJs")[0],
+                    vals.get("canvasJs")[0], vals.get("webGLJs")[0], vals.get("fontsFlash")[0],
+                    vals.get("resolutionFlash")[0], vals.get("languageFlash")[0], vals.get("platformFlash")[0],
+                    vals.get("adBlock")[0], vals.get("vendorWebGLJs")[0], vals.get("rendererWebGLJs")[0], "", "",
+                    pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
+        }
 
         return ok();
     }
