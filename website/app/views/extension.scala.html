@@ -1,27 +1,48 @@
 
-
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/webGL.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
     <script>
         var orderHttp = '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")';
-        var loadingGif = '<img id="ldgif" src="@routes.Assets.at("stylesheets/images/loading.gif")">'
+        var loadingGif = '<img id="ldgif" src="@routes.Assets.at("stylesheets/images/loading.gif")">';
         var successAdd = '@Messages("extension.success") <a href="/history">@Messages("menu.history")</a>';
     </script>
-
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/extension.js")"></script>
 
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
     </script>
+
+    <script type="application/javascript">
+        function isConnected(){
+            flashAvailable = true;
+        }
+    </script>
+
+    <script>
+        var userAgentHttp = '@request.getHeader("User-Agent")';
+        var acceptHttp = '@request.getHeader("Accept")';
+        var hostHttp = '@request.getHeader("Host")';
+        var connectionHttp = '@request.getHeader("Connection")';
+        var encodingHttp = '@request.getHeader("Accept-Encoding")';
+        var languageHttp = '@request.getHeader("Accept-Language")';
+        var orderHttp = '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")';
+    </script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/extension.js")"></script>
 }
+
 @footer = {
 }
 
 @main(header, footer, "/extension") {
     <h1>Extension Amiunique</h1>
+    <div id="fp">
+    </div>
     <div id="presExt">
         <p>
             @Messages("extension.pres1")
