@@ -51,7 +51,7 @@ $(document).ready(function(){
         fp.uuid=document.getElementById("fp").getAttribute("uuid");
 
         $.ajax({
-            url: 'http://localhost:9000/evolution',
+            url: 'https://amiunique.org/extension',
             data: fp,
             contentType: 'application/x-www-form-urlencoded',
             method: "POST",
