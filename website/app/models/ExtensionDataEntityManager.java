@@ -75,7 +75,6 @@ public class ExtensionDataEntityManager {
             return ((Number) q.getResultList().get(0)).intValue();
         });
 
-        System.out.println("Nb ID : "+nbId);
         return nbId > 0;
     }
 
@@ -109,14 +108,12 @@ public class ExtensionDataEntityManager {
             .setParameter("adBlock", adBlock);
             return ((Number) q.getResultList().get(0)).intValue();
         });
-        System.out.println("FP identical: "+(nbId == 1));
         return nbId == 1;
     }
 
 
     public int updateLastFP(String id, Timestamp currentTime){
         String query = "UPDATE extensionData SET updateDate= :updateDate WHERE id= :id ORDER BY counter DESC LIMIT 1";
-        System.out.println("FP updated");
         return withTransaction(em -> {
             Query q = em.createNativeQuery(query).setParameter("updateDate",currentTime).setParameter("id", id);
             return q.executeUpdate();
@@ -125,7 +122,6 @@ public class ExtensionDataEntityManager {
 
     public int endLastFP(String id, Timestamp currentTime){
         String query = "UPDATE extensionData SET endDate= :endDate WHERE id= :id ORDER BY counter DESC LIMIT 1";
-        System.out.println("FP ended");
         return withTransaction(em -> {
             Query q = em.createNativeQuery(query).setParameter("endDate",currentTime).setParameter("id", id);
             return q.executeUpdate();
