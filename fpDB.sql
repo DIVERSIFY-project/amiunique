@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.3.1
+-- version 4.4.11
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 18, 2014 at 01:24 PM
--- Server version: 5.5.39-MariaDB
--- PHP Version: 5.5.19
+-- Generation Time: Jul 27, 2015 at 08:05 AM
+-- Server version: 10.0.20-MariaDB
+-- PHP Version: 5.6.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `fingerprint`
@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `fpData` (
-`counter` int(11) NOT NULL,
+  `counter` int(11) NOT NULL,
   `id` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `addressHttp` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `time` datetime NOT NULL,
@@ -57,8 +57,12 @@ CREATE TABLE IF NOT EXISTS `fpData` (
   `vendorWebGLJS` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `rendererWebGLJS` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `octaneScore` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sunspiderTime` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=40509 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `sunspiderTime` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `pluginsJSHashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `canvasJSHashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `webGLJsHashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `fontsFlashHashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -68,7 +72,28 @@ CREATE TABLE IF NOT EXISTS `fpData` (
 -- Indexes for table `fpData`
 --
 ALTER TABLE `fpData`
- ADD PRIMARY KEY (`counter`), ADD KEY `localJS` (`localJS`), ADD KEY `dntJS` (`dntJS`), ADD KEY `acceptHttp` (`acceptHttp`(255)), ADD KEY `hostHttp` (`hostHttp`), ADD KEY `connectionHttp` (`connectionHttp`), ADD KEY `encodingHttp` (`encodingHttp`), ADD KEY `languageHttp` (`languageHttp`), ADD KEY `orderHttp` (`orderHttp`), ADD KEY `platformJS` (`platformJS`), ADD KEY `cookiesJS` (`cookiesJS`), ADD KEY `timezoneJS` (`timezoneJS`), ADD KEY `resolutionJS` (`resolutionJS`), ADD KEY `sessionJS` (`sessionJS`), ADD KEY `IEDataJS` (`IEDataJS`), ADD KEY `resolutionFlash` (`resolutionFlash`), ADD KEY `languageFlash` (`languageFlash`), ADD KEY `platformFlash` (`platformFlash`), ADD KEY `adBlock` (`adBlock`), ADD KEY `vendorWebGLJS` (`vendorWebGLJS`), ADD KEY `rendererWebGLJS` (`rendererWebGLJS`), ADD KEY `userAgentHttp` (`userAgentHttp`(255));
+  ADD PRIMARY KEY (`counter`),
+  ADD KEY `userAgentHttp` (`userAgentHttp`(255)),
+  ADD KEY `localJS` (`localJS`),
+  ADD KEY `dntJS` (`dntJS`),
+  ADD KEY `acceptHttp` (`acceptHttp`(255)),
+  ADD KEY `hostHttp` (`hostHttp`),
+  ADD KEY `connectionHttp` (`connectionHttp`),
+  ADD KEY `encodingHttp` (`encodingHttp`),
+  ADD KEY `languageHttp` (`languageHttp`),
+  ADD KEY `orderHttp` (`orderHttp`),
+  ADD KEY `platformJS` (`platformJS`),
+  ADD KEY `cookiesJS` (`cookiesJS`),
+  ADD KEY `timezoneJS` (`timezoneJS`),
+  ADD KEY `resolutionJS` (`resolutionJS`),
+  ADD KEY `sessionJS` (`sessionJS`),
+  ADD KEY `IEDataJS` (`IEDataJS`),
+  ADD KEY `resolutionFlash` (`resolutionFlash`),
+  ADD KEY `languageFlash` (`languageFlash`),
+  ADD KEY `platformFlash` (`platformFlash`),
+  ADD KEY `adBlock` (`adBlock`),
+  ADD KEY `vendorWebGLJS` (`vendorWebGLJS`),
+  ADD KEY `rendererWebGLJS` (`rendererWebGLJS`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -77,7 +102,8 @@ ALTER TABLE `fpData`
 --
 -- AUTO_INCREMENT for table `fpData`
 --
-
+ALTER TABLE `fpData`
+  MODIFY `counter` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
