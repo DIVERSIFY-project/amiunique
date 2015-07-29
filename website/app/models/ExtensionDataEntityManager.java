@@ -4,6 +4,8 @@ import play.db.jpa.JPA;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Timestamp;
+import java.util.List;
+import java.util.TreeSet;
 import java.util.function.Function;
 
 public class ExtensionDataEntityManager {
@@ -126,6 +128,22 @@ public class ExtensionDataEntityManager {
             Query q = em.createNativeQuery(query).setParameter("endDate",currentTime).setParameter("id", id);
             return q.executeUpdate();
         });
+    }
+
+    public ExtensionDataEntity getExistingFPByCounter(int counter){
+        return withTransaction(em -> em.find(ExtensionDataEntity.class,counter));
+    }
+
+    public TreeSet<ExtensionDataEntity> getExistingFPsById(String id){
+        String query = "SELECT counter FROM extensionData WHERE id= :id";
+        List<Integer> counters= withTransaction(em -> (em.createNativeQuery(query).setParameter("id", id).getResultList()));
+
+        TreeSet<ExtensionDataEntity> fps = new TreeSet<ExtensionDataEntity>();
+        for(int c : counters){
+            fps.add(getExistingFPByCounter(c));
+        }
+
+        return fps;
     }
 
 }
