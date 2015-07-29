@@ -13,13 +13,15 @@ GET         /tools                   controllers.Application.tools()
 GET         /privacy                 controllers.Application.privacy()
 GET         /links                   controllers.Application.links()
 GET         /about                   controllers.Application.about()
-GET			/extension 				 controllers.Application.extension()
+GET         /extension               controllers.Application.extension()
+GET         /timeline/:id            controllers.Application.timeline(id: String)
 
 POST        /results                 controllers.Application.addFingerprint()
 POST        /percentages             controllers.Application.percentages()
 POST        /stats                   controllers.Application.statsTime()
-POST		/evolution				 controllers.Application.addFingerprintFromExtension()
-POST		/compareFpHistory		 controllers.Application.compareFpHistory()
+POST        /evolution               controllers.Application.addFingerprintFromExtension()
+POST        /compareFpHistory        controllers.Application.compareFpHistory()
+
 
 #JavaScript router
 GET         /assets/js/routes        controllers.Application.jsRoutes()

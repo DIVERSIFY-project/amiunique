@@ -4,10 +4,12 @@ import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 @Entity
 @javax.persistence.Table(name = "extensionData", schema = "", catalog = "fingerprint")
-public class ExtensionDataEntity {
+public class ExtensionDataEntity implements Comparable, Cloneable {
     private int counter;
 
     @Id
@@ -552,5 +554,76 @@ public class ExtensionDataEntity {
         result = 31 * result + (webGlJsHashed != null ? webGlJsHashed.hashCode() : 0);
         result = 31 * result + (fontsFlashHashed != null ? fontsFlashHashed.hashCode() : 0);
         return result;
+    }
+
+    public HashMap<String, String> fpToHashMap(){
+        HashMap<String, String> fpHashMap = new HashMap<String, String>();
+        fpHashMap.put("id",this.getId());
+        fpHashMap.put("creationDate", new SimpleDateFormat("yyyy,MM,dd,HH").format(this.getCreationDate()));
+        if(this.getUpdateDate() == null) {
+            fpHashMap.put("updateDate","");
+        } else {
+            fpHashMap.put("updateDate", new SimpleDateFormat("yyyy,MM,dd,HH").format(this.getUpdateDate()));
+        }
+
+        if(this.getEndDate() == null) {
+            fpHashMap.put("endDate", "");
+        } else {
+            fpHashMap.put("endDate", new SimpleDateFormat("yyyy,MM,dd,HH").format(this.getEndDate()));
+        }
+
+        fpHashMap.put("addressHttp",this.getAddressHttp());
+        fpHashMap.put("userAgentHttp",this.getUserAgentHttp());
+        fpHashMap.put("acceptHttp",this.getAcceptHttp());
+        fpHashMap.put("hostHttp",this.getHostHttp());
+        fpHashMap.put("connectionHttp",this.getConnectionHttp());
+        fpHashMap.put("encodingHttp",this.getEncodingHttp());
+        fpHashMap.put("languageHttp",this.getLanguageHttp());
+        fpHashMap.put("orderHttp",this.getOrderHttp());
+        fpHashMap.put("pluginsJs", this.getPluginsJs());
+        fpHashMap.put("platformJs", this.getPlatformJs());
+        fpHashMap.put("cookiesJs",this.getCookiesJs());
+        fpHashMap.put("dntJs",this.getDntJs());
+        fpHashMap.put("timezoneJs",this.getTimezoneJs());
+        fpHashMap.put("resolutionJs",this.getResolutionJs());
+        fpHashMap.put("localJs",this.getLocalJs());
+        fpHashMap.put("sessionJs",this.getSessionJs());
+        fpHashMap.put("ieDataJs",this.getIeDataJs());
+        fpHashMap.put("canvasJs",this.getCanvasJs());
+        fpHashMap.put("webGlJs",this.getWebGlJs());
+        fpHashMap.put("fontsFlash",this.getFontsFlash());
+        fpHashMap.put("resolutionFlash",this.getResolutionFlash());
+        fpHashMap.put("languageFlash",this.getLanguageFlash());
+        fpHashMap.put("platformFlash",this.getPlatformFlash());
+        fpHashMap.put("adBlock",this.getAdBlock());
+        fpHashMap.put("rendererWebGLJs",this.getRendererWebGljs());
+        fpHashMap.put("vendorWebGLJs",this.getVendorWebGljs());
+        fpHashMap.put("pluginsJsHashed",this.getPluginsJsHashed());
+        fpHashMap.put("canvasJsHashed",this.getCanvasJsHashed());
+        fpHashMap.put("webGLJsHashed",this.getWebGlJsHashed());
+        fpHashMap.put("fontsFlashHashed",this.getFontsFlashHashed());
+
+        return fpHashMap;
+    }
+
+    public Object clone() {
+        Object o = null;
+        try {
+            o = super.clone();
+        } catch(CloneNotSupportedException cnse) {
+            cnse.printStackTrace(System.err);
+        }
+
+        return o;
+    }
+
+
+    public int compareTo(Object o){
+        if (this == o) return 0;
+        if (o == null) return -1;
+
+        ExtensionDataEntity that = (ExtensionDataEntity) o;
+        return that.getCounter() - getCounter();
+
     }
 }
