@@ -21,9 +21,6 @@
             era = [];
             counter = 1;
 
-            console.log('@firstDate');
-            console.log('@currentDate');
-
             for(key in data){
 
                 $("#resultComparaison").html(data[key]);
@@ -202,6 +199,9 @@
 }
 
 @main(header, footer, "/timeline") {
+    <div>
+        <h2>Timeline - AmIUnique extension</h2>
+    </div>
     <div id="my-timeline"></div>
     <div id="resultComparaison"></div>
 }
