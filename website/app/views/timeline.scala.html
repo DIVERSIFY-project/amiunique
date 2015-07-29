@@ -1,0 +1,207 @@
+@import com.fasterxml.jackson.databind.JsonNode
+@(tabHtmlDifferences : JsonNode, startDate : JsonNode, endDate: JsonNode, firstDate: String, currentDate: String)
+
+@header = {
+    <script type="text/javascript" src="@routes.Assets.at("timelinejs/js/storyjs-embed.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
+
+    <script type="text/javascript">
+
+        $( document ).ready(function() {
+
+            var canvas1 = document.createElement("canvas");
+            var canvas2 = document.createElement("canvas");
+            var ok = true;
+
+            var data = $.parseJSON('@Html(tabHtmlDifferences.toString)');
+            var startDates = $.parseJSON('@Html(startDate.toString)');
+            var endDates = $.parseJSON('@Html(endDate.toString)');
+
+            date = [];
+            era = [];
+            counter = 1;
+
+            console.log('@firstDate');
+            console.log('@currentDate');
+
+            for(key in data){
+
+                $("#resultComparaison").html(data[key]);
+                $("#resultComparaison").css("display","block");
+
+                var tables = $('#resultComparaison table tr[class!="legend"]');
+
+                calculateDiff(data[key]);
+
+                date.push({
+                    "startDate":startDates[key],
+                    "headline":"Evolution from fingerprint n°"+counter+" to n°"+(counter+1),
+                    "text": '<table class="table table-striped table-hover"><tbody><tr class="legend"><th>Attribute</th><th>Before</th><th>After</th><th>Differences</th>'+
+                                $("#resultComparaison").html().toString()+'</tbody></table>'
+                });
+                if(endDates[key] != undefined){
+                    era.push({
+                        "startDate": startDates[key],
+                        "endDate": endDates[key],
+                        "headline": "Fingerprint n°"+(counter+1)
+                    });
+                } else {
+                    era.push({
+                        "startDate": startDates[key],
+                        "endDate": '@currentDate',
+                        "headline": "Fingerprint n°"+(counter+1)+ " (current fingerprint)"
+                    });
+                }
+
+                if(counter == 1){
+                    era.push({
+                        "startDate": '@firstDate',
+                        "endDate": startDates[key],
+                        "headline": "Fingerprint n°1"
+                    });
+                }
+
+                counter++;
+            }
+
+            $("#resultComparaison").html("");
+
+            displayTimeline(date, era);
+
+            function calculateDiff(table) {
+                $("#resultComparaison tr").each(function (i, row) {
+                var $row = $(this);
+                colAttribute = $row.find(' :nth-child(1)').text();
+                colBefore = $row.find(':nth-child(2)').text();
+                colAfter = $row.find(':nth-child(3)').text();
+
+                if(colAttribute === "pluginsJs"){
+                  var pluginsParsedBefore = colBefore.split("Plugin ");
+                  var pluginsParsedAfter = colAfter.split("Plugin ");
+
+                  var pluginsBefore = new Array();
+                  for(var i = 1; i < pluginsParsedBefore.length; i++){
+                    pluginsBefore[i-1] = pluginsParsedBefore[i].split(": ")[1]+' ';
+                  }
+
+                  var pluginsAfter = new Array();
+                  for(var i = 1; i < pluginsParsedAfter.length; i++){
+                    pluginsAfter[i-1] = pluginsParsedAfter[i].split(": ")[1]+"  ";
+                  }
+
+                  colBefore = pluginsBefore.toString();
+                  colAfter = pluginsAfter.toString();
+
+                  $row.find(':nth-child(2)').html(colBefore);
+                  $row.find(':nth-child(3)').html(colAfter);
+
+
+                }
+
+
+                //We search the differences between the 2 strings
+                var dmp = new diff_match_patch();
+                var a = dmp.diff_linesToWords_(colBefore+" ", colAfter+" ");
+
+                var lineText1 = a['chars1'];
+                var lineText2 = a['chars2'];
+                var lineArray = a['lineArray'];
+
+                if(colAttribute != "canvasJs") {
+                    diff = dmp.diff_main(lineText1, lineText2, false);
+                    dmp.diff_charsToLines_(diff, lineArray);
+                    if(colBefore.lastIndexOf("Flash", 0) === 0){
+                    $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
+                    }else if(colAfter.lastIndexOf("Flash", 0) === 0){
+                        $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">'+colBefore+'</del><ins style="background:#e6ffe6;">Flash not detected </ins>');
+                    }else{
+                        $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
+                    }
+                } else {
+                    ok = false;
+                    var img1 = document.getElementById("img1");
+                    var img2 = document.getElementById("img2");
+
+                    canvas1.id = "cvs1";
+                    canvas1.width = img1.width;
+                    canvas1.height = img1.height;
+                    ctx1 = canvas1.getContext("2d");
+                    imgCvs1 = new Image();
+                    imgCvs1.onload = function() {
+                        ctx1.drawImage(imgCvs1, 0, 0);
+                        nbLoaded++;
+                    };
+                    imgCvs1.src = img1.src;
+
+                    canvas2.id = "cvs2";
+                    canvas2.width = img1.width;
+                    canvas2.height = img1.height;
+                    ctx2 = canvas2.getContext("2d");
+                    imgCvs2 = new Image();
+                    imgCvs2.onload = function() {
+                        ctx2.drawImage(imgCvs2, 0, 0);
+                        nbLoaded++;
+                    };
+                    imgCvs2.src = img2.src;
+
+                    finishCallback();
+                }
+                });
+
+            }
+
+            function finishCallback(){
+                console.log("Début du callback");
+                if (nbLoaded < 2) {
+                    console.log(nbLoaded);
+                    setTimeout(function() {
+                        finishCallback();
+                    }, 100);
+                } else {
+                    var diffImg = document.getElementById("diffImg");
+                    var canvasDiff = compareCanvas(canvas1, canvas2);
+                    diffImg.src= canvasDiff.toDataURL();
+                }
+                ok = true;
+            }
+
+            function displayTimeline(date, era){
+                if(ok != true){
+                     setTimeout(function() {
+                        displayTimeline(date,era);
+                    }, 100);
+                }else{
+
+                    createStoryJS({
+                        type:       'timeline',
+                        width:      '100%',
+                        height:     '600',
+                        source:     { "timeline":
+                                        {
+                                            "headline":"Your fingerprint's evolution",
+                                            "type":"default",
+                                            "text":"<p>You can find here all the evolution of your browser fingerprint through time.</p>" +
+                                             "<p>Explore the timeline below!</p>",
+                                            "date": date,
+                                            "era": era
+                                        }
+                                    },
+                        embed_id:   'my-timeline',
+                        start_zoom_adjust:  '0'
+                    });
+
+                }
+            }
+
+        });
+
+    </script>
+
+}
+@footer = {
+}
+
+@main(header, footer, "/timeline") {
+    <div id="my-timeline"></div>
+    <div id="resultComparaison"></div>
+}
