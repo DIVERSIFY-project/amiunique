@@ -1,15 +1,35 @@
-@(message: String)
+@import com.fasterxml.jackson.databind.JsonNode
+@(fp : JsonNode, message: String)
+
+
 @header = {
 }
+
 @footer = {
     <script type="text/javascript">
-        document.getElementById("link").href = "/fp";
+        if (document.location.hash) {
+            var hash = document.location.hash;
+            $('.nav-tabs a[href='+hash+']').tab('show');
+        }
     </script>
 }
 
-@main(header, footer, "/home") {
-    <div class="container-fluid text-center">
-        <h2>Timeline - AmIUnique extension</h2>
-        <p>@Html(message)</p>
+@main(header, footer, "/timeline") {
+    <h2 class="text-center">AmIUnique extension</h2>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">My timeline</a></li>
+        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">My current fingerprint</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active text-center" id="timeline">
+            <br>
+            <p>@Html(message)</p>
+        </div>
+        <div class="tab-pane fade" id="fp">
+            @timelineTable(fp)
+        </div>
     </div>
+
 }

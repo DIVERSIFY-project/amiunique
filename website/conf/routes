@@ -15,6 +15,8 @@ GET         /links                   controllers.Application.links()
 GET         /about                   controllers.Application.about()
 GET         /extension               controllers.Application.extension()
 GET         /timeline/:id            controllers.Application.timeline(id: String)
+GET         /timeline                controllers.Application.noTimeline()
+GET         /timeline/               controllers.Application.noTimeline()
 
 POST        /results                 controllers.Application.addFingerprint()
 POST        /percentages             controllers.Application.percentages()

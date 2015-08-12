@@ -1,17 +1,19 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(tabHtmlDifferences : JsonNode, startDate : JsonNode, endDate: JsonNode, firstDate: String, currentDate: String)
+@(fp: JsonNode, tabHtmlDifferences : JsonNode, startDate : JsonNode, endDate: JsonNode, firstDate: String, currentDate: String)
 
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("timelinejs/js/storyjs-embed.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/diffStrings.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvasCompare.js")"></script>
 
     <script type="text/javascript">
 
         $( document ).ready(function() {
 
-            var canvas1 = document.createElement("canvas");
-            var canvas2 = document.createElement("canvas");
             var ok = true;
+            var timelineLaunched = false;
+            var nbLoaded = 0;
+            var counterCanvas = 1;
 
             var data = $.parseJSON('@Html(tabHtmlDifferences.toString)');
             var startDates = $.parseJSON('@Html(startDate.toString)');
@@ -23,18 +25,11 @@
 
             for(key in data){
 
-                $("#resultComparaison").html(data[key]);
-                $("#resultComparaison").css("display","block");
-
-                var tables = $('#resultComparaison table tr[class!="legend"]');
-
-                calculateDiff(data[key]);
-
                 date.push({
                     "startDate":startDates[key],
                     "headline":"Evolution from fingerprint n°"+counter+" to n°"+(counter+1),
-                    "text": '<table class="table table-striped table-hover"><tbody><tr class="legend"><th>Attribute</th><th>Before</th><th>After</th><th>Differences</th>'+
-                                $("#resultComparaison").html().toString()+'</tbody></table>'
+                    "text": '<table class="table table-striped table-hover timeTable"><tbody><tr class="legend"><th>Attribute</th><th>Before</th><th>After</th><th>Differences</th>'+
+                                data[key]+'</tbody></table>'
                 });
                 if(endDates[key] != undefined){
                     era.push({
@@ -61,101 +56,111 @@
                 counter++;
             }
 
-            $("#resultComparaison").html("");
-
-            displayTimeline(date, era);
-
-            function calculateDiff(table) {
-                $("#resultComparaison tr").each(function (i, row) {
-                var $row = $(this);
-                colAttribute = $row.find(' :nth-child(1)').text();
-                colBefore = $row.find(':nth-child(2)').text();
-                colAfter = $row.find(':nth-child(3)').text();
-
-                if(colAttribute === "pluginsJs"){
-                  var pluginsParsedBefore = colBefore.split("Plugin ");
-                  var pluginsParsedAfter = colAfter.split("Plugin ");
-
-                  var pluginsBefore = new Array();
-                  for(var i = 1; i < pluginsParsedBefore.length; i++){
-                    pluginsBefore[i-1] = pluginsParsedBefore[i].split(": ")[1]+' ';
-                  }
-
-                  var pluginsAfter = new Array();
-                  for(var i = 1; i < pluginsParsedAfter.length; i++){
-                    pluginsAfter[i-1] = pluginsParsedAfter[i].split(": ")[1]+"  ";
-                  }
-
-                  colBefore = pluginsBefore.toString();
-                  colAfter = pluginsAfter.toString();
-
-                  $row.find(':nth-child(2)').html(colBefore);
-                  $row.find(':nth-child(3)').html(colAfter);
-
-
-                }
-
-
-                //We search the differences between the 2 strings
-                var dmp = new diff_match_patch();
-                var a = dmp.diff_linesToWords_(colBefore+" ", colAfter+" ");
-
-                var lineText1 = a['chars1'];
-                var lineText2 = a['chars2'];
-                var lineArray = a['lineArray'];
-
-                if(colAttribute != "canvasJs") {
-                    diff = dmp.diff_main(lineText1, lineText2, false);
-                    dmp.diff_charsToLines_(diff, lineArray);
-                    if(colBefore.lastIndexOf("Flash", 0) === 0){
-                    $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
-                    }else if(colAfter.lastIndexOf("Flash", 0) === 0){
-                        $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">'+colBefore+'</del><ins style="background:#e6ffe6;">Flash not detected </ins>');
-                    }else{
-                        $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
+            if(document.location.hash == "#fp"){
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+                    if(!timelineLaunched){
+                        displayTimeline(date, era);
+                        timelineLaunched = true;
                     }
-                } else {
-                    ok = false;
-                    var img1 = document.getElementById("img1");
-                    var img2 = document.getElementById("img2");
-
-                    canvas1.id = "cvs1";
-                    canvas1.width = img1.width;
-                    canvas1.height = img1.height;
-                    ctx1 = canvas1.getContext("2d");
-                    imgCvs1 = new Image();
-                    imgCvs1.onload = function() {
-                        ctx1.drawImage(imgCvs1, 0, 0);
-                        nbLoaded++;
-                    };
-                    imgCvs1.src = img1.src;
-
-                    canvas2.id = "cvs2";
-                    canvas2.width = img1.width;
-                    canvas2.height = img1.height;
-                    ctx2 = canvas2.getContext("2d");
-                    imgCvs2 = new Image();
-                    imgCvs2.onload = function() {
-                        ctx2.drawImage(imgCvs2, 0, 0);
-                        nbLoaded++;
-                    };
-                    imgCvs2.src = img2.src;
-
-                    finishCallback();
-                }
                 });
-
+            } else {
+                displayTimeline(date,era);
             }
 
-            function finishCallback(){
-                console.log("Début du callback");
+            setTimeout(calculateDiff,2000);
+
+            function calculateDiff(){
+                $(".timeTable tr").each(function(i, row){
+                    var $row = $(this);
+                    colAttribute = $row.find(' :nth-child(1)').text();
+                    colBefore = $row.find(':nth-child(2)').text();
+                    colAfter = $row.find(':nth-child(3)').text();
+                    if(colAttribute != "Attribute"){
+                        if(colAttribute === "pluginsJs"){
+                          var pluginsParsedBefore = colBefore.split("Plugin ");
+                          var pluginsParsedAfter = colAfter.split("Plugin ");
+
+                          var pluginsBefore = new Array();
+                          for(var i = 1; i < pluginsParsedBefore.length; i++){
+                            pluginsBefore[i-1] = pluginsParsedBefore[i].split(": ")[1]+' ';
+                          }
+
+                          var pluginsAfter = new Array();
+                          for(var i = 1; i < pluginsParsedAfter.length; i++){
+                            pluginsAfter[i-1] = pluginsParsedAfter[i].split(": ")[1]+"  ";
+                          }
+
+                          colBefore = pluginsBefore.toString();
+                          colAfter = pluginsAfter.toString();
+
+                          $row.find(':nth-child(2)').html(colBefore);
+                          $row.find(':nth-child(3)').html(colAfter);
+                        }
+
+
+                        //We search the differences between the 2 strings
+                        var dmp = new diff_match_patch();
+                        var a = dmp.diff_linesToWords_(colBefore+" ", colAfter+" ");
+
+                        var lineText1 = a['chars1'];
+                        var lineText2 = a['chars2'];
+                        var lineArray = a['lineArray'];
+
+                        if(colAttribute != "canvasJs") {
+                            diff = dmp.diff_main(lineText1, lineText2, false);
+                            dmp.diff_charsToLines_(diff, lineArray);
+                            if(colBefore.lastIndexOf("Flash", 0) === 0){
+                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
+                            }else if(colAfter.lastIndexOf("Flash", 0) === 0){
+                                $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">'+colBefore+'</del><ins style="background:#e6ffe6;">Flash not detected </ins>');
+                            }else{
+                                $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
+                            }
+                        } else {
+                            ok = false;
+                            var canvas1 = document.createElement("canvas");
+                            var canvas2 = document.createElement("canvas");
+                            var img1 = document.getElementById("img"+counterCanvas);
+                            var img2 = document.getElementById("img"+(counterCanvas+1));
+                            $row.find(':nth-child(4)').html('<img id="diffImg'+counterCanvas+'">');
+                            var diffImg = document.getElementById("diffImg"+counterCanvas);
+                            counterCanvas += 2;
+
+                            canvas1.id = "cvs1";
+                            canvas1.width = img1.naturalWidth;
+                            canvas1.height = img1.naturalHeight;
+                            var ctx1 = canvas1.getContext("2d");
+                            var imgCvs1 = new Image();
+                            imgCvs1.onload = function() {
+                                ctx1.drawImage(imgCvs1, 0, 0);
+                                nbLoaded++;
+                            };
+                            imgCvs1.src = img1.src;
+
+                            canvas2.id = "cvs2";
+                            canvas2.width = img1.naturalWidth;
+                            canvas2.height = img1.naturalHeight;
+                            var ctx2 = canvas2.getContext("2d");
+                            var imgCvs2 = new Image();
+                            imgCvs2.onload = function() {
+                                ctx2.drawImage(imgCvs2, 0, 0);
+                                nbLoaded++;
+                            };
+                            imgCvs2.src = img2.src;
+
+                            finishCallback(canvas1,canvas2,diffImg);
+
+                        }
+                    }
+                });
+            }
+
+            function finishCallback(canvas1,canvas2,diffImg){
                 if (nbLoaded < 2) {
-                    console.log(nbLoaded);
                     setTimeout(function() {
-                        finishCallback();
+                        finishCallback(canvas1,canvas2,diffImg);
                     }, 100);
                 } else {
-                    var diffImg = document.getElementById("diffImg");
                     var canvasDiff = compareCanvas(canvas1, canvas2);
                     diffImg.src= canvasDiff.toDataURL();
                 }
@@ -184,7 +189,8 @@
                                         }
                                     },
                         embed_id:   'my-timeline',
-                        start_zoom_adjust:  '0'
+                        start_zoom_adjust:  '0',
+                        hash_bookmark:      true
                     });
 
                 }
@@ -196,12 +202,36 @@
 
 }
 @footer = {
+    <script type="text/javascript">
+    if (document.location.hash) {
+        var hash = document.location.hash;
+        $('.nav-tabs a[href='+hash+']').tab('show');
+    }
+    </script>
+    <style type="text/css">
+        /* Fix for Firefox images */
+        img{
+            width: 100% !important;
+        }
+    </style>
 }
 
 @main(header, footer, "/timeline") {
-    <div>
-        <h2>Timeline - AmIUnique extension</h2>
+    <h2 class="text-center">AmIUnique extension</h2>
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li ><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">My timeline</a></li>
+        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">My current fingerprint</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane fade in active text-center" id="timeline">
+            <br>
+            <div id="my-timeline"></div>
+        </div>
+        <div class="tab-pane fade" id="fp">
+            <br>
+            @timelineTable(fp)
+        </div>
     </div>
-    <div id="my-timeline"></div>
-    <div id="resultComparaison"></div>
 }

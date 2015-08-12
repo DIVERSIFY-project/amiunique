@@ -130,6 +130,16 @@ public class ExtensionDataEntityManager {
         });
     }
 
+    public ExtensionDataEntity getLastFP(String id){
+        //return withTransaction(em -> em.find(ExtensionDataEntity.class,id));
+        String query = "SELECT counter FROM extensionData WHERE id= :id ORDER BY counter DESC LIMIT 1";
+        return withTransaction(em -> {
+            Query q = em.createNativeQuery(query).setParameter("id", id);
+            return em.find(ExtensionDataEntity.class,q.getResultList().get(0));
+            //return (ExtensionDataEntity) q.getResultList().get(0);
+        });
+    }
+
     public ExtensionDataEntity getExistingFPByCounter(int counter){
         return withTransaction(em -> em.find(ExtensionDataEntity.class,counter));
     }
