@@ -5,7 +5,6 @@
 
     function compareCanvas(canvas1, canvas2) {
 
-        console.log(canvas1);
         var ctx1 = canvas1.getContext(ctx),
             data1 = ctx1.getImageData(0, 0, canvas1.width, canvas1.height);
 

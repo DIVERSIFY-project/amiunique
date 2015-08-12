@@ -47,7 +47,6 @@ $(document).ready(function(){
         fp.platformFlash = platformFlash;
         fp.adBlock = document.getElementById('ads')? 'no' : 'yes';
 
-        //fp.id=localStorage.getItem("fpUserId");
         fp.uuid=document.getElementById("fp").getAttribute("uuid");
 
         $.ajax({
@@ -55,9 +54,8 @@ $(document).ready(function(){
             data: fp,
             contentType: 'application/x-www-form-urlencoded',
             method: "POST",
-            success : function(){
-                $("#presExt").html("");
-                $("#successAdd").append(successAdd);
+            success : function(id){
+                document.getElementById("fp").setAttribute("nbEvol",id);
             }
         });
 
