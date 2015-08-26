@@ -274,6 +274,7 @@ menu.globalstats= Statistiques globales
 menu.history=Mon historique
 menu.faq = FAQ
 menu.privpolicy = Politique de confidentialité
+menu.privtools = Outils pour la confidentialité
 menu.extension=Extension
 menu.links= Liens
 menu.about = À propos
