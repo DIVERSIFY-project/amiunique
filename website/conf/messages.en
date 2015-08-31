@@ -303,6 +303,7 @@ menu.globalstats= Global statistics
 menu.history=My history
 menu.faq = FAQ
 menu.privpolicy = Privacy policy
+menu.privtools = Privacy Tools
 menu.extension=Extension
 menu.links= Links
 menu.about = About
