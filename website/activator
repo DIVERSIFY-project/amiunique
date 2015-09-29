@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###  ------------------------------- ###
 ###  Helper methods for BASH scripts ###
@@ -8,14 +8,14 @@ realpath () {
 (
   TARGET_FILE="$1"
 
-  cd $(dirname "$TARGET_FILE")
+  cd "$(dirname "$TARGET_FILE")"
   TARGET_FILE=$(basename "$TARGET_FILE")
 
   COUNT=0
   while [ -L "$TARGET_FILE" -a $COUNT -lt 100 ]
   do
       TARGET_FILE=$(readlink "$TARGET_FILE")
-      cd $(dirname "$TARGET_FILE")
+      cd "$(dirname "$TARGET_FILE")"
       TARGET_FILE=$(basename "$TARGET_FILE")
       COUNT=$(($COUNT + 1))
   done
@@ -288,11 +288,11 @@ declare -a java_args
 declare -a app_commands
 declare -r real_script_path="$(realpath "$0")"
 declare -r activator_home="$(realpath "$(dirname "$real_script_path")")"
-declare -r app_version="1.2.12"
+declare -r app_version="1.3.6"
 
 declare -r app_launcher="${activator_home}/activator-launch-${app_version}.jar"
 declare -r script_name=activator
-declare -r java_cmd=$(get_java_cmd)
+java_cmd=$(get_java_cmd)
 declare -r java_opts=( "${ACTIVATOR_OPTS[@]}" "${SBT_OPTS[@]}" "${JAVA_OPTS[@]}" "${java_opts[@]}" )
 userhome="$HOME"
 if is_cygwin; then
