@@ -300,3 +300,47 @@ modal.history=Calculer votre nouvelle empreinte
 extension.success = Vos données ont été ajoutées avec succès. Pour obtenir plus d’informations sur vos empreintes, vous pouvez consulter la section
 extension.pres1=Nous souhaitons obtenir plus d’informations en observant l’évolution des empreintes. Si vous souhaitez soutenir nos travaux de recherche, vous pouvez télécharger notre extension.
 extension.pres2=Cette extension enverra quotidiennement votre empreinte sur nos serveurs afin que nous puissions l'analyser.
+
+pvtools.desc = Sur cette page vous trouverez des liens vers des outils permettant d’améliorer le contrôle de votre vie privée. En ce qui concerne le fingerprinting, la meilleure solution de nos jours est simplement de bloquer les scripts de tracking. Nous ne pouvons pas recommander l’utilisation de spoofers car il y a un risque que les fingerprinters puissent détecter ces techniques relativement facilement, ce qui vous identifierait rapidement en tant que menteur. À cause du nombre assez faible de spoofers, vos autres données discriminantes telles les polices ou bien les plugins devraient être plus que suffisantes pour vous fingerprinter et vous tracker.
+
+pvtools.ext = Extensions pour navigateur
+pvtools.colext = Extension
+pvtools.coldesc = Description
+pvtools.colsite = Site
+pvtools.ublock = Un bloqueur de publicité et de trackers efficace avec un faible impact sur les performances!
+pvtools.ghostery = Protégez votre vie privée en bloquant les trackers sur le web et en apprenant qui vous observe!
+pvtools.httpseverywhere1 = Cryptez le web! Permettez l’utilisation automatique d’HTTPS sur les sites le supportant. Un projet réalisé par l’EFF (Electronic Frontier Foundation).
+pvtools.httpseverywhere2 = Cette extension inclut une option pour vérifier les certificats SSL directement sur
+pvtools.httpseverywhere3 = l’EFF SSL Observatory.
+pvtools.lightbeam1 = Visualisez en détails les serveurs que vous contactez quand vous surfez sur internet! Extension développée par Mozilla.
+pvtools.lightbeam2 = Présentation de Lightbeam
+pvtools.lightbeam3 = par Gary Kovacs, ancien PDG de Mozilla, lors d’une présentation TED.
+pvtools.adblock1 = Bloquez les publicités, les trackers et plus encore! Nous recommandons l’utilisation de listes additionnelles telle que
+pvtools.adblock2 = la liste Fanboy Complete AdBlock.
+pvtools.disconnect = Arrêtez le tracking par les sites tiers et visualisez qui vous tracke!
+pvtools.privacybadger = Bloquez les publicités espionnes et les trackers inivisibles! Un projet de l’EFF (Electronic Frontier Fondation).
+pvtools.noscript = Prenez le contrôle de ce qui s’exécute dans votre navigateur en bloquant les scripts indésirables!
+pvtools.selfdest = Supprimez les cookies qui ne sont plus utilisés dès que vous fermez un onglet!
+pvtools.searchengine = Moteur de recherche, navigateur et systèmes d’exploitation
+pvtools.webpage = Page officielle
+pvtools.ddg1 = "Le moteur de recherche qui ne vous tracke pas." Lancé en 2008, DuckDuckGo se différencie des autres moteurs de recherche en mettant l’accent sur la protection de la vie privée de ses utilisateurs en ne proposant pas
+pvtools.ddg2 = la bulle de recommandation personnalisée.
+pvtools.ddg3 = De plus, DuckDuckGo ne collecte pas et ne partage pas les informations personnelles.
+pvtools.tor1 = Tor et le navigateur Tor
+pvtools.tor2 = Le réseau Tor est un groupe de serveurs dont le but est d’améliorer l’anonymité de ses utilisateurs en routant tout leur traffic à travers un réseau dédié.La navigateur Tor est basé sur Firefox et utilise le réseau Tor. Il a été lourdement modifié afin de limiter le plus possible les techniques de fingeprinting connues actuellement. Pour cela il fait en sorte que l’ensemble de ces utilisateurs partage une empreinte commune, même si en pratique la réalité est quelque peu différente.
+pvtools.tails = Basé sur le navigateur et le réseau Tor, Tails (The Amnestic Incognito Live System) va encore plus loin en fournissant un environnement totalement identique à l’ensemble de ses utilisateurs. Le système d’exploitation a été lourdement modifié afin de ne laisser aucune trace sur l’ordinateur. Avec le navigateur Tor, ce sont les outils les plus puissants contre le fingerprinting au prix d’une perte de confort d’utilisation.
+pvtools.ip1 = Adresse IP
+pvtools.ip2 = Contrairement à ce que beaucoup de personnes peuvent penser, modifier son adresse IP n’a pas d’impact sur le fingerprinting car elle ne fait pas partie des informations récoltées pour constituer votre empreinte. Votre ordinateur peut toujours être identifié et tracké sur plusieurs sessions de navigation. En tant que telle, l’adresse IP est toujours une forme d’identification très forte car elle varie relativement peu dans le temps et dépend de votre fournisseur d’internet. Modifier son adresse IP est une bonne manière de couvrir vos pistes et masquer votre position réelle lorsque vous naviguez sur le web.
+pvtools.ip3 =  La façon la plus répendue de changer son adresse IP est d’utiliser un service de VPN (Virtual Private Network) qui va acheminer l’ensemble de votre traffic réseau à travers des serveurs sécurisés. Le site 
+pvtools.ip4 = Best VPN
+pvtools.ip5 = a une longue liste de fournisseurs de VPN avec des avis détaillés sur leurs forces et leurs faiblesses.
+pvtools.cookies1 = Cookies
+pvtools.cookies2 = Les cookies peuvent être utilisés en plus des techniques de fingeprinting pour tracker les internautes et identifier avec facilité les utilisateurs revenant. Une manière de contrer le tracking indésirable est soit de limiter les cookies autorisés ou de bloquer l’ensemble des cookies. Un des réglages recommandés est de ne jamais accepter les cookies provenant de sites tiers car c’est l’une des manières les plus communes pour les régies publicitaires de vous tracker. Vous trouverez les instructions sur comment les bloquer sur 
+pvtools.cookies3 = Firefox
+pvtools.cookies4 = et
+pvtools.cookies5 = Chrome
+pvtools.cookies6 = Pour les internautes les plus soucieux du respect de leur vie privée, vous pouvez complétement les bloquer dans les options du navigateur
+pvtools.cookies7 = ou
+pvtools.cookies8 = ou utiliser une extension comme Self-Destruction Cookies dont nous avons parlée précédemment dans la partie sur les extensions. Le seul inconvénient de ces techniques est que vous devez whitelister les sites si vous voulez autoriser les cookies sur certains d’entre eux.
+
+

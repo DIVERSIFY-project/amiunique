@@ -4,23 +4,18 @@
 }
 
 @main(header, footer , "/tools") {
-
-        On this page, you will find links to tools that can help improve your privacy on the Internet.
-        With respect to fingerprinting, the best solutions that exist today are to simply block tracking scripts.
-        We cannot recommended spoofers because there is a risk that fingerprinters can detect such spoofing
-        techniques quite easily, which would quickly identify you as a liar.
-        Because the number of spoofers is likely low, your other discriminating
-        data (e.g. fonts and plugins) should be more than sufficient to
-        fingerprint and track you.
-
-        <h2>Browser extensions</h2>
+    
+    <p>
+        @Messages("pvtools.desc")
+    </p>
+        <h2>Browser extensions@Messages("pvtools.ext")</h2>
         <div class="table-responsive">
             <table class="table table-hover text-center">
                 <thead>
                     <tr>
-                        <th class="text-center">Extension</th>
-                        <th class="text-center">Description</th>
-                        <th>Website</th>
+                        <th class="text-center">@Messages("pvtools.colext")</th>
+                        <th class="text-center">@Messages("pvtools.coldesc")</th>
+                        <th>@Messages("pvtools.colsite")</th>
                         <th><img height="40px" src="@routes.Assets.at("images/tools/firefox.png")"/></th>
                         <th><img height="40px" src="@routes.Assets.at("images/tools/chrome.png")"/></th>
                     </tr>
@@ -28,7 +23,7 @@
                 <tbody>
                     <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/ublock.png")"/> <b>uBlock Origin</b></td>
-                        <td>An efficient ad and tracker blocker with a small performance footprint!</td>
+                        <td>@Messages("pvtools.ublock")</td>
                         <td> <a href="https://github.com/gorhill/uBlock" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -41,7 +36,7 @@
                     </tr>
                     <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/ghostery.png")"/> <b>Ghostery</b></td>
-                        <td>Protect your privacy by blocking trackers on the Web and by learning who is watching you!</td>
+                        <td>@Messages("pvtools.ghostery")</td>
                         <td> <a href="https://www.ghostery.com/home" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -54,9 +49,9 @@
                     </tr>
                     <tr data-original-title="Recommended!" data-container="body" data-toggle="tooltip" data-placement="bottom">
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/https.jpg")"/> <b>HTTPS Everywhere</b></td>
-                        <td>Encrypt the web! Enable HTTPS automatically on websites that are known to support it. A project by the EFF (Electronic Frontier Foundation).<br>
-                            This extension includes an option to verify SSL certificates directly by <a href="https://www.eff.org/observatory" target="_blank">
-                                <i class="fa fa-fw fa-external-link"></i>the EFF SSL Observatory</a>.
+                        <td>@Messages("pvtools.httpseverywhere1")<br>
+                             @Messages("pvtools.httpseverywhere2")<a href="https://www.eff.org/observatory" target="_blank">
+                                <i class="fa fa-fw fa-external-link"></i>@Messages("pvtools.httpseverywhere3")</a>
                         </td>
                         <td> <a href="https://www.eff.org/HTTPS-EVERYWHERE" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
@@ -70,11 +65,11 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/lightbeam.png")"/> <b>Lightbeam</b></td>
-                        <td>Visualize in details the servers you are contacting when you are surfing on the Internet! Developed by Mozilla.<br>
+                        <td>@Messages("pvtools.lightbeam1")<br>
                             <a href="http://www.ted.com/talks/gary_kovacs_tracking_the_trackers" target="_blank">
-                                <i class="fa fa-fw fa-external-link"></i> Presentation of Lightbeam
+                                <i class="fa fa-fw fa-external-link"></i>@Messages("pvtools.lightbeam2")
                             </a>
-                            by Gary Kovacs, former CEO of Mozilla, in a TED talk
+                            @Messages("pvtools.lightbeam3")
                         </td>
                         <td> <a href="https://www.mozilla.org/lightbeam/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
@@ -86,11 +81,10 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/adblock.png")"/> <b>AdBlock Plus</b></td>
-                        <td>Block advertisements, trackers and more!
-                            We recommend the use of additional lists like the
+                        <td>@Messages("pvtools.adblock1")
                             <a href="abp:subscribe?location=https://secure.fanboy.co.nz/r/fanboy-complete.txt&title=Fanboy%20Complete%20Adblock">
-                                Fanboy Complete AdBlock list
-                            </a>.</td>
+                                @Messages("pvtools.adblock2")
+                            </a></td>
                         <td> <a href="https://adblockplus.org" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -103,7 +97,7 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/disconnect.jpg")"/> <b>Disconnect</b></td>
-                        <td>Stop tracking by third-party sites and visualize who is tracking you!</td>
+                        <td>@Messages("pvtools.disconnect")</td>
                         <td> <a href="https://disconnect.me/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -116,7 +110,7 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/privacy-badger.png")"/> <b>Privacy Badger</b></td>
-                        <td>Block spying ads and invisible trackers! A project by the EFF (Electronic Frontier Foundation).</td>
+                        <td>@Messages("pvtools.privacybadger")</td>
                         <td> <a href="https://www.eff.org/privacybadger" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -129,7 +123,7 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/noscript.png")"/> <b>NoScript</b></td>
-                        <td>Take control of what is running in your browser by blocking unwanted scripts!</td>
+                        <td>@Messages("pvtools.noscript")</td>
                         <td> <a href="https://noscript.net/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
                             </a></td>
@@ -140,7 +134,7 @@
                     </tr>
                     <tr>
                         <td style="white-space: nowrap"><img height="40px" src="@routes.Assets.at("images/tools/self.png")"/> <b>Self-Destructing Cookies</b></td>
-                        <td>Remove cookies that are no longer used as soon as you close a tab!</td>
+                        <td>@Messages("pvtools.selfdest")</td>
                         <td></td>
                         <td><a href="https://addons.mozilla.org/firefox/addon/self-destructing-cookies/" target="_blank">
                                 <i class="fa fa-fw fa-external-link"></i>
@@ -152,58 +146,41 @@
             </table>
         </div>
 
-        <h2>Search engine, browser and operating systems</h2>
+        <h2>@Messages("pvtools.searchengine")</h2>
             <img height="40px" src="@routes.Assets.at("images/tools/duck.png")"/> <b>DuckDuckGo</b> -
             <a href="https://duckduckgo.com/" target="_blank">
-                <i class="fa fa-fw fa-external-link"></i> Official webpage
+                <i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.webpage")
             </a><br>
-            "The search engine that doesn't track you." Launched in 2008, DuckDuckGo differentiates itself from
-            other search engines by emphasizing the protection of searchers' privacy and avoiding
-            <a href="http://dontbubble.us/">the filter bubble</a>
-            of personalized search results. DuckDuckGo does not collect or share personal information.<br><br>
+            @Messages("pvtools.ddg1")
+            <a href="http://dontbubble.us/">@Messages("pvtools.ddg2")</a>
+            @Messages("pvtools.ddg3")<br><br>
 
-            <img height="40px" src="@routes.Assets.at("images/tools/tor.png")"/> <b>Tor and the Tor browser</b> -
+            <img height="40px" src="@routes.Assets.at("images/tools/tor.png")"/> <b>@Messages("pvtools.tor1")</b> -
             <a href="https://www.torproject.org/" target="_blank">
-                <i class="fa fa-fw fa-external-link"></i> Official webpage
+                <i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.webpage")
             </a><br>
-            The Tor network is a group of servers aimed at improving users' anonymity by routing all their traffic through
-            a dedicated network. The Tor browser is based on Firefox and it uses the Tor network. It has been heavily modified
-            to limit as most as possible known fingerprinting techniques so that users share a unique fingerprint (even if in practice,
-            the reality is a little bit different).<br><br>
+            @Messages("pvtools.tor2")<br><br>
 
             <img height="40px" src="@routes.Assets.at("images/tools/tails.png")"/> <b>Tails</b> -
             <a href="https://tails.boum.org/" target="_blank">
-                <i class="fa fa-fw fa-external-link"></i> Official webpage
+                <i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.webpage")
             </a><br>
-            Based around the Tor browser and the Tor network, Tails (The Amnesic Incognito Live System) goes a step further
-            by providing the exact same environment to its users. The operating system has been heavily modified so that it
-            does not leave a single trace on the computer. With the Tor browser, these are the strongest tools against
-            fingerprinting at the price of a delcine in usability.<br>
+            @Messages("pvtools.tails")<br>
 
-        <h2>IP address</h2>
-            Contrary to what people may think, modifying the IP address has no impact on fingerprinting since
-            no addresses are collected to form your fingerprint. Your computer can still be identified and
-            tracked on several browsing sessions. On its own, the IP address is still a really strong form of
-            identification since it may hardly vary over time depending on your internet service provider. Modifying
-            your IP address is a good way to cover your tracks and hide your true location when you are browsing
-            the web.<br>
-            The most widespread way to change your IP address is to use a VPN (Virtual Private Network) service
-            that will route securely all your network traffic through a trusted server. The
-            <a href="https://www.bestvpn.com/" target="_blank">Best VPN website</a> has a rich list of VPN providers
-            with detailed reviews about their strengths and weaknesses.
+        <h2>@Messages("pvtools.ip1")</h2>
+            @Messages("pvtools.ip2")<br>
+            @Messages("pvtools.ip3")
+            <a href="https://www.bestvpn.com/" target="_blank">Best VPN website@Messages("pvtools.ip4")</a> @Messages("pvtools.ip5")
 
-        <h2>Cookies</h2>
-            Cookies can be used in addition to fingerprinting to track users on the web and identify with ease returning visitors.
-            One way to counter unwanted tracking is to either limit authorized cookies or block cookies altogether.
-            One recommendad setting is to never accpet cookies from third-party sites since it is one of the main way for
-            advertisers to track you. You will find instructions on how to block them on
-            <a href="https://support.mozilla.org/kb/disable-third-party-cookies"><i class="fa fa-fw fa-external-link"></i> Firefox</a>
-            and <a href="https://support.google.com/chrome/answer/95647"><i class="fa fa-fw fa-external-link"></i> Chrome</a>.<br>
-            For the more privacy conscious users among us, you can completely block them in the browser settings
-            (<a href="https://support.mozilla.org/kb/block-websites-storing-site-preferences"><i class="fa fa-fw fa-external-link"></i> Firefox</a>
-            or <a href="https://support.google.com/accounts/answer/61416"><i class="fa fa-fw fa-external-link"></i> Chrome</a>)
-            or use an extension like Self-Destructing Cookies as mentionned in the browser extensions section. The only downside to these
-            techniques is that you have to whitelist sites if you still want to authorize cookies on some on them.
+        <h2>@Messages("pvtools.cookies1")</h2>
+            @Messages("pvtools.cookies2")
+            <a href="https://support.mozilla.org/kb/disable-third-party-cookies"><i class="fa fa-fw fa-external-link"></i>@Messages("pvtools.cookies3")</a>
+            @Messages("pvtools.cookies4")<a href="https://support.google.com/chrome/answer/95647"><i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.cookies5")</a>.<br>
+            @Messages("pvtools.cookies6")
+            (<a href="https://support.mozilla.org/kb/block-websites-storing-site-preferences"><i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.cookies3")</a>
+            @Messages("pvtools.cookies7") <a href="https://support.google.com/accounts/answer/61416"><i class="fa fa-fw fa-external-link"></i> @Messages("pvtools.cookies5")</a>)
+            @Messages("pvtools.cookies8")
+
 
     <script type="text/javascript">
         $(function () {
