@@ -1,18 +1,14 @@
-
-@header = {
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/webGL.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
-
-    <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
-    <script>
-        var orderHttp = '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")';
-        var loadingGif = '<img id="ldgif" src="@routes.Assets.at("stylesheets/images/loading.gif")">';
-        var successAdd = '@Messages("extension.success") <a href="/history">@Messages("menu.history")</a>';
-    </script>
 
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
@@ -34,29 +30,12 @@
         var orderHttp = '@request.headers().keySet().toString.replaceAll("[,\\[\\]]","")';
     </script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/extension.js")"></script>
-}
 
-@footer = {
-}
+    <body>
+        <h1>Extension AmIUnique</h1>
+        <div id="fp">
+        </div>
+        <div id="OSData"></div>
+    </body>
 
-@main(header, footer, "/extension") {
-    <h1>Extension Amiunique</h1>
-    <div id="fp">
-    </div>
-    <div id="presExt">
-        <p>
-            @Messages("extension.pres1")
-        </p>
-
-        <p>
-            @Messages("extension.pres2")
-        </p>
-    </div>
-
-    <p id="successAdd">
-
-    </p>
-
-    <div id="OSData"></div>
-}
-
+</html>

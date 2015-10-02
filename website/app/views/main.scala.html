@@ -68,6 +68,9 @@
                             <a style="color:#ffffff" href="/history"><i class="fa fa-fw fa-book"></i>&nbsp;  @Messages("menu.history")</a>
                         </li>
                     }
+                    <li @active("/extension")>
+                        <a style="color:#ffffff" id="menuTimeline" href="/timeline"><i class="fa fa-fw fa-clock-o"></i>&nbsp; @Messages("menu.timeline")</a>
+                    </li>
                     <li @active("/stats")>
                         <a style="color:#ffffff" href="/stats"><i class="fa fa-fw fa-pie-chart"></i>&nbsp;  @Messages("menu.globalstats")</a>
                     </li>
@@ -80,9 +83,7 @@
                     <li @active("/tools")>
                         <a style="color:#ffffff" href="/tools"><i class="fa fa-fw fa-cogs"></i>&nbsp; @Messages("menu.privtools")</a>
                     </li>
-                    @*<li @active("/extension")>*@
-                        @*<a style="color:#ffffff" href="/extension"><i class="fa fa-fw fa-cogs"></i>&nbsp; @Messages("menu.extension")</a>*@
-                    @*</li>*@
+
                     <li @active("/links")>
                         <a style="color:#ffffff" href="/links"><i class="fa fa-fw fa-link"></i>&nbsp; @Messages("menu.links")</a>
                     </li>

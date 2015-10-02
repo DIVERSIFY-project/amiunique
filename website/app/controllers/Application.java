@@ -554,9 +554,8 @@ public class Application extends Controller {
     }
 
 
-    public static Result addFingerprintFromExtension(){
+    public static Result addFingerprintFromExtension(String uuid){
         Map<String, String[]> vals = request().body().asFormUrlEncoded();
-        String uuid = vals.get("uuid")[0];
 
         if(uuid.length()>5) {
             ExtensionDataEntityManager em = new ExtensionDataEntityManager();
@@ -618,9 +617,15 @@ public class Application extends Controller {
                         pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
             }
 
-            em.getExistingFPsById(uuid).size();
+            return ok();
+        } else {
+            return ok();
+        }
+    }
 
-            //Return the number of fingerprint changes (nb of fps - 1)
+    public static Result getNbEvol(String uuid){
+        if(uuid.length()>5) {
+            ExtensionDataEntityManager em = new ExtensionDataEntityManager();
             return ok(Integer.toString(em.getExistingFPsById(uuid).size() - 1));
         } else {
             return ok(Integer.toString(0));
