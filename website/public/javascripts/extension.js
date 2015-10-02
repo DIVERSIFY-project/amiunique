@@ -47,18 +47,13 @@ $(document).ready(function(){
         fp.platformFlash = platformFlash;
         fp.adBlock = document.getElementById('ads')? 'no' : 'yes';
 
-        fp.uuid=document.getElementById("fp").getAttribute("uuid");
-
         $.ajax({
-            url: 'https://amiunique.org/evolution',
+            url: 'https://amiunique.org/evolution/'+document.location.hash.substring(1),
             data: fp,
             contentType: 'application/x-www-form-urlencoded',
-            method: "POST",
-            success : function(id){
-                document.getElementById("fp").setAttribute("nbEvol",id);
-            }
+            method: "POST"
         });
 
-    },1000);
+    },2000);
 
 });

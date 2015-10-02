@@ -1,38 +1,30 @@
-home=   <div class="row">\
-            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">\
-                <h3>Learn how identifiable you are on the Internet</h3>\
-                <h3>Help us investigate the diversity of web browsers</h3>\
-                <br>\
-                <br>\
-            </div>\
-        </div>\
+home=   <h3>Learn how identifiable you are on the Internet</h3>\
+        <h3>Help us investigate the diversity of web browsers</h3>\
+        <br>\
+        <br>\
+        <p><a id="link" href="/fpNoJs" class="btn btn-primary btn-lg" role="button">View my browser fingerprint</a></p>\
         <div class="row">\
-            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
-                <p><a id="link" href="/fpNoJs" class="btn btn-primary btn-lg" role="button">View my browser fingerprint</a></p>\
+            <div class="col-lg-8 col-lg-offset-2 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
                 <br>\
                 <p>By clicking on this button, only anonymous data will be collected and a cookie will be stored in your browser for four months.\
                     You can find more details in the <a id="linkPriva" href="/privacy">Privacy Policy.</a></p>\
             </div>\
         </div>\
-        <div class="row">\
-            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
-                <h3>\
-                    Spread the word! Share AmIUnique!<br>\
-                    Try it on all your devices!<br><br>\
-                    <a href="mailto:?subject=Learn how identifiable you are on the Internet?&body=When you visit a website, you are allowing that site to access a lot of information about your computer. Combined, this information can create a kind of fingerprint — a signature that could be used to identify you and your computer. But how effective would this kind of online tracking be? Inria researchers are running an experiment to find out. Visit https://amiunique.org to learn how unique your browser is and if you can be tracked."><i class="fa fa-envelope"></i></a>\
-                    <a href="http://www.facebook.com/share.php?u=https%3a%2f%2famiunique.org&t=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-facebook-square"></i></a>\
-                    <a href="https://twitter.com/intent/tweet?text=Learn%20how%20identifiable%20you%20are%20on%20the%20Internet%20%23AmIUnique&url=https%3A%2F%2Famiunique.org%2F"><i class="fa fa-twitter"></i></a>\
-                    <a href="https://plus.google.com/share?url=https://amiunique.org"><i class="fa fa-google-plus"></i></a>\
-                    <a href="http://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Famiunique.org&description=Am%20I%3A%20Unique"><i class="fa fa-pinterest"></i></a>\
-                    <a href="http://www.reddit.com/submit?url=https%3a%2f%2famiunique.org"><i class="fa fa-reddit"></i></a>\
-                    <a href="http://del.icio.us/post?url=https%3a%2f%2famiunique.org&title=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-delicious"></i></a>\
-                </h3>\
-                <br>\
-                <br>\
-                <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
-                <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>\
-            </div>\
-        </div>
+        <h3>\
+            Spread the word! Share AmIUnique!<br>\
+            Try it on all your devices!<br><br>\
+            <a href="mailto:?subject=Learn how identifiable you are on the Internet?&body=When you visit a website, you are allowing that site to access a lot of information about your computer. Combined, this information can create a kind of fingerprint — a signature that could be used to identify you and your computer. But how effective would this kind of online tracking be? Inria researchers are running an experiment to find out. Visit https://amiunique.org to learn how unique your browser is and if you can be tracked."><i class="fa fa-envelope"></i></a>\
+            <a href="http://www.facebook.com/share.php?u=https%3a%2f%2famiunique.org&t=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-facebook-square"></i></a>\
+            <a href="https://twitter.com/intent/tweet?text=Learn%20how%20identifiable%20you%20are%20on%20the%20Internet%20%23AmIUnique&url=https%3A%2F%2Famiunique.org%2F"><i class="fa fa-twitter"></i></a>\
+            <a href="https://plus.google.com/share?url=https://amiunique.org"><i class="fa fa-google-plus"></i></a>\
+            <a href="http://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Famiunique.org&description=Am%20I%3A%20Unique"><i class="fa fa-pinterest"></i></a>\
+            <a href="http://www.reddit.com/submit?url=https%3a%2f%2famiunique.org"><i class="fa fa-reddit"></i></a>\
+            <a href="http://del.icio.us/post?url=https%3a%2f%2famiunique.org&title=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-delicious"></i></a>\
+        </h3>\
+        <br>\
+        <br>\
+        <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
+        <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
 about= <h2>Who maintains this web site?</h2>\
         This web site is created and maintained by a team of researchers, who investigates the software monocultures and software\
@@ -303,8 +295,8 @@ menu.globalstats= Global statistics
 menu.history=My history
 menu.faq = FAQ
 menu.privpolicy = Privacy policy
-menu.privtools = Privacy Tools
-menu.extension=Extension
+menu.privtools = Privacy tools
+menu.timeline=My timeline
 menu.links= Links
 menu.about = About
 menu.github=View on GitHub

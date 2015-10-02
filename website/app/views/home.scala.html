@@ -7,7 +7,15 @@
 }
 
 @main(header, footer, "/home") {
-    <div class="container-fluid text-center">
+    <div class="text-center">
+        <br>
+        <div class="alert alert-success" role="alert">
+            We reached <strong>100,000 fingerprints</strong>! We never thought we would reach such a high number.
+            Thanks to all visitors for supporting our research!<br>
+            We also launched an AmIUnique extension for Firefox and Chrome. More details can be found
+            <a href="/timeline" class="alert-link">HERE</a>.
+        </div>
+
         @Html(Messages("home"))
     </div>
 }
