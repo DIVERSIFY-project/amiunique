@@ -10,7 +10,6 @@ import play.cache.Cache;
 import play.libs.Json;
 import play.libs.Crypto;
 import play.mvc.*;
-import play.cache.Cache;
 
 import views.html.*;
 
@@ -21,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.*;
-import java.io.*;
 import java.text.DateFormat;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -31,8 +29,6 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 //@With(ForceHttps.class)
 public class Application extends Controller {
-
-    private static boolean prod = (Play.application().configuration().getString("application.mode")).equals("PROD");
 
     public static Result home() {
         return ok(home.render());
@@ -102,7 +98,7 @@ public class Application extends Controller {
             time = time.truncatedTo(ChronoUnit.HOURS);
 
             String ip;
-            if(prod) {
+            if(Play.isProd()) {
                 ip = getHeader(request(), "X-Real-IP");
             } else {
                 ip = request().remoteAddress();
@@ -242,7 +238,7 @@ public class Application extends Controller {
             time = time.truncatedTo(ChronoUnit.HOURS);
 
             String ip;
-            if(prod) {
+            if(Play.isProd()) {
                 ip = getHeader(request(), "X-Real-IP");
             } else {
                 ip = request().remoteAddress();
@@ -618,7 +614,7 @@ public class Application extends Controller {
 
             if (create) {
                 String ip;
-                if(prod) {
+                if(Play.isProd()) {
                     ip = getHeader(request(), "X-Real-IP");
                 } else {
                     ip = request().remoteAddress();
