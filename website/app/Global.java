@@ -1,5 +1,4 @@
-import models.Stats;
-import play.*;
+import play.Logger;
 import play.libs.Akka;
 import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
@@ -8,10 +7,6 @@ import actors.*;
 
 import play.Application;
 import play.GlobalSettings;
-import play.libs.Akka;
-import scala.concurrent.duration.Duration;
-import akka.actor.ActorRef;
-import akka.actor.Props;
 import java.util.concurrent.TimeUnit;
 
 public class Global extends GlobalSettings {
