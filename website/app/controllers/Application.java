@@ -88,10 +88,6 @@ public class Application extends Controller {
         boolean newFp;
 
         String noJS = "no JS";
-        String pluginsJsHashed = DigestUtils.sha1Hex(noJS);
-        String canvasJsHashed = DigestUtils.sha1Hex(noJS);
-        String webGLJsHashed = DigestUtils.sha1Hex(noJS);
-        String fontsFlashHashed = DigestUtils.sha1Hex(noJS);
 
         if(!id.equals("Not supported") && em.checkIfFPWithNoJsExists(id, getHeader(request(), "User-Agent"),
                 getHeader(request(), "Accept"),getHeader(request(), "Accept-Encoding"),
@@ -114,7 +110,7 @@ public class Application extends Controller {
                     noJS, noJS, noJS,
                     noJS, noJS, noJS,
                     noJS, noJS, noJS,
-                    noJS, pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
+                    noJS, noJS, noJS, noJS);
 
             newFp = true;
         }
