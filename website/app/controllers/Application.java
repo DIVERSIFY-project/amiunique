@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import models.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import play.Play;
 import play.Routes;
 import play.cache.Cache;
 import play.libs.Json;
@@ -30,6 +31,8 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 
 //@With(ForceHttps.class)
 public class Application extends Controller {
+
+    private static boolean prod = (Play.application().configuration().getString("application.mode")).equals("PROD");
 
     public static Result home() {
         return ok(home.render());
@@ -97,8 +100,15 @@ public class Application extends Controller {
         } else {
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
+
+            String ip;
+            if(prod) {
+                ip = getHeader(request(), "X-Real-IP");
+            } else {
+                ip = request().remoteAddress();
+            }
             fp = em.createWithoutJavaScript(id,
-                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), getHeader(request(),"User-Agent"),
+                    DigestUtils.sha1Hex(ip), Timestamp.valueOf(time), getHeader(request(),"User-Agent"),
                     getHeader(request(),"Accept"), getHeader(request(),"Host"), getHeader(request(),"Connection"),
                     getHeader(request(),"Accept-Encoding"), getHeader(request(),"Accept-Language"),
                     request().headers().keySet().toString().replaceAll("[,\\[\\]]", ""));
@@ -231,8 +241,15 @@ public class Application extends Controller {
             LocalDateTime time = LocalDateTime.now();
             time = time.truncatedTo(ChronoUnit.HOURS);
 
+            String ip;
+            if(prod) {
+                ip = getHeader(request(), "X-Real-IP");
+            } else {
+                ip = request().remoteAddress();
+            }
+
             fp = em.createFull(id,
-                    DigestUtils.sha1Hex(request().remoteAddress()), Timestamp.valueOf(time), getAttribute(json,"userAgentHttp"),
+                    DigestUtils.sha1Hex(ip), Timestamp.valueOf(time), getAttribute(json,"userAgentHttp"),
                     getAttribute(json,"acceptHttp"), getAttribute(json,"hostHttp"), getAttribute(json,"connectionHttp"),
                     getAttribute(json,"encodingHttp"), getAttribute(json,"languageHttp"), getAttribute(json,"orderHttp"),
                     getAttribute(json,"pluginsJs"), getAttribute(json,"platformJs"), getAttribute(json,"cookiesJs"),
@@ -600,8 +617,14 @@ public class Application extends Controller {
             }
 
             if (create) {
+                String ip;
+                if(prod) {
+                    ip = getHeader(request(), "X-Real-IP");
+                } else {
+                    ip = request().remoteAddress();
+                }
                 em.createFP(uuid,
-                        DigestUtils.sha1Hex(request().remoteAddress()), currentTime, null, null, vals.get("userAgentHttp")[0],
+                        DigestUtils.sha1Hex(ip), currentTime, null, null, vals.get("userAgentHttp")[0],
                         vals.get("acceptHttp")[0], vals.get("hostHttp")[0], vals.get("connectionHttp")[0],
                         vals.get("encodingHttp")[0], vals.get("languageHttp")[0], vals.get("orderHttp")[0],
                         vals.get("pluginsJs")[0], vals.get("platformJs")[0], vals.get("cookiesJs")[0],
