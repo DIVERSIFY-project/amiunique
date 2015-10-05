@@ -1,19 +1,14 @@
 @header = {
 }
 @footer = {
-    <script type="text/javascript">
-        document.getElementById("link").href = "/fp";
-    </script>
 }
 
 @main(header, footer, "/home") {
     <div class="text-center">
         <br>
         <div class="alert alert-success" role="alert">
-            We reached <strong>100,000 fingerprints</strong>! We never thought we would reach such a high number.
-            Thanks to all visitors for supporting our research!<br>
-            We also launched an AmIUnique extension for Firefox and Chrome. More details can be found
-            <a href="/timeline" class="alert-link">HERE</a>.
+           @Html(Messages("home.milestone1"))
+            <a href="/timeline" class="alert-link">@Messages("home.milestone2")</a>.
         </div>
 
         @Html(Messages("home"))

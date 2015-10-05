@@ -1,5 +1,5 @@
 @import com.fasterxml.jackson.databind.JsonNode
-@(fp : JsonNode, message: String)
+@(fp : JsonNode)
 
 
 @header = {
@@ -15,17 +15,17 @@
 }
 
 @main(header, footer, "/timeline") {
-    <h2 class="text-center">AmIUnique extension</h2>
+    <h2 class="text-center">@Messages("timeline.title")</h2>
 
     <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">My timeline</a></li>
-        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">My current fingerprint</a></li>
+        <li class="active"><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">@Messages("timeline.menu1")</a></li>
+        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">@Messages("timeline.menu2")</a></li>
     </ul>
 
     <div class="tab-content">
         <div class="tab-pane fade in active text-center" id="timeline">
             <br>
-            <p>@Html(message)</p>
+            <p>@Html(Messages("timeline.empty"))</p>
         </div>
         <div class="tab-pane fade" id="fp">
             @timelineTable(fp)

@@ -27,21 +27,22 @@
 
                 date.push({
                     "startDate":startDates[key],
-                    "headline":"Evolution from fingerprint n°"+counter+" to n°"+(counter+1),
-                    "text": '<table class="table table-striped table-hover timeTable"><tbody><tr class="legend"><th>Attribute</th><th>Before</th><th>After</th><th>Differences</th>'+
+                    "headline":"@Messages("timeline.evo1") n°"+counter+" @Messages("timeline.evo2") n°"+(counter+1),
+                    "text": '<table class="table table-striped table-hover timeTable"><tbody><tr class="legend"><th>@Messages("timeline.attribute")' +
+                     '</th><th>@Messages("timeline.before")</th><th>@Messages("timeline.after")</th><th>@Messages("timeline.diff")</th>'+
                                 data[key]+'</tbody></table>'
                 });
                 if(endDates[key] != undefined){
                     era.push({
                         "startDate": startDates[key],
                         "endDate": endDates[key],
-                        "headline": "Fingerprint n°"+(counter+1)
+                        "headline": "@Messages("timeline.fp") n°"+(counter+1)
                     });
                 } else {
                     era.push({
                         "startDate": startDates[key],
                         "endDate": '@currentDate',
-                        "headline": "Fingerprint n°"+(counter+1)+ " (current fingerprint)"
+                        "headline": "@Messages("timeline.fp") n°"+(counter+1)+ " @Messages("timeline.current")"
                     });
                 }
 
@@ -49,7 +50,7 @@
                     era.push({
                         "startDate": '@firstDate',
                         "endDate": startDates[key],
-                        "headline": "Fingerprint n°1"
+                        "headline": "@Messages("timeline.fp") n°1"
                     });
                 }
 
@@ -75,7 +76,7 @@
                     colAttribute = $row.find(' :nth-child(1)').text();
                     colBefore = $row.find(':nth-child(2)').text();
                     colAfter = $row.find(':nth-child(3)').text();
-                    if(colAttribute != "Attribute"){
+                    if(colAttribute != "Attribute" && colAttribute != "Attribut"){
                         if(colAttribute === "pluginsJs"){
                           var pluginsParsedBefore = colBefore.split("Plugin ");
                           var pluginsParsedAfter = colAfter.split("Plugin ");
@@ -110,9 +111,9 @@
                             diff = dmp.diff_main(lineText1, lineText2, false);
                             dmp.diff_charsToLines_(diff, lineArray);
                             if(colBefore.lastIndexOf("Flash", 0) === 0){
-                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">Flash not detected </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
+                            $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">@Messages("timeline.noFlash") </del><ins style="background:#e6ffe6;">'+colAfter+'</ins>');
                             }else if(colAfter.lastIndexOf("Flash", 0) === 0){
-                                $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">'+colBefore+'</del><ins style="background:#e6ffe6;">Flash not detected </ins>');
+                                $row.find(':nth-child(4)').html('<del style="background:#ffe6e6;">'+colBefore+'</del><ins style="background:#e6ffe6;">@Messages("timeline.noFlash") </ins>');
                             }else{
                                 $row.find(':nth-child(4)').html(dmp.diff_prettyHtml(diff));
                             }
@@ -176,14 +177,14 @@
 
                     createStoryJS({
                         type:       'timeline',
+                        lang:       '@Messages("timeline.lang")',
                         width:      '100%',
                         height:     '600',
                         source:     { "timeline":
                                         {
-                                            "headline":"Your fingerprint's evolution",
+                                            "headline":"@Messages("timeline.headline")",
                                             "type":"default",
-                                            "text":"<p>You can find here all the evolution of your browser fingerprint through time.</p>" +
-                                             "<p>Explore the timeline below!</p>",
+                                            "text":"@Html(Messages("timeline.text"))",
                                             "date": date,
                                             "era": era
                                         }
@@ -217,11 +218,11 @@
 }
 
 @main(header, footer, "/timeline") {
-    <h2 class="text-center">AmIUnique extension</h2>
+    <h2 class="text-center">@Messages("timeline.title")</h2>
 
     <ul class="nav nav-tabs" role="tablist">
-        <li ><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">My timeline</a></li>
-        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">My current fingerprint</a></li>
+        <li ><a class="colored-tabs" href="#timeline" role="tab" data-toggle="tab">@Messages("timeline.menu1")</a></li>
+        <li><a id="fpTab" class="colored-tabs" href="#fp" role="tab" data-toggle="tab">@Messages("timeline.menu2")</a></li>
     </ul>
 
     <div class="tab-content">
