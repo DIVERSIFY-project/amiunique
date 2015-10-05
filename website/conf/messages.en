@@ -26,6 +26,11 @@ home=   <h3>Learn how identifiable you are on the Internet</h3>\
         <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
         <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
+home.milestone1 = We reached <strong>100,000 fingerprints</strong>! We never thought we would reach such a high number! \
+    Thanks to all visitors for supporting our research!<br>\
+    We also launched an AmIUnique extension for Firefox and Chrome. More details can be found
+home.milestone2 = HERE
+
 about= <h2>Who maintains this web site?</h2>\
         This web site is created and maintained by a team of researchers, who investigates the software monocultures and software\
         diversity on the web. The research team is financially supported by the\
@@ -52,8 +57,8 @@ privacy=  <br><p>The goal of this project is to measure and study the diversity 
 <p>*Personally identifiable information (PII) is any data that could potentially identify a specific individual.</p>\
 <p>We are committed to protecting the privacy of visitors to our website. In this policy, "we" refers to the INRIA\
     researchers and students who are bound to keep information they receive confidential.</p>\
-<h2>Information Gathered by the amiunique Website</h2>\
-<p>For the needs of the research project defined <a href="/about">here</a>, amiunique collects anonymous data about the\
+<h2>Information Gathered by the AmIUnique Website</h2>\
+<p>For the needs of the research project defined <a href="/about">here</a>, AmIUnique collects anonymous data about the\
 configuration of computers, operating systems, browsers and plugins. If you click the "View my fingerprint" button, this\
 type of information will be collected from your browser. Although these kinds of data may form a `fingerprint' that\
 could in principle be combined with information about page requests and identifying details in order to track people's\
@@ -136,9 +141,9 @@ browsing habits, we will <strong>never</strong> do so.</p>\
     </ul>\
 <p>Our practices and purposes for collecting these housekeeping records are discussed below:\
 <h3>Cookies</h3>\
-<p>amiunique sets a cookie that persists for 4 months for the purpose of determining how often browser characteristics change, and\
+<p>AmIUnique sets a cookie that persists for 4 months for the purpose of determining how often browser characteristics change, and\
 how often they stay the same, when a browser returns over time. If your browser is configured to accept cookies, and you return to\
-amiunique several times, the cookie will be used to link the data from your visits together so that we can study the natural evolution of\
+AmIUnique several times, the cookie will be used to link the data from your visits together so that we can study the natural evolution of\
 browser fingerprints.\
 If you want to disable/enable browser cookies, click on the link below corresponding to your browser for instructions.\
 You should be aware that entirely disabling cookies may block some interactive features on some websites (most notably, automatic logins).\
@@ -154,18 +159,18 @@ Moreover, if you are interested in enabling/disabling Flash cookies, you can do 
 <a href="http://www.macromedia.com/support/documentation/en/flashplayer/help/settings_manager02.html#118539">Manage\
     Flash cookies</a>.\
 <h3>IP addresses</h3>\
-amiunique does not log IP addresses, but we do compute hashes of each IP address. This hashed IP will allow us to collect an anonymous dataset\
+AmIUnique does not log IP addresses, but we do compute hashes of each IP address. This hashed IP will allow us to collect an anonymous dataset\
 about how often browsers that change IP address could have been followed using a fingerprint.\
 <h3>Timestamps</h3>\
-amiunique collects a "fuzzy" timestamp, rounded to the nearest hour, each time it is visited. This will be used to measure how fast browser\
+AmIUnique collects a "fuzzy" timestamp, rounded to the nearest hour, each time it is visited. This will be used to measure how fast browser\
 fingerprints change, but for no other purpose.\
-<h2>Our Use of Information from amiunique</h2>\
+<h2>Our Use of Information from AmIUnique</h2>\
 We will analyze the collected data in order to establish what are realistic profiles for browser fingerprints. The purpose of this analysis is\
 to set an automatic procedure to proactively diversify user platforms in a realistic manner.\
-amiunique has no Third-Party Service Providers.\
-<h2>Sharing of amiunique data</h2>\
-We may publish or share aggregated, statistical data from the amiunique project in order to facilitate privacy research, educate people about\
-privacy problems, and to aid in the development of privacy-enhancing technologies. We have gone to great lengths to ensure that amiunique does\
+AmIUnique has no Third-Party Service Providers.\
+<h2>Sharing of AmIUnique data</h2>\
+We may publish or share aggregated, statistical data from the AmIUnique project in order to facilitate privacy research, educate people about\
+privacy problems, and to aid in the development of privacy-enhancing technologies. We have gone to great lengths to ensure that AmIUnique does\
 not produce any records about anyone's browsing habits or the identities of any individual visitors, so we will never be in a position where we\
 could share any such records.\
 <h2>Security</h2>\
@@ -314,10 +319,88 @@ stats.btn5= Send
 modal.title=You are back
 modal.body1=You can go on the 
 modal.body2= page to get your new fingerprint, then on the page 
-modal.body3=to visualize the evolution of your fingeprint since your last visit.
+modal.body3= to visualize the evolution of your fingerprint since your last visit.
 modal.close=Close
 modal.history=Get your new fingerprint
 
-extension.success = Your data have been collected successfully. To obtain further information you can check 
-extension.pres1=We would like to obtain more information by analyzing the evolution of fingerprints. If you want to support our research you can download our extension for the Chrome browser.
-extension.pres2=This extension will send information daily to our servers so that we can analyze them.
+timeline.title = AmIUnique timeline
+timeline.noTimeline = To understand the evolution of fingerprints and study it in depth, we have developed an extension for \
+        Chrome and Firefox that checks your fingerprint every day for any changes. \
+        If you are curious about your own fingerprint or if you want to help us investigate the diversity of fingerprints,\
+        install the extension now!
+timeline.img1 = The extension notifies you when your fingerprint has changed.
+timeline.img2 = See the evolution of your browser fingerprint on your own timeline!
+timeline.img3 = Get a direct access to your current browser fingerprint.
+timeline.menu1 = My timeline
+timeline.menu2 = My current fingerprint
+timeline.empty = A second fingerprint is needed to be able to use the timeline feature.<br>\
+    Come back in a few days or wait for the extension to notify you of any evolution and you will see what has been changed!
+
+timeline.headline = Your fingerprint's evolution
+timeline.text = <p>You can find here all the evolution of your browser fingerprint through time.</p><p>Explore the timeline below!</p>
+timeline.fp = Fingerprint
+timeline.current = current fingerprint
+timeline.evo1 = Evolution from fingerprint
+timeline.evo2 = to
+timeline.lang = en
+timeline.noFlash = Flash not detected
+timeline.attribute = Attribute
+timeline.before = Before
+timeline.after = After
+timeline.diff = Difference
+
+
+pvtools.desc = On this page, you will find links to tools that can help improve your privacy on the Internet. \
+        With respect to fingerprinting, the best solutions that exist today are to simply block tracking scripts.\
+        We cannot recommend spoofers because there is a risk that fingerprinters can detect such spoofing\
+        techniques quite easily, which would quickly identify you as a liar.\
+        Because the number of spoofers is likely low, your other discriminating \
+        data (e.g. fonts and plugins) should be more than sufficient to \
+        fingerprint and track you.
+pvtools.rec = Recommended!
+
+pvtools.ext = Browser extensions
+pvtools.colext = Extension
+pvtools.coldesc = Description
+pvtools.colsite = Website
+pvtools.ublock = An efficient ad and tracker blocker with a small performance footprint!
+pvtools.ghostery = Protect your privacy by blocking trackers on the Web and by learning who is watching you!
+pvtools.httpseverywhere1 = Encrypt the web! Enable HTTPS automatically on websites that are known to support it. A project by the EFF (Electronic Frontier Foundation).
+pvtools.httpseverywhere2 = This extension includes an option to verify SSL certificates directly by
+pvtools.httpseverywhere3 = the EFF SSL Observatory.
+pvtools.lightbeam1 = Visualize in details the servers you are contacting when you are surfing on the Internet! Developed by Mozilla.
+pvtools.lightbeam2 = Presentation of Lightbeam
+pvtools.lightbeam3 = by Gary Kovacs, former CEO of Mozilla, in a TED talk
+pvtools.adblock1 = Block advertisements, trackers and more! We recommend the use of additional lists like the
+pvtools.adblock2 = Fanboy Complete AdBlock list.
+pvtools.disconnect = Stop tracking by third-party sites and visualize who is tracking you!
+pvtools.privacybadger = Block spying ads and invisible trackers! A project by the EFF (Electronic Frontier Foundation).
+pvtools.noscript = Take control of what is running in your browser by blocking unwanted scripts!
+pvtools.selfdest = Remove cookies that are no longer used as soon as you close a tab!
+pvtools.searchengine = Search engine, browser and operating systems
+pvtools.webpage = Official webpage
+pvtools.ddg1 = "The search engine that doesn't track you." Launched in 2008, DuckDuckGo differentiates itself from other search engines by emphasizing the protection of searchers' privacy and avoiding
+pvtools.ddg2 = the filter bubble
+pvtools.ddg3 = of personalized search results. DuckDuckGo does not collect or share personal information.
+pvtools.tor1 = Tor and the Tor browser
+pvtools.tor2 = The Tor network is a group of servers aimed at improving users' anonymity by routing all their traffic through a dedicated network. The Tor browser is based on Firefox and it uses the Tor network. It has been heavily modified to limit \
+  as most as possible known fingerprinting techniques so that users share a unique fingerprint (even if in practice, the reality is a little bit different).
+pvtools.tails = Based around the Tor browser and the Tor network, Tails (The Amnesic Incognito Live System) goes a step further by providing the exact same environment to its users. The operating system has been heavily modified so that it does not leave \
+  a single trace on the computer. With the Tor browser, these are the strongest tools against fingerprinting at the price of a decline in usability.
+pvtools.trackOff = TrackOFF, a Baltimore-based startup, has launched in mid-2015 a software suite that detects threats and changes your browser fingerprint to improve your digital privacy. Running on Windows for Chrome and Firefox, a trial is available \
+  to test this new service.
+pvtools.ip1 = IP address
+pvtools.ip2 = Contrary to what people may think, modifying the IP address has no impact on fingerprinting since no addresses are collected to form your fingerprint. Your computer can still be identified and tracked on several browsing sessions. On its own, \
+  the IP address is still a really strong form of identification since it may hardly vary over time depending on your internet service provider. Modifying your IP address is a good way to cover your tracks and hide your true location when you are browsing the web.
+pvtools.ip3 = The most widespread way to change your IP address is to use a VPN (Virtual Private Network) service that will route securely all your network traffic through a trusted server. The
+pvtools.ip4 = Best VPN website
+pvtools.ip5 = has a rich list of VPN providers with detailed reviews about their strengths and weaknesses.
+pvtools.cookies1 = Cookies
+pvtools.cookies2 = Cookies can be used in addition to fingerprinting to track users on the web and identify with ease returning visitors. One way to counter unwanted tracking is to either limit authorized cookies or block cookies altogether. One recommended\
+   setting is to never accept cookies from third-party sites since it is one of the main way for advertisers to track you. You will find instructions on how to block them on
+pvtools.cookies3 = Firefox
+pvtools.cookies4 = and
+pvtools.cookies5 = Chrome
+pvtools.cookies6 = For the more privacy conscious users among us, you can completely block them in the browser settings
+pvtools.cookies7 = or
+pvtools.cookies8 = or use an extension like Self-Destructing Cookies as mentioned in the browser extensions section. The only downside to these techniques is that you have to whitelist sites if you still want to authorize cookies on some on them.

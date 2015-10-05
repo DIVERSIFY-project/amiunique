@@ -27,6 +27,11 @@ home=   <h3>Apprenez à quel point votre navigateur est unique</h3>\
         <p style="white-space: pre;">Qu’est-ce que l’empreinte d’un navigateur ?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Apprenez-en plus</a></p>\
         <p>Des questions ? Écrivez-nous à <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
+home.milestone1 = Nous avons atteint les <strong>100,000 fingerprints</strong>! Nous n’avions jamais pensé pouvoir attenindre un nombre aussi élevé!<br>\
+  Merci à tous les visiteurs pour leur support de nos efforts de recherche!<br>\
+  Pour les plus curieux, nous avons aussi lancé l’extension AmIUnique pour Firefox et Chrome. Plus de détails
+home.milestone2 = ICI
+
 about=  <h2>Qui gère et maintient ce site web ?</h2>\
         Ce site web a été créé et il est maintenu par une équipe de chercheurs qui étudient les monocultures et la diversité logicielles sur le Web. L’équipe de recherche est financée par le <a style="text-decoration:underline;" href="http://diversify-project.eu">projet européen DIVERSIFY</a> et par une bourse de thèse de l’<a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes</a>.\
         Ce site est hébergé par <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">le pôle de recherche Bretagne-Atlantique de l’INRIA-Rennes</a> et le <a style="text-decoration:underline;" href="http://www.irisa.fr/en">labo IRISA</a>.\
@@ -39,8 +44,8 @@ about=  <h2>Qui gère et maintient ce site web ?</h2>\
 privacy=  <br><p>Le but de ce projet est de mesurer et d’étudier la diversité des navigateurs Web et d’établir des profils statistiques de leurs empreintes numériques. Toutes les données destinées au projet seront collectées sous forme anonyme pour avoir la certitude qu’elles ne comprennent aucune information personnellement identifiable*, ni susceptible de conduire à l’identification ou au pistage d’un quelconque utilisateur du web.</p>\
 <p>*Une information personnellement identifiable est une donnée quelconque qui pourrait éventuellement mener à identifier un utilisateur spécifique.</p>\
 <p>Nous nous engageons à protéger la vie privée des visiteurs de notre site web. Dans cette politique, «&nbsp;nous&nbsp;» désigne les chercheurs et les étudiants de l’INRIA qui sont tenus de garder confidentielle les informations qu’ils reçoivent.</p>\
-<h2>Informations récoltées par le site web amiunique</h2>\
-<p>Pour les besoins du projet de recherche définis <a href="/about">sur cette page</a>, le site amiunique recueille des données anonymes sur la configuration des ordinateurs, systèmes d’exploitation, navigateurs et plugins. Si vous cliquez sur le bouton «&nbsp;Voir l'empreinte de mon navigateur&nbsp;», des informations de ce type seront recueillies à partir de votre navigateur. Ces types de données pourraient en principe constituer une «&nbsp;empreinte numérique&nbsp;» et être combinées avec des informations sur les requêtes de page et des éléments d’identification afin de pister les habitudes de navigation des utilisateurs, mais nous ne le ferons <strong>jamais</strong>.</p>\
+<h2>Informations récoltées par le site web AmIUnique</h2>\
+<p>Pour les besoins du projet de recherche définis <a href="/about">sur cette page</a>, le site AmIUnique recueille des données anonymes sur la configuration des ordinateurs, systèmes d’exploitation, navigateurs et plugins. Si vous cliquez sur le bouton «&nbsp;Voir l’empreinte de mon navigateur&nbsp;», des informations de ce type seront recueillies à partir de votre navigateur. Ces types de données pourraient en principe constituer une «&nbsp;empreinte numérique&nbsp;» et être combinées avec des informations sur les requêtes de page et des éléments d’identification afin de pister les habitudes de navigation des utilisateurs, mais nous ne le ferons <strong>jamais</strong>.</p>\
 <p>Les informations particulières sur votre empreinte sont les suivantes :\
     <ul>\
         <li>Les en-têtes HTTP envoyés au serveur&nbsp;:</li>\
@@ -125,7 +130,7 @@ privacy=  <br><p>Le but de ce projet est de mesurer et d’étudier la diversit�
     </ul>\
 <p>Notre pratique et nos objectifs quand nous collectons ces informations «&nbsp;courantes&nbsp;» sont discutés ci-dessous&nbsp;\
 <h3>Cookies</h3>\
-<p>Le site amiunique définit un cookie qui persiste pendant quatre mois dans le but de déterminer à quelle fréquence les caractéristiques du navigateur changent, et à quelle fréquence elles restent les mêmes, quand un navigateur revient au fil du temps. Si votre navigateur est configuré pour accepter les cookies, et que vous revenez sur amiunique plusieurs fois, le cookie sera utilisé pour lier les données de vos visites ensemble de sorte que nous puissions étudier l’évolution «&nbsp;naturelle&nbsp;» des empreintes numériques du navigateur. Si vous souhaitez désactiver / activer les cookies du navigateur, cliquez sur le lien ci-dessous correspondant à votre navigateur pour obtenir des instructions. Vous devez être conscient que les cookies entièrement invalidants peuvent bloquer certaines fonctions interactives sur certains sites Web (plus particulièrement, les connexions automatiques).</p>\
+<p>Le site AmIUnique définit un cookie qui persiste pendant quatre mois dans le but de déterminer à quelle fréquence les caractéristiques du navigateur changent, et à quelle fréquence elles restent les mêmes, quand un navigateur revient au fil du temps. Si votre navigateur est configuré pour accepter les cookies, et que vous revenez sur AmIUnique plusieurs fois, le cookie sera utilisé pour lier les données de vos visites ensemble de sorte que nous puissions étudier l’évolution «&nbsp;naturelle&nbsp;» des empreintes numériques du navigateur. Si vous souhaitez désactiver / activer les cookies du navigateur, cliquez sur le lien ci-dessous correspondant à votre navigateur pour obtenir des instructions. Vous devez être conscient que les cookies entièrement invalidants peuvent bloquer certaines fonctions interactives sur certains sites Web (plus particulièrement, les connexions automatiques).</p>\
 <p>Instructions pour&nbsp;:\
 <ul>\
     <li><a href="http://windows.microsoft.com/fr-fr/windows/cookies-faq">Microsoft Windows Explorer</a></li>\
@@ -137,13 +142,13 @@ privacy=  <br><p>Le but de ce projet est de mesurer et d’étudier la diversit�
 En outre, si vous êtes intéressé(e) par l’activation / désactivation des cookies Flash, vous pouvez en savoir plus en visitant la page suivante&nbsp;:&nbsp;\
 <a href="http://www.macromedia.com/support/documentation/fr/flashplayer/help/settings_manager02.html#118539">Gérer les cookies Flash</a>.\
 <h3>Adresses IP</h3>\
-Le site amiunique n’enregistre pas les adresses IP, mais nous soumettons chaque adresse IP à une fonction de hachage. Ce hachage des IP nous permettra de recueillir un ensemble de données anonymes sur la façon dont les navigateurs qui changent d’adresse IP auraient pu être pistés par leur empreinte numérique.\
+Le site AmIUnique n’enregistre pas les adresses IP, mais nous soumettons chaque adresse IP à une fonction de hachage. Ce hachage des IP nous permettra de recueillir un ensemble de données anonymes sur la façon dont les navigateurs qui changent d’adresse IP auraient pu être pistés par leur empreinte numérique.\
 <h3>Horodatage</h3>\
-Le site de amiunique recueille un horodatage «&nbsp;flou&nbsp;», arrondi à l’heure près, chaque fois qu’il est visité. Cet horodatage servira à mesurer la vitesse à laquelle les empreintes numériques du navigateur changent, mais à aucune autre fin.\
-<h2>Notre utilisation des informations recueillies sur amiunique</h2>\
-Nous allons analyser les données recueillies afin d’établir quels sont les profils réalistes pour les empreintes numériques du navigateur. Le but de cette analyse est de définir une procédure automatique pour diversifier de manière proactive les plateformes d’usagers d’une manière réaliste. amiunique n’a pas de tiers fournisseurs de services.\
-<h2>Partage des données de amiunique</h2>\
-Nous pouvons publier ou partager des données statistiques agrégées du projet amiunique afin de faciliter la recherche sur la vie privée, d’éduquer les gens aux problèmes de la vie privée, et d’aider au développement des technologies de protection de la confidentialité. Nous avons fait de grands efforts pour nous assurer que amiunique ne produit aucun enregistrement des habitudes de navigation de quiconque ni les identités des visiteurs individuels, de sorte que nous ne serons jamais dans une position où nous pourrions partager ces dossiers.\
+Le site d’AmIUnique recueille un horodatage «&nbsp;flou&nbsp;», arrondi à l’heure près, chaque fois qu’il est visité. Cet horodatage servira à mesurer la vitesse à laquelle les empreintes numériques du navigateur changent, mais à aucune autre fin.\
+<h2>Notre utilisation des informations recueillies sur AmIUnique</h2>\
+Nous allons analyser les données recueillies afin d’établir quels sont les profils réalistes pour les empreintes numériques du navigateur. Le but de cette analyse est de définir une procédure automatique pour diversifier de manière proactive les plateformes d’usagers d’une manière réaliste. AmIUnique n’a pas de tiers fournisseurs de services.\
+<h2>Partage des données d’AmIUnique</h2>\
+Nous pouvons publier ou partager des données statistiques agrégées du projet AmIUnique afin de faciliter la recherche sur la vie privée, d’éduquer les gens aux problèmes de la vie privée, et d’aider au développement des technologies de protection de la confidentialité. Nous avons fait de grands efforts pour nous assurer que AmIUnique ne produit aucun enregistrement des habitudes de navigation de quiconque ni les identités des visiteurs individuels, de sorte que nous ne serons jamais dans une position où nous pourrions partager ces dossiers.\
 <h2>Sécurité</h2>\
 D’une manière générale, l’INRIA s’engage à mettre en œuvre des moyens techniques et organisationnels afin de protéger toutes les informations que nous avons collectées contre la destruction illégale ou fortuite, la perte fortuite, l’altération, la diffusion ou l’accès non autorisé. Néanmoins, l’INRIA peut être tenu à faire connaître des informations pour se conformer à une loi ou une réglementation applicable, ou pour répondre à une injonction administrative ou judiciaire.\
 <p>Bien que nous fassions des efforts de bonne foi pour stocker les informations recueillies dans un environnement d’exploitation sécurisé, nous ne pouvons pas garantir une sécurité intégrale. L’information recueillie sera maintenue pendant une durée appropriée pour les besoins de ce projet de recherche.<br>\
@@ -165,7 +170,7 @@ fp.unknownBrow=% des navigateurs observés n’ont pas été identifiés, comme 
 
 fp.os1=% des navigateurs observés sont installés sur
 fp.os2=, comme le vôtre.
-fp.unknownOs=% of des navigateurs observés sont installés sur un système d’exploitation qui n’a pas été identifié, comme le vôtre.
+fp.unknownOs=% des navigateurs observés sont installés sur un système d’exploitation qui n’a pas été identifié, comme le vôtre.
 
 fp.lang1=% des navigateurs observés sont réglés en
 fp.lang2=, comme le vôtre.
@@ -266,8 +271,8 @@ menu.globalstats= Statistiques globales
 menu.history=Mon historique
 menu.faq = FAQ
 menu.privpolicy = Politique de confidentialité
-menu.privtools = Outils pour la confidentialité
-menu.timeline=Ma frise
+menu.privtools = Outils pour limiter le traçage sur Internet
+menu.timeline=Ma frise chronologique
 menu.links= Liens
 menu.about = À propos
 menu.github=Voir sur github
@@ -289,6 +294,91 @@ modal.body3= pour visualiser l’évolution de votre empreinte depuis votre dern
 modal.close=Fermer
 modal.history=Calculer votre nouvelle empreinte
 
-extension.success = Vos données ont été ajoutées avec succès. Pour obtenir plus d’informations sur vos empreintes, vous pouvez consulter la section
-extension.pres1=Nous souhaitons obtenir plus d’informations en observant l’évolution des empreintes. Si vous souhaitez soutenir nos travaux de recherche, vous pouvez télécharger notre extension.
-extension.pres2=Cette extension enverra quotidiennement votre empreinte sur nos serveurs afin que nous puissions l'analyser.
+timeline.title = Frise chronologique AmIUnique
+timeline.noTimeline = Pour étudier en détail l’évolution des empreintes de navigateur, nous avons développé une extension\
+        pour Chrome et Firefox qui enregistre quotidiennement votre empreintre pour détecter le moindre changement. \
+        Si vous êtes curieux de connaître l’évolution de votre propre empreinte ou si vous voulez nous aider à étudier\
+        la diversité des empreintes de navigateur, n’hésitez pas à installer l’extension!
+timeline.img1 = L’extension vous notifie quand votre empreinte a changé.
+timeline.img2 = Analysez l’évolution de votre empreinte grâce à votre frise chronologique personnalisée!
+timeline.img3 = Accédez directement à votre empreinte courante.
+timeline.menu1 = Ma frise chronologique
+timeline.menu2 = Mon empreinte courante
+timeline.empty = Une deuxième empreinte est nécessaire pour voir la frise chronologique. <br>\
+    Revenez dans quelques jours ou attendez que l’extension vous notifie d’une évolution pour voir tous les changements!
+
+timeline.headline = L’évolution de votre empreinte
+timeline.text = <p>Vous retrouverez ici toutes les évolutions de votre empreinte de navigateur depuis l’installation de \
+  l’extension.</p><p>Explorez la frise chronoligique ci-dessous!</p>
+timeline.fp = Empreinte
+timeline.current = empreinte courante
+timeline.evo1 = Evolution de l’empreinte
+timeline.evo2 = à
+timeline.lang = fr
+timeline.noFlash = Flash non détecté
+timeline.attribute = Attribut
+timeline.before = Avant
+timeline.after = Après
+timeline.diff = Différence
+
+pvtools.desc = Sur cette page, vous trouverez des liens vers des outils permettant d’améliorer le contrôle de votre vie privée sur Internet. En ce qui concerne le fingerprinting, la meilleure solution de nos \
+  jours est de tout simplement bloquer les scripts de traçage. Nous ne pouvons pas recommander l’utilisation de spoofers car il y a un risque que les scripts de traçage détectent ces techniques \
+  relativement facilement et vous identifient en tant que menteur. À cause du nombre assez faible de spoofers, des données très discriminantes comme les polices de caractères ou les \
+  plugins peuvent être suffisantes pour vous identifier et vous traquer.
+pvtools.rec = Recommandé!
+
+pvtools.ext = Extensions pour navigateur
+pvtools.colext = Extension
+pvtools.coldesc = Description
+pvtools.colsite = Site
+pvtools.ublock = Un bloqueur de publicité et de traqueurs efficace avec un faible impact sur les performances!
+pvtools.ghostery = Protégez votre vie privée en bloquant les traqueurs sur le web et en apprenant qui vous observe!
+pvtools.httpseverywhere1 = Chiffrez le web! Utilisez automatiquement le protocole sécurisé HTTPS sur tous les sites le supportant. Un projet réalisé par l’EFF (Electronic Frontier Foundation).
+pvtools.httpseverywhere2 = Cette extension inclut une option pour vérifier les certificats SSL directement sur
+pvtools.httpseverywhere3 = l’EFF SSL Observatory.
+pvtools.lightbeam1 = Visualisez en détails les serveurs que vous contactez quand vous surfez sur internet! Extension développée par Mozilla.
+pvtools.lightbeam2 = Présentation de Lightbeam
+pvtools.lightbeam3 = par Gary Kovacs, ancien PDG de Mozilla, lors d’une présentation TED.
+pvtools.adblock1 = Bloquez les publicités, les trackers et plus encore! Nous recommandons l’utilisation de listes additionnelles telle que
+pvtools.adblock2 = la liste Fanboy Complete AdBlock.
+pvtools.disconnect = Bloquez le traçage effectué par les sites tiers et visualisez qui vous traque!
+pvtools.privacybadger = Bloquez les publicités qui vous espionnent et les traqueurs invisibles! Un projet de l’EFF (Electronic Frontier Foundation).
+pvtools.noscript = Prenez le contrôle de ce qui s’exécute dans votre navigateur en bloquant les scripts indésirables!
+pvtools.selfdest = Supprimez les cookies qui ne sont plus utilisés dès que vous fermez un onglet!
+pvtools.searchengine = Moteur de recherche, navigateur et systèmes d’exploitation
+pvtools.webpage = Page officielle
+pvtools.ddg1 = "Le moteur de recherche qui ne vous espionne pas." Lancé en 2008, DuckDuckGo se différencie des autres moteurs de recherche en mettant l’accent sur la protection de la vie privée de \
+  ses utilisateurs et en n’utilisant pas
+pvtools.ddg2 = un système de bulle filtrante de recherche
+pvtools.ddg3 =. De plus, DuckDuckGo ne collecte pas et ne partage pas d’informations personnelles.
+pvtools.tor1 = Tor et le navigateur Tor
+pvtools.tor2 = Le réseau Tor est un groupe de serveurs dont le but est d’améliorer l’anonymat de ses utilisateurs en routant tout leur trafic à travers un réseau dédié. Le navigateur Tor est basé sur \
+  Firefox et utilise le réseau Tor. Il a été lourdement modifié afin de limiter le plus possible les techniques de fingerprinting connues actuellement. Pour cela, il fait en sorte que l’ensemble de ses \
+  utilisateurs partage une empreinte commune, même si, en pratique, la réalité est quelque peu différente.
+pvtools.tails = Basé sur le navigateur Tor et son réseau, Tails (The Amnestic Incognito Live System) va encore plus loin en fournissant un environnement totalement identique à l’ensemble de ses \
+  utilisateurs. Le système d’exploitation a été lourdement modifié afin de ne laisser aucune trace sur l’ordinateur. Avec le navigateur Tor, ce sont les outils les plus puissants qui existent aujourd’hui \
+  contre le fingerprinting au prix d’une diminution du confort d’utilisation.
+pvtools.trackOff = TrackOFF, une startup créée à Baltimore en 2015, a lancé une suite logicielle visant à contrer les systèmes de traçage en modifiant l’empreinte de votre navigateur dès qu’une\
+   menace est détectée. Disponible pour Chrome et Firefox sous Windows, une période d’essai est disponible pour tester ce nouveau service.
+pvtools.ip1 = Adresse IP
+pvtools.ip2 = Contrairement à ce que beaucoup de personnes peuvent penser, modifier son adresse IP n’a pas d’impact sur le fingerprinting car elle ne fait pas partie des informations récoltées \
+  pour constituer votre empreinte. Votre ordinateur peut toujours être identifié et traqué sur plusieurs sessions de navigation. En tant que telle, l’adresse IP est une source\
+  d’identification très forte car elle varie très peu dans le temps et dépend de votre fournisseur d’internet. Malgré tout, modifier son adresse IP est une bonne manière de couvrir ses pistes et de masquer \
+  sa position réelle lorsqu’on navigue sur le web.
+pvtools.ip3 =  La manière la plus répandue de changer son adresse IP est d’utiliser un service de VPN (Virtual Private Network) qui va acheminer l’ensemble de votre trafic réseau à travers des serveurs \
+  sécurisés. Le site
+pvtools.ip4 = Best VPN
+pvtools.ip5 = présente une longue liste de fournisseurs de VPN avec des avis détaillés sur leurs forces et leurs faiblesses.
+pvtools.cookies1 = Cookies
+pvtools.cookies2 = Les cookies peuvent être utilisés en plus des techniques de fingerprinting pour traquer les internautes et identifier avec facilité les utilisateurs qui reviennent sur un même site. \
+  Une manière de contrer cette forme de traçage est de bloquer au maximum les cookies indésirables. Un des réglages recommandés est de ne jamais accepter les cookies provenant de sites tiers car \
+  c’est l’une des manières les plus communes pour les régies publicitaires de vous traquer. Vous trouverez les instructions sur comment les bloquer sur
+pvtools.cookies3 = Firefox
+pvtools.cookies4 = et
+pvtools.cookies5 = Chrome
+pvtools.cookies6 = Pour les internautes les plus soucieux du respect de leur vie privée, vous pouvez complétement bloquer les cookies dans les options du navigateur
+pvtools.cookies7 = ou
+pvtools.cookies8 = ou utiliser une extension comme Self-Destructing Cookies que nous avons mentionnée dans la section sur les extensions. L’inconvénient majeur d’un blocage total des cookies est qu’il \
+  vous faut maintenir une liste à jour des sites autorisés si vous voulez les utiliser sur une poignée d’entre eux.
+
+

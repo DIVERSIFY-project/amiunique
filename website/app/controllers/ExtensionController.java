@@ -242,14 +242,7 @@ public class ExtensionController extends Controller {
                 fps.remove(fps.last());
                 return ok(timeline.render(jsonFP, Json.toJson(tabHtmlDifferences), Json.toJson(startDate), Json.toJson(endDate), firstDate, currentDate));
             } else {
-                String message;
-                if (fps.size() == 1) {
-                    message = "A second fingerprint is needed to be able to use the timeline feature.<br>Come back in a few days and you will see all the changes!";
-                } else {
-                    message = "To use the timeline feature of the AmIUnique website, download our extension for Chrome and Firefox!";
-                }
-
-                return ok(timelineEmpty.render(jsonFP, message));
+                return ok(timelineEmpty.render(jsonFP));
             }
         } else {
             return ok(noTimeline.render());
