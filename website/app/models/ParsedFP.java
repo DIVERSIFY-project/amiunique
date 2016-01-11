@@ -23,6 +23,7 @@ public class ParsedFP {
     private static Pattern criOSP = Pattern.compile("CriOS/(\\d*\\.\\d*)");
     private static Pattern safariP = Pattern.compile("Version/(\\d*(\\.\\d*){1,2}) Safari");
     private static Pattern IEP = Pattern.compile("MSIE (\\d*\\.\\d*)");
+    private static Pattern edgeP = Pattern.compile("Edge/(\\d*\\.\\d*)");
     private static Pattern operaP1 = Pattern.compile("Opera.*?Version/(\\d*\\.\\d*)");
     private static Pattern operaP2 = Pattern.compile("OPR/(\\d*\\.\\d*)");
     private static Pattern winP = Pattern.compile("Windows NT (\\d*\\.\\d*)");
@@ -58,6 +59,7 @@ public class ParsedFP {
             Matcher chromeM = chromeP.matcher(ua);
             Matcher criOSM = criOSP.matcher(ua);
             Matcher safariM = safariP.matcher(ua);
+            Matcher edgeM = edgeP.matcher(ua);
             Matcher IEM = IEP.matcher(ua);
             Matcher operaM1 = operaP1.matcher(ua);
             Matcher operaM2 = operaP2.matcher(ua);
@@ -73,6 +75,10 @@ public class ParsedFP {
             } else if (operaM2.find()) {//Opera (new)
                 String ver = operaM2.group(1);
                 this.browser = "Opera";
+                this.browserVersion = ver;
+            } else if (edgeM.find()){//Microsoft Edge
+                String ver = edgeM.group(1);
+                this.browser = "Edge";
                 this.browserVersion = ver;
             } else if (chromeM.find()) {//Chrome
                 String ver = chromeM.group(1);
