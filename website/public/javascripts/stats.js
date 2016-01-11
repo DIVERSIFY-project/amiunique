@@ -1,11 +1,8 @@
 function sendDates(datel, dateu, typeRequest){
-	var dates = {};
-	dates.datel = datel;
-	dates.dateu = dateu;
-
-	$("body").append('<form style="visibility:hidden" id="fakeForm" action="/stats" method="POST"><input type="date"  value="'+datel+'" name="datel" /><input type="date"  value="'+dateu+'" name="dateu"/><input type="text" value="'+typeRequest+'" name="typereq"><button id="valid" type="submit" class="btn btn-default">Envoyer</button>');
-
-    $('#valid').trigger('click');
+    $("#datel").val(datel);
+    $("#dateu").val(dateu);
+    $("#typereq").val(typeRequest);
+    $('#validate').trigger('click');
 }
 
 $( document ).ready(function() {
@@ -15,31 +12,16 @@ $( document ).ready(function() {
             	//Call the page without any parameters
             	window.location.href = "/stats";
             }else if($(this).attr("id") === "month"){
-            	datel = new Date().last().month().toString('yyyy-MM-dd');
-            	dateu = Date.today().toString('yyyy-MM-dd') ;
+            	datel = new Date().last().month().toString('dd-MM-yyyy');
+            	dateu = Date.today().toString('dd-MM-yyyy') ;
             	sendDates(datel, dateu, "month");
             }else if($(this).attr("id") === "week"){
-            	datel = new Date().last().week().toString('yyyy-MM-dd');
-            	dateu = Date.today().toString('yyyy-MM-dd') ;
+            	datel = new Date().last().week().toString('dd-MM-yyyy');
+            	dateu = Date.today().toString('dd-MM-yyyy') ;
             	sendDates(datel, dateu, "week");
             }
         }else if($(this).attr("id") === "custom"){
             $("#dateForm").css("display","block");
         }
-    });
-
-    $('#validate').click(function(e){
-    	datel = $("#datel").val();
-    	dateu = $("#dateu").val();
-      //We check if the date has the good format
-      if(!(date1.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/) && dateu.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)))
-      {
-        /*
-
-            Ajouter un traitement !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-        */
-        e.preventDefault();
-      }
     });
 });

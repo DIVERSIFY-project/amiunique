@@ -105,7 +105,7 @@ public class StatsController extends Controller{
 
         //Only if custom or if the information is not in cache
         try{
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
             Date datel = dateFormat.parse(datelString);
             Date dateu = dateFormat.parse(dateuString);
 
