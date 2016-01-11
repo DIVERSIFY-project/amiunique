@@ -234,6 +234,47 @@ public class FPController extends Controller{
                     getAttribute(json,"adBlock"), pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
 
             newFp = true;
+
+
+            //Add canvas data
+            String canvas1 = getAttribute(json,"canvas1");
+            String canvas1Hashed = DigestUtils.sha1Hex(canvas1);
+            String canvas2 = getAttribute(json,"canvas2");
+            String canvas2Hashed = DigestUtils.sha1Hex(canvas2);
+            String canvas3 = getAttribute(json,"canvas3");
+            String canvas3Hashed = DigestUtils.sha1Hex(canvas3);
+            String canvas4 = getAttribute(json,"canvas4");
+            String canvas4Hashed = DigestUtils.sha1Hex(canvas4);
+            String canvas5 = getAttribute(json,"canvas5");
+            String canvas5Hashed = DigestUtils.sha1Hex(canvas5);
+            String canvas6 = getAttribute(json,"canvas6");
+            String canvas6Hashed = DigestUtils.sha1Hex(canvas6);
+            String canvas7 = getAttribute(json,"canvas7");
+            String canvas7Hashed = DigestUtils.sha1Hex(canvas7);
+            String canvas8 = getAttribute(json,"canvas8");
+            String canvas8Hashed = DigestUtils.sha1Hex(canvas8);
+            String canvas9 = getAttribute(json,"canvas9");
+            String canvas9Hashed = DigestUtils.sha1Hex(canvas9);
+            String canvas10 = getAttribute(json,"canvas10");
+            String canvas10Hashed = DigestUtils.sha1Hex(canvas10);
+            String canvas11 = getAttribute(json,"canvas11");
+            String canvas11Hashed = DigestUtils.sha1Hex(canvas11);
+            String canvas12 = getAttribute(json,"canvas12");
+            String canvas12Hashed = DigestUtils.sha1Hex(canvas12);
+            String canvas13 = getAttribute(json,"canvas13");
+            String canvas13Hashed = DigestUtils.sha1Hex(canvas13);
+            String canvas14 = getAttribute(json,"canvas14");
+            String canvas14Hashed = DigestUtils.sha1Hex(canvas14);
+            String canvas15 = getAttribute(json,"canvas15");
+            String canvas15Hashed = DigestUtils.sha1Hex(canvas15);
+
+            CanvasTestEntityManager ctem = new CanvasTestEntityManager();
+            ctem.create(id, canvas1,canvas2,canvas3,canvas4,canvas5,canvas6,canvas7,canvas8,canvas9,canvas10,
+                        canvas11,canvas12,canvas13,canvas14,canvas15,canvas1Hashed,canvas2Hashed,canvas3Hashed,
+                        canvas4Hashed,canvas5Hashed,canvas6Hashed,canvas7Hashed,canvas8Hashed,canvas9Hashed,
+                        canvas10Hashed,canvas11Hashed,canvas12Hashed,canvas13Hashed,canvas14Hashed,canvas15Hashed);
+
+
         }
 
         ObjectNode node = (ObjectNode) Json.toJson(fp);

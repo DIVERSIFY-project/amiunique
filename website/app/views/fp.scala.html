@@ -1,6 +1,40 @@
 @(implicit request: play.mvc.Http.Request)
 
 @header = {
+
+    <!-- Div for canvas -->
+    <div style="display: none ;">
+        <canvas id="canvas1" height="30" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas2" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas3" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas4" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas5" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas6" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas7" height="400" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas8" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas9" height="60" width="400" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas10" height="80" width="80" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas11" height="200" width="200" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas12" height="200" width="200" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas13" height="200" width="200" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas14" height="275" width="450" style="border:1px solid #d3d3d3"></canvas>
+		<br>
+		<canvas id="canvas15" height="500" width="500" style="border:1px solid #d3d3d3"></canvas>
+    </div>
+
     <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
 
@@ -12,6 +46,8 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvasTest.js")"></script>
 
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
@@ -111,7 +147,11 @@
                             timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
                             canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
                             resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
-                            adBlock: document.getElementById('ads')? 'no' : 'yes'}),
+                            adBlock: document.getElementById('ads')? 'no' : 'yes', canvas1:canvasData1, canvas2:canvasData2,
+                            canvas3:canvasData3, canvas4:canvasData4, canvas5:canvasData5, canvas6:canvasData6, canvas7:canvasData7,
+                            canvas8:canvasData8, canvas9:canvasData9, canvas10:canvasData10, canvas11:canvasData11, canvas12:canvasData12,
+                            canvas13:canvasData13, canvas14:canvasData14, canvas15:canvasData15
+                        }),
                         contentType:"application/json",
                         success: function(res){
                             
