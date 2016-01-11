@@ -320,6 +320,7 @@ public class FpDataEntityManager {
         browsers.put("Chrome", new VersionMap());
         browsers.put("Safari", new VersionMap());
         browsers.put("IE", new VersionMap());
+        browsers.put("Edge", new VersionMap());
         browsers.put("Opera", new VersionMap());
         browsers.put("Others", new VersionMap());
 
@@ -360,6 +361,7 @@ public class FpDataEntityManager {
         browsers.put("Chrome", new VersionMap());
         browsers.put("Safari", new VersionMap());
         browsers.put("IE", new VersionMap());
+        browsers.put("Edge", new VersionMap());
         browsers.put("Opera", new VersionMap());
         browsers.put("Others", new VersionMap());
 
