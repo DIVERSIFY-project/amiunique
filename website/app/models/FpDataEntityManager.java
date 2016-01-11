@@ -1,7 +1,12 @@
 package models;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
+import org.hibernate.StatelessSession;
 import play.db.jpa.JPA;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.sql.Timestamp;
@@ -9,7 +14,6 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Calendar;
 
 public class FpDataEntityManager {
 
@@ -273,32 +277,44 @@ public class FpDataEntityManager {
 
     public VersionMap getLanguageStats(){
         String query = "SELECT languageHttp FROM FpDataEntity";
-        ArrayList<String> langList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
-        Pattern langP = Pattern.compile("^(\\S\\S)");
-        VersionMap langMap = new VersionMap();
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults langList = stateless.createQuery(query).scroll(ScrollMode.FORWARD_ONLY);
 
-        for(int i=0; i<langList.size(); i++){
-             Matcher langM = langP.matcher(langList.get(i));
-             if(langM.find()) {
-                 langMap.add(langM.group(1));
-             } else {
-                 langMap.add("Not communicated");
-             }
-        }
-        return langMap;
+            VersionMap res = parseLanguages(langList);
+
+            stateless.getTransaction().commit();
+            stateless.close();
+            return res;
+        });
     }
 
     public VersionMap getLanguageStatsSinceDate(Timestamp tsl, Timestamp tsu){
         String query = "SELECT languageHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
-        ArrayList<String> langList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
-            .setParameter("lower",tsl)
-            .setParameter("upper",tsu)
-            .getResultList()));
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults langList = stateless.createQuery(query)
+                    .setParameter("lower",tsl)
+                    .setParameter("upper",tsu)
+                    .scroll(ScrollMode.FORWARD_ONLY);
+
+            VersionMap res = parseLanguages(langList);
+
+            stateless.getTransaction().commit();
+            stateless.close();
+            return res;
+        });
+    }
+
+    public VersionMap parseLanguages(ScrollableResults langList){
         Pattern langP = Pattern.compile("^(\\S\\S)");
         VersionMap langMap = new VersionMap();
-
-        for(int i=0; i<langList.size(); i++){
-             Matcher langM = langP.matcher(langList.get(i));
+        while (langList.next()) {
+             Matcher langM = langP.matcher((String) langList.get(0));
              if(langM.find()) {
                  langMap.add(langM.group(1));
              } else {
@@ -310,50 +326,41 @@ public class FpDataEntityManager {
 
 
     public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStats(){
-
         String query = "SELECT userAgentHttp FROM FpDataEntity";
-        ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults userAgentList = stateless.createQuery(query).scroll(ScrollMode.FORWARD_ONLY);
 
-        /* Browser */
-        HashMap<String, VersionMap> browsers = new HashMap<>();
-        browsers.put("Firefox", new VersionMap());
-        browsers.put("Chrome", new VersionMap());
-        browsers.put("Safari", new VersionMap());
-        browsers.put("IE", new VersionMap());
-        browsers.put("Edge", new VersionMap());
-        browsers.put("Opera", new VersionMap());
-        browsers.put("Others", new VersionMap());
+            HashMap<String,HashMap<String, VersionMap>> res = parseUserAgents(userAgentList);
 
-        /* OS */
-        HashMap<String, VersionMap> os  = new HashMap<>();
-        os.put("Windows", new VersionMap());
-        os.put("Linux", new VersionMap());
-        os.put("Mac", new VersionMap());
-        os.put("Android", new VersionMap());
-        os.put("iOS", new VersionMap());
-        os.put("Windows Phone", new VersionMap());
-        os.put("Others", new VersionMap());
-
-
-        /* Parse user agents */
-        for(int i=0; i<userAgents.size(); i++){
-            ParsedFP ua = new ParsedFP(userAgents.get(i));
-            browsers.get(ua.getBrowser()).add(ua.getBrowserVersion());
-            os.get(ua.getOs()).add(ua.getOsVersion());
-        }
-
-        HashMap<String,HashMap<String, VersionMap>> res = new HashMap<>();
-        res.put("browsers",browsers);
-        res.put("os",os);
-        return res;
+            stateless.getTransaction().commit();
+            stateless.close();
+            return res;
+        });
     }
 
     public HashMap<String,HashMap<String, VersionMap>> getOSBrowserStatsSinceDate(Timestamp tsl, Timestamp tsu){
         String query = "SELECT userAgentHttp FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
-        ArrayList<String> userAgents = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
-            .setParameter("lower",tsl)
-            .setParameter("upper",tsu)
-            .getResultList()));
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults userAgentList = stateless.createQuery(query)
+                    .setParameter("lower",tsl)
+                    .setParameter("upper",tsu)
+                    .scroll(ScrollMode.FORWARD_ONLY);
+
+            HashMap<String,HashMap<String, VersionMap>> res = parseUserAgents(userAgentList);
+
+            stateless.getTransaction().commit();
+            stateless.close();
+            return res;
+        });
+    }
+
+    public HashMap<String,HashMap<String, VersionMap>> parseUserAgents(ScrollableResults userAgents){
 
         /* Browser */
         HashMap<String, VersionMap> browsers = new HashMap<>();
@@ -377,8 +384,8 @@ public class FpDataEntityManager {
 
 
         /* Parse user agents */
-        for(int i=0; i<userAgents.size(); i++){
-            ParsedFP ua = new ParsedFP(userAgents.get(i));
+         while (userAgents.next()) {
+            ParsedFP ua = new ParsedFP((String) userAgents.get(0));
             browsers.get(ua.getBrowser()).add(ua.getBrowserVersion());
             os.get(ua.getOs()).add(ua.getOsVersion());
         }
@@ -391,34 +398,46 @@ public class FpDataEntityManager {
 
     public RangeMap getFontsStats(){
         String query = "SELECT fontsFlash FROM FpDataEntity";
-        ArrayList<String> fontsList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query).getResultList()));
-        RangeMap nbFontsMap = new RangeMap();
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults fontsList = stateless.createQuery(query).scroll(ScrollMode.FORWARD_ONLY);
 
-        for(int i=0; i<fontsList.size(); i++){
-            Integer nbFonts = fontsList.get(i).split("_").length;
-            if(nbFonts>2) {
-                int step = 50;
-                int j = step;
-                while (j < nbFonts) {
-                    j += step;
-                }
-                nbFontsMap.add((j - step) + "-" + j);
-            }
-        }
-        return nbFontsMap;
+            RangeMap nbFontsMap = parseFonts(fontsList);
+
+            stateless.getTransaction().commit();
+            stateless.close();
+            return nbFontsMap;
+        });
     }
 
     public RangeMap getFontsStatsSinceDate(Timestamp tsl, Timestamp tsu){
         String query = "SELECT fontsFlash FROM FpDataEntity WHERE time BETWEEN :lower AND :upper";
-        ArrayList<String> fontsList = withTransaction(em -> ((ArrayList<String>) em.createQuery(query)
-            .setParameter("lower",tsl)
-            .setParameter("upper",tsu)
-            .getResultList()));
+        return withTransaction(em -> {
+            Session session = (Session) em.getDelegate();
+            StatelessSession stateless = session.getSessionFactory().openStatelessSession();
+            stateless.beginTransaction();
+            ScrollableResults fontsList = stateless.createQuery(query)
+                    .setParameter("lower",tsl)
+                    .setParameter("upper",tsu)
+                    .scroll(ScrollMode.FORWARD_ONLY);
+
+            RangeMap nbFontsMap = parseFonts(fontsList);
+
+            stateless.getTransaction().commit();
+            stateless.close();
+            return nbFontsMap;
+        });
+    }
+
+    public RangeMap parseFonts(ScrollableResults fontsList){
         RangeMap nbFontsMap = new RangeMap();
 
-        for(int i=0; i<fontsList.size(); i++){
-            Integer nbFonts = fontsList.get(i).split("_").length;
-            if(nbFonts>2) {
+        while (fontsList.next()) {
+            String fonts = (String) fontsList.get(0);
+            Integer nbFonts = fonts.split("_").length;
+            if (nbFonts > 2) {
                 int step = 50;
                 int j = step;
                 while (j < nbFonts) {
