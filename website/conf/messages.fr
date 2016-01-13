@@ -29,8 +29,10 @@ home=   <h3>Apprenez à quel point votre navigateur est unique</h3>\
 
 home.milestone1 = Nous avons atteint les <strong>100,000 fingerprints</strong> ! Nous n’avions jamais pensé pouvoir atteindre un nombre aussi élevé !<br>\
   Merci à tous les visiteurs pour votre contribution à nos recherches !<br>\
-  Pour les plus curieux, nous avons aussi lancé l’extension AmIUnique pour Firefox et Chrome. Plus de détails
-home.milestone2 = ICI
+  Pour les plus curieux, nous avons aussi lancé l’extension AmIUnique pour
+home.milestone2 = et
+home.milestone3 =. Plus de détails
+home.milestone4 = ICI
 
 about=  <h2>Qui gère et maintient ce site web ?</h2>\
         Ce site web a été créé et il est maintenu par une équipe de chercheurs qui étudient les monocultures et la diversité logicielles sur le Web. L’équipe de recherche est financée par le <a style="text-decoration:underline;" href="http://diversify-project.eu">projet européen DIVERSIFY</a> et par une bourse de thèse de l’<a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes</a>.\
