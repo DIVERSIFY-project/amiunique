@@ -272,3 +272,26 @@ drawDashedLine(ctx, ctx.canvas.width-20, 20, ctx.canvas.width-20, ctx.canvas.hei
 drawDashedLine(ctx, ctx.canvas.width-20, ctx.canvas.height-20, 20, ctx.canvas.height-20, 15);
 drawDashedLine(ctx, 20, ctx.canvas.height-20, 20, 20, 2);
 var canvasData15 = canvas.toDataURL();
+
+//Canvas n°16
+canvas = document.getElementById ("canvas16");
+ctx = canvas.getContext("2d");
+ctx.font = "22px Arial";
+ctx.fillText("Cwm fjordbank glyphs vext quiz", 10, 40);
+var canvasData16 = canvas.toDataURL();
+
+
+//Canvas n°17
+canvas = document.getElementById ("canvas17");
+ctx = canvas.getContext("2d");
+ctx.font = "22px Times New Roman";
+ctx.fillText("Cwm fjordbank glyphs vext quiz", 10, 40);
+var canvasData17 = canvas.toDataURL();
+
+
+//Canvas n°18
+canvas = document.getElementById ("canvas18");
+ctx = canvas.getContext("2d");
+ctx.font = "22px Verdana";
+ctx.fillText("Cwm fjordbank glyphs vext quiz", 10, 40);
+var canvasData18 = canvas.toDataURL();

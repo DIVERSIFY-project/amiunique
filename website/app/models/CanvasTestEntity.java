@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 /**
- * Created by plaperdr on 1/8/16.
+ * Created by plaperdr on 1/15/16.
  */
 @Entity
 @javax.persistence.Table(name = "canvasTest", schema = "", catalog = "fingerprint")
@@ -214,6 +214,42 @@ public class CanvasTestEntity {
         this.canvas15 = canvas15;
     }
 
+    private String canvas16;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas16")
+    public String getCanvas16() {
+        return canvas16;
+    }
+
+    public void setCanvas16(String canvas16) {
+        this.canvas16 = canvas16;
+    }
+
+    private String canvas17;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas17")
+    public String getCanvas17() {
+        return canvas17;
+    }
+
+    public void setCanvas17(String canvas17) {
+        this.canvas17 = canvas17;
+    }
+
+    private String canvas18;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas18")
+    public String getCanvas18() {
+        return canvas18;
+    }
+
+    public void setCanvas18(String canvas18) {
+        this.canvas18 = canvas18;
+    }
+
     private String canvas1Hashed;
 
     @Basic
@@ -394,6 +430,42 @@ public class CanvasTestEntity {
         this.canvas15Hashed = canvas15Hashed;
     }
 
+    private String canvas16Hashed;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas16Hashed")
+    public String getCanvas16Hashed() {
+        return canvas16Hashed;
+    }
+
+    public void setCanvas16Hashed(String canvas16Hashed) {
+        this.canvas16Hashed = canvas16Hashed;
+    }
+
+    private String canvas17Hashed;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas17Hashed")
+    public String getCanvas17Hashed() {
+        return canvas17Hashed;
+    }
+
+    public void setCanvas17Hashed(String canvas17Hashed) {
+        this.canvas17Hashed = canvas17Hashed;
+    }
+
+    private String canvas18Hashed;
+
+    @Basic
+    @javax.persistence.Column(name = "canvas18Hashed")
+    public String getCanvas18Hashed() {
+        return canvas18Hashed;
+    }
+
+    public void setCanvas18Hashed(String canvas18Hashed) {
+        this.canvas18Hashed = canvas18Hashed;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -418,6 +490,9 @@ public class CanvasTestEntity {
         if (canvas13 != null ? !canvas13.equals(that.canvas13) : that.canvas13 != null) return false;
         if (canvas14 != null ? !canvas14.equals(that.canvas14) : that.canvas14 != null) return false;
         if (canvas15 != null ? !canvas15.equals(that.canvas15) : that.canvas15 != null) return false;
+        if (canvas16 != null ? !canvas16.equals(that.canvas16) : that.canvas16 != null) return false;
+        if (canvas17 != null ? !canvas17.equals(that.canvas17) : that.canvas17 != null) return false;
+        if (canvas18 != null ? !canvas18.equals(that.canvas18) : that.canvas18 != null) return false;
         if (canvas1Hashed != null ? !canvas1Hashed.equals(that.canvas1Hashed) : that.canvas1Hashed != null)
             return false;
         if (canvas2Hashed != null ? !canvas2Hashed.equals(that.canvas2Hashed) : that.canvas2Hashed != null)
@@ -448,6 +523,12 @@ public class CanvasTestEntity {
             return false;
         if (canvas15Hashed != null ? !canvas15Hashed.equals(that.canvas15Hashed) : that.canvas15Hashed != null)
             return false;
+        if (canvas16Hashed != null ? !canvas16Hashed.equals(that.canvas16Hashed) : that.canvas16Hashed != null)
+            return false;
+        if (canvas17Hashed != null ? !canvas17Hashed.equals(that.canvas17Hashed) : that.canvas17Hashed != null)
+            return false;
+        if (canvas18Hashed != null ? !canvas18Hashed.equals(that.canvas18Hashed) : that.canvas18Hashed != null)
+            return false;
 
         return true;
     }
@@ -471,6 +552,9 @@ public class CanvasTestEntity {
         result = 31 * result + (canvas13 != null ? canvas13.hashCode() : 0);
         result = 31 * result + (canvas14 != null ? canvas14.hashCode() : 0);
         result = 31 * result + (canvas15 != null ? canvas15.hashCode() : 0);
+        result = 31 * result + (canvas16 != null ? canvas16.hashCode() : 0);
+        result = 31 * result + (canvas17 != null ? canvas17.hashCode() : 0);
+        result = 31 * result + (canvas18 != null ? canvas18.hashCode() : 0);
         result = 31 * result + (canvas1Hashed != null ? canvas1Hashed.hashCode() : 0);
         result = 31 * result + (canvas2Hashed != null ? canvas2Hashed.hashCode() : 0);
         result = 31 * result + (canvas3Hashed != null ? canvas3Hashed.hashCode() : 0);
@@ -486,6 +570,9 @@ public class CanvasTestEntity {
         result = 31 * result + (canvas13Hashed != null ? canvas13Hashed.hashCode() : 0);
         result = 31 * result + (canvas14Hashed != null ? canvas14Hashed.hashCode() : 0);
         result = 31 * result + (canvas15Hashed != null ? canvas15Hashed.hashCode() : 0);
+        result = 31 * result + (canvas16Hashed != null ? canvas16Hashed.hashCode() : 0);
+        result = 31 * result + (canvas17Hashed != null ? canvas17Hashed.hashCode() : 0);
+        result = 31 * result + (canvas18Hashed != null ? canvas18Hashed.hashCode() : 0);
         return result;
     }
 }

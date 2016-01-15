@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2016 at 04:28 PM
+-- Generation Time: Jan 15, 2016 at 01:29 PM
 -- Server version: 10.0.21-MariaDB
 -- PHP Version: 5.6.16
 
@@ -44,6 +44,9 @@ CREATE TABLE `canvasTest` (
   `canvas13` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `canvas14` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `canvas15` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `canvas16` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `canvas17` mediumtext COLLATE utf8_unicode_ci NOT NULL,
+  `canvas18` mediumtext COLLATE utf8_unicode_ci NOT NULL,
   `canvas1Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `canvas2Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `canvas3Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
@@ -58,8 +61,11 @@ CREATE TABLE `canvasTest` (
   `canvas12Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `canvas13Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `canvas14Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `canvas15Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL
-) ROW_FORMAT=DYNAMIC ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `canvas15Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `canvas16Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `canvas17Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `canvas18Hashed` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 --
 -- Indexes for dumped tables

@@ -267,12 +267,19 @@ public class FPController extends Controller{
             String canvas14Hashed = DigestUtils.sha1Hex(canvas14);
             String canvas15 = getAttribute(json,"canvas15");
             String canvas15Hashed = DigestUtils.sha1Hex(canvas15);
+            String canvas16 = getAttribute(json,"canvas16");
+            String canvas16Hashed = DigestUtils.sha1Hex(canvas16);
+            String canvas17 = getAttribute(json,"canvas17");
+            String canvas17Hashed = DigestUtils.sha1Hex(canvas17);
+            String canvas18 = getAttribute(json,"canvas18");
+            String canvas18Hashed = DigestUtils.sha1Hex(canvas18);
 
             CanvasTestEntityManager ctem = new CanvasTestEntityManager();
             ctem.create(id, canvas1,canvas2,canvas3,canvas4,canvas5,canvas6,canvas7,canvas8,canvas9,canvas10,
-                        canvas11,canvas12,canvas13,canvas14,canvas15,canvas1Hashed,canvas2Hashed,canvas3Hashed,
+                        canvas11,canvas12,canvas13,canvas14,canvas15,canvas16,canvas17,canvas18,canvas1Hashed,canvas2Hashed,canvas3Hashed,
                         canvas4Hashed,canvas5Hashed,canvas6Hashed,canvas7Hashed,canvas8Hashed,canvas9Hashed,
-                        canvas10Hashed,canvas11Hashed,canvas12Hashed,canvas13Hashed,canvas14Hashed,canvas15Hashed);
+                        canvas10Hashed,canvas11Hashed,canvas12Hashed,canvas13Hashed,canvas14Hashed,canvas15Hashed,
+                        canvas16Hashed,canvas17Hashed,canvas18Hashed);
 
 
         }
