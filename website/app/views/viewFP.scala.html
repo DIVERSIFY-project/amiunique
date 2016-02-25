@@ -1,0 +1,196 @@
+@(implicit request: play.mvc.Http.Request)
+
+@header = {
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
+
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
+
+    <script type="text/javascript" src="@controllers.routes.Application.jsRoutes()" ></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/webGL.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/highcharts.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
+
+    <script type="text/javascript">
+        swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
+    </script>
+
+    <script type="application/javascript">
+        function isConnected(){
+            flashAvailable = true;
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            if(canvasData.indexOf("Not supported") == -1) {
+                //Display of canvas objects
+                document.getElementById ("canvasJsHtml").innerHTML = '<canvas id="canvas1" height="60" width="400"></canvas>' ;
+                var canContext = document.getElementById ("canvas1").getContext("2d");
+                var canImage = new Image();
+                canImage.onload = function(){
+                    canContext.drawImage(this, 0, 0);
+                };
+                canImage.src = canvasData;
+            }
+            setTimeout(function(){
+                var fontsFlash,resolutionFlash,languageFlash,platformFlash;
+                if((plugins.indexOf("flash") > -1) || (plugins.indexOf("Flash") > -1)){
+                    var fl = document.getElementById("OSData");
+                    if(fl == null){
+                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but blocked by an extension";
+                    } else if((typeof fl.getOS != "undefined") || (typeof flashAvailable == "boolean")) {
+                        fontsFlash = fl.getFonts().join().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '_');
+                        resolutionFlash = fl.getResolution().join("x");
+                        languageFlash = fl.getLanguage();
+                        platformFlash = fl.getOS();
+                    } else {
+                        fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash detected but not activated (click-to-play)";
+                    }
+                } else {
+                    fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
+                }
+                $("#fontsFlashHtml").text(fontsFlash);
+                $("#resolutionFlashHtml").text(resolutionFlash);
+                $("#languageFlashHtml").text(languageFlash);
+                $("#platformFlashHtml").text(platformFlash);
+            },1000);
+
+            $("#pluginsJsHtml").text(plugins.replace(/[&\/\\#,+()$~%'"*?<>{}]/g,''));
+            $("#platformJsHtml").text(platform);
+            $("#cookiesJsHtml").text(cookieEnabled);
+            $("#dntJsHtml").text(doNotTrack);
+            $("#timezoneJsHtml").text(timezone);
+            $("#resolutionJsHtml").text(resolution);
+            $("#localJsHtml").text(domLocalStorage);
+            $("#sessionJsHtml").text(domSessionStorage);
+            $("#vendorWebGljsHtml").text(webGLVendor);
+            $("#rendererWebGljsHtml").text(webGLRenderer);
+            $("#adBlockHtml").text(document.getElementById('ads')? 'no' : 'yes');
+
+        });
+    </script>
+}
+
+@footer = {
+}
+
+@main(header, footer , "/viewFP") {
+    <h1>@Messages("fp.detailsTitle")</h1>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>@Messages("fp.detAtt")</th>
+                        <th>@Messages("fp.detVal")</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="userAgentHttp">
+                        <td>@Messages("fp.userAgent") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.userAgentExp")"></i></td>
+                        <td>@request.getHeader("User-Agent")</td>
+                    </tr>
+                    <tr id="acceptHttp">
+                        <td>@Messages("fp.accept") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.acceptExp")"></i></td>
+                        <td>@request.getHeader("Accept")</td>
+                    </tr>
+
+                    <tr id="encodingHttp">
+                        <td>@Messages("fp.encoding") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.encodingExp")"></i></td>
+                        <td>@request.getHeader("Accept-Encoding")</td>
+                    </tr>
+
+                    <tr id="languageHttp">
+                        <td>@Messages("fp.language") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageExp")"></i></td>
+                        <td>@request.getHeader("Accept-Language")</td>
+                    </tr>
+
+                    <tr id="pluginsJs">
+                        <td>@Messages("fp.plugins") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.pluginsExp")"></i></td>
+                        <td id="pluginsJsHtml"></td>
+                    </tr>
+
+                    <tr id="platformJs">
+                        <td>@Messages("fp.platformJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformJExp")"></i></td>
+                        <td id="platformJsHtml"></td>
+                    </tr>
+
+                    <tr id="cookiesJs">
+                        <td>@Messages("fp.cookies") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.cookiesExp")"></i></td>
+                        <td id="cookiesJsHtml"></td>
+                    </tr>
+
+                    <tr id="dntJs">
+                        <td>@Messages("fp.dnt") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.dntExp")"></i></td>
+                        <td id="dntJsHtml"></td>
+                    </tr>
+
+                    <tr id="timezoneJs">
+                        <td>@Messages("fp.timezone") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.timezoneExp")"></i></td>
+                        <td id="timezoneJsHtml"></td>
+                    </tr>
+
+                    <tr id="resolutionJs">
+                        <td>@Messages("fp.resolutionJ") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionJExp")"></i></td>
+                        <td id="resolutionJsHtml"></td>
+                    </tr>
+
+                    <tr id="localJs">
+                        <td>@Messages("fp.local") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.localExp")"></i></td>
+                        <td id="localJsHtml"></td>
+                    </tr>
+
+                    <tr id="sessionJs">
+                        <td>@Messages("fp.session") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.sessionExp")"></i></td>
+                        <td id="sessionJsHtml"></td>
+                    </tr>
+
+                    <tr id="canvasJs">
+                        <td>@Messages("fp.canvas") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.canvasExp")"></i></td>
+                        <td id="canvasJsHtml"></td>
+                    </tr>
+
+                    <tr id="vendorWebGljs">
+                        <td>@Messages("fp.vendorWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.vendorWebGlExp")"></i></td>
+                        <td id="vendorWebGljsHtml"></td>
+                    </tr>
+
+                    <tr id="rendererWebGljs">
+                        <td>@Messages("fp.rendererWebGl") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.rendererWebGlExp")"></i></td>
+                        <td id="rendererWebGljsHtml"></td>
+                    </tr>
+
+                    <tr id="fontsFlash">
+                        <td>@Messages("fp.fonts") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.fontsExp")"></i></td>
+                        <td id="fontsFlashHtml"></td>
+                    </tr>
+
+                    <tr id="resolutionFlash">
+                        <td>@Messages("fp.resolutionF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.resolutionFExp")"></i></td>
+                        <td id="resolutionFlashHtml"></td>
+                    </tr>
+
+                    <tr id="languageFlash">
+                        <td>@Messages("fp.languageF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.languageFExp")"></i></td>
+                        <td id="languageFlashHtml"></td>
+                    </tr>
+
+                    <tr id="platformFlash">
+                        <td>@Messages("fp.platformF") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.platformFExp")"></i></td>
+                        <td id="platformFlashHtml"></td>
+                    </tr>
+
+                    <tr id="adBlock">
+                        <td>@Messages("fp.adBlock") <i class="fa fa-info-circle fa-2" rel="popover" data-content="@Messages("fp.adBlockExp")"></i></td>
+                        <td id="adBlockHtml"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <!-- Div for the Flash file -->
+    <div id="OSData"></div>
+}
