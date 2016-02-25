@@ -13,6 +13,7 @@ import play.mvc.Result;
 import views.html.fp;
 import views.html.fpNoJs;
 import views.html.results;
+import views.html.viewFP;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -297,4 +298,7 @@ public class FPController extends Controller{
                 nbIdent, c));
     }
 
+    public static Result viewFP() {
+        return ok(viewFP.render(request()));
+    }
 }
