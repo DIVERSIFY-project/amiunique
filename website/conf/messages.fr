@@ -32,8 +32,7 @@ home.milestone1 = Nous avons dépassé les <strong>150,000 fingerprints</strong>
 home.milestone2 = et
 home.milestone3 =. Plus de détails
 home.milestone4 = ICI
-home.pub1 = Notre première publication sur l’état actuel du browser fingerprinting est maintenant disponible!<br>\
-  Vous pouvez trouver l’article complet
+home.pub1 = Notre première publication issue des données d’AmIUnique est disponible
 home.pub2 = ICI
 
 about=  <h2>Qui gère et maintient ce site web ?</h2>\
