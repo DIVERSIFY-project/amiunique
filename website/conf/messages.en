@@ -26,12 +26,14 @@ home=   <h3>Learn how identifiable you are on the Internet</h3>\
         <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
         <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
-home.milestone1 = We reached <strong>100,000 fingerprints</strong>! We never thought we would reach such a high number! \
-    Thanks to all visitors for supporting our research!<br>\
-    We also launched an AmIUnique extension for
+home.milestone1 = We are now over <strong>150,000 fingerprints</strong>! Thanks to all visitors for your continuous support!<br>\
+    We also have an AmIUnique extension for
 home.milestone2 = and
 home.milestone3 = . More details can be found
 home.milestone4= HERE
+home.pub1 = Our first publication on the current state of browser fingerprinting is finally available!<br>\
+    You can find the full document
+home.pub2 = HERE
 
 about= <h2>Who maintains this web site?</h2>\
         This web site is created and maintained by a team of researchers, who investigates the software monocultures and software\
@@ -307,6 +309,8 @@ menu.timeline=My timeline
 menu.links= Links
 menu.about = About
 menu.github=View on GitHub
+menu.new = New
+menu.upd = Updated
 
 stats.nbentries = Number of entries
 stats.zero=There was no entry in the database during the selected period. Please choose another one.

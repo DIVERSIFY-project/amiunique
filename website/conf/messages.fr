@@ -27,12 +27,14 @@ home=   <h3>Apprenez à quel point votre navigateur est unique</h3>\
         <p style="white-space: pre;">Qu’est-ce que l’empreinte d’un navigateur ?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Apprenez-en plus</a></p>\
         <p>Des questions ? Écrivez-nous à <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
-home.milestone1 = Nous avons atteint les <strong>100,000 fingerprints</strong> ! Nous n’avions jamais pensé pouvoir atteindre un nombre aussi élevé !<br>\
-  Merci à tous les visiteurs pour votre contribution à nos recherches !<br>\
-  Pour les plus curieux, nous avons aussi lancé l’extension AmIUnique pour
+home.milestone1 = Nous avons dépassé les <strong>150,000 fingerprints</strong> ! Merci à tous les visiteurs pour votre contribution à nos recherches !<br>\
+  Pour les plus curieux, nous avons aussi l’extension AmIUnique pour
 home.milestone2 = et
 home.milestone3 =. Plus de détails
 home.milestone4 = ICI
+home.pub1 = Notre première publication sur l’état actuel du browser fingerprinting est maintenant disponible!<br>\
+  Vous pouvez trouver l’article complet
+home.pub2 = ICI
 
 about=  <h2>Qui gère et maintient ce site web ?</h2>\
         Ce site web a été créé et il est maintenu par une équipe de chercheurs qui étudient les monocultures et la diversité logicielles sur le Web. L’équipe de recherche est financée par le <a style="text-decoration:underline;" href="http://diversify-project.eu">projet européen DIVERSIFY</a> et par une bourse de thèse de l’<a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes</a>.\
@@ -278,6 +280,8 @@ menu.timeline=Ma frise chronologique
 menu.links= Liens
 menu.about = À propos
 menu.github=Voir sur GitHub
+menu.new = Nouveau
+menu.upd = MAJ
 
 stats.nbentries = Nombre d’empreintes
 stats.zero=Il n’y a eu aucune entrée en base sur la période sélectionnée. Veuillez en choisir une nouvelle.
