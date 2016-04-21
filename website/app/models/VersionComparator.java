@@ -29,7 +29,7 @@ public class VersionComparator implements Comparator<String> {
         }
 
         if (i < vals1.length && i < vals2.length){
-            int diff = Integer.valueOf(vals1[i]).compareTo(Integer.valueOf(vals2[i]));
+            int diff = Double.valueOf(vals1[i]).compareTo(Double.valueOf(vals2[i]));
             return Integer.signum(diff);
         } else {
             return Integer.signum(vals1.length - vals2.length);
