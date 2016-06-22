@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 
@@ -234,6 +235,45 @@ public class FPController extends Controller{
                     getAttribute(json,"resolutionFlash"), getAttribute(json,"languageFlash"), getAttribute(json,"platformFlash"),
                     getAttribute(json,"adBlock"), pluginsJsHashed, canvasJsHashed, fontsFlashHashed);
 
+            //Add audio data
+            JsonNode audio = json.get("audioData");
+            if(Objects.equals(audio.asText(), "Not supported")){
+                String n = "Not";
+                AudioEntityManager adem = new AudioEntityManager();
+                adem.create(id, n, n, n, n, n,n, n, n, n, n,n, n, n, n, n,n, n, n, n, n, n,n);
+            } else {
+                JsonNode audioProp = audio.get("nt_vc_output");
+                String acSampleRate = audioProp.get("ac-sampleRate").asText();
+                String acState = audioProp.get("ac-state").asText();
+                String acMaxChannelCount = audioProp.get("ac-maxChannelCount").asText();
+                String acNumberOfInputs = audioProp.get("ac-numberOfInputs").asText();
+                String acNumberOfOutputs = audioProp.get("ac-numberOfOutputs").asText();
+                String acChannelCount = audioProp.get("ac-channelCount").asText();
+                String acChannelCountMode = audioProp.get("ac-channelCountMode").asText();
+                String acChannelInterpretation = audioProp.get("ac-channelInterpretation").asText();
+                String anFftSize = audioProp.get("an-fftSize").asText();
+                String anFrequencyBinCount = audioProp.get("an-frequencyBinCount").asText();
+                String anMinDecibels = audioProp.get("an-minDecibels").asText();
+                String anMaxDecibels = audioProp.get("an-maxDecibels").asText();
+                String anSmoothingTimeConstant = audioProp.get("an-smoothingTimeConstant").asText();
+                String anNumberOfInputs = audioProp.get("an-numberOfInputs").asText();
+                String anNumberOfOutputs = audioProp.get("an-numberOfOutputs").asText();
+                String anChannelCount = audioProp.get("an-channelCount").asText();
+                String anChannelCountMode = audioProp.get("an-channelCountMode").asText();
+                String anChannelInterpretation = audioProp.get("an-channelInterpretation").asText();
+                String audioDynSum = audio.get("pxi_output").asText();
+                String audioDynHash = audio.get("pxi_full_buffer_hash").asText();
+                String audioPoints = Json.stringify(audio.get("cc_output"));
+                String audioDynPoints = Json.stringify(audio.get("hybrid_output"));
+
+                AudioEntityManager adem = new AudioEntityManager();
+                adem.create(id, acSampleRate, acState, acMaxChannelCount, acNumberOfInputs, acNumberOfOutputs,
+                        acChannelCount, acChannelCountMode, acChannelInterpretation, anFftSize, anFrequencyBinCount,
+                        anMinDecibels, anMaxDecibels, anSmoothingTimeConstant, anNumberOfInputs, anNumberOfOutputs,
+                        anChannelCount, anChannelCountMode, anChannelInterpretation, audioDynSum, audioDynHash, audioPoints,
+                        audioDynPoints);
+            }
+
             newFp = true;
         }
 
@@ -301,4 +341,5 @@ public class FPController extends Controller{
     public static Result viewFP() {
         return ok(viewFP.render(request()));
     }
+
 }
