@@ -1,0 +1,144 @@
+home=   <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">\
+                <h3>Learn how identifiable you are on the Internet</h3>\
+                <h3>Help us investigate the diversity of web browsers</h3>\
+                <br>\
+                <br>\
+            </div>\
+        </div>\
+        <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
+                <p><a id="link" href="/fpNoJs" class="btn btn-primary btn-lg" role="button">私のブラウザの指紋を見る</a></p>\
+                <br>\
+                <p>By clicking on this button, only anonymous data will be collected and a cookie will be stored in your browser for four months.\
+                    You can find more details in the <a id="linkPriva" href="/privacy">Privacy Policy.</a></p>\
+            </div>\
+        </div>\
+        <div class="row">\
+            <div class="col-lg-6 col-lg-offset-3 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">\
+                <h3>\
+                    Spread the word! Share AmIUnique!<br>\
+                    Try it on all your devices!<br><br>\
+                    <a href="mailto:?subject=Learn how identifiable you are on the Internet?&body=When you visit a website, you are allowing that site to access a lot of information about your computer. Combined, this information can create a kind of fingerprint — a signature that could be used to identify you and your computer. But how effective would this kind of online tracking be? Inria researchers are running an experiment to find out. Visit https://amiunique.org to learn how unique your browser is and if you can be tracked."><i class="fa fa-envelope"></i></a>\
+                    <a href="http://www.facebook.com/share.php?u=https%3a%2f%2famiunique.org&t=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-facebook-square"></i></a>\
+                    <a href="https://twitter.com/intent/tweet?text=Learn%20how%20identifiable%20you%20are%20on%20the%20Internet%20%23AmIUnique&url=https%3A%2F%2Famiunique.org%2F"><i class="fa fa-twitter"></i></a>\
+                    <a href="https://plus.google.com/share?url=https://amiunique.org"><i class="fa fa-google-plus"></i></a>\
+                    <a href="http://www.pinterest.com/pin/create/button/?url=https%3A%2F%2Famiunique.org&description=Am%20I%3A%20Unique"><i class="fa fa-pinterest"></i></a>\
+                    <a href="http://www.reddit.com/submit?url=https%3a%2f%2famiunique.org"><i class="fa fa-reddit"></i></a>\
+                    <a href="http://del.icio.us/post?url=https%3a%2f%2famiunique.org&title=Learn+how+identifiable+you+are+on+the+Internet%3F"><i class="fa fa-delicious"></i></a>\
+                </h3>\
+                <br>\
+                <br>\
+                <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
+                <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>\
+            </div>\
+        </div>
+
+about= <h2>Who maintains this web site?</h2>\
+        This web site is created and maintained by a team of researchers, who investigates the software monocultures and software\
+        diversity on the web. The research team is financially supported by the\
+        <a style="text-decoration:underline;" href="http://diversify-project.eu">DIVERSIFY European project</a> and by a grant\
+        from the <a style="text-decoration:underline;" href="http://www.insa-rennes.fr/en.html">INSA-Rennes school</a>.\
+        The site is hosted at the <a style="text-decoration:underline;" href="http://www.inria.fr/en/centre/rennes">INRIA Rennes\
+        Bretagne-Atlantique research center</a> and the\
+        <a style="text-decoration:underline;" href="http://www.irisa.fr/en">IRISA lab</a>.\
+        <h2>What is the purpose of this web site?</h2>\
+        <h3>Inform users about their position within the web ecosystem</h3>\
+        With this web site, we aim at providing users with some basic information about their configuration and\
+        how trackable it is. We also want to exploit the data we collect to advise users about how they can be more\
+        similar to others and thus be less trackable.\
+        <h3>Investigate the diversity of fingerprints</h3>\
+        The research question we investigate is: how can we automatically reconfigure a user's platform to\
+        fuzz the device fingerprint in a realistic manner? The degree of realism is important to prevent users\
+        of our solution to be detected as such. The collection of a large base of real fingerprints will allow us to tune our\
+        solution towards platforms that are as different as possible yet not distinguishable as "strange" configurations.
+
+fp.overview=Overview
+fp.details=Details
+fp.graphs=Graphs
+fp.title=Are you unique?
+
+fp.track1=Yes! (You can be tracked!)
+fp.track2=Almost! (You can most certainly be tracked.)
+fp.track3=No! (It is hard to track you via your fingerprint.)
+
+fp.browser1=% of observed browsers are
+fp.browser2=, as yours.
+fp.unknownBrow=% of observed browsers are unidentified, as yours.
+
+fp.os1=% of observed browsers run
+fp.os2=, as yours.
+fp.unknownOs=% of observed browsers run an unidentified operating system, as yours.
+
+fp.lang1=% of observed browsers have set
+fp.lang2=as their primary language, as yours.
+
+fp.time1=% of observed browsers have
+fp.time2=as their timezone, as yours.
+
+fp.uniq1=However, your full fingerprint is unique among the
+fp.uniq2=collected so far.
+fp.uniq3=Want to know why? <a id="detBut2" class="btn btn-primary btn-sm" role="button">Click here</a>
+
+fp.notuniq1=But <strong>only</strong>
+fp.notuniq2=browsers out of the
+fp.notuniq3=observed browsers
+fp.notuniq4=%) have exactly the same fingerprint as yours.
+
+fp.btn1=View more details
+fp.btn2=View graphs
+
+fp.detailsTitle=My fingerprint
+fp.detAtt=Attribute
+fp.detSim=Similarity ratio
+fp.detSimExp=Percentage of fingerprints sharing the same value for each attribute
+fp.detVal=Value
+
+fp.graphsTitle=Statistics
+fp.graphsExp=The fingerprint of your browser is located in the green areas.
+
+fp.userAgent=User agent
+fp.accept=Accept
+fp.connection=Connection
+fp.encoding=Content encoding
+fp.language=Content language
+fp.plugins=List of plugins
+fp.platformJ=Platform
+fp.cookies=Cookies enabled
+fp.dnt=Do Not Track
+fp.timezone=Timezone
+fp.resolutionJ=Screen resolution
+fp.local=Use of local storage
+fp.session=Use of session storage
+fp.canvas=Canvas
+fp.webGl=WebGL
+fp.vendorWebGl=WebGL Vendor
+fp.rendererWebGl=WebGL Renderer
+fp.fonts=List of fonts
+fp.resolutionF=Screen resolution
+fp.languageF=Language
+fp.platformF=Platform
+fp.adBlock=Use of AdBlock
+
+fp.userAgentExp=HTTP header sent to the server that contains information regarding your browser and operating system
+fp.acceptExp=HTTP header sent to the server that contains information regarding the type of media that are acceptable for the response
+fp.connectionExp=HTTP header sent to the server that contains specific options that are desired for that particular connection
+fp.encodingExp=HTTP header sent to the server that lists the compression methods supported by the browser
+fp.languageExp=HTTP header sent to the server that indicates the preferred languages for the response
+fp.pluginsExp=Browser-populated JavaScript attribute that gives the list of activated plugins in the browser (window.navigator.plugins)
+fp.platformJExp=Browser-populated JavaScript attribute that indicates the platform the browser is running on (window.navigator.platform)
+fp.cookiesExp=Browser-populated JavaScript attribute that indicates if the browser accepts cookies or not (window.navigator.cookieEnabled)
+fp.dntExp=Browser-populated JavaScript attribute that indicates your Do Not Track setting (window.navigator.doNotTrack), "NC" means the value was not specified
+fp.timezoneExp=Timezone offset of your browser obtainable through JavaScript (new Date().getTimezoneOffset())
+fp.resolutionJExp=Browser-populated JavaScript attributes that indicate the resolution of the device’s screen (window.screen.height/width/colorDepth)
+fp.localExp=JavaScript test to find out if local storage is supported (storage of a specific value in "localStorage")
+fp.sessionExp=JavaScript test to find out if session storage is supported (storage of a specific value in "sessionStorage")
+fp.canvasExp=Rendering of a specific picture with the HTML5 Canvas element following a fixed set of instructions. The picture presents some slight noticeable variations depending on the OS and the browser used.
+fp.webGlExp=Rendering of specific 3D forms following a fixed set of instructions. The picture presents some slight noticeable variations depending on the device of the user.
+fp.vendorWebGlExp=(Newly added!) Name of the WebGL Vendor. Some browsers give the full name of the underlying graphics card used by the device.
+fp.rendererWebGlExp=(Newly added!) Name of the WebGL Renderer. Some browsers give the full name of the underlying graphics driver.
+fp.fontsExp=Flash attribute that gives the entire list of fonts installed on the operating system (flash.text.Font.enumerateFonts(true))
+fp.resolutionFExp=Flash attribute that indicates the resolution of the device’s screen (flash.system.Capabilities. screenResolutionX/Y). This resolution can differ from the JavaScript one, mostly in the presence of a multi-screen setup.
+fp.languageFExp=Flash attribute that indicates the primary language of the browser (flash.system.Capabilities.language)
+fp.platformFExp=Flash attribute that indicates the platform the browser is running on (flash.system.Capabilities.os). This value can give even more information in comparison with the value given by JavaScript.
+fp.adBlockExp=Test to find out if the AdBlock extension is installed
