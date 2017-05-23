@@ -25,7 +25,17 @@ public class ExtensionDataEntityManager {
                                    String ieDataJs, String canvasJs, String webGlJs, String fontsFlash, String resolutionFlash,
                                    String languageFlash, String platformFlash, String adBlock, String vendorJs,
                                    String rendererJs, String octaneScore, String sunspiderTime, String pluginsJsHashed,
-                                   String canvasJsHashed, String webGLJsHashed, String fontsFlashHashed) {
+                                   String canvasJsHashed, String webGLJsHashed, String fontsFlashHashed,
+                                   String hardwareConcurrency, String availableScreenResolution,
+                                   String cpuClass, String modernizr, String overwrittenObjects,
+                                   String osMediaQueries, String appCodeName, String oscpu,
+                                   String appName, String appVersion, String languages,
+                                   String mimeTypes, String pluginsUsingMimeTypes, String product,
+                                   String productSub, String vendor, String vendorSub, String touchSupport,
+                                   String buildID, String navigatorPrototype, String mathsConstants,
+                                   String resOverflow, String errorsGenerated,
+                                   String unknownImageError, String fontsEnum, String audio) {
+
         return withTransaction(em -> {
             ExtensionDataEntity fp = new ExtensionDataEntity();
             fp.setId(id);
@@ -64,6 +74,35 @@ public class ExtensionDataEntityManager {
             fp.setCanvasJsHashed(canvasJsHashed);
             fp.setWebGlJsHashed(webGLJsHashed);
             fp.setFontsFlashHashed(fontsFlashHashed);
+
+            // New attributes
+            fp.setHardwareConcurrency(hardwareConcurrency);
+            fp.setAvailableScreenResolution(availableScreenResolution);
+            fp.setCpuClass(cpuClass);
+            fp.setModernizr(modernizr);
+            fp.setOverwrittenObjects(overwrittenObjects);
+            fp.setOsMediaQueries(osMediaQueries);
+            fp.setAppCodeName(appCodeName);
+            fp.setOscpu(oscpu);
+            fp.setAppName(appName);
+            fp.setAppVersion(appVersion);
+            fp.setLanguages(languages);
+            fp.setMimeTypes(mimeTypes);
+            fp.setPluginsUsingMimeTypes(pluginsUsingMimeTypes);
+            fp.setProduct(product);
+            fp.setProductSub(productSub);
+            fp.setVendor(vendor);
+            fp.setVendorSub(vendorSub);
+            fp.setTouchSupport(touchSupport);
+            fp.setBuildID(buildID);
+            fp.setNavigatorPrototype(navigatorPrototype);
+            fp.setMathsConstants(mathsConstants);
+            fp.setResOverflow(resOverflow);
+            fp.setErrorsGenerated(errorsGenerated);
+            fp.setUnknownImageError(unknownImageError);
+            fp.setFontsEnum(fontsEnum);
+            fp.setAudio(audio);
+
             em.persist(fp);
             return fp;
         });
