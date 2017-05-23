@@ -718,18 +718,6 @@ public class ExtensionDataEntity implements Comparable, Cloneable {
         this.resOverflow = resOverflow;
     }
 
-    private String websocketError;
-
-    @Basic
-    @javax.persistence.Column(name = "websocketError")
-    public String getWebsocketError() {
-        return websocketError;
-    }
-
-    public void setWebsocketError(String websocketError) {
-        this.websocketError = websocketError;
-    }
-
     private String errorsGenerated;
 
     @Basic
@@ -950,7 +938,6 @@ public class ExtensionDataEntity implements Comparable, Cloneable {
         fpHashMap.put("navigatorPrototype",this.getNavigatorPrototype());
         fpHashMap.put("mathsConstants",this.getMathsConstants());
         fpHashMap.put("resOverflow",this.getResOverflow());
-        fpHashMap.put("websocketError",this.getWebsocketError());
         fpHashMap.put("errorsGenerated",this.getErrorsGenerated());
         fpHashMap.put("unknownImageError",this.getUnknownImageError());
         fpHashMap.put("fontsEnum",this.getFontsEnum());
