@@ -454,6 +454,330 @@ public class ExtensionDataEntity implements Comparable, Cloneable {
         this.fontsFlashHashed = fontsFlashHashed;
     }
 
+    private String hardwareConcurrency;
+
+    @Basic
+    @javax.persistence.Column(name = "hardwareConcurrency")
+    public String getHardwareConcurrency() {
+        return hardwareConcurrency;
+    }
+
+    public void setHardwareConcurrency(String hardwareConcurrency) {
+        this.hardwareConcurrency = hardwareConcurrency;
+    }
+
+    private String availableScreenResolution;
+
+    @Basic
+    @javax.persistence.Column(name = "availableScreenResolution")
+    public String getAvailableScreenResolution() {
+        return availableScreenResolution;
+    }
+
+    public void setAvailableScreenResolution(String availableScreenResolution) {
+        this.availableScreenResolution = availableScreenResolution;
+    }
+
+    private String cpuClass;
+
+    @Basic
+    @javax.persistence.Column(name = "cpuClass")
+    public String getCpuClass() {
+        return cpuClass;
+    }
+
+    public void setCpuClass(String cpuClass) {
+        this.cpuClass = cpuClass;
+    }
+
+    private String modernizr;
+
+    @Basic
+    @javax.persistence.Column(name = "modernizr")
+    public String getModernizr() {
+        return modernizr;
+    }
+
+    public void setModernizr(String modernizr) {
+        this.modernizr = modernizr;
+    }
+
+    private String overwrittenObjects;
+
+    @Basic
+    @javax.persistence.Column(name = "overwrittenObjects")
+    public String getOverwrittenObjects() {
+        return overwrittenObjects;
+    }
+
+    public void setOverwrittenObjects(String overwrittenObjects) {
+        this.overwrittenObjects = overwrittenObjects;
+    }
+
+    private String osMediaQueries;
+
+    @Basic
+    @javax.persistence.Column(name = "osMediaQueries")
+    public String getOsMediaQueries() {
+        return osMediaQueries;
+    }
+
+    public void setOsMediaQueries(String osMediaQueries) {
+        this.osMediaQueries = osMediaQueries;
+    }
+
+    private String appCodeName;
+
+    @Basic
+    @javax.persistence.Column(name = "appCodeName")
+    public String getAppCodeName() {
+        return appCodeName;
+    }
+
+    public void setAppCodeName(String appCodeName) {
+        this.appCodeName = appCodeName;
+    }
+
+    private String oscpu;
+
+    @Basic
+    @javax.persistence.Column(name = "oscpu")
+    public String getOscpu() {
+        return oscpu;
+    }
+
+    public void setOscpu(String oscpu) {
+        this.oscpu = oscpu;
+    }
+
+    private String appName;
+
+    @Basic
+    @javax.persistence.Column(name = "appName")
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
+    private String appVersion;
+
+    @Basic
+    @javax.persistence.Column(name = "appVersion")
+    public String getAppVersion() {
+        return appVersion;
+    }
+
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    private String languages;
+
+    @Basic
+    @javax.persistence.Column(name = "languages")
+    public String getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(String languages) {
+        this.languages = languages;
+    }
+
+    private String mimeTypes;
+
+    @Basic
+    @javax.persistence.Column(name = "mimeTypes")
+    public String getMimeTypes() {
+        return mimeTypes;
+    }
+
+    public void setMimeTypes(String mimeTypes) {
+        this.mimeTypes = mimeTypes;
+    }
+
+    private String pluginsUsingMimeTypes;
+
+    @Basic
+    @javax.persistence.Column(name = "pluginsUsingMimeTypes")
+    public String getPluginsUsingMimeTypes() {
+        return pluginsUsingMimeTypes;
+    }
+
+    public void setPluginsUsingMimeTypes(String pluginsUsingMimeTypes) {
+        this.pluginsUsingMimeTypes = pluginsUsingMimeTypes;
+    }
+
+    private String product;
+
+    @Basic
+    @javax.persistence.Column(name = "product")
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    private String productSub;
+
+    @Basic
+    @javax.persistence.Column(name = "productSub")
+    public String getProductSub() {
+        return productSub;
+    }
+
+    public void setProductSub(String productSub) {
+        this.productSub = productSub;
+    }
+
+    private String vendor;
+
+    @Basic
+    @javax.persistence.Column(name = "vendor")
+    public String getVendor() {
+        return vendor;
+    }
+
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
+    }
+
+    private String vendorSub;
+
+    @Basic
+    @javax.persistence.Column(name = "vendorSub")
+    public String getVendorSub() {
+        return vendorSub;
+    }
+
+    public void setVendorSub(String vendorSub) {
+        this.vendorSub = vendorSub;
+    }
+
+    private String touchSupport;
+
+    @Basic
+    @javax.persistence.Column(name = "touchSupport")
+    public String getTouchSupport() {
+        return touchSupport;
+    }
+
+    public void setTouchSupport(String touchSupport) {
+        this.touchSupport = touchSupport;
+    }
+
+    private String buildID;
+
+    @Basic
+    @javax.persistence.Column(name = "buildID")
+    public String getBuildID() {
+        return buildID;
+    }
+
+    public void setBuildID(String buildID) {
+        this.buildID = buildID;
+    }
+
+    private String navigatorPrototype;
+
+    @Basic
+    @javax.persistence.Column(name = "navigatorPrototype")
+    public String getNavigatorPrototype() {
+        return navigatorPrototype;
+    }
+
+    public void setNavigatorPrototype(String navigatorPrototype) {
+        this.navigatorPrototype = navigatorPrototype;
+    }
+
+    private String mathsConstants;
+
+    @Basic
+    @javax.persistence.Column(name = "mathsConstants")
+    public String getMathsConstants() {
+        return mathsConstants;
+    }
+
+    public void setMathsConstants(String mathsConstants) {
+        this.mathsConstants = mathsConstants;
+    }
+
+    private String resOverflow;
+
+    @Basic
+    @javax.persistence.Column(name = "resOverflow")
+    public String getResOverflow() {
+        return resOverflow;
+    }
+
+    public void setResOverflow(String resOverflow) {
+        this.resOverflow = resOverflow;
+    }
+
+    private String websocketError;
+
+    @Basic
+    @javax.persistence.Column(name = "websocketError")
+    public String getWebsocketError() {
+        return websocketError;
+    }
+
+    public void setWebsocketError(String websocketError) {
+        this.websocketError = websocketError;
+    }
+
+    private String errorsGenerated;
+
+    @Basic
+    @javax.persistence.Column(name = "errorsGenerated")
+    public String getErrorsGenerated() {
+        return errorsGenerated;
+    }
+
+    public void setErrorsGenerated(String errorsGenerated) {
+        this.errorsGenerated = errorsGenerated;
+    }
+
+    private String unknownImageError;
+
+    @Basic
+    @javax.persistence.Column(name = "unknownImageError")
+    public String getUnknownImageError() {
+        return unknownImageError;
+    }
+
+    public void setUnknownImageError(String unknownImageError) {
+        this.unknownImageError = unknownImageError;
+    }
+
+    private String fontsEnum;
+
+    @Basic
+    @javax.persistence.Column(name = "fontsEnum")
+    public String getFontsEnum() {
+        return fontsEnum;
+    }
+
+    public void setFontsEnum(String fontsEnum) {
+        this.fontsEnum = fontsEnum;
+    }
+
+    private String audio;
+
+    @Basic
+    @javax.persistence.Column(name = "audio")
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -602,6 +926,35 @@ public class ExtensionDataEntity implements Comparable, Cloneable {
         fpHashMap.put("canvasJsHashed",this.getCanvasJsHashed());
         fpHashMap.put("webGLJsHashed",this.getWebGlJsHashed());
         fpHashMap.put("fontsFlashHashed",this.getFontsFlashHashed());
+
+        // New attributes
+        fpHashMap.put("hardwareConcurrency",this.getHardwareConcurrency());
+        fpHashMap.put("availableScreenResolution",this.getAvailableScreenResolution());
+        fpHashMap.put("cpuClass",this.getCpuClass());
+        fpHashMap.put("modernizr",this.getModernizr());
+        fpHashMap.put("overwrittenObjects",this.getOverwrittenObjects());
+        fpHashMap.put("osMediaQueries",this.getOsMediaQueries());
+        fpHashMap.put("appCodeName",this.getAppCodeName());
+        fpHashMap.put("oscpu",this.getOscpu());
+        fpHashMap.put("appName",this.getAppName());
+        fpHashMap.put("appVersion",this.getAppVersion());
+        fpHashMap.put("languages",this.getLanguages());
+        fpHashMap.put("mimeTypes",this.getMimeTypes());
+        fpHashMap.put("pluginsUsingMimeTypes",this.getPluginsUsingMimeTypes());
+        fpHashMap.put("product",this.getProduct());
+        fpHashMap.put("productSub",this.getProductSub());
+        fpHashMap.put("vendor",this.getVendor());
+        fpHashMap.put("vendorSub",this.getVendorSub());
+        fpHashMap.put("touchSupport",this.getTouchSupport());
+        fpHashMap.put("buildID",this.getBuildID());
+        fpHashMap.put("navigatorPrototype",this.getNavigatorPrototype());
+        fpHashMap.put("mathsConstants",this.getMathsConstants());
+        fpHashMap.put("resOverflow",this.getResOverflow());
+        fpHashMap.put("websocketError",this.getWebsocketError());
+        fpHashMap.put("errorsGenerated",this.getErrorsGenerated());
+        fpHashMap.put("unknownImageError",this.getUnknownImageError());
+        fpHashMap.put("fontsEnum",this.getFontsEnum());
+        fpHashMap.put("audio",this.getAudio());
 
         return fpHashMap;
     }

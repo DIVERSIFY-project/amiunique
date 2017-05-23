@@ -71,7 +71,6 @@ public class ExtensionController extends Controller {
                 create = true;
             }
 
-
             if (update) {
                 em.updateLastFP(uuid, currentTime);
             }
@@ -87,6 +86,7 @@ public class ExtensionController extends Controller {
                 } else {
                     ip = request().remoteAddress();
                 }
+                
                 em.createFP(uuid,
                         DigestUtils.sha1Hex(ip), currentTime, null, null, vals.get("userAgentHttp")[0],
                         vals.get("acceptHttp")[0], vals.get("hostHttp")[0], vals.get("connectionHttp")[0],
@@ -97,7 +97,19 @@ public class ExtensionController extends Controller {
                         vals.get("canvasJs")[0], vals.get("webGLJs")[0], vals.get("fontsFlash")[0],
                         vals.get("resolutionFlash")[0], vals.get("languageFlash")[0], vals.get("platformFlash")[0],
                         vals.get("adBlock")[0], vals.get("vendorWebGLJs")[0], vals.get("rendererWebGLJs")[0], "", "",
-                        pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed);
+                        pluginsJsHashed, canvasJsHashed, webGLJsHashed, fontsFlashHashed,
+                        // new attributes start here
+                        vals.get("hardwareConcurrency")[0], vals.get("availableScreenResolution")[0],
+                        vals.get("cpuClass")[0], vals.get("modernizr")[0], vals.get("overwrittenObjects")[0],
+                        vals.get("osMediaqueries")[0], vals.get("appCodeName")[0], vals.get("oscpu")[0],
+                        vals.get("appName")[0], vals.get("appVersion")[0], vals.get("languages")[0],
+                        vals.get("mimeTypes")[0], vals.get("pluginsUsingMimeTypes")[0],
+                        vals.get("product")[0], vals.get("productSub")[0], vals.get("vendor")[0],
+                        vals.get("vendorSub")[0], vals.get("touchSupport")[0], vals.get("buildID")[0],
+                        vals.get("navigatorPrototype")[0], vals.get("mathsConstants")[0],
+                        vals.get("resOverflow")[0],
+                        vals.get("errorsGenerated")[0], vals.get("unknownImageError")[0],
+                        vals.get("fontsEnum")[0], vals.get("audio")[0]);
             }
 
             return ok();
