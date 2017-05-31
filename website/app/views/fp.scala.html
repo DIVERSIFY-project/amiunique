@@ -13,6 +13,9 @@
     <script type="text/javascript" src="@routes.Assets.at("javascripts/advert.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/fp.js")"></script>
 
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/sha1.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/audio.js")"></script>
+
     <script type="text/javascript">
         swfobject.embedSWF("@routes.Assets.at("flash/OSData.swf")", "OSData", "0", "0", "9.0.0");
     </script>
@@ -111,7 +114,7 @@
                             timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
                             canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
                             resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
-                            adBlock: document.getElementById('ads')? 'no' : 'yes'}),
+                            adBlock: document.getElementById('ads')? 'no' : 'yes', audioData: audioData}),
                         contentType:"application/json",
                         success: function(res){
                             
