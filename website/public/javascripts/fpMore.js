@@ -25,7 +25,6 @@ var resOverflow = generateStackOverflow();
 var errorsGenerated = generateErrors();
 
 // Async part
-// TODO see how we manage async here? with promises?
 //Unknown image
 var unknownImageError = "";
 var p1 = new Promise(function(resolve, reject){
@@ -35,7 +34,6 @@ var p1 = new Promise(function(resolve, reject){
     });
 });
 
-//font enum
 var fontsEnum = "";
 var p2 = new Promise(function(resolve, reject){
     getFontsEnum().then(function(val){
@@ -82,14 +80,18 @@ function getNavigatorCpuClass(){
 }
 
 function testModernizr(){
-  var propertiesVec = [];
-  var modernizrProperties = Object.getOwnPropertyNames(Modernizr);
-  modernizrProperties.forEach(function(prop){
-    if(typeof Modernizr[prop] == "boolean"){
-        propertiesVec.push(prop+"-"+Modernizr[prop].toString());
+    var propertiesVec = [];
+    try{
+        var modernizrProperties = Object.getOwnPropertyNames(Modernizr);
+        modernizrProperties.forEach(function(prop){
+            if(typeof Modernizr[prop] == "boolean"){
+                propertiesVec.push(prop+"--"+Modernizr[prop].toString());
+            }
+        });
+        return propertiesVec.join(";;");
+    } catch(e){
+        return UNKNOWN;
     }
-  });
-  return propertiesVec.join(";");
 }
 
 function getOscpu(){
@@ -120,7 +122,7 @@ function testOverwrittenObjects(){
         dateTest = ERROR;
     }
 
-    // We separe with weird characters in case they use dash in their overwritten functions
+    // We separe with many characters in case they use dash in their overwritten functions
     return screenTest+"~~~"+canvasTest+"~~~"+dateTest;
 }
 
@@ -209,7 +211,7 @@ function getMimeTypes(){
 	var mimeTypes = [];
 	for(var i = 0; i < navigator.mimeTypes.length; i++){
 		var mt = navigator.mimeTypes[i];
-		mimeTypes.push([mt.description, mt.type, mt.suffixes].join("~"));
+		mimeTypes.push([mt.description, mt.type, mt.suffixes].join("~~"));
 	}
 	return mimeTypes.join(";;");
 }
@@ -263,30 +265,34 @@ function getBuildId(){
 }
 
 function getNavigatorPrototype(){
-	var obj = window.navigator;
-	var protoNavigator = [];
-	do Object.getOwnPropertyNames(obj).forEach(function(name) {
-		protoNavigator.push(name);
-	});
-	while(obj = Object.getPrototypeOf(obj));
+    try{
+        var obj = window.navigator;
+        var protoNavigator = [];
+        do Object.getOwnPropertyNames(obj).forEach(function(name) {
+            protoNavigator.push(name);
+        });
+        while(obj = Object.getPrototypeOf(obj));
 
-  var res;
-  var finalProto = [];
-  protoNavigator.forEach(function(prop){
-    var objDesc = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), prop);
-    if(objDesc != undefined){
-      if(objDesc.value != undefined){
-          res = objDesc.value.toString();
-      }else if(objDesc.get != undefined){
-          res = objDesc.get.toString();
-      }
-    }else{
-        res = "";
+        var res;
+        var finalProto = [];
+        protoNavigator.forEach(function(prop){
+            var objDesc = Object.getOwnPropertyDescriptor(Object.getPrototypeOf(navigator), prop);
+            if(objDesc != undefined){
+            if(objDesc.value != undefined){
+                res = objDesc.value.toString();
+            }else if(objDesc.get != undefined){
+                res = objDesc.get.toString();
+            }
+            }else{
+                res = "";
+            }
+            finalProto.push(prop+"~~~"+res);
+
+        });
+        return finalProto.join(";;;");
+    } catch(e){
+        return UNKNOWN;
     }
-    finalProto.push(prop+"~~~"+res);
-
-  });
-	return finalProto.join(";;;");
 }
 
 function getMathsConstants(){
@@ -371,20 +377,10 @@ function generateStackOverflow(){
 	return [depth, errorName, errorMessage].join(";;;");
 }
 
-function generateWebSocketError(){
-	var error = "";
-	try{
-		var a = new WebSocket("itsgonnafail");
-	}catch(e){
-		error += e.toString();
-	}
-	return error;
-}
-
 function generateErrors(){
     var errors = [];
     try{
-        azeaze+3;
+        azeaze + 3;
     }catch(e){
         errors.push(e.message);
         errors.push(e.fileName);
@@ -407,9 +403,6 @@ function generateErrors(){
 
     return errors.join("~~~");
 }
-
-
-// Async methods below
 
 function generateUnknownImageError(){
     return new Promise(function(resolve, reject){
@@ -665,7 +658,7 @@ function getFontsEnum(){
                     fontsDiv.appendChild(s);
                     fontSpans.push(s);
                 }
-                spans[fontsToTest[i]] = fontSpans; // Stores {fontName : [spans for that font]}
+                spans[fontsToTest[i]] = fontSpans;
             }
             return spans;
         };
