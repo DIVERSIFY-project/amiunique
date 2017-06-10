@@ -26,12 +26,13 @@ home=   <h3>Learn how identifiable you are on the Internet</h3>\
         <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
         <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
-home.milestone1 = We are now over <strong>150,000 fingerprints</strong>! Thanks to all visitors for your continuous support!<br>\
+home.milestone1 = We are now over <strong>400,000 fingerprints</strong>!!! Thanks to all visitors for your continuous support!<br>\
     We also have an AmIUnique extension for
 home.milestone2 = and
 home.milestone3 = . More details can be found
 home.milestone4= HERE
-home.pub1 = Our first paper using the AmIUnique dataset is available
+home.milestone5= Our friends in another research team are currently studying the detectability of browser extensions. You can help them
+home.pub1 = Our first scientific publication using the AmIUnique dataset is available
 home.pub2 = HERE
 
 about= <h2>Who maintains this web site?</h2>\
