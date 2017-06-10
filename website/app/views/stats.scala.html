@@ -190,7 +190,7 @@
                 var langData = '@{
                 Html(languages.toString())
             }';
-                langData = $.parseJSON(langData);
+                langData = $.parseJSON(langData.replace(/""/g,'"'));
                 var langArray = [];
                 var langDrillArray = [];
                 var nbOthers = 0;
