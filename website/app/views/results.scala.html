@@ -393,7 +393,7 @@ $(document).ready(function() {
 
                 /* Language */
                 var langData = '@{Html(lang.toString())}';
-                langData = $.parseJSON(langData);
+                langData = $.parseJSON(langData.replace(/""/g,'"'));
                 var langArray = [];
 
                 $.each(langData, function(key, lang) {
