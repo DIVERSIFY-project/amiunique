@@ -81,7 +81,7 @@ public class StatsController extends Controller{
             Stats s = Stats.getInstance();
             return stats.render(s.getNbTotal(),Json.toJson(s.getTimezone()),Json.toJson(s.getBrowsers()),
                     Json.toJson(s.getOs()),Json.toJson(s.getLanguages()),Json.toJson(s.getNbFonts()),"","","");
-        }, 1800));
+        }, 60*60*3));
     }
 
     /*
