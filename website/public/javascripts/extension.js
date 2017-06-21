@@ -47,13 +47,43 @@ $(document).ready(function(){
         fp.platformFlash = platformFlash;
         fp.adBlock = document.getElementById('ads')? 'no' : 'yes';
 
-        $.ajax({
-            url: 'https://amiunique.org/evolution/'+document.location.hash.substring(1),
-            data: fp,
-            contentType: 'application/x-www-form-urlencoded',
-            method: "POST"
-        });
+        // New attributes
+        fp.hardwareConcurrency = hardwareConcurrency;
+        fp.availableScreenResolution = availableScreenResolution;
+        fp.cpuClass = cpuClass;
+        fp.modernizr = modernizr;
+        fp.overwrittenObjects = overwrittenObjects;
+        fp.appCodeName = appCodeName;
+        fp.oscpu = oscpu;
+        fp.appName = appName;
+        fp.appVersion = appVersion;
+        fp.languages = languages;
+        fp.mimeTypes = mimeTypes;
+        fp.pluginsUsingMimeTypes = pluginsUsingMimeTypes;
+        fp.product = product;
+        fp.productSub = productSub;
+        fp.vendor = vendor;
+        fp.vendorSub = vendorSub;
+        fp.touchSupport = touchSupport;
+        fp.buildID = buildID;
+        fp.navigatorPrototype = navigatorPrototype;
+        fp.mathsConstants = mathsConstants; 
+        fp.resOverflow = resOverflow;
+        fp.errorsGenerated = errorsGenerated;
 
+        return Promise.all([p1, p2, p3, p4]).then(function () {
+            fp.audio = audio.join(";;;");
+            fp.unknownImageError = unknownImageError;
+            fp.fontsEnum = fontsEnum;
+            fp.osMediaqueries = osMediaqueries;
+            $.ajax({
+                url: 'https://amiunique.org/evolution/'+document.location.hash.substring(1),
+                // url: 'http://localhost:9000/evolution/dsd25sdfsd', // Needs to add fake param for testing
+                data: fp,
+                contentType: 'application/x-www-form-urlencoded',
+                method: "POST"
+            });
+        }); 
     },2000);
 
 });

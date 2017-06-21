@@ -1,0 +1,29 @@
+@media(-moz-mac-graphite-theme:1){
+    #testmac1{
+        color: red;
+    }
+}
+
+@media(-moz-os-version: windows-xp){
+    #testwinxp{
+        color: red;
+    }
+}
+
+@media(-moz-os-version: windows-vista){
+    #testwinvis{
+        color: red;
+    }
+}
+
+@media(-moz-os-version: windows-win7){
+    #testwin7{
+        color: red;
+    }
+}
+
+@media(-moz-os-version: windows-win8){
+    #testwin8{
+        color: red;
+    }
+}
