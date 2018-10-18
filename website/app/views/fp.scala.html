@@ -3,6 +3,7 @@
 @header = {
     <script type="text/javascript" src="@routes.Assets.at("javascripts/spin.min.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/canvas.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/blockExtensions.js")"></script>
 
     <script type="text/javascript" src="@routes.Assets.at("javascripts/swfobject.js")"></script>
     <script type="text/javascript" src="@routes.Assets.at("javascripts/PluginDetect_All.js")"></script>
@@ -104,6 +105,7 @@
                         fontsFlash = resolutionFlash = languageFlash = platformFlash = "Flash not detected";
                     }
 
+
                     jsRoutes.controllers.FPController.addFingerprint().ajax({
                         data: JSON.stringify({
                             userAgentHttp: '@request.getHeader("User-Agent")',
@@ -114,7 +116,7 @@
                             timezoneJs: timezone, resolutionJs: resolution, localJs: domLocalStorage, sessionJs: domSessionStorage, IEDataJs: ieUserData,
                             canvasJs: canvasData, fontsFlash: fontsFlash, webGLJs: webGLData, vendorWebGLJs: webGLVendor,rendererWebGLJs: webGLRenderer,
                             resolutionFlash: resolutionFlash,languageFlash: languageFlash,platformFlash: platformFlash,
-                            adBlock: document.getElementById('ads')? 'no' : 'yes', audioData: audioData}),
+                            adBlock: document.getElementById('ads')? 'no' : 'yes', audioData: audioData, blockExtensionsData: blockExtensionsData}),
                         contentType:"application/json",
                         success: function(res){
                             

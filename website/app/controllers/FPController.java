@@ -288,6 +288,27 @@ public class FPController extends Controller{
                         audioDynPoints);
             }
 
+            //Add blockExtensions data
+            JsonNode blockExtensionsData = json.get("blockExtensionsData");
+            BlockExtensionsEntityManager beem = new BlockExtensionsEntityManager();
+
+            if(Objects.equals(blockExtensionsData.asText(), "Not supported")) {
+                beem.create(id, n, n, n, n, n, n, n, n);
+            } else {
+
+                JsonNode latest_links = blockExtensionsData.get("latest_links");
+                JsonNode lowe_links = blockExtensionsData.get("lowe_links");
+                JsonNode old_links = blockExtensionsData.get("old_links");
+                JsonNode random_links = blockExtensionsData.get("random_links");
+                JsonNode latest_results = blockExtensionsData.get("latest_results");
+                JsonNode lowe_results = blockExtensionsData.get("lowe_results");
+                JsonNode old_results = blockExtensionsData.get("old_results");
+                JsonNode random_results = blockExtensionsData.get("random_results");
+
+                beem.create(id, latest_links.toString(), lowe_links.toString(), old_links.toString(), random_links.toString(), latest_results.toString(),
+                            lowe_results.toString(), old_results.toString(), random_results.toString());
+            }
+
             newFp = true;
         }
 
