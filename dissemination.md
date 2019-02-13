@@ -1,0 +1,1 @@
+(https://www.nextinpact.com/news/105886-cookies-tiers-traceurs-fingerprint-et-compagnie-comment-ca-marche.htm)[https://www.nextinpact.com/news/105886-cookies-tiers-traceurs-fingerprint-et-compagnie-comment-ca-marche.htm]
