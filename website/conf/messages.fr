@@ -27,7 +27,7 @@ home=   <h3>Apprenez à quel point votre navigateur est unique</h3>\
         <p style="white-space: pre;">Qu’est-ce que l’empreinte d’un navigateur ?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Apprenez-en plus</a></p>\
         <p>Des questions ? Écrivez-nous à <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
-home.milestone1 = Nous avons dépassé les <strong>400,000 fingerprints</strong> !!! Merci à tous les visiteurs pour votre contribution à nos recherches !<br>\
+home.milestone1 = Nous avons dépassé les <strong>un million fingerprints</strong> !!! Merci à tous les visiteurs pour votre contribution à nos recherches !<br>\
   Pour les plus curieux, nous avons aussi l’extension AmIUnique pour
 home.milestone2 = et
 home.milestone3 =. Plus de détails

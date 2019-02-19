@@ -26,7 +26,7 @@ home=   <h3>Learn how identifiable you are on the Internet</h3>\
         <p style="white-space: pre;">What is browser fingerprinting?     <a id="linkFaq" href="/faq" class="btn btn-primary btn-sm" role="button">Learn more</a></p>\
         <p>Any questions? Send us an email at <a href="mailto:contact@amiunique.org">contact@amiunique.org</a></p>
 
-home.milestone1 = We are now over <strong>400,000 fingerprints</strong>!!! Thanks to all visitors for your continuous support!<br>\
+home.milestone1 = We are now over <strong>one million fingerprints</strong>!!! Thanks to all visitors for your continuous support!<br>\
     We also have an AmIUnique extension for
 home.milestone2 = and
 home.milestone3 = . More details can be found
