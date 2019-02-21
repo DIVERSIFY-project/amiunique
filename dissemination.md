@@ -4,6 +4,7 @@
 * [htps://www.nextinpact.com/news/105886-cookies-tiers-traceurs-fingerprint-et-compagnie-comment-ca-marche.htm](https://www.nextinpact.com/news/105886-cookies-tiers-traceurs-fingerprint-et-compagnie-comment-ca-marche.htm)
 * [http://binaire.blog.lemonde.fr/2019/02/09/avez-vous-deja-joue-a-qui-est-ce/](http://binaire.blog.lemonde.fr/2019/02/09/avez-vous-deja-joue-a-qui-est-ce/)
 * [https://www.browserplugs.com/fingerprint-testing-websites/](https://www.browserplugs.com/fingerprint-testing-websites/)
+* [Hacker news, Feb. 2019](https://news.ycombinator.com/item?id=19212123)
 # Academic publications
 
 # Cool tweets
