@@ -393,6 +393,9 @@ pvtools.tor2 = The Tor network is a group of servers aimed at improving users' a
   as most as possible known fingerprinting techniques so that users share a unique fingerprint (even if in practice, the reality is a little bit different).
 pvtools.tails = Based around the Tor browser and the Tor network, Tails (The Amnesic Incognito Live System) goes a step further by providing the exact same environment to its users. The operating system has been heavily modified so that it does not leave \
   a single trace on the computer. With the Tor browser, these are the strongest tools against fingerprinting at the price of a decline in usability.
+pvtools.fluxfonts = Fluxfonts is a continual font generator and a unique tool that poisons your device’s list of installed fonts so that it can’t be used to generate a reliable fingerprint. Fluxfonts is available for Windows 10, Linux, macOS, and *BSDs.
+TrackOFF, a Baltimore-based startup, has launched in mid-2015 a software suite that detects threats and changes your browser fingerprint to improve your digital privacy. Running on Windows for Chrome and Firefox, a trial is available \
+  to test this new service.
 pvtools.trackOff = TrackOFF, a Baltimore-based startup, has launched in mid-2015 a software suite that detects threats and changes your browser fingerprint to improve your digital privacy. Running on Windows for Chrome and Firefox, a trial is available \
   to test this new service.
 pvtools.ip1 = IP address
